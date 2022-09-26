@@ -39112,7 +39112,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 	       	TorreData[id][torY] = y;
         	TorreData[id][torZ] = z;
          	TorreData[id][torR] = rz;
-    		Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, "Sinal da Torre", "Sinal: 250m\nSinal: 500m\nSinal: 750m\nSinal: 1000m", "Selecionar", "");
+    		Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, "Sinal da Torre", "Sinal: 3000m\nSinal: 6000m\nSinal: 8000m\nSinal: 10000m\nSinal: 100000m", "Alterar", "Cancelar");
     		AtualizarTorre(id);
     		SalvarTorre(id);
 
@@ -79842,7 +79842,7 @@ COMMAND:atorre(playerid, params[])
 
             SetPVarInt(playerid, "EditandoTorre", variavel);
             format(str, sizeof(str), "Sinal da Torre %d", variavel);
-            Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, str, "Sinal: 300m\nSinal: 600m\nSinal: 800m\nSinal: 5000m\nSinal: 9000m", "Alterar", "Cancelar");
+            Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, str, "Sinal: 3000m\nSinal: 6000m\nSinal: 8000m\nSinal: 10000m\nSinal: 100000m", "Alterar", "Cancelar");
 		}
 		else if(strcmp(option, "pos", true) == 0)
 		{
@@ -79879,17 +79879,17 @@ COMMAND:atorre(playerid, params[])
 
 Dialog:DIALOG_TORRE_SINAL(playerid, response, listitem, inputtext[])
 {
-    if(!response) Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, "Sinal da Torre", "Sinal: 300m\nSinal: 600m\nSinal: 800m\nSinal: 5000m\nSinal: 9000m", "Alterar", "Cancelar");
+    if(!response) Dialog_Show(playerid, DIALOG_TORRE_SINAL, DIALOG_STYLE_LIST, "Sinal da Torre", "Sinal: 3000m\nSinal: 6000m\nSinal: 8000m\nSinal: 10000m\nSinal: 100000m", "Alterar", "Cancelar");
 	else
 	{
 	    new torre_id = GetPVarInt(playerid, "EditandoTorre");
 	    switch(listitem)
 	    {
-	        case 0: TorreData[torre_id][torSinal] = 300.0;
-	        case 1: TorreData[torre_id][torSinal] = 600.0;
-	        case 2: TorreData[torre_id][torSinal] = 800.0;
-	        case 3: TorreData[torre_id][torSinal] = 5000.0;
-	        case 4: TorreData[torre_id][torSinal] = 9000.0;
+	        case 0: TorreData[torre_id][torSinal] = 3000.0;
+	        case 1: TorreData[torre_id][torSinal] = 6000.0;
+	        case 2: TorreData[torre_id][torSinal] = 8000.0;
+	        case 3: TorreData[torre_id][torSinal] = 10000.0;
+	        case 4: TorreData[torre_id][torSinal] = 100000.0;
 	    }
 	    SalvarTorre(torre_id);
 	    SetPVarInt(playerid, "EditandoTorre", 0);
