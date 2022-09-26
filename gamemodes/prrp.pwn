@@ -74752,10 +74752,10 @@ public InGarbage(playerid)
 COMMAND:comecarcoleta(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(!InGarbage(playerid)) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você não está em um caminhão de lixo.");
-	if(PlayerInfo[playerid][pJob] != JOB_LIXEIRO) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você não é um lixeiro.");
-	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
-	if(garbage_run[playerid] != -1) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já está em serviço, use /cancelarcoleta para cancelar.");
+	if(!InGarbage(playerid)) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não está em um caminhão de lixo.");
+	if(PlayerInfo[playerid][pJob] != JOB_LIXEIRO) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um lixeiro.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+	if(garbage_run[playerid] != -1) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já está em serviço, use /cancelarcoleta para cancelar.");
 
 	OnPlayerStartGarbage(playerid);
 	return 1;
@@ -74772,7 +74772,7 @@ COMMAND:cancelarcoleta(playerid,params[])
     }
     else
     {
-        SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO: Você não está trabalhando.");
+        SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está trabalhando.");
         return 1;
     }
 }
@@ -74780,48 +74780,48 @@ COMMAND:cancelarcoleta(playerid,params[])
 COMMAND:iniciarentrega(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
-	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
   
 	{
         SetPlayerAttachedObject(playerid, 6, -2701, 1, 0.160999, -0.172999, -0.013000, 0.000000, 87.200042);
-        SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço como moto-boy.");
+        SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço de Motoboy.");
 	}     
 
     return 1;
 }
 
-COMMAND:pegarpizza(playerid,params[])
+COMMAND:pegarlanche(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
-	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
 	
 	{
-        SetPlayerAttachedObject(playerid, 8, 1582, 5, 0, 0, -0.16, 50, 0, 10);
-        SendClientMessage(playerid, COLOR_WHITE, "Você pegou a pizza. Vá até sua moto e use o comando /colocarpizza.");
+		SetPlayerAttachedObject( playerid, 8, -2041, 6, 0.265127, 0.015637, 0.053388, 355.166931, 262.028015);
+        SendClientMessage(playerid, COLOR_WHITE, "Você pegou a pizza. Vá até sua moto e use o comando /colocarlanche.");
 	}   
     return 1;
 }
 
-COMMAND:colocarpizza(playerid,params[])
+COMMAND:colocarlanche(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
-	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
 	
 	{
-        SetTimerEx("Destruirpizza", 1, false, "d", playerid);
-        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Você colocou as pizzas na bag da moto. Vá entregar.");
-        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Checkpoints  definidos no seu radar!");
+        SetTimerEx("Destruirlanche", 1, false, "d", playerid);
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Você colocou aos lanches na bag da moto. Vá entregar.");
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Checkpoints definidos no seu radar!");
 	}
 
         
     return 1;
 }
 
-forward Destruirpizza(playerid);
-public Destruirpizza(playerid)
+forward Destruirlanche(playerid);
+public Destruirlanche(playerid)
 {
     RemovePlayerAttachedObject(playerid, 8);
 
