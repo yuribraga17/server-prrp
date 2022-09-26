@@ -44,8 +44,6 @@ native WP_Hash(_buffer[], len, const str[]);
 
 new PayDayDuplo = 0;
 
-
-
 #define HOLDOBJECT_UMBRELLA (0)
 
 //Sistema de ROJÃO
@@ -78,18 +76,18 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define localhost_DB           "yurib_1439"
 #define localhost_Password     "HnEifnLfQk"
 
-#define sz_Connection   "177.54.147.212"
-#define sz_User         "yurib_1439"
-#define sz_DB           "yurib_1439"
-#define sz_Password     "HnEifnLfQk"
+#define sz_Connection   "localhost"
+#define sz_User         "root"
+#define sz_DB           "sprp1"
+#define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
 #define ULTIMO_GMX      "26/09/2022"
-#define CA_VERSAO       "PR:RP v0.51"
+#define CA_VERSAO       "PR:RP v0.52"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [Paycheck Duplo]"
-#define CA_LANGUAGE     "language Português Brasil"
+#define CA_LANGUAGE     "language Português Brasileiro"
 #define MAP_NAME        "mapname Rio de Janeiro"
 //==============================================================================
 #define ANIM_DOIS_MORTE 3000
@@ -1665,7 +1663,7 @@ new Pos_Z_Old_AV[MAX_PLAYERS];
 #define JOB_HOTDOG          6
 #define JOB_DESMANCHE       7
 #define JOB_PESCADOR	    8
-#define JOB_MINERADOR       9
+#define JOB_MOTOBOY       9
 #define JOB_LIXEIRO         10
 
 //HotDog
@@ -7766,7 +7764,7 @@ stock GetSalarioJob(playerid)
 {
 	new Pagamento = 0;
 	if(PlayerInfo[playerid][pJob] > 0)
-		Pagamento = 200;
+		Pagamento = 350;
 
 	return Pagamento;
 }
@@ -9855,19 +9853,11 @@ stock CriarTraficantes(playerid, tipo)
 			}
 			else if(tipo == 2)
 			{
-			    if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 1)
+			    if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 11)
 			    {
 				    Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
 					Maconha\t R$2 grama\n \
 			  		Cocaina\tR$3 grama\n \
-					", "Pedir", "Cancelar");
-				}
-				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 11)
-			    {
-				    Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
-					Maconha\t R$2 grama\n \
-			  		Cocaina\tR$3 grama\n \
-     				LSD\tR$5 unidade\n \
 					", "Pedir", "Cancelar");
 				}
 				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 12)
@@ -9876,10 +9866,18 @@ stock CriarTraficantes(playerid, tipo)
 					Maconha\t R$2 grama\n \
 			  		Cocaina\tR$3 grama\n \
      				LSD\tR$5 unidade\n \
+					", "Pedir", "Cancelar");
+				}
+				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 13)
+			    {
+				    Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
+					Maconha\t R$2 grama\n \
+			  		Cocaina\tR$3 grama\n \
+     				LSD\tR$5 unidade\n \
 					Crack\tR$4 grama\n \
 					", "Pedir", "Cancelar");
 				}
-				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 17)
+				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 14)
 			    {
 				    Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
 					Maconha\t R$2 grama\n \
@@ -10029,7 +10027,7 @@ Dialog:DIALOG_TRAFICANTEDROGA2(playerid, response, listitem, inputtext[])
 			TraficInfo[trafid][traCarro] = AddStaticVehicle(579, TraficanteCarpos[rand][0], TraficanteCarpos[rand][1], TraficanteCarpos[rand][2], TraficanteCarpos[rand][3], 0, 0);
 			SetPlayerCheckpoint(playerid, TraficanteCarpos[rand][0], TraficanteCarpos[rand][1], TraficanteCarpos[rand][2], 5.0);
 			SetVehicleParamsEx(TraficInfo[trafid][traCarro],0,0,0,1,0,0,0);
-			SetVehicleNumberPlate(TraficInfo[trafid][traCarro],"BM235 WX");
+			SetVehicleNumberPlate(TraficInfo[trafid][traCarro],"TF331 IC");
 
 			TraficInfo[trafid][traTempoSumir] = 30;
 			OutrasInfos[playerid][oEntrouCheckPointTraf] = 1;
@@ -13363,7 +13361,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/09/2022, v0.51, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/09/2022, v0.52, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão final e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthDate] == 0)
@@ -20197,7 +20195,7 @@ public VerStats(playerid, targetid)
 		case JOB_HOTDOG: format(str_job, 32, "Vendedor de HotDog");
 		case JOB_DESMANCHE: format(str_job, 32, "Mêcanico Ilegal");
 		case JOB_PESCADOR: format(str_job, 32, "Pescador");
-		case JOB_MINERADOR: format(str_job, 32, "Minerador");
+		case JOB_MOTOBOY: format(str_job, 32, "Motoboy");
 	    default: format(str_job, 32, "Desempregado");
 	}
 
@@ -26394,6 +26392,16 @@ CMD:ajudaemprego(playerid, params[])
 	        SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/meuspeixes {ffffff}para checar seus peixes.");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
 		}
+
+		case JOB_MOTOBOY:
+        {
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
+            SendClientMessage(playerid, COLOR_GREY, " Motoboy");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarentrega {ffffff}para iniciar uma entrega de fast-food.");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/pegarlanche {ffffff}para pegar o lanche na bag.");
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+        }
 	}
 	return 1;
 }
@@ -28234,7 +28242,7 @@ CMD:ajudafaccao(playerid, params[])
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r2)adio /rbaixo2 (radio baixo 2) /nickbranco /nickazul");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /deixarferido /blockf /gov /cepol /prefixo /rprefixo");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /membros /equipar /trabalho /uniforme /revistar");
-        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /cbarreira /rbarreira /prender");
+        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /cbarreira /rbarreira /prender /suporte2");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /deter /mdc /apreender /retirar");
         if(PlayerInfo[playerid][pFacCargo] >= 9)
         {
@@ -65193,7 +65201,7 @@ CMD:pegaremprego(playerid,params[])
 			if(biz != -1)
 			{
 				if( EmpInfo[biz][eTipo] == EMP_TIPO_EMP_CENTER)
-	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nMinerador (Em construção)", "Selecionar", "Voltar");
+	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nMotoboy", "Selecionar", "Voltar");
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, 5, 1414.8279,-1577.5049,20.0859))
@@ -65267,8 +65275,8 @@ Dialog:Dialog_Empregos(playerid, response, listitem, inputtext[])
 		    }
 		    case 6:
 		    {
-		        PlayerInfo[playerid][pJob] = JOB_MINERADOR;
-		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um Minerador, utilize /ajudaemprego para mais informações.");
+		        PlayerInfo[playerid][pJob] = JOB_MOTOBOY;
+		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um motoboy, utilize /ajudaemprego para mais informações.");
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
 		    }
@@ -74495,7 +74503,7 @@ SalvarPixe(pid)
  	return 1;
 }
 
-/*CMD:suporte(playerid, params[])
+CMD:suporte2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(IsPlayerEditandoAlgo(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO: Termine de editar o objeto antes.");
@@ -74503,7 +74511,7 @@ SalvarPixe(pid)
 	new veiculo = GetPlayerVehicleID(playerid);
 	new vehicleid = GetVehicleSlot(veiculo);
 
- 	if (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_EB || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_PCERJ || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_PMERJ)
+ 	if (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_PCERJ)
   		return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não é um oficial da lei.");
 
     if(PlayerInfo[playerid][pEmServico] == 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO: Você não pode utilizar este comando fora de serviço.");
@@ -74515,7 +74523,7 @@ SalvarPixe(pid)
 
 	new opcao[128];
     if(sscanf(params, "s[128]", opcao)) {
-        SendClientMessage(playerid, COLOR_WHITE, "/suporte [função]");
+        SendClientMessage(playerid, COLOR_WHITE, "/suporte2 [função]");
         SendClientMessage(playerid, COLOR_GREEN,"[FUNÇÕES]: info, ga, pa");
         return 1;
     }
@@ -74528,7 +74536,7 @@ SalvarPixe(pid)
         format(_string, 128, "suporte: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
         SendClientMessage(playerid, COLOR_WHITE, _string);
 
-        SendClientMessage(playerid, COLOR_WHITE,"/suporte guardararma ou /suporte retirararma ");
+        SendClientMessage(playerid, COLOR_WHITE,"/suporte2 guardararma ou /suporte2 retirararma ");
     }
 
     if (!strcmp(opcao, "guardar", true) || !strcmp(opcao, "ga", true))
@@ -74554,7 +74562,7 @@ SalvarPixe(pid)
 
     if (!strcmp(opcao, "retirar", true) || !strcmp(opcao, "pa", true))
     {
-        if(!VehicleInfo[vehicleid][vGunHack]) return SendClientMessage(playerid, COLOR_LIGHTRED ,"O suporte desta vitura está vázio.");
+        if(!VehicleInfo[vehicleid][vGunHack]) return SendClientMessage(playerid, COLOR_LIGHTRED ,"O suporte. desta vitura está vázio.");
         if(PlayerInfo[playerid][pLoadCrate] != -1) return SendClientMessage(playerid, COLOR_WHITE, "Você precisa largar a caixa para realizar essa ação.");
 		if(PlayerInfo[playerid][pArmaMao] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma arma em mãos.");
 
@@ -74574,7 +74582,7 @@ SalvarPixe(pid)
    		SalvarArma(IdPahSalva);
     }
     return 1;
-}*/
+}
 
 CMD:suporte(playerid, params[])
 {
@@ -74606,7 +74614,7 @@ CMD:suporte(playerid, params[])
         new _string[128];
         new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
 
-        format(_string, 128, "suporte.: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
+        format(_string, 128, "suporte: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
         SendClientMessage(playerid, COLOR_WHITE, _string);
 
         SendClientMessage(playerid, COLOR_WHITE,"/suporte guardararma ou /suporte retirararma ");
@@ -74767,6 +74775,57 @@ COMMAND:cancelarcoleta(playerid,params[])
         SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO: Você não está trabalhando.");
         return 1;
     }
+}
+
+COMMAND:iniciarentrega(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+  
+	{
+        SetPlayerAttachedObject(playerid, 6, -2701, 1, 0.160999, -0.172999, -0.013000, 0.000000, 87.200042);
+        SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço como moto-boy.");
+	}     
+
+    return 1;
+}
+
+COMMAND:pegarpizza(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+	
+	{
+        SetPlayerAttachedObject(playerid, 8, 1582, 5, 0, 0, -0.16, 50, 0, 10);
+        SendClientMessage(playerid, COLOR_WHITE, "Você pegou a pizza. Vá até sua moto e use o comando /colocarpizza.");
+	}   
+    return 1;
+}
+
+COMMAND:colocarpizza(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
+	if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+	
+	{
+        SetTimerEx("Destruirpizza", 1, false, "d", playerid);
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Você colocou as pizzas na bag da moto. Vá entregar.");
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Checkpoints  definidos no seu radar!");
+	}
+
+        
+    return 1;
+}
+
+forward Destruirpizza(playerid);
+public Destruirpizza(playerid)
+{
+    RemovePlayerAttachedObject(playerid, 8);
+
+    return 1;
 }
 //==============================================================================
 COMMAND:apagao(playerid, params[])
