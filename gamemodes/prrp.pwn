@@ -22526,7 +22526,7 @@ CMD:ajuda(playerid, params[])
     SendClientMessage(playerid, COLOR_ESPECIAL1, "[BANCO] /sacar /depositar /transferir /savings /caixa");
     SendClientMessage(playerid, COLOR_ESPECIAL2, "[AJUDA] /ajudacelular /ajudacasa (/v)eiculo /ajudaempresa /ajudaemprego /ajudafaccao /ajudapesca");
     SendClientMessage(playerid, COLOR_ESPECIAL1, "[AJUDA] /ajudaradio /ajudadrogas /ajudaarma /levantar /documentos /itensp /multas");
-    SendClientMessage(playerid, COLOR_ESPECIAL2, "[TOG/ESTILOS/OUTROS] /tog /estilochat /estilocaminhada /afk");
+    SendClientMessage(playerid, COLOR_ESPECIAL2, "[TOG/ESTILOS/OUTROS] /tog /estilochat /estilocaminhada /afk /passarcigarro /passarbeck");
     if(PlayerInfo[playerid][pAdmin] > 0 || PlayerInfo[playerid][pTester] > 0) SendClientMessage(playerid, COLOR_ESPECIAL1, "[ADMIN] /ajudaadmin(/aa) /ajudateam");
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "____________________________________________");
 
@@ -22867,7 +22867,7 @@ CMD:documentos(playerid, params[])
 	            if(var2 == 9999)
 	        	{
 	        	    new vname[256];
-		            SendClientMessage(playerid,COLOR_GREEN,"Rio de Janeiro - Documentação");
+		            SendClientMessage(playerid,COLOR_GREEN,"DETRAN-RJ - IPVA");
 
 		            new slot = GetVehicleSlot(var);
 		            if(slot > -1)
@@ -22894,7 +22894,7 @@ CMD:documentos(playerid, params[])
 	        	    if(GetDistanceBetweenPlayers(playerid,var2) < 8.0)
 					{
 		        	    new vname[256];
-						SendClientMessage(var2,COLOR_GREEN,"Rio de Janeiro - Documentação");
+						SendClientMessage(var2,COLOR_GREEN,"DETRAN-RJ - IPVA");
 
 			            new slot = GetVehicleSlot(var);
 			            if(slot > -1)
@@ -22926,7 +22926,7 @@ CMD:documentos(playerid, params[])
 	}
 	return 1;
 }
-
+ALTCOMMAND:passarbeck->passarcigarro;
 ALTCOMMAND:passarcig->passarcigarro;
 CMD:passarcigarro(playerid, params[])
 {
