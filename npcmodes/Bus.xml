@@ -1,0 +1,730 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet href="file:///C|/Users/Felipe/Desktop/GTA/CA GANG/pawno/xml/pawndoc.xsl" type="text/xsl"?>
+<doc source="C:\Users\Felipe\Desktop\GTA\CA 2015\npcmodes\Bus.pwn">
+	<assembly>
+		<name>Bus.pwn</name>
+	</assembly>
+	<members>
+
+		<!-- enumerations -->
+
+		<!-- constants -->
+		<member name="C:cellmax" value="2147483647">
+			<referrer name="operator!(Float:)"/>
+		</member>
+		<member name="C:cellmin" value="-2147483648">
+			<referrer name="operator-(Float:)"/>
+		</member>
+		<member name="C:false" value="0">
+			<tagname value="bool"/>
+		</member>
+		<member name="C:true" value="1">
+			<tagname value="bool"/>
+		</member>
+
+		<!-- variables -->
+		<member name="F:gPlaybackActive">
+			<referrer name="StartPlayback"/>
+		</member>
+		<member name="F:gStoppedForTraffic">
+			<referrer name="ScanTimer"/>
+			<referrer name="StartPlayback"/>
+		</member>
+
+		<!-- functions -->
+		<member name="M:operator!(Float:)" syntax="operator!(Float:)(oper)">
+			<tagname value="bool"/>
+			<stacksize value="1"/>
+			<dependency name="cellmax"/>
+			<param name="oper">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator%(_:,Float:)" syntax="operator%(_:,Float:)(oper1, oper2)">
+			<stacksize value="1"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator%(Float:,_:)" syntax="operator%(Float:,_:)(oper1, oper2)">
+			<stacksize value="1"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator%(Float:,Float:)" syntax="operator%(Float:,Float:)(oper1, oper2)">
+			<stacksize value="1"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator!=(Float:,_:)" syntax="operator!=(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator!=(Float:,Float:)" syntax="operator!=(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator-(_:,Float:)" syntax="operator-(_:,Float:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatsub"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator-(Float:,_:)" syntax="operator-(Float:,_:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatsub"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator+(Float:,_:)" syntax="operator+(Float:,_:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatadd"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator/(_:,Float:)" syntax="operator/(_:,Float:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatdiv"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator/(Float:,_:)" syntax="operator/(Float:,_:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatdiv"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator*(Float:,_:)" syntax="operator*(Float:,_:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatmul"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator++(Float:)" syntax="operator++(Float:)(oper)">
+			<tagname value="Float"/>
+			<stacksize value="1"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<param name="oper">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator-(Float:)" syntax="operator-(Float:)(oper)">
+			<tagname value="Float"/>
+			<stacksize value="1"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<dependency name="cellmin"/>
+			<param name="oper">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator--(Float:)" syntax="operator--(Float:)(oper)">
+			<tagname value="Float"/>
+			<stacksize value="1"/>
+			<dependency name="operator-(Float:,Float:)"/>
+			<param name="oper">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator-(Float:,Float:)" syntax="operator-(Float:,Float:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator--(Float:)"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator+(Float:,Float:)" syntax="operator+(Float:,Float:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator++(Float:)"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator*(Float:,Float:)" syntax="operator*(Float:,Float:)(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator==(Float:,Float:)" syntax="operator==(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator==(Float:,_:)" syntax="operator==(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator&gt;(Float:,Float:)" syntax="operator&gt;(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&gt;(Float:,_:)" syntax="operator&gt;(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator&gt;(_:,Float:)" syntax="operator&gt;(_:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&gt;=(Float:,Float:)" syntax="operator&gt;=(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&gt;=(Float:,_:)" syntax="operator&gt;=(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator&gt;=(_:,Float:)" syntax="operator&gt;=(_:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&lt;(Float:,Float:)" syntax="operator&lt;(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&lt;(Float:,_:)" syntax="operator&lt;(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator&lt;(_:,Float:)" syntax="operator&lt;(_:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&lt;=(Float:,Float:)" syntax="operator&lt;=(Float:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:operator&lt;=(Float:,_:)" syntax="operator&lt;=(Float:,_:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+			</param>
+		</member>
+		<member name="M:operator&lt;=(_:,Float:)" syntax="operator&lt;=(_:,Float:)(oper1, oper2)">
+			<tagname value="bool"/>
+			<stacksize value="4"/>
+			<dependency name="float"/>
+			<dependency name="floatcmp"/>
+			<param name="oper1">
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:@receivepacket" syntax="@receivepacket(packet[], size, source[])">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+			<param name="packet">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="size">
+			</param>
+			<param name="source">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:@receivestring" syntax="@receivestring(message[], source[])">
+			<attribute name="public"/>
+			<stacksize value="1"/>
+			<param name="message">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="source">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:GetMyFacingAngle" syntax="GetMyFacingAngle(&amp;ang)">
+			<attribute name="native"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<param name="ang">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:GetMyPos" syntax="GetMyPos(&amp;x, &amp;y, &amp;z)">
+			<attribute name="native"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<referrer name="LookForAReasonToPause"/>
+			<param name="x">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="y">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="z">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:GetPlayerState" syntax="GetPlayerState(playerid)">
+			<attribute name="native"/>
+			<referrer name="LookForAReasonToPause"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:GetXYInfrontOfMe" syntax="GetXYInfrontOfMe(distance, &amp;x, &amp;y)">
+			<stacksize value="7"/>
+			<referrer name="LookForAReasonToPause"/>
+			<dependency name="operator-(Float:)"/>
+			<dependency name="operator+(Float:,Float:)"/>
+			<dependency name="operator*(Float:,Float:)"/>
+			<dependency name="GetMyFacingAngle"/>
+			<dependency name="GetMyPos"/>
+			<dependency name="degrees"/>
+			<dependency name="floatcos"/>
+			<dependency name="floatsin"/>
+			<param name="distance">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="x">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+			<param name="y">
+				<paraminfo>Float &amp; </paraminfo>
+			</param>
+		</member>
+		<member name="M:IsPlayerConnected" syntax="IsPlayerConnected(playerid)">
+			<attribute name="native"/>
+			<referrer name="LookForAReasonToPause"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:IsPlayerInRangeOfPoint" syntax="IsPlayerInRangeOfPoint(playerid, range, X, Y, Z)">
+			<attribute name="native"/>
+			<referrer name="LookForAReasonToPause"/>
+			<param name="playerid">
+			</param>
+			<param name="range">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="X">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="Y">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="Z">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:IsPlayerStreamedIn" syntax="IsPlayerStreamedIn(playerid)">
+			<attribute name="native"/>
+			<referrer name="LookForAReasonToPause"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:LookForAReasonToPause" syntax="LookForAReasonToPause()">
+			<stacksize value="11"/>
+			<referrer name="ScanTimer"/>
+			<dependency name="GetMyPos"/>
+			<dependency name="GetPlayerState"/>
+			<dependency name="GetXYInfrontOfMe"/>
+			<dependency name="IsPlayerConnected"/>
+			<dependency name="IsPlayerInRangeOfPoint"/>
+			<dependency name="IsPlayerStreamedIn"/>
+		</member>
+		<member name="M:OnClientMessage" syntax="OnClientMessage(color, text[])">
+			<stacksize value="1"/>
+			<param name="color">
+			</param>
+			<param name="text">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:OnNPCConnect" syntax="OnNPCConnect(myplayerid)">
+			<stacksize value="1"/>
+			<param name="myplayerid">
+			</param>
+		</member>
+		<member name="M:OnNPCDisconnect" syntax="OnNPCDisconnect(reason[])">
+			<stacksize value="1"/>
+			<param name="reason">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:OnNPCEnterVehicle" syntax="OnNPCEnterVehicle(vehicleid, seatid)">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<dependency name="StartPlayback"/>
+			<param name="vehicleid">
+			</param>
+			<param name="seatid">
+			</param>
+		</member>
+		<member name="M:OnNPCExitVehicle" syntax="OnNPCExitVehicle()">
+			<attribute name="public"/>
+			<stacksize value="2"/>
+			<dependency name="StopRecordingPlayback"/>
+		</member>
+		<member name="M:OnNPCModeExit" syntax="OnNPCModeExit()">
+			<stacksize value="1"/>
+		</member>
+		<member name="M:OnNPCModeInit" syntax="OnNPCModeInit()">
+			<attribute name="public"/>
+			<stacksize value="5"/>
+			<dependency name="SetTimer"/>
+		</member>
+		<member name="M:OnNPCSpawn" syntax="OnNPCSpawn()">
+			<stacksize value="1"/>
+		</member>
+		<member name="M:OnPlayerDeath" syntax="OnPlayerDeath(playerid)">
+			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:OnPlayerStreamIn" syntax="OnPlayerStreamIn(playerid)">
+			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:OnPlayerStreamOut" syntax="OnPlayerStreamOut(playerid)">
+			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
+		</member>
+		<member name="M:OnPlayerText" syntax="OnPlayerText(playerid, text[])">
+			<stacksize value="1"/>
+			<param name="playerid">
+			</param>
+			<param name="text">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:OnRecordingPlaybackEnd" syntax="OnRecordingPlaybackEnd()">
+			<attribute name="public"/>
+			<stacksize value="3"/>
+			<dependency name="StartPlayback"/>
+		</member>
+		<member name="M:OnVehicleStreamIn" syntax="OnVehicleStreamIn(vehicleid)">
+			<stacksize value="1"/>
+			<param name="vehicleid">
+			</param>
+		</member>
+		<member name="M:OnVehicleStreamOut" syntax="OnVehicleStreamOut(vehicleid)">
+			<stacksize value="1"/>
+			<param name="vehicleid">
+			</param>
+		</member>
+		<member name="M:PauseRecordingPlayback" syntax="PauseRecordingPlayback()">
+			<attribute name="native"/>
+			<referrer name="ScanTimer"/>
+		</member>
+		<member name="M:ResumeRecordingPlayback" syntax="ResumeRecordingPlayback()">
+			<attribute name="native"/>
+			<referrer name="ScanTimer"/>
+		</member>
+		<member name="M:ScanTimer" syntax="ScanTimer()">
+			<attribute name="public"/>
+			<stacksize value="4"/>
+			<dependency name="LookForAReasonToPause"/>
+			<dependency name="PauseRecordingPlayback"/>
+			<dependency name="ResumeRecordingPlayback"/>
+			<dependency name="gStoppedForTraffic"/>
+		</member>
+		<member name="M:SetTimer" syntax="SetTimer(funcname[], interval, repeating)">
+			<attribute name="native"/>
+			<referrer name="OnNPCModeInit"/>
+			<param name="funcname">
+				<paraminfo> [] </paraminfo>
+			</param>
+			<param name="interval">
+			</param>
+			<param name="repeating">
+			</param>
+		</member>
+		<member name="M:StartPlayback" syntax="StartPlayback()">
+			<stacksize value="4"/>
+			<referrer name="OnRecordingPlaybackEnd"/>
+			<referrer name="OnNPCEnterVehicle"/>
+			<dependency name="StartRecordingPlayback"/>
+			<dependency name="gPlaybackActive"/>
+			<dependency name="gStoppedForTraffic"/>
+		</member>
+		<member name="M:StartRecordingPlayback" syntax="StartRecordingPlayback(playbacktype, recordname[])">
+			<attribute name="native"/>
+			<referrer name="StartPlayback"/>
+			<param name="playbacktype">
+			</param>
+			<param name="recordname">
+				<paraminfo> [] </paraminfo>
+			</param>
+		</member>
+		<member name="M:StopRecordingPlayback" syntax="StopRecordingPlayback()">
+			<attribute name="native"/>
+			<referrer name="OnNPCExitVehicle"/>
+		</member>
+		<member name="M:float" syntax="float(value)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator*(Float:,_:)"/>
+			<referrer name="operator/(Float:,_:)"/>
+			<referrer name="operator/(_:,Float:)"/>
+			<referrer name="operator+(Float:,_:)"/>
+			<referrer name="operator-(Float:,_:)"/>
+			<referrer name="operator-(_:,Float:)"/>
+			<referrer name="operator==(Float:,_:)"/>
+			<referrer name="operator!=(Float:,_:)"/>
+			<referrer name="operator&gt;(Float:,_:)"/>
+			<referrer name="operator&gt;(_:,Float:)"/>
+			<referrer name="operator&gt;=(Float:,_:)"/>
+			<referrer name="operator&gt;=(_:,Float:)"/>
+			<referrer name="operator&lt;(Float:,_:)"/>
+			<referrer name="operator&lt;(_:,Float:)"/>
+			<referrer name="operator&lt;=(Float:,_:)"/>
+			<referrer name="operator&lt;=(_:,Float:)"/>
+			<param name="value">
+			</param>
+		</member>
+		<member name="M:floatadd" syntax="floatadd(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator+(Float:,_:)"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatcmp" syntax="floatcmp(oper1, oper2)">
+			<attribute name="native"/>
+			<referrer name="operator==(Float:,Float:)"/>
+			<referrer name="operator==(Float:,_:)"/>
+			<referrer name="operator!=(Float:,Float:)"/>
+			<referrer name="operator!=(Float:,_:)"/>
+			<referrer name="operator&gt;(Float:,Float:)"/>
+			<referrer name="operator&gt;(Float:,_:)"/>
+			<referrer name="operator&gt;(_:,Float:)"/>
+			<referrer name="operator&gt;=(Float:,Float:)"/>
+			<referrer name="operator&gt;=(Float:,_:)"/>
+			<referrer name="operator&gt;=(_:,Float:)"/>
+			<referrer name="operator&lt;(Float:,Float:)"/>
+			<referrer name="operator&lt;(Float:,_:)"/>
+			<referrer name="operator&lt;(_:,Float:)"/>
+			<referrer name="operator&lt;=(Float:,Float:)"/>
+			<referrer name="operator&lt;=(Float:,_:)"/>
+			<referrer name="operator&lt;=(_:,Float:)"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatcos" syntax="floatcos(value, mode)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<param name="value">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="mode">
+				<paraminfo>anglemode </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatdiv" syntax="floatdiv(dividend, divisor)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator/(Float:,_:)"/>
+			<referrer name="operator/(_:,Float:)"/>
+			<param name="dividend">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="divisor">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatmul" syntax="floatmul(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator*(Float:,_:)"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatsin" syntax="floatsin(value, mode)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="GetXYInfrontOfMe"/>
+			<param name="value">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="mode">
+				<paraminfo>anglemode </paraminfo>
+			</param>
+		</member>
+		<member name="M:floatsub" syntax="floatsub(oper1, oper2)">
+			<tagname value="Float"/>
+			<attribute name="native"/>
+			<referrer name="operator-(Float:,_:)"/>
+			<referrer name="operator-(_:,Float:)"/>
+			<param name="oper1">
+				<paraminfo>Float </paraminfo>
+			</param>
+			<param name="oper2">
+				<paraminfo>Float </paraminfo>
+			</param>
+		</member>
+		<member name="M:main" syntax="main()">
+			<attribute name="entry"/>
+			<stacksize value="1"/>
+		</member>
+
+	</members>
+</doc>

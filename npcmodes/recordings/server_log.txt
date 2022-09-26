@@ -1,0 +1,171 @@
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.7, (C)2005-2015 SA-MP Team
+
+[20:45:45] 
+[20:45:45] Server Plugins
+[20:45:45] --------------
+[20:45:45]  Loading plugin: sscanf.so
+[20:45:45] 
+
+[20:45:45]  ===============================
+
+[20:45:45]       sscanf plugin loaded.     
+
+[20:45:45]          Version:  2.8.1        
+
+[20:45:45]    (c) 2012 Alex "Y_Less" Cole  
+
+[20:45:45]  ===============================
+
+[20:45:45]   Loaded.
+[20:45:45]  Loading plugin: mysql_static.so
+[20:45:45]  >> plugin.mysql: R39-4 successfully loaded.
+[20:45:45]   Loaded.
+[20:45:45]  Loading plugin: streamer.so
+[20:45:45] 
+
+*** Streamer Plugin v2.8 by Incognito loaded ***
+
+[20:45:45]   Loaded.
+[20:45:45]  Loading plugin: Whirlpool.so
+[20:45:45]  
+[20:45:45]  ==================
+[20:45:45]  
+[20:45:45]   Whirlpool loaded
+[20:45:45]  
+[20:45:45]  ==================
+[20:45:45]  
+[20:45:45]   Loaded.
+[20:45:45]  Loading plugin: ColAndreas_static.so
+[20:45:45] *********************
+[20:45:45] ** Created By:     **
+[20:45:45] ** [uL]Chris42O    **
+[20:45:45] ** [uL]Slice       **
+[20:45:45] ** [uL]Pottus      **
+[20:45:45] *********************
+[20:45:45] No collision data found.
+[20:45:45] *********************
+[20:45:45]   ColAndreas Loaded
+[20:45:45]    v1.3.0
+[20:45:45] *********************
+[20:45:45]   Loaded.
+[20:45:45]  Loaded 5 plugins.
+
+[20:45:45] 
+[20:45:45] Filterscripts
+[20:45:45] ---------------
+[20:45:45]   Loaded 0 filterscripts.
+
+[20:45:46]  
+[20:45:46]  
+[20:45:46]  
+[20:45:46]  ======================================= 
+[20:45:46]  |                                     | 
+[20:45:46]  |        YSI version 3.09.0684        | 
+[20:45:46]  |        By Alex "Y_Less" Cole        | 
+[20:45:46]  |                                     | 
+[20:45:46]  ======================================= 
+[20:45:46]  
+[20:45:46]  
+[20:45:46]  
+[20:45:46] |================= [ LOAD DOS MAPAS ] =================|
+[20:45:46] [LOAD] Mapa: Portões do Pay N' Spray & Mod Shops
+[20:45:46] [LOAD] Mapa: Estação Unity
+[20:45:46] [LOAD] Elevador Predio 1
+[20:45:46] [LOAD] Elevador Predio 2
+[20:45:46] [LOAD] Elevador Delegacia LS
+[20:45:46] |--------------- [ Mapas em Exteriores ]
+[20:45:46] [LOAD] Mapa: WillowField
+[20:45:46] [LOAD] Mapa: Predio em Construct
+[20:45:46] [LOAD] Mapa: TrailerPark do Beco - Idlewood
+[20:45:46] [LOAD] Mapa: Marina's Bar
+[20:45:46] [LOAD] Mapa: Bar MotoClub 2
+[20:45:46] [LOAD] Mapa: Objetos nas Ruas - WillowField
+[20:45:46] [LOAD] Mapa: Objetos nas Ruas - El Corona
+[20:45:46] [LOAD] Mapa: Predio com Piscina - LS
+[20:45:46] [LOAD] Mapa: Seville - City
+[20:45:46] [LOAD] Mapa: Flats - Watts
+[20:45:46] [LOAD] Mapa: Flats Idlewood
+[20:45:46] [MAPA] Estacionamento do Banco
+[20:45:46] [LOAD] Mapa: Lugar do Alhambra
+[20:45:46] [LOAD] Mapa: Estadio de Baseball em Construção.
+[20:45:46] [LOAD] Mapa: Delegacia de Santa Monica
+[20:45:46] [LOAD] Mapa: Shooping
+[20:45:46] [LOAD] Mapa: Mini Little Tokyo - Cemiterio
+[20:45:46] [LOAD] Mapa: Garagem LAPD
+[20:45:46] [LOAD] Mapa: Placas de Stop
+[20:45:46] |--------------- [ Oficinas da Cidade ]
+[20:45:46] [LOAD] Mapa: Oficina de Ocean Docks
+[20:45:46] [LOAD] Mapa: Oficina Pista de Skate
+[20:45:46] |--------------- [ Int's de Empresas ]
+[20:45:46] [LOAD] Mapa: Interior do Banco
+[20:45:46] [LOAD] Mapa: Barzinho
+[20:45:46] [LOAD] Mapa: Barzinho 2
+[20:45:46] [LOAD] Mapa: Barzinho 3
+[20:45:46] [LOAD] Mapa: Vestiario
+[20:45:46] [LOAD] Mapa: Empresa 1
+[20:45:46] [LOAD] Mapa: Bar - MotoClub
+[20:45:46] [LOAD] Mapa: Loja de Eletronicos
+[20:45:46] [LOAD] Mapa: Lavanderia Pequena
+[20:45:46] [LOAD] Mapa: Hospital LS
+[20:45:46] [LOAD] Mapa: Agencia de Empregos
+[20:45:46] [LOAD] Mapa: Los Santos Police Department Interior
+[20:45:46] [LOAD] Mapa: Estudio
+[20:45:46] --------------- [ Int's de Casas ]
+[20:45:46] [LOAD] Mapa: Apartamento 1
+[20:45:46] [LOAD] Mapa: Apartamento 2
+[20:45:46] [LOAD] Mapa: Apartamento 3
+[20:45:46] --------------- [ Int's de Complexos ]
+[20:45:46] [LOAD] Mapa: Complexo 1
+[20:45:46] [LOAD] Mapa: Complexo 2
+[20:45:46] [LOAD] Mapa: Complexo 3
+[20:45:46] [LOAD] Mapa: Complexo 4
+[20:45:46] [LOAD] Mapa: Complexo 5
+[20:45:46] [LOAD] Mapa: Complexo 6
+[20:45:46] [LOAD] Mapa: Complexo 7
+[20:45:46] --------------- [ Int's de Facções ]
+[20:45:46] [LOAD] Mapa: WeaponHouse 1
+[20:45:46] [LOAD] Mapa: DrugHouse 1
+[20:45:46] --------------- [ Interiores do servidor ]
+[20:45:46] [LOAD] Mapa: Prefeitura de Los Santos
+[20:45:46] [MAPA] Presidio de LS
+[20:45:46] [LOAD] Mapa: Igreja de Los Santos
+[20:45:46] [LOAD] Mapa: Hospital int
+[20:45:46] [LOAD] Mapa: Hospital de LS
+[20:45:46] [LOAD] Mapa: Saguão da Escola
+[20:45:46] [LOAD] Mapa: Saguão 2 da Escola
+[20:45:46] [LOAD] Mapa: Banheiros da Escola
+[20:45:46] [LOAD] Mapa: Enfermaria da Escola
+[20:45:46] [LOAD] Mapa: Biblioteca da Escola
+[20:45:46] |================== [ FIM DOS MAPAS ] ==================|
+[20:45:46] Total de Objetos Criados: 14073 
+[20:45:46] [LOAD] Sistema de Grafite
+[20:45:46] 
+----------------------------------
+[20:45:46] 		Carregando CityOfAngels
+[20:45:46] 	Creditos do GameMode: Freeze
+[20:45:46] ----------------------------------
+
+[20:45:46] Number of vehicle models: 6
+[20:45:47] [LOAD] Veiculos criados.
+[20:45:47] [LOAD] Veiculos carregados.
+[20:45:47] [LOAD] Casas: 1010
+[20:45:47] [LOAD] Complexos: 60
+[20:45:47] [LOAD] Empresas: 66
+[20:45:47] [LOAD] Armas no Servidor: 792 | Armas no Chão: 133 | Armas na Pos 0: 0
+[20:45:47] [LOAD] Total de Moveis no servidor: 3270
+[20:45:47] [LOAD] Total de facções: 8
+[20:45:47] [LOAD] Total de Portas/Portões [Fac/Casa]: 28
+[20:45:48] [LOAD] Itens no Servidor: 433 | Itens no Chão: 0 | Itens na Pos 0: 0
+[20:45:48] [LOAD] Torres: 14
+[20:45:48] [LOAD] Cartuxos no chão do Servidor: 356 
+[20:45:48] [Drug System] Atualmente existem 101 drogas plantadas por SA.
+[20:45:48] [LOAD] Drogas no chão do Servidor: 16 | Drogas na Pos 0: 1
+[20:45:48] [LOAD] Pixes: 326
+[20:45:48] [LOAD] Multas: 14
