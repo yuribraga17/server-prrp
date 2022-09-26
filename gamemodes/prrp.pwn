@@ -78499,7 +78499,7 @@ public RastreandoNumero(playerid, numero, fase, encontrado2)
 	return 1;
 }
 
-
+ALTCOMMAND:foguete->fogos;
 ALTCOMMAND:fogos->rojao;
 COMMAND:rojao(playerid, params[])
 {
