@@ -358,8 +358,12 @@ AddSimpleModel(-1,19379, -1080, "mesacachaca.dff", "cachaca.txd");
 AddSimpleModel(-1,19379, -1060, "patio.dff", "patio.txd");
 AddSimpleModel(-1,19379, -1061, "patiogate.dff", "patio.txd");
 AddSimpleModel(-1,19379, -2063, "rojao.dff", "rojao.txd");
+AddSimpleModel(-1,19379, -1064, "docas.dff", "docas.txd");
+AddSimpleModel(-1,19379, -1065, "idlewood.dff", "idlewood.txd");
+AddSimpleModel(-1,19379, -1066, "mcdonalds.dff", "mcdonalds.txd");
+AddSimpleModel(-1,19379, -1067, "forum.dff", "forum.txd");
+AddSimpleModel(-1,19379, -1068, "lojao.dff", "lojao.txd");
 AddSimpleModel(-1, 19379, -2016, "upp.dff", "upp.txd");
-
 
 
 
