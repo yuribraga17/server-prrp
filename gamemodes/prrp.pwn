@@ -74807,8 +74807,8 @@ COMMAND:pegarlanche(playerid,params[])
 COMMAND:colocarlanche(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}VocÊ não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} VocÊ já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
+    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
         
     {
 		SetTimerEx("destruirlanche", 1, false, "d", playerid);
@@ -74821,11 +74821,11 @@ COMMAND:colocarlanche(playerid,params[])
     return 1;
 }
 
-/*COMMAND:finalizarentrega(playerid,params[])
+COMMAND:finalizarentrega(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}VocÊ não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} VocÊ já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}Você não é um motoboy.");
+    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
 
 	{
 		SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Você parou de trabalhar.")
@@ -74833,7 +74833,7 @@ COMMAND:colocarlanche(playerid,params[])
 	}
 
 	return 1;
-}*/
+}*
 
 forward destruirlanche(playerid);
 public destruirlanche(playerid)
