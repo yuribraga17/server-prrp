@@ -12325,18 +12325,24 @@ public CheckingAccount(playerid)
 			new str[250];
 			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
 			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][7]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 		}
 		else if(JaEstaOn == 1) {
 		    new strdebug[56];
 			format(strdebug,126,"ERRO: O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 		}
 		else {
 		    new strdebug[56];
@@ -12344,9 +12350,12 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO: Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
 		}
 	}
 	else
@@ -12354,15 +12363,20 @@ public CheckingAccount(playerid)
 	    new str[256];
 		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com uma senha para terminar o cadastro do personagem.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][7]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 
 		/*format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
   		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");*/
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 		SetTimerEx("TimerKick", 30, 0, "d", playerid);
 
 	}
@@ -12733,18 +12747,18 @@ public PlayerConectCriarTexts(playerid)
 	PlayerTextDrawFont(playerid, ClickTD[playerid], 2);
 	PlayerTextDrawSetProportional(playerid, ClickTD[playerid], 1);
 
-    TelaLogin[playerid][0] = CreatePlayerTextDraw(playerid, 275.000, 618.000, "New textdraw");
-    PlayerTextDrawLetterSize(playerid, TelaLogin[playerid][0], 0.300, 1.500);
+    TelaLogin[playerid][0] = CreatePlayerTextDraw(playerid, 0.000, -2.000, "mdl-2200:fundo");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][0], 645.000, 455.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][0], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][0], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][0], 1);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][0], 1);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][0], 150);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][0], 1);
+    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][0], 0);
+    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][0], 0);
+    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][0], 255);
+    PlayerTextDrawFont(playerid, TelaLogin[playerid][0], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][0], 1);
 
-    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, -86.000, -961.000, "mdl-2207:fundo");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][1], 792.000, 2378.000);
+    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 186.000, -61.000, "mdl-2201:logo");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][1], 210.000, 230.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][1], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][1], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][1], 0);
@@ -12753,8 +12767,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][1], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][1], 1);
 
-    TelaLogin[playerid][2] = CreatePlayerTextDraw(playerid, 233.000, -47.000, "mdl-2206:logo");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][2], 187.000, 204.000);
+    TelaLogin[playerid][2] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:ucp");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][2], 218.000, 151.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][2], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][2], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][2], 0);
@@ -12763,8 +12777,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][2], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][2], 1);
 
-    TelaLogin[playerid][3] = CreatePlayerTextDraw(playerid, 232.000, 123.000, "mdl-2200:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][3], 196.000, 207.000);
+    TelaLogin[playerid][3] = CreatePlayerTextDraw(playerid, 18.000, 433.000, "mdl-2200:serverok");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][3], 625.000, 17.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][3], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][3], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][3], 0);
@@ -12773,8 +12787,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][3], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][3], 1);
 
-    TelaLogin[playerid][4] = CreatePlayerTextDraw(playerid, 232.000, 107.000, "mdl-2201:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][4], 195.000, 202.000);
+    TelaLogin[playerid][4] = CreatePlayerTextDraw(playerid, 0.000, 433.000, "mdl-2200:fok");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][4], 18.000, 43.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][4], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][4], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][4], 0);
@@ -12783,8 +12797,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][4], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][4], 1);
 
-    TelaLogin[playerid][5] = CreatePlayerTextDraw(playerid, 232.000, 52.000, "mdl-2202:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][5], 195.000, 202.000);
+    TelaLogin[playerid][5] = CreatePlayerTextDraw(playerid, 2.000, 435.000, "mdl-2200:ok");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][5], 11.000, 12.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][5], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][5], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][5], 0);
@@ -12793,8 +12807,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][5], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][5], 1);
 
-    TelaLogin[playerid][6] = CreatePlayerTextDraw(playerid, 232.000, 52.000, "mdl-2203:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][6], 195.000, 202.000);
+    TelaLogin[playerid][6] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:welcomeback");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][6], 218.000, 16.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][6], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][6], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][6], 0);
@@ -12803,8 +12817,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][6], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][6], 1);
 
-    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 232.000, 52.000, "mdl-2204:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 195.000, 202.000);
+    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:ban");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 218.000, 151.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][7], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][7], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][7], 0);
@@ -12813,8 +12827,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][7], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][7], 1);
 
-    TelaLogin[playerid][8] = CreatePlayerTextDraw(playerid, 232.000, 124.000, "mdl-2205:face");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][8], 195.000, 202.000);
+    TelaLogin[playerid][8] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:pjon");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][8], 218.000, 151.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][8], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][8], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][8], 0);
@@ -17467,9 +17481,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			  			    new str[250];
 							format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n\nDigite sua senha novamente:");
 							ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+							PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 							PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
+							PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+							PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 							PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+							PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 						}
 					}
 	  			}
@@ -17478,9 +17495,12 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	  			    new str[250];
 					format(str, sizeof(str), "SERVER: Você só pode errar sua senha três vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha novamente:");
 					ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+					PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 					PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
+					PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+					PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 					PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+					PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 
 				}
 			}

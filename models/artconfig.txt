@@ -369,13 +369,5 @@ AddSimpleModel(-1, 19379, -2016, "upp.dff", "upp.txd");
 
 //textdraw
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");
-AddSimpleModel(-1, 19379, -2200, "login.dff", "ucp.txd");
-AddSimpleModel(-1, 19379, -2201, "login.dff", "senha.txd");
-AddSimpleModel(-1, 19379, -2202, "login.dff", "kickado.txd");
-AddSimpleModel(-1, 19379, -2203, "login.dff", "logado.txd");
-AddSimpleModel(-1, 19379, -2204, "login.dff", "logando.txd");
-AddSimpleModel(-1, 19379, -2205, "login.dff", "banido.txd");
-AddSimpleModel(-1, 19379, -2206, "login.dff", "logo.txd");
-AddSimpleModel(-1, 19379, -2207, "login.dff", "fundo.txd");
-AddSimpleModel(-1, 19379, -2208, "login1.dff", "fundo2.txd");
-
+AddSimpleModel(-1,19379, -2200, "login.dff", "tela.txd");
+AddSimpleModel(-1, 19379, -2201, "login.dff", "logo.txd");
