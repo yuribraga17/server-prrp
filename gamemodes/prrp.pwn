@@ -10624,6 +10624,12 @@ public OnPlayerConnect(playerid)
 		SendClientMessage(playerid, COLOR_YELLOW, "EXEMPLO: Nome_Sobrenome (Dica: não use numeros e muitas letras maiusculas em CAPSLOCK).");
         SendClientMessage(playerid, COLOR_YELLOW, "SERVER: Seu personagem deve ser registrado em nosso UCP.");
 		SendClientMessage(playerid, COLOR_YELLOW, "PARA MAIS INFORMAÇÕES: https://progressive-roleplay.com");
+		
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 
 		SetTimerEx("KickInTime", 1000, 0, "i", playerid);
 	    return 1;
@@ -74841,7 +74847,7 @@ COMMAND:colocarlanche(playerid,params[])
     return 1;
 }
 
-COMMAND:finalizarentrega(playerid,params[])
+/*COMMAND:finalizarentrega(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}Você não é um motoboy.");
@@ -74853,7 +74859,7 @@ COMMAND:finalizarentrega(playerid,params[])
 	}
 
 	return 1;
-}*
+}*/
 
 forward destruirlanche(playerid);
 public destruirlanche(playerid)
