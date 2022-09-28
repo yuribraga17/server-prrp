@@ -19816,23 +19816,23 @@ public OnQueryFinish(resultid, extraid, ConnectionHandle)
 
 				Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
 				
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][0]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][1]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][3]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][4]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][5]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][7]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][0]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][1]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][3]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][4]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][5]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][7]);
 				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 			else
 			{
 		    	Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: Desconhecido\nMotivo: Deconhecido\nData e hora: Desconhecida\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][0]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][1]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][3]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][4]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][5]);
-				PlayerTextDrawShow(extraid, TelaLogin[playerid][7]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][0]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][1]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][3]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][4]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][5]);
+				PlayerTextDrawShow(extraid, TelaLogin[extraid][7]);
 				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 		}
@@ -35725,7 +35725,6 @@ stock BanExtra(playerid,reason[],admin[])
 	gettime(hour,minuite,second);
     PlayerInfo[playerid][pBanido] = 1;
 	Dialog_Show(playerid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerInfo[playerid][pNomeOOC], admin, reason, ReturnDate());
-
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
