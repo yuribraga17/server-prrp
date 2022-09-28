@@ -19815,12 +19815,25 @@ public OnQueryFinish(resultid, extraid, ConnectionHandle)
 	        	format(strdat, 24, "%s", tmp);
 
 				Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
-                SetTimerEx("TimerKick", 1000, 0, "d", extraid);
+				
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][0]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][1]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][3]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][4]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][5]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][7]);
+				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 			else
 			{
 		    	Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: Desconhecido\nMotivo: Deconhecido\nData e hora: Desconhecida\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
-                SetTimerEx("TimerKick", 1000, 0, "d", extraid);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][0]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][1]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][3]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][4]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][5]);
+				PlayerTextDrawShow(extraid, TelaLogin[playerid][7]);
+				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 		}
 	}
@@ -35154,7 +35167,7 @@ COMMAND:banoff(playerid, params[])
 		format(string, sizeof(string), "AdmCmd: O administrador %s baniu offline a conta %s, motivo %s.", admnome, text, motivo);
 		SendClientMessageToAll(COLOR_LIGHTRED, string);
 
-		Banir("Koplan",text,0, PlayerInfo[playerid][pNomeOOC],motivo);
+		Banir("Adwards",text,0, PlayerInfo[playerid][pNomeOOC],motivo);
 
 		/*new str2[256];
 		new hour, mins, sec;
@@ -35177,47 +35190,6 @@ COMMAND:banoff(playerid, params[])
 	return 1;
 }
 
-COMMAND:banoff2(playerid, params[])
-{
-    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-    if (PlayerInfo[playerid][pBanTeam] < 1) return 1;
-
-    new text[128],motivo[126];
-    if(sscanf(params, "s[128]s[126]", text,motivo)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /banoff2 [Nome_Sobrenome] [motivo]");
-    else
-    {
-        new admnome[24];
-        if(PlayerInfo[playerid][pAdmin] > 3001) format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
-        else format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
-
-        format(szQuery, sizeof(szQuery), "UPDATE `accounts` SET `pBanido` = '1' WHERE `Username` = '%s'",text);
-        mysql_function_query(Pipeline, szQuery, true, "OnQueryFinish", "ii", THREAD_NO_RESULT, playerid);
-
-        format(string, sizeof(string), "AdmCmd: O administrador %s baniu offline a conta %s, motivo %s.", admnome, text, motivo);
-        SendClientMessageToAll(COLOR_LIGHTRED, string);
-
-        Banir("Brunoo",text,0, PlayerInfo[playerid][pNomeOOC],motivo);
-
-        /*new str2[256];
-        new hour, mins, sec;
-        new d,m,y;
-        new DataSalvar[32];
-        getdate(y,m,d);
-        gettime(hour,mins,sec);
-
-        new strh[24], hourstr[4], minstr[4], secstr[4];
-
-        if(hour < 10) { format(hourstr,sizeof(hourstr),"0%d",hour); } else { format(hourstr,sizeof(hourstr),"%d",hour); }
-        if(mins < 10) { format(minstr,sizeof(minstr),"0%d",mins); } else { format(minstr,sizeof(minstr),"%d",mins); }
-        if(sec < 10) { format(secstr,sizeof(secstr),"0%d",sec); } else { format(secstr,sizeof(secstr),"%d",sec); }
-        format(strh,sizeof(strh),"%s:%s:%s",hourstr,minstr,secstr);
-        format(DataSalvar,sizeof(DataSalvar),"%d-%d-%d - %s",d,m,y,strh);
-
-        format(str2,sizeof(str2),"INSERT INTO a_banrecord (PlayerNome,Data,Motivo,Admin) VALUES ('%s','%s','%s','%s')",text,DataSalvar,motivo,PlayerName(playerid,0));
-        mysql_function_query(Pipeline, str2, false, "noReturnQuery", "");*/
-    }
-    return 1;
-}
 
 COMMAND:ulogin(playerid, params[])
 {
@@ -35753,6 +35725,14 @@ stock BanExtra(playerid,reason[],admin[])
 	gettime(hour,minuite,second);
     PlayerInfo[playerid][pBanido] = 1;
 	Dialog_Show(playerid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerInfo[playerid][pNomeOOC], admin, reason, ReturnDate());
+
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][7]);
+
 	SetTimerEx("TimerKick", 500, 0, "d", playerid);
 	return 1;
 }
