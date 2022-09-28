@@ -12763,7 +12763,7 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][0], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][0], 1);
 
-    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 186.000, -61.000, "mdl-2201:logo");
+    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 213.000, -61.000, "mdl-2201:logo");
     PlayerTextDrawTextSize(playerid, TelaLogin[playerid][1], 210.000, 230.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][1], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][1], -1);
@@ -12773,8 +12773,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][1], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][1], 1);
 
-    TelaLogin[playerid][2] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:ucp");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][2], 218.000, 151.000);
+    TelaLogin[playerid][2] = CreatePlayerTextDraw(playerid, 235.000, 169.000, "mdl-2200:ucp");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][2], 173.000, 112.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][2], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][2], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][2], 0);
@@ -12813,8 +12813,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][5], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][5], 1);
 
-    TelaLogin[playerid][6] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:welcomeback");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][6], 218.000, 16.000);
+    TelaLogin[playerid][6] = CreatePlayerTextDraw(playerid, 234.000, 137.000, "mdl-2200:welcomeback");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][6], 174.000, 15.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][6], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][6], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][6], 0);
@@ -12823,8 +12823,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][6], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][6], 1);
 
-    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:ban");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 218.000, 151.000);
+    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 233.000, 169.000, "mdl-2200:ban");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 175.000, 122.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][7], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][7], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][7], 0);
@@ -12833,8 +12833,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][7], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][7], 1);
 
-    TelaLogin[playerid][8] = CreatePlayerTextDraw(playerid, 184.000, 142.000, "mdl-2200:pjon");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][8], 218.000, 151.000);
+    TelaLogin[playerid][8] = CreatePlayerTextDraw(playerid, 234.000, 169.000, "mdl-2200:pjon");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][8], 175.000, 122.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][8], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][8], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][8], 0);
@@ -12842,8 +12842,6 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][8], 255);
     PlayerTextDrawFont(playerid, TelaLogin[playerid][8], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][8], 1);
-
-
 
 	return 1;
 }
