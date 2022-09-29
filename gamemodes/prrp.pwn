@@ -53,6 +53,9 @@ new Fumaca2[MAX_PLAYERS];
 new Luz[100][MAX_PLAYERS];
 new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX_PLAYERS];
 
+//Sistema de Barreira
+//#define  MAX_TRAF_BARREIRAS 100
+
 //Fome e Sede
 new PlayerText:FomeSede[MAX_PLAYERS][5];
 
@@ -1033,8 +1036,8 @@ new Text:gTime;
 // --------- [ DEFINITIONS ] ---------
 #define MODEL_SELECTION_SKIN 1
 
-#define NAME_DRAWDISTANCE 		18.0
-#define DISTANCIA_FERIMENTOS    18.0
+#define NAME_DRAWDISTANCE 		20.0
+#define DISTANCIA_FERIMENTOS    20.0
 
 #define MAX_HOUSES  2500
 
@@ -12763,7 +12766,7 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][0], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][0], 1);
 
-    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 213.000, -61.000, "mdl-2201:logo");
+    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 210.000, -61.000, "mdl-2201:logo");
     PlayerTextDrawTextSize(playerid, TelaLogin[playerid][1], 210.000, 230.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][1], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][1], -1);
@@ -12783,8 +12786,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][2], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][2], 1);
 
-    TelaLogin[playerid][3] = CreatePlayerTextDraw(playerid, 18.000, 433.000, "mdl-2200:serverok");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][3], 625.000, 17.000);
+    TelaLogin[playerid][3] = CreatePlayerTextDraw(playerid, 18.000, 428.000, "mdl-2200:serverok");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][3], 625.000, 22.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][3], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][3], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][3], 0);
@@ -12793,7 +12796,7 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][3], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][3], 1);
 
-    TelaLogin[playerid][4] = CreatePlayerTextDraw(playerid, 0.000, 433.000, "mdl-2200:fok");
+    TelaLogin[playerid][4] = CreatePlayerTextDraw(playerid, 0.000, 428.000, "mdl-2200:fok");
     PlayerTextDrawTextSize(playerid, TelaLogin[playerid][4], 18.000, 43.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][4], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][4], -1);
@@ -12803,7 +12806,7 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][4], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][4], 1);
 
-    TelaLogin[playerid][5] = CreatePlayerTextDraw(playerid, 2.000, 435.000, "mdl-2200:ok");
+    TelaLogin[playerid][5] = CreatePlayerTextDraw(playerid, 2.000, 432.000, "mdl-2200:ok");
     PlayerTextDrawTextSize(playerid, TelaLogin[playerid][5], 11.000, 12.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][5], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][5], -1);
@@ -12823,8 +12826,8 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawFont(playerid, TelaLogin[playerid][6], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][6], 1);
 
-    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 233.000, 169.000, "mdl-2200:ban");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 175.000, 122.000);
+    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 224.000, 154.000, "mdl-2200:ban");
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 192.000, 122.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][7], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][7], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][7], 0);
@@ -12842,6 +12845,7 @@ public PlayerConectCriarTexts(playerid)
     PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][8], 255);
     PlayerTextDrawFont(playerid, TelaLogin[playerid][8], 4);
     PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][8], 1);
+
 
 	return 1;
 }
@@ -31129,6 +31133,21 @@ COMMAND:cbarreira2(playerid, params[])
 	return 1;
 }
 
+/*CMD:barreiratraf(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+
+	for(new i; i < MAX_TRAF_BARREIRAS; i++)
+	{
+		new Float:x, Float:y, Float:z;
+		GetPlayerPos(playerid, x, y, z);
+
+		new BARREIRA;
+		BARREIRA = CreateDynamicObject(1434, x, y, z, 0.0, 0.0, 0.0, 0.0);
+	}
+	return 1;
+}*/
+
 COMMAND:cbarreira(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -35046,7 +35065,7 @@ COMMAND:unbanip(playerid, params[])
 	else
 	{
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if (PlayerInfo[playerid][pAdmin] < 2 || PlayerInfo[playerid][pBanTeam] < 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] >= 2 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
 		{
 		    format(string, sizeof(string),"unbanip %s", type);
 			SendRconCommand(string);
@@ -35066,7 +35085,7 @@ COMMAND:banip(playerid, params[])
 	else
 	{
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if (PlayerInfo[playerid][pAdmin] < 2 || PlayerInfo[playerid][pBanTeam] < 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] >= 2 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
 		{
 		    format(string, sizeof(string),"banip %s", type);
 			SendRconCommand(string);
@@ -35101,7 +35120,7 @@ COMMAND:verip(playerid, params[])
 COMMAND:desbanir(playerid, params[])
 {
 	if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-	if (PlayerInfo[playerid][pAdmin] < 3 || PlayerInfo[playerid][pBanTeam] < 1) return 1;
+	if(PlayerInfo[playerid][pAdmin] >= 3 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
 
 	new text[24];
 	if(sscanf(params, "s[24]", text)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /desbanir [Nome_Sobrenome].");
@@ -35151,7 +35170,7 @@ public DesBanindoPlayer(playerid, text[])
 COMMAND:banoff(playerid, params[])
 {
 	if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-	if (PlayerInfo[playerid][pAdmin] < 1 || PlayerInfo[playerid][pBanTeam] < 1) return 1;
+	if(PlayerInfo[playerid][pAdmin] >= 1 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
 
 	new text[128],motivo[126];
 	if(sscanf(params, "s[128]s[126]", text,motivo)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /banoff [Nome_Sobrenome] [motivo]");
