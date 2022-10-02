@@ -7855,10 +7855,18 @@ public PayDay(playerid) {
 			}
 
 			for(new slot = 0; slot < MAX_CA_VEHICLES; slot ++) {
-   				if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
+   				/*if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
 					if(VehicleInfo[slot][vInsurance] > 0) {
 					    if(VehicleInfo[slot][vInsurance] > 1) VehicleInfo[slot][vInsurance]--;
-						insuranceValue += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel]);
+						insuranceValue += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel]/250);
+					}
+
+					TaxaCarros += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel])/250;
+				}*/
+				if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
+					if(VehicleInfo[slot][vInsurance] > 0) {
+					    if(VehicleInfo[slot][vInsurance] > 1) VehicleInfo[slot][vInsurance]--;
+						insuranceValue += 120;
 					}
 
 					TaxaCarros += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel])/250;
