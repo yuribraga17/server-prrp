@@ -364,8 +364,17 @@ AddSimpleModel(-1,19379, -1066, "mcdonalds.dff", "mcdonalds.txd");
 AddSimpleModel(-1,19379, -1067, "forum.dff", "forum.txd");
 AddSimpleModel(-1,19379, -1068, "lojao.dff", "lojao.txd");
 AddSimpleModel(-1, 19379, -2016, "upp.dff", "upp.txd");
-
-
+AddSimpleModel(-1, 19379, -2071, "casa.dff", "casa.txd");
+AddSimpleModel(-1, 19379, -2072, "casa2.dff", "casa2.txd");
+AddSimpleModel(-1, 19379, -2073, "casa3.dff", "casa3.txd");
+AddSimpleModel(-1, 19379, -2074, "docas.dff", "docas.txd");
+AddSimpleModel(-1, 19379, -2075, "escola.dff", "escola.txd");
+AddSimpleModel(-1, 19379, -2076, "forum.dff", "forum.txd");
+AddSimpleModel(-1, 19379, -2077, "idlewood.dff", "idlewood.txd");
+AddSimpleModel(-1, 19379, -2078, "lojao.dff", "lojao.txd");
+AddSimpleModel(-1, 19379, -2079, "miniextra.dff", "miniextra.txd");
+AddSimpleModel(-1, 19379, -2081, "prosegur.dff", "prosegur.txd");
+AddSimpleModel(-1, 19379, -2085, "mcdonalds.dff", "mcdonalds.txd");
 
 //textdraw
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");

@@ -7804,9 +7804,9 @@ public PayDay(playerid) {
 
 
 				    switch(HouseInfo[h][hAlarme]) {
-				        case 1: TaxaAlarme += 100;
-				        case 2: TaxaAlarme += 150;
-				        case 3: TaxaAlarme += 200;
+				        case 1: TaxaAlarme += 50;
+				        case 2: TaxaAlarme += 100;
+				        case 3: TaxaAlarme += 150;
 				    }
 					Casas++;
                     TaxaEnergia+= HouseInfo[h][hGasto]/100;
@@ -7823,9 +7823,9 @@ public PayDay(playerid) {
 
 
 					    switch(GaragemInfo[h][hAlarme]) {
-					        case 1: TaxaAlarme += 100;
-					        case 2: TaxaAlarme += 150;
-					        case 3: TaxaAlarme += 200;
+					        case 1: TaxaAlarme += 50;
+					        case 2: TaxaAlarme += 100;
+					        case 3: TaxaAlarme += 150;
 					    }
 						Casas++;
 	                    TaxaEnergia+= GaragemInfo[h][hGasto]/100;
@@ -7842,9 +7842,9 @@ public PayDay(playerid) {
 
 
 					    switch(GaragemInfo[h][hAlarme]) {
-					        case 1: TaxaAlarme += 100;
-					        case 2: TaxaAlarme += 150;
-					        case 3: TaxaAlarme += 200;
+					        case 1: TaxaAlarme += 50;
+					        case 2: TaxaAlarme += 100;
+					        case 3: TaxaAlarme += 150;
 					    }
 						Casas++;
 	                    TaxaEnergia+= GaragemInfo[h][hGasto]/100;
@@ -8016,7 +8016,7 @@ public PayDay(playerid) {
 			new stringpd[1024];
 
    			SendClientMessage(playerid,COLOR_WHITE,"|__ Extrato de Conta __|");
-   			format(stringpd, sizeof(stringpd), " Balanço: %d", SaldoAnt); 					SendClientMessage(playerid, COLOR_PD1, stringpd);
+   			format(stringpd, sizeof(stringpd), " Balanço: R$%d", SaldoAnt); 					SendClientMessage(playerid, COLOR_PD1, stringpd);
    			format(stringpd, sizeof(stringpd), " Salário Base: +R$%d", GovInfo[gSalarioMin]); 	SendClientMessage(playerid, COLOR_PD1, stringpd);
    			format(stringpd, sizeof(stringpd), " Salário emprego: +R$%d", SalarioJob); 		SendClientMessage(playerid, COLOR_PD1, stringpd);
    			if(salarfac > 0){
@@ -11079,6 +11079,31 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//Prosegur
+	RemoveBuildingForPlayer(playerid, 4846, 1827.130, -2158.860, 14.515, 0.250);
+	RemoveBuildingForPlayer(playerid, 4953, 1827.130, -2158.860, 14.515, 0.250);
+	RemoveBuildingForPlayer(playerid, 4189, 1794.619, -1576.729, 17.757, 0.250);
+	RemoveBuildingForPlayer(playerid, 4000, 1787.130, -1565.680, 11.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 4080, 1787.130, -1565.680, 11.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 4079, 1785.979, -1564.859, 25.250, 0.250);
+	RemoveBuildingForPlayer(playerid, 3999, 1785.979, -1564.859, 25.250, 0.250);
+	RemoveBuildingForPlayer(playerid, 1216, 1805.410, -1600.459, 13.226, 0.250);
+	RemoveBuildingForPlayer(playerid, 1216, 1806.390, -1599.619, 13.226, 0.250);
+	RemoveBuildingForPlayer(playerid, 1216, 1807.380, -1598.780, 13.226, 0.250);
+	RemoveBuildingForPlayer(playerid, 1216, 1808.380, -1597.920, 13.226, 0.250);
+	RemoveBuildingForPlayer(playerid, 1216, 1809.339, -1597.089, 13.226, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1800.290, -1598.290, 14.625, 0.250);
+	RemoveBuildingForPlayer(playerid, 700, 1799.160, -1596.540, 13.445, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1799.479, -1594.410, 14.546, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1801.880, -1592.449, 14.414, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1805.630, -1589.969, 14.546, 0.250);
+	RemoveBuildingForPlayer(playerid, 700, 1807.469, -1590.479, 13.445, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1808.869, -1591.050, 14.460, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 1811.979, -1582.250, 12.867, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1781.380, -1596.339, 14.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 4099, 1770.050, -1549.410, 10.468, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 1818.949, -1547.449, 14.164, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 1822.160, -1543.790, 12.632, 0.250);
 	//Favela East Los Santos
 	RemoveBuildingForPlayer(playerid, 3654, 2428.218, -1290.585, 26.187, 0.250);
 	RemoveBuildingForPlayer(playerid, 3647, 2428.078, -1273.664, 26.000, 0.250);
@@ -35958,8 +35983,8 @@ COMMAND:amancar(playerid, params[])
 		{
 			PlayerInfo[playerid][pMancando] = 0;
 			SendClientMessage(playerid, COLOR_WHITE, "[!] Não vai mancar, safado! pare, seja justo com os outros jogadores");
-			SendClientMessage(playerid, COLOR_LIGHTRED, "NPCAdmCmd: Você foi banido por abusar do comando de mancar.");
-			SendClientMessage(playerid, 0xadc3e7ff, "Server close the conecction.");
+			SendClientMessage(playerid, COLOR_LIGHTRED, "AdmCmd: Você foi banido por abusar do comando de mancar.");
+			SendClientMessage(playerid, 0xadc3e7ff, "Server closed the connection.");
 		}
 
 		new strl[126];
@@ -51192,7 +51217,7 @@ COMMAND:portamalas(playerid,params[])
 	      			{
 	      				GetVehicleNameByModel(VehicleInfo[slot][vModel], vname);
 	   					SetVehicleParamsEx(carid, engine, lights, alarm, doors, bonnet, true, objective);
-						SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas");
+						SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas.");
 						SendClientMessage(playerid, COLOR_WHITE," /portamalas para mais opções.");
 					}
 					else if(PlayerInfo[playerid][pChaveEmprestada] != 0)
@@ -51201,7 +51226,7 @@ COMMAND:portamalas(playerid,params[])
 		      			{
 		      				GetVehicleNameByModel(VehicleInfo[slot][vModel], vname);
 		   					SetVehicleParamsEx(carid, engine, lights, alarm, doors, bonnet, true, objective);
-							SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas");
+							SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas.");
 							SendClientMessage(playerid, COLOR_WHITE," /portamalas para mais opções.");
 						}
 					}
@@ -51213,7 +51238,7 @@ COMMAND:portamalas(playerid,params[])
 				    {
 	      				GetVehicleNameByModel(VehicleInfo[slot][vModel], vname);
 	   					SetVehicleParamsEx(carid, engine, lights, alarm, doors, bonnet, true, objective);
-						SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas");
+						SendClientMessage(playerid, COLOR_YELLOW,"Você abriu o porta-malas.");
 						SendClientMessage(playerid, COLOR_WHITE," /portamalas para mais opções.");
 				    }
 				    else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO: Você não tem as chaves deste veículo.");
@@ -51223,7 +51248,7 @@ COMMAND:portamalas(playerid,params[])
 			{
 				GetVehicleNameByModel(VehicleInfo[slot][vModel], vname);
     			SetVehicleParamsEx(carid, engine, lights, alarm, doors, bonnet, false, objective);
-			    SendClientMessage(playerid, COLOR_YELLOW,"Você fechou o porta-malas");
+			    SendClientMessage(playerid, COLOR_YELLOW,"Você fechou o porta-malas.");
        		}
 		}
 		if(strcmp(tmp2,"arrombar",true) == 0)
@@ -51287,14 +51312,14 @@ COMMAND:portamalas(playerid,params[])
 									new other = IsCharacterOnline(VehicleInfo[slot][vOwner]);
 									new str2[128];
 									GetVehicleNameByModel(VehicleInfo[slot][vModel],vname);
-									format(str2,sizeof(str2),"{FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s",vname);
+									format(str2,sizeof(str2),"{FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s.",vname);
 									SendClientMessage(other,COLOR_YELLOW,str2);
 									PlayerPlaySound(other,1149,0.0,0.0,0.0);
 		    	    			}
 					    	}
 
 	   						new strl[126];
-							format(strl, sizeof(strl), "%s arrombou o portamalas do veículo Placa: %s. [SQL ID: %d]", PlayerName(playerid,0), VehicleInfo[slot][vPlate], VehicleInfo[slot][vID]);
+							format(strl, sizeof(strl), "%s arrombou um veículo Placa: %s. [SQL ID: %d]", PlayerName(playerid,0), VehicleInfo[slot][vPlate], VehicleInfo[slot][vID]);
 							ArrombarLog(strl);
 						}
 						else
@@ -51345,7 +51370,7 @@ COMMAND:portamalas(playerid,params[])
 									new other = IsCharacterOnline(VehicleInfo[slot][vOwner]);
 									new str2[128];
 									GetVehicleNameByModel(GetVehicleModel(veh),vname);
-									format(str2,sizeof(str2),"{#FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s",vname);
+									format(str2,sizeof(str2),"{FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s.",vname);
 									SendClientMessage(other,COLOR_YELLOW,str2);
 									PlayerPlaySound(other,1149,0.0,0.0,0.0);
 		    	    			}
@@ -58425,7 +58450,7 @@ COMMAND:veiculo(playerid,params[])
                             new vname[36];
                             GetVehicleNameByModel(VehicleInfo[slot][vModel],vname);
 
-                            format(string,sizeof(string),"\t\t\t\t------ LS Seguros ------\n\n \
+                            format(string,sizeof(string),"\t\t\t\t------ RJ Seguros ------\n\n \
                             Você está contratando um veículo para o seu %s, pelo valor de R$%d mensais.\n\n \
                             O seu veículo estará protegido contra: \n \
                             \t- Roubo e Furto\n\t- Acidentes Naturais\n\t- Explosões Acidentais \n\n \
@@ -59669,10 +59694,10 @@ public FetchVehicleInsurancePrice(model)
 {
 	new precoTotal = GetVehiclePrice(model);
 	new PrecoFinal = 0;
-	if(precoTotal > 80)
+	if(precoTotal > 120)
 		PrecoFinal = precoTotal/4;
 	else
-	    PrecoFinal = 40;
+	    PrecoFinal = 60;
 	return PrecoFinal;
 }
 /*forward FetchVehicleInsurancePrice(model);
@@ -59790,7 +59815,7 @@ COMMAND:ligacaodireta(playerid,params[])
 {
     if(PlayerInfo[playerid][pLevel] < 5) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você precisa de TC 5 ou mais para utilizar este comando!");
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não está logado!");
-    if(OutrasInfos[playerid][oLigDireta] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você Ainda não pode fazer uma ligação direta!");
+    if(OutrasInfos[playerid][oLigDireta] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você ainda não pode fazer uma ligação direta!");
 	new str[256];
     if(PlayerInfo[playerid][pTempoPLD] > 0)
 	{
@@ -59897,7 +59922,7 @@ public GetClosestVehicleArrombar(playerid)
 	    {
 		    GetVehiclePos(VehicleInfo[i][vVehicle],X,Y,Z);
 			new Float:distance = GetDistanceToPoint(playerid,X,Y,Z);
-			if(distance < windistance && distance < 5.0)
+			if(distance < windistance && distance < 15.0)
 			{
 			    winner = VehicleInfo[i][vVehicle];
 			    windistance = distance;
@@ -59977,7 +60002,7 @@ COMMAND:arrombar(playerid,params[])
 								new other = IsCharacterOnline(VehicleInfo[slot][vOwner]);
 								new str2[128]; new vname[64];
 								GetVehicleNameByModel(GetVehicleModel(veh),vname);
-								format(str2,sizeof(str2),"{#FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s",vname);
+								format(str2,sizeof(str2),"{FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s.",vname);
 								SendClientMessage(other,COLOR_YELLOW,str2);
 								PlayerPlaySound(other,1149,0.0,0.0,0.0);
 	    	    			}
@@ -60036,7 +60061,7 @@ COMMAND:arrombar(playerid,params[])
 								new other = IsCharacterOnline(VehicleInfo[slot][vOwner]);
 								new str2[128]; new vname[64];
 								GetVehicleNameByModel(GetVehicleModel(veh),vname);
-								format(str2,sizeof(str2),"{#FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s",vname);
+								format(str2,sizeof(str2),"{FFE900}[Alarme Veicular] Alguém tentou arrombar o seu %s.",vname);
 								SendClientMessage(other,COLOR_YELLOW,str2);
 								PlayerPlaySound(other,1149,0.0,0.0,0.0);
 
@@ -61318,7 +61343,7 @@ Dialog:TruckerPDA(playerid, response, listitem, inputtext[])
 			if(count == 0)
 			{
    				format(stringlist, sizeof(stringlist), "\nNenhuma empresa está comprando produtos no momento\n");
-   				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros ", stringlist, "Fechar", "");
+   				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros", stringlist, "Fechar", "");
    				return 1;
 			}
   			Dialog_Show(playerid, TruckerPDA_Empresas, DIALOG_STYLE_LIST, "ASDC - Empresas ", stringlist, "Selecionar", "Voltar");
@@ -72836,13 +72861,14 @@ Dialog:DIALOG_VPEDIDO(playerid, response, listitem, inputtext[])
 
 
             Dialog_Show(playerid, DIALOG_TRAFICANTESARMA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
-                Colt\tR$18000\n \
-                9mm Silenced\tR$18000\n \
-                Desert Eagle\tR$18000\n \
-                Shotgun\tR$45000\n \
-                Uzi\tR$25000\n \
+                Colt\tR$12000\n \
+                9mm Silenced\tR$12000\n \
+                Desert Eagle\tR$13000\n \
+                Shotgun\tR$50000\n \
+                Uzi\tR$22000\n \
                 AK-47\tR$150000\n \
-                Tec-9\tR$25000\n \
+				M4A1\tR$230000\n \
+                Tec-9\tR$22000\n \
                 Munição: 9mm [50 balas]\tR$500\n \
                 Munição: 556mm [50 balas]\tR$800\n \
                 Munição: cartuchos [10 balas]\tR$500\n \
@@ -72888,17 +72914,17 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 		{
 		    switch(TraficInfo[traficid][traPed][pedidoid])
 		    {
-                case 22: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-18000;
-                case 23: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-18000;
-                case 24: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-18000;
-                case 25: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-45000;
-                case 28: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-25000;
-                case 29: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-250000;
+                case 22: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-12000;
+                case 23: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-12000;
+                case 24: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-13000;
+                case 25: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-50000;
+                case 28: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-22000;
+                case 29: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-22000;
                 case 30: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-150000;
-                case 31: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-150000;
-                case 32: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-25000;
-                case 33: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-1500000;
-                case 34: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-1500000;
+                case 31: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-250000;
+                case 32: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-22000;
+                case 33: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-15000000;
+                case 34: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-15000000;
                 case 1: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-500;
                 case 2: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-800;
                 case 3: TraficInfo[traficid][traPedPrec] = TraficInfo[traficid][traPedPrec]-500;
@@ -72910,7 +72936,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	    {
 	        case 0:
 	        {
-             	TraficInfo[traficid][traPedPrec] += 18000;
+             	TraficInfo[traficid][traPedPrec] += 12000;
             	format(string,sizeof(string),"Pedido %d - Colt.", OutrasInfos[playerid][oPedidoID]);
             	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
             	TraficInfo[traficid][traPed][pedidoid] = 22;
@@ -72918,7 +72944,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 1:
 	        {
-             	TraficInfo[traficid][traPedPrec] += 18000;
+             	TraficInfo[traficid][traPedPrec] += 12000;
 	           	format(string,sizeof(string),"Pedido %d - Silenced.", OutrasInfos[playerid][oPedidoID]);
 	           	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 	            TraficInfo[traficid][traPed][pedidoid] = 23;
@@ -72926,7 +72952,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 2:
 	        {
-         		TraficInfo[traficid][traPedPrec] += 18000;
+         		TraficInfo[traficid][traPedPrec] += 13000;
           		format(string,sizeof(string),"Pedido %d - Eagle.", OutrasInfos[playerid][oPedidoID]);
            		SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
            		TraficInfo[traficid][traPed][pedidoid] = 24;
@@ -72934,7 +72960,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 3:
 	        {
-         		TraficInfo[traficid][traPedPrec] += 45000;
+         		TraficInfo[traficid][traPedPrec] += 50000;
 	        	format(string,sizeof(string),"Pedido %d - Shotgun.", OutrasInfos[playerid][oPedidoID]);
 	        	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 	        	TraficInfo[traficid][traPed][pedidoid] = 25;
@@ -72942,7 +72968,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 4:
 	        {
-             	TraficInfo[traficid][traPedPrec] += 25000;
+             	TraficInfo[traficid][traPedPrec] += 22000;
             	format(string,sizeof(string),"Pedido %d - Uzi.", OutrasInfos[playerid][oPedidoID]);
             	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
             	TraficInfo[traficid][traPed][pedidoid] = 28;
@@ -72958,7 +72984,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 6:
 	        {
-         		TraficInfo[traficid][traPedPrec] += 25000;
+         		TraficInfo[traficid][traPedPrec] += 22000;
           		format(string,sizeof(string),"Pedido %d - Tec-9.", OutrasInfos[playerid][oPedidoID]);
 	           	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 	           	TraficInfo[traficid][traPed][pedidoid] = 32;
@@ -72966,7 +72992,7 @@ Dialog:DIALOG_TRAFICANTESARMA(playerid, response, listitem, inputtext[])
 	        }
 	        case 7:
 	        {
-         		TraficInfo[traficid][traPedPrec] += 150000;
+         		TraficInfo[traficid][traPedPrec] += 250000;
           		format(string,sizeof(string),"Pedido %d - M4A1.", OutrasInfos[playerid][oPedidoID]);
 	           	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 	           	TraficInfo[traficid][traPed][pedidoid] = 31;
