@@ -268,7 +268,7 @@ AddSimpleModel(-1,19942, -2125, "RadioMotorola.dff", "RadioMotorola.txd");
 
 //objetos binco
 AddSimpleModel(-1,19315, -2080, "CachorroUm.dff", "CachorroUm.txd");
-AddSimpleModel(-1,19315, -2081, "CachorroDois.dff", "CachorroDois.txd");
+AddSimpleModel(-1,19315, -2086, "CachorroDois.dff", "CachorroDois.txd");
 AddSimpleModel(-1,19315, -2082, "CachorroTres.dff", "CachorroTres.txd");
 AddSimpleModel(-1,19315, -2083, "CachorroQuatro.dff", "CachorroQuatro.txd");
 AddSimpleModel(-1,18636, -2051, "boneobjeto1.dff", "boneobjeto1.txd");
