@@ -331,6 +331,7 @@ AddSimpleModel(-1, 19379, -2815, "fav_h15.dff", "fav_h.txd");
 AddSimpleModel(-1, 19379, -2816, "fav_h16.dff", "fav_h.txd");
 AddSimpleModel(-1, 19379, -2817, "fav_h17.dff", "fav_h.txd");
 AddSimpleModel(-1, 19379, -2818, "fav_h18.dff", "fav_h.txd");
+AddSimpleModel(-1,12843, -1000, "dp29.dff", "dp29.txd");
 AddSimpleModel(-1,12843, -1001, "caixa.dff", "caixa.txd");
 AddSimpleModel(-1,12843, -1002, "caixa1.dff", "caixa.txd");
 AddSimpleModel(-1,19369, -1040, "posto.dff", "posto.txd");
