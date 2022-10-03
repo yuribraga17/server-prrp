@@ -1,6 +1,8 @@
 stock mapacivil(){
 	new tmpobjid;
 	new texture_object;
+	CreateObject(-7102, 1891.74219, -1872.28125, 14.85940,   0.00000, 0.00000, 0.00000, 700.0);
+	print("[CARREGADO] Mapa: Campo de fut idlewood");
 	// Seaport . ext
 	texture_object = CreateObject(19552, 2749.449951, -2398.240234, 12.275151, 0.000000, 0.000014, 0.000000, 600.000);
 	SetObjectMaterial(texture_object, 0, 9514, "711_sfw", "ws_carpark2", 0xFFF0FFFF);
@@ -5210,7 +5212,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(1728, 2479.445556, -1420.044067, 27.716861, 0.000000, 0.000000, -8.299999, -1, -1, -1, 325.00, 325.00); 
 	tmpobjid = CreateDynamicObject(1728, 2475.268798, -1420.083374, 27.716861, 0.000000, 0.000000, 13.300000, -1, -1, -1, 325.00, 325.00); 
 	print("[CARREGADO] Mapa: Willowfield");
-    tmpobjid = CreateDynamicObjectEx(-1005, 2170.919189, -1640.851928, 14.825382, 4.000000, 3.799994, 78.399971, 300.00, 300.00); 
+    /*tmpobjid = CreateDynamicObjectEx(-1005, 2170.919189, -1640.851928, 14.825382, 4.000000, 3.799994, 78.399971, 300.00, 300.00); 
     tmpobjid = CreateDynamicObjectEx(-1010, 1851.769409, -1432.028564, 12.390625, 0.000000, 0.000000, 0.000000, 300.00, 300.00); 
     tmpobjid = CreateDynamicObjectEx(-1006, 1429.583129, -1701.983642, 12.382804, 0.000000, 0.000000, 0.000000, 300.00, 300.00); 
     tmpobjid = CreateDynamicObjectEx(-1005, 1423.651977, -1702.263305, 13.942823, 0.000000, 0.000000, 179.900039, 300.00, 300.00); 
@@ -5334,7 +5336,7 @@ stock mapacivil(){
     tmpobjid = CreateDynamicObjectEx(-1009, 1977.917480, -1072.953857, 23.701742, 0.000000, 0.000000, -11.799986, 300.00, 300.00); 
     tmpobjid = CreateDynamicObjectEx(-1009, 1939.571777, -1135.778076, 24.328704, 0.000000, 0.000000, -89.400009, 300.00, 300.00); 
     tmpobjid = CreateDynamicObjectEx(-1009, 1882.007080, -1465.800781, 12.378376, 0.000000, -0.100000, 91.200057, 300.00, 300.00); 
-	print("[CARREGADO] Mapa: lombadas");
+	print("[CARREGADO] Mapa: lombadas");*/
 	tmpobjid = CreateDynamicObject(19329, 1750.124633, -1849.552856, 12.584066, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 10101, "2notherbuildsfe", "Bow_Abpave_Gen", 0x00000000);
 	tmpobjid = CreateDynamicObject(19329, 1748.013427, -1849.552856, 12.584066, 90.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 

@@ -11087,6 +11087,20 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//Campo fut idlewood
+	RemoveBuildingForPlayer(playerid, 4976, 1931.0000, -1871.3906, 15.8438, 0.25);
+    RemoveBuildingForPlayer(playerid, 1413, 1904.3750, -1879.7344, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1413, 1909.6563, -1879.7344, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1412, 1914.9297, -1879.7344, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1413, 1920.1953, -1879.9531, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1413, 1925.4609, -1879.9609, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1412, 1930.7188, -1879.7344, 13.6797, 0.25);
+    RemoveBuildingForPlayer(playerid, 1308, 1946.4766, -1877.1094, 11.5391, 0.25);
+    RemoveBuildingForPlayer(playerid, 4848, 1931.0000, -1871.3906, 15.8438, 0.25);
+    RemoveBuildingForPlayer(playerid, 1226, 1931.8750, -1863.4609, 16.3203, 0.25);
+    RemoveBuildingForPlayer(playerid, 1226, 1915.7422, -1863.4609, 16.3203, 0.25);
+    RemoveBuildingForPlayer(playerid, 4975, 1891.7422, -1872.2813, 14.8594, 0.25);
+    RemoveBuildingForPlayer(playerid, 4858, 1891.7422, -1872.2813, 14.8594, 0.25);
 	//Prosegur
 	RemoveBuildingForPlayer(playerid, 647, 1808.869, -1591.050, 14.460, 0.250);
 	RemoveBuildingForPlayer(playerid, 700, 1807.469, -1590.479, 13.445, 0.250);
