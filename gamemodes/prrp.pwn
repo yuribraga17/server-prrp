@@ -85,8 +85,8 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "26/09/2022"
-#define CA_VERSAO       "PR:RP v0.52"
+#define ULTIMO_GMX      "02/10/2022"
+#define CA_VERSAO       "PR:RP v0.53"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [Paycheck Duplo]"
@@ -896,7 +896,7 @@ enum SAZONE_MAIN { //Betamaster
 };
 
 #define COLOR_RADIOACTIVE 0xB13434AA
-//====== [SISTEMA DE BANCO E ATM] =======================================================
+//====== [SISTEMA DE BANCO E caixa eletrônico] =======================================================
 new TaNaATM[MAX_PLAYERS];
 
 #define PROGRESS_BAR_INVALID -1
@@ -7855,22 +7855,22 @@ public PayDay(playerid) {
 			}
 
 			for(new slot = 0; slot < MAX_CA_VEHICLES; slot ++) {
-   				/*if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
+   				if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
 					if(VehicleInfo[slot][vInsurance] > 0) {
 					    if(VehicleInfo[slot][vInsurance] > 1) VehicleInfo[slot][vInsurance]--;
 						insuranceValue += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel]/250);
 					}
 
 					TaxaCarros += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel])/250;
-				}*/
-				if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
+				}
+				/*if(PlayerInfo[playerid][pID] == VehicleInfo[slot][vOwner]) {
 					if(VehicleInfo[slot][vInsurance] > 0) {
 					    if(VehicleInfo[slot][vInsurance] > 1) VehicleInfo[slot][vInsurance]--;
 						insuranceValue += 120;
 					}
 
 					TaxaCarros += FetchVehicleInsurancePrice(VehicleInfo[slot][vModel])/250;
-				}
+				}*/
 			}
 
 			new Invest;
@@ -9306,7 +9306,7 @@ public Timer_Segundos()
 	      		        new temporestante = (PlayerInfo[i][pTempoMorto]-gettime());
 			  			if(temporestante <= 0) SairDoHospital(i);
 					}
-	      		    //=================== [ ATM ] Entrega de Malote
+	      		    //=================== [ caixa eletrônico ] Entrega de Malote
 	      		    if(company_work_stage[i] == 5)
 					{
 					    for(new a = 0; a < MAX_ATM; a++)
@@ -13274,7 +13274,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/09/2022, v0.52, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 02/10/2022, v0.53, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão final e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthDate] == 0)
@@ -17475,7 +17475,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	    {
 	        if(!response) return 1;
 	        new valor = strval(inputtext);
-	        if(valor < 1 || valor > 1000000) return SCM(playerid, COLOR_LIGHTRED, "ERRO: Quantia inválida.");
+	        if(valor < 1 || valor > 5000) return SCM(playerid, COLOR_LIGHTRED, "ERRO: Quantia inválida.");
 	        if(PlayerInfo[playerid][pBanco] >= valor)
 	        {
 	           // new str[126];//total = 0;//Porcentagem(valor,taxa), str[126];
@@ -23015,7 +23015,7 @@ CMD:tempomorto(playerid, params[])
 }
 
 CMD:meuvw(playerid, params[]) {
-	format(string, 126, "VirtualWorld: %d.",GetPlayerVirtualWorld(playerid));
+	format(string, 126, "Virtual World: %d.",GetPlayerVirtualWorld(playerid));
     SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	return 1;
 }
@@ -23031,7 +23031,7 @@ CMD:vervw(playerid, params[]) {
 	}
 	else
 	{
-		format(string, 126, "VirtualWorld de %s: %d.",PlayerName(var, 1), GetPlayerVirtualWorld(var));
+		format(string, 126, "Virtual World de %s: %d.",PlayerName(var, 1), GetPlayerVirtualWorld(var));
 	    SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	}
 	return 1;
@@ -25509,8 +25509,8 @@ COMMAND:caixa(playerid, params[])
     	{
     		TaNaATM[playerid] = i;
 			new str[126];
-			format(str, sizeof(str), "Saldo: R$%d\n------------\nSacar", PlayerInfo[playerid][pBanco]);
-			Dialog_Show(playerid, ATM_Banco, DIALOG_STYLE_LIST, "Caixa eletronico", str, "Selecionar", "Fechar");
+			format(str, sizeof(str), "Saldo: R$%d\nSacar", PlayerInfo[playerid][pBanco]);
+			Dialog_Show(playerid, ATM_Banco, DIALOG_STYLE_LIST, "Caixa Eletronico", str, "Selecionar", "Fechar");
 			return 1;
 		}
 	}
@@ -25528,7 +25528,7 @@ Dialog:ATM_Banco(playerid, response, listitem, inputtext[]) {
 		else
 		{
 		    new str[126];
-			format(str, sizeof(str), "Saldo: R$%d\n------------\nSacar", PlayerInfo[playerid][pBanco]);
+			format(str, sizeof(str), "Saldo: R$%d\nSacar", PlayerInfo[playerid][pBanco]);
 			Dialog_Show(playerid, ATM_Banco, DIALOG_STYLE_LIST, "Caixa eletronico", str, "Selecionar", "Fechar");
 		}
 	}
@@ -38758,7 +38758,7 @@ public AtualizarTutorial(playerid)
 			SendClientMessage(playerid, COLOR_YELLOW, "SERVER: Banco");
 			SendClientMessage(playerid, COLOR_YELLOW, "Esta é a agência Bancária de Fort Carson,");
 			SendClientMessage(playerid, COLOR_YELLOW, "nele você poderá sacar, fazer depósitos e transferencias.");
-			SendClientMessage(playerid, COLOR_YELLOW, "Você poderá encontrar algumas ATM's pela cidade, porém apenas para saque.");
+			SendClientMessage(playerid, COLOR_YELLOW, "Você poderá encontrar alguns caixas eletrônicos pela cidade, porém apenas para saque.");
 			FaseTutorial[playerid] = 3;
 			SetTimerEx("AtualizarTutorial", 8000, 0, "d", playerid);
 		}
@@ -39325,7 +39325,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 		}
 		else if(GetPVarInt(playerid, "EditATM") == 1)
 		{
-		    //SCM(playerid, -1, "DEBUG: Instalou ATM | Salvou");
+		    //SCM(playerid, -1, "DEBUG: Instalou caixa eletrônico | Salvou");
             SendClientMessage( playerid,COLOR_YELLOW,"ATM instalada no local.");
             new id = GetPVarInt(playerid, "EditATMID");
 			ATMs[id][aposX] = x;
@@ -70494,12 +70494,12 @@ CMD:comecarcarregamento(playerid, params[])
    		}
 	   	if(CaixasAEntregar > 0)
 	   	{
-	    	format(str,sizeof(str),"Atualmente %d ATMs precisam ser carregadas.",CaixasAEntregar); SendClientMessage(playerid,0xFF7B30FF,str);
+	    	format(str,sizeof(str),"Atualmente %d caixas eletrônicos precisam ser carregadas.",CaixasAEntregar); SendClientMessage(playerid,0xFF7B30FF,str);
    			SECURITY_VEHICLE[playerid] = GetPlayerVehicleID(playerid);
 			company_work_stage[playerid] = 1;
-			SetPlayerCheckpoint(playerid, 1744.8448,-1857.0485,13.4141,5.0);
+			SetPlayerCheckpoint(playerid, 1405.7192,-5.6531,1003.9926,5.0);
 			cp_target[playerid] = 1;
-			SendClientMessage(playerid,0xFF7B30FF,"Vá até o banco de Los Santos e fale com o segurança para pegar os malotes de dinheiro.");
+			SendClientMessage(playerid,0xFF7B30FF,"Vá até o banco da Caixa Economica e fale com o segurança para pegar os malotes de dinheiro.");
 			SendClientMessage(playerid,0xFF7B30FF, "Use {698596}/pararcarregamento{FFFFFF} quando desejar parar as entregas de malote.");
 			SetPVarInt(playerid, "PegarDinheiro", 1);
 		}
@@ -70521,7 +70521,7 @@ CMD:comecarcarregamento(playerid, params[])
 COMMAND:falar(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(IsPlayerInRangeOfPoint(playerid,5.0, 1744.8448,-1857.0485,13.4141))
+	if(IsPlayerInRangeOfPoint(playerid,5.0, 1405.7192,-5.6531,1003.9926))
  	{
  	    if(PlayerInfo[playerid][pArmaMao] != 0) return SCM(playerid, COLOR_LIGHTRED, "Você não pode pegar um malote em quanto segura uma arma.");
   		new str[64];
@@ -70566,12 +70566,12 @@ COMMAND:entregarmalotes(playerid,params[])
 		 	{
   				if(ATMs[i][aGrana] < 5000)
 	    		{
-  	    			SendClientMessage(playerid, 0xFF7B30FF, "Leve o malote até um ATM e use o comando {698596}/carregaratm{FFFFFF}.");
+  	    			SendClientMessage(playerid, 0xFF7B30FF, "Leve o malote até um caixa eletrônico e use o comando {698596}/carregaratm{FFFFFF}.");
 					company_work_stage[playerid] = 5;
  					return 1;
       			}
 			}
-			SendClientMessage(playerid,COLOR_LIGHTRED,"Nenhuma ATM precisa ser carregada no momento.");
+			SendClientMessage(playerid,COLOR_LIGHTRED,"Nenhum caixa eletrônico precisa ser carregada no momento.");
 			return 1;
   		}
   		else return SendClientMessage(playerid,COLOR_LIGHTRED,"Você não está trabalhando.");
@@ -70595,7 +70595,7 @@ COMMAND:carregaratm(playerid,params[])
 		    			SetProgressBarValue(progress_bar[playerid],0.0);
  				    	ShowProgressBarForPlayer(playerid,progress_bar[playerid]);
   				    	CarregandoATM[playerid] = i;
-			    		SendClientMessage(playerid, 0xFF7B30FF, "Você está colocando o dinheiro dentro da ATM.");
+			    		SendClientMessage(playerid, 0xFF7B30FF, "Você está colocando o dinheiro dentro do caixa eletrônico.");
 			    		TogglePlayerControllable(playerid,0);
 
 			    		ApplyAnimation(i, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
@@ -70606,7 +70606,7 @@ COMMAND:carregaratm(playerid,params[])
 			    		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
 			    		SetPlayerProgressBar(playerid,PROGRESS_BAR_MALOTE,8);
 					}
-    				return SendClientMessage(playerid, COLOR_RED, "Essa ATM não está precisando ser recarregada.");
+    				return SendClientMessage(playerid, COLOR_RED, "Esse caixa eletrônico não está precisando ser recarregada.");
 				}
 				else return SendClientMessage(playerid, 0xD90000FF, "Você não pegou um malote no caminhão. {698596}/v pegarmalote{D90000} para pegar um.");
     		}
@@ -70647,7 +70647,7 @@ stock OnProgressBarFinish(playerid,type)
 	            	ATMs[CarregandoATM[playerid]][aGrana] += 5000;
 	            	CarregandoATM[playerid] = -1;
 	            	SECURITY_SEGURANDOMALOTE[playerid] = 0;
-					SendClientMessage(playerid, 0xFF7B30FF, "Você carregou a ATM.");
+					SendClientMessage(playerid, 0xFF7B30FF, "Você carregou o caixa eletrônico.");
 		    		TogglePlayerControllable(playerid,1);
 		    		RemovePlayerAttachedObject(playerid, 0);
 
@@ -70661,7 +70661,7 @@ stock OnProgressBarFinish(playerid,type)
 				}
 				else
 				{
-				    SendClientMessage(playerid, COLOR_RED, "Você não está proximo a ATM que está recarregando.");
+				    SendClientMessage(playerid, COLOR_RED, "Você não está proximo o caixa eletrônico que está recarregando.");
 	            	CarregandoATM[playerid] = -1;
 				}
 	        }
