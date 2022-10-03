@@ -15152,8 +15152,8 @@ public OnPlayerEnterCheckpoint(playerid)
 		{
   			GameTextForPlayer(playerid,"~g~Você completou o trabalho",5000,5);
      		OnPlayerEndGarbage(playerid);
-       		SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você concluiu a coleta e recebeu R$134.");
-          	GivePlayerMoneyCA(playerid, 134);
+       		SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você concluiu a coleta e recebeu R$135.");
+          	GivePlayerMoneyCA(playerid, 135);
 		}
 		else
 		{
@@ -74703,9 +74703,9 @@ COMMAND:cancelarcoleta(playerid,params[])
     }     
 
     return 1;
-}
+}*/
 
-COMMAND:pegarlanche(playerid,params[])
+/*COMMAND:pegarlanche(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
