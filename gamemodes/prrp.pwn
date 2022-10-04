@@ -56934,9 +56934,9 @@ COMMAND:gov(playerid, params[])
 	return 1;
 }
 
-ALTCOMMAND:pluvas->portaluvas;
-ALTCOMMAND:pl->portaluvas;
-COMMAND:portaluvas(playerid,params[])
+ALTCOMMAND:pluvas1->portaluvas1;
+ALTCOMMAND:pl1->portaluvas1;
+COMMAND:portaluvas1(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(!IsPlayerInAnyVehicle(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar dentro do veículo.");
@@ -58135,7 +58135,7 @@ COMMAND:veiculo(playerid,params[])
 		SendClientMessage(playerid, COLOR_VEICULO,"[Ações] darchave, capo, neon, encontrar, remontar");
 		SendClientMessage(playerid, COLOR_VEICULO,"[Ações] estacionarcarreta, contratarseguro, cancelarseguro");
 		SendClientMessage(playerid, COLOR_VEICULO,"[Deletar] deletar (Aviso: deleta seu carro definitivamente)");
-		SendClientMessage(playerid, COLOR_VEICULO,"[Inventário] /portamalas /portaluvas | [Outros] /freio /desapreender");
+		SendClientMessage(playerid, COLOR_VEICULO,"[Inventário] /portamalas | [Outros] /freio /desapreender");
 		SendClientMessage(playerid, COLOR_VEICULO, "Use /aceitarcobranca para ter o veículo de volta.");
 		SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
 		return 1;
