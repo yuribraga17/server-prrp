@@ -11111,6 +11111,27 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//mc donalds
+	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
+	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
+	RemoveBuildingForPlayer(playerid, 5508, 2085.860, -1812.770, 13.178, 0.250);
+	RemoveBuildingForPlayer(playerid, 5529, 2085.860, -1812.770, 13.178, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2102.060, -1793.140, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2099.850, -1793.979, 13.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2102.659, -1791.329, 13.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2103.689, -1795.910, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 2128.310, -1786.709, 12.703, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2101.629, -1798.170, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2103.959, -1800.560, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1522, 2105.919, -1807.250, 12.515, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2099.860, -1799.420, 13.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2104.020, -1812.420, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2099.850, -1813.910, 13.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2099.860, -1819.359, 13.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 2102.600, -1822.079, 13.117, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2102.129, -1819.949, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2103.409, -1817.300, 12.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1432, 2101.989, -1814.709, 12.570, 0.250);
 	//Campo fut idlewood
 	RemoveBuildingForPlayer(playerid, 4976, 1931.0000, -1871.3906, 15.8438, 0.25);
     RemoveBuildingForPlayer(playerid, 1413, 1904.3750, -1879.7344, 13.6797, 0.25);
