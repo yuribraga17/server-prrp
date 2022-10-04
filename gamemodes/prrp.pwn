@@ -85,7 +85,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "02/10/2022"
+#define ULTIMO_GMX      "15/10/2022"
 #define CA_VERSAO       "PR:RP v0.53"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -2687,6 +2687,13 @@ static PMERJ_Barreiras[16] = {
 	1422, 1423, 1424, 1425, 1427,
 	981, 978, 979, 19425, 19467, 
 	1428, 1437, -2117, -2118, -2119
+
+};
+
+static TRAF_Barreiras[9] = {
+	1025, 935, 3632, 18690,
+	1431, 18980, 18762, 19791,
+	2960
 
 };
 
@@ -12298,7 +12305,7 @@ forward PlayerConectCriarTexts(playerid);
 public PlayerConectCriarTexts(playerid)
 {
 
-    Textdraw49[playerid] = TextDrawCreate(86.000000, 428.000000, " "); // area
+    Textdraw49[playerid] = TextDrawCreate(33.000, 700.000, " "); // area
 	TextDrawAlignment(Textdraw49[playerid], 2);
 	TextDrawBackgroundColor(Textdraw49[playerid], 255);
 	TextDrawFont(Textdraw49[playerid], 2);
@@ -13284,7 +13291,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 02/10/2022, v0.53, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.53, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão final e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthDate] == 0)
@@ -31011,7 +31018,7 @@ COMMAND:cbarreira2(playerid, params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pAdmin] < 3000) return 1;
     new targetid;
-	if(sscanf(params, "i", targetid)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /cbarreira2 [id]");
+	if(sscanf(params, "i", targetid)) SendClientMessage(playerid, COLOR_LIGHTRED, "USE:{FFFFFF} /cbarreira2 [id]");
 	else
 	{
 		new Float:X,Float:Y,Float:Z,Float:A;
@@ -31026,7 +31033,7 @@ COMMAND:cbarreira2(playerid, params[])
  		        break;
  		    }
  		}
- 		if(BarrID == 999) return SCM(playerid, -1, "O limite de barreiras foi atingido");
+ 		if(BarrID == 999) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} O limite de barreiras foi atingido");
  		BarreiraInfo[BarrID][BlockModel] = targetid;
 	    BarreiraInfo[BarrID][BlockObj] = CreateDynamicObject(targetid, X, Y+1, Z, 0, 0, A, world);
 		BarreiraInfo[BarrID][BlockX] = X;
@@ -31039,20 +31046,47 @@ COMMAND:cbarreira2(playerid, params[])
 	return 1;
 }
 
-/*CMD:barreiratraf(playerid, params[])
+COMMAND:barricada(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-
-	for(new i; i < MAX_TRAF_BARREIRAS; i++)
+    if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já está colocando uma barreira.");
+	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");
 	{
-		new Float:x, Float:y, Float:z;
-		GetPlayerPos(playerid, x, y, z);
+        new strl[256];
+		ShowModelSelectionMenu(playerid, "[CRIME] Barreiras", MODEL_PMERJ_BARREIRAS, TRAF_Barreiras, sizeof(TRAF_Barreiras), -16.0, 0.0, -55.0);
+		format(strl, sizeof(strl), "AdmCmd: O jogador %s colocou uma barreira.", PlayerName(playerid,0));
+	  	SendAdminMessage(COLOR_LIGHTRED,strl);
+		format(strl, sizeof(strl), "%s colocou uma barricada.", PlayerName(playerid,0));
+	  	LogCMD_barricada(strl);
+    }
+	return 1;
+}
 
-		new BARREIRA;
-		BARREIRA = CreateDynamicObject(1434, x, y, z, 0.0, 0.0, 0.0, 0.0);
+CMD:rbarricada(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Termine de editar a barreira atual antes de deletar alguma.");
+	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), alguma = 0;
+	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");
+	{
+	    for(new id; id < MAX_PMERJ_BARREIRAS; id++)
+	    {
+			if(IsPlayerInRangeOfPoint(playerid, 5, BarreiraInfo[id][BlockX], BarreiraInfo[id][BlockY], BarreiraInfo[id][BlockZ]) && GetPlayerVirtualWorld(playerid) == BarreiraInfo[id][BlockW])
+			{
+			    if(IsValidDynamicObject(BarreiraInfo[id][BlockObj])) DestroyDynamicObject(BarreiraInfo[id][BlockObj]);
+				BarreiraInfo[id][BlockX] = 0.0;
+				BarreiraInfo[id][BlockY] = 0.0;
+				BarreiraInfo[id][BlockZ] = 0.0;
+				BarreiraInfo[id][BlockW] = 0;
+				alguma++;
+				break;
+			}
+		}
+		if(alguma == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está próximo de nenhuma barricada.");
 	}
 	return 1;
-}*/
+}
 
 COMMAND:cbarreira(playerid, params[])
 {
@@ -31071,7 +31105,7 @@ CMD:rbarreira(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Termine de editar a barreira atual antes de deletar alguma.");
-    if(PlayerInfo[playerid][pEmServico] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
+    //if(PlayerInfo[playerid][pEmServico] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
     new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), alguma = 0;
     if(FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ || PlayerInfo[playerid][pAdmin] > 0 || FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ || FacInfo[FacId][fTipo] == FAC_TIPO_EB || FacInfo[FacId][fTipo] == FAC_TIPO_CBERJ)
 	{
