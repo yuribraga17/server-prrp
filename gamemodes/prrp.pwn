@@ -30722,8 +30722,8 @@ COMMAND:barricada(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já está colocando uma barreira.");
-	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");
+	/*new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");*/
 	{
         new strl[256];
 		ShowModelSelectionMenu(playerid, "[CRIME] Barreiras", MODEL_PMERJ_BARREIRAS, TRAF_Barreiras, sizeof(TRAF_Barreiras), -16.0, 0.0, -55.0);
@@ -30739,8 +30739,9 @@ CMD:rbarricada(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Termine de editar a barreira atual antes de deletar alguma.");
-	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), alguma = 0;
-	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");
+	/*new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), alguma = 0;
+	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");*/
+	new alguma = 0;
 	{
 	    for(new id; id < MAX_PMERJ_BARREIRAS; id++)
 	    {
