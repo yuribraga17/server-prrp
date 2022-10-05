@@ -60564,7 +60564,7 @@ Atualizar_PontoEntrega(entid)
 
         PontoEntrega[entid][emPickup] = CreateDynamicPickup(1239, 23, PontoEntrega[entid][emX], PontoEntrega[entid][emY], PontoEntrega[entid][emZ]);
 
-		if(PontoEntrega[entid][emEmpresa] == 9999 && PontoEntrega[entid][emFabrica] != 3 && PontoEntrega[entid][emFabrica] != 6 && PontoEntrega[entid][emCompra] != 6) {
+		if(PontoEntrega[entid][emEmpresa] == 200 && PontoEntrega[entid][emFabrica] != 3 && PontoEntrega[entid][emFabrica] != 6 && PontoEntrega[entid][emCompra] != 6) {
 			//format(string, sizeof(string), "%s\nEstoque: %d/%d", PontoEntrega[entid][emNome],PontoEntrega[entid][emStock],PontoEntrega[entid][emStockMax]);
 
             if(PontoEntrega[entid][emFabrica] > 0 && PontoEntrega[entid][emFabrica] < 200)
@@ -60581,7 +60581,7 @@ Atualizar_PontoEntrega(entid)
 			format(string,sizeof(string), "%s\n%s\n%d/%d litros.\n{00D67B}R$%d{ABC3E5} por carga\n'/carga comprar'", PontoEntrega[entid][emNome],GetCargaTipo(PontoEntrega[entid][emFabrica]),PontoEntrega[entid][emStock],PontoEntrega[entid][emStockMax], PontoEntrega[entid][emCobraProd]);
 		else if(PontoEntrega[entid][emCompra] == 6)
 			format(string,sizeof(string), "%s\n%s\n%d/%d litros.\n{00D67B}R$%d{ABC3E5} por carga\n'/carga vender'", PontoEntrega[entid][emNome],GetCargaTipo(PontoEntrega[entid][emCompra]),PontoEntrega[entid][emStockC],PontoEntrega[entid][emStockMaxC], PontoEntrega[entid][emPagProd]);
-		else if(PontoEntrega[entid][emEmpresa] != 9999) {
+		else if(PontoEntrega[entid][emEmpresa] != 200) {
 			format(string, sizeof(string), "%s\nEstoque: %d/300", PontoEntrega[entid][emNome],EmpInfo[PontoEntrega[entid][emEmpresa]][eProdutos]);
 			if(EmpInfo[PontoEntrega[entid][emEmpresa]][eBank] < EmpInfo[PontoEntrega[entid][emEmpresa]][ePagaProd]) EmpInfo[PontoEntrega[entid][emEmpresa]][eReqProd] = 0;
 		}
