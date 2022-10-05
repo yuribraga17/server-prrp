@@ -1,5 +1,28 @@
-//skins
-//AddCharModel(305, 20001, "asiaticonovato.dff", "asiaticonovato.txd");
+//skins fem
+AddCharModel(211, 20182, "fem.dff", "fem.txd");
+AddCharModel(211, 20183, "fem1.dff", "fem1.txd");
+AddCharModel(211, 20184, "fem2.dff", "fem2.txd");
+AddCharModel(211, 20185, "fem3.dff", "fem3.txd");
+AddCharModel(211, 20186, "fem4.dff", "fem4.txd");
+AddCharModel(211, 20187, "fem5.dff", "fem5.txd");
+AddCharModel(211, 20189, "fem6.dff", "fem6.txd");
+AddCharModel(211, 20190, "fem7.dff", "fem7.txd");
+AddCharModel(211, 20191, "fem8.dff", "fem8.txd");
+AddCharModel(211, 20192, "fem9.dff", "fem9.txd");
+AddCharModel(211, 20193, "fem10.dff", "fem10.txd");
+AddCharModel(211, 20194, "fem11.dff", "fem11.txd");
+AddCharModel(211, 20195, "fem12.dff", "fem12.txd");
+AddCharModel(211, 20196, "fem13.dff", "fem13.txd");
+AddCharModel(211, 20197, "fem14.dff", "fem14.txd");
+AddCharModel(211, 20198, "fem15.dff", "fem15.txd");
+AddCharModel(211, 20199, "fem16.dff", "fem16.txd");
+AddCharModel(211, 20500, "fem17.dff", "fem17.txd");
+AddCharModel(211, 20501, "fem18.dff", "fem18.txd");
+AddCharModel(211, 20502, "fem19.dff", "fem19.txd");
+AddCharModel(211, 20503, "fem20.dff", "fem20.txd");
+AddCharModel(211, 20504, "fem21.dff", "fem21.txd");
+AddCharModel(211, 20505, "fem22.dff", "fem22.txd");
+AddCharModel(211, 20506, "fem23.dff", "fem23.txd");
 
 //skins PMERJ
 AddCharModel(280, 20400, "pmerj.dff", "pmerj.txd);
@@ -8,20 +31,21 @@ AddCharModel(280, 20402, "pmerj3.dff", "pmerj3.txd);
 AddCharModel(280, 20403, "pmerj4.dff", "pmerj4.txd);
 AddCharModel(280, 20404, "pmerj5.dff", "pmerj5.txd);
 AddCharModel(280, 20405, "pmerj6.dff", "pmerj6.txd);
-AddCharModel(98, 20406, "pmerjf.dff", "pmerjf.txd);
-AddCharModel(98, 20407, "pmerjf2.dff", "pmerjf2.txd);
-AddCharModel(98, 20408, "pmerjf3.dff", "pmerjf3.txd);
-AddCharModel(280, 20409, "skindetreinamento.dff", "skindetreinamento.txd");
-AddCharModel(280, 20410, "skindetreinamento2.dff", "skindetreinamento2.txd");
-AddCharModel(280, 20411, "pmerjt.dff", "pmerjt.txd);
-AddCharModel(280, 20412, "pmerjt2.dff", "pmerjt2.txd);
-AddCharModel(280, 20413, "pmerjt3.dff", "pmerjt3.txd);
-AddCharModel(280, 20414, "pmerjt4.dff", "pmerjt4.txd);
-AddCharModel(280, 20415, "pmerjt5.dff", "pmerjt5.txd);
-AddCharModel(280, 20416, "pmerjt6.dff", "pmerjt6.txd);
-AddCharModel(280, 20417, "pmerjt7.dff", "pmerjt7.txd);
-AddCharModel(280, 20418, "pmerjt8.dff", "pmerjt8.txd);
-AddCharModel(98, 20419, "pmerjtf.dff", "pmerjtf.txd);
+AddCharModel(280, 20406, "pmerj7.dff", "pmerj7.txd);
+AddCharModel(98, 20407, "pmerjf1.dff", "pmerjf1.txd);
+AddCharModel(98, 20408, "pmerjtf.dff", "pmerjtf.txd);
+AddCharModel(98, 20409, "pmerjf3.dff", "pmerjf3.txd);
+AddCharModel(280, 20410, "skindetreinamento.dff", "skindetreinamento.txd");
+AddCharModel(280, 20411, "skindetreinamento2.dff", "skindetreinamento2.txd");
+AddCharModel(280, 20412, "pmerjt.dff", "pmerjt.txd);
+AddCharModel(280, 20413, "pmerjt2.dff", "pmerjt2.txd);
+AddCharModel(280, 20414, "pmerjt3.dff", "pmerjt3.txd);
+AddCharModel(280, 20415, "pmerjt4.dff", "pmerjt4.txd);
+AddCharModel(280, 20416, "pmerjt5.dff", "pmerjt5.txd);
+AddCharModel(280, 20417, "pmerjt6.dff", "pmerjt6.txd);
+AddCharModel(280, 20418, "pmerjt7.dff", "pmerjt7.txd);
+AddCharModel(280, 20419, "pmerjt8.dff", "pmerjt8.txd);
+
 
 //skins PCERJ
 AddCharModel(305, 20200, "delegadocivil.dff", "delegadocivil.txd");
