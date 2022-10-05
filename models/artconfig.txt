@@ -1,3 +1,8 @@
+//Skins trafico
+AddCharModel(121, 20001, "skin.dff", "skin.txd");
+AddCharModel(121, 20002, "skin2.dff", "skin2.txd");
+AddCharModel(121, 20003, "skin3.dff", "skin3.txd");
+AddCharModel(121, 20004, "skin4.dff", "skin4.txd");
 //skins fem
 AddCharModel(211, 20182, "fem.dff", "fem.txd");
 AddCharModel(211, 20183, "fem1.dff", "fem1.txd");
@@ -131,6 +136,7 @@ AddSimpleModel(-1,19141, -2302, "cocaina.dff", "cocaina.txd");
 AddSimpleModel(-1,19141, -2303, "crackr.dff", "crackr.txd");
 AddSimpleModel(-1,19141, -2304, "crackb.dff", "crackb.txd");
 AddSimpleModel(-1,19141, -2305, "lsd.dff", "lsd.txd");
+AddSimpleModel(-1,19141, -2306, "lancaperfume.dff", "lancaperfume.txd");
 
 //objetos servidor
 AddSimpleModel(-1,19324, -2900, "atmbb.dff", "atmbb.txd");

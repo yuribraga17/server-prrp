@@ -800,7 +800,8 @@ enum pdd {
 	PBC,
 	//Metanfetamina
 	Acloridrico,
-	Efedrina
+	Efedrina,
+	LancaPer
 }
 new PlayerDroga[MAX_PLAYERS][pdd];
 
@@ -11005,6 +11006,7 @@ public OnPlayerConnect(playerid)
 	PlayerDroga[playerid][MetR] = 0;
 	PlayerDroga[playerid][MetB] = 0;
 	PlayerDroga[playerid][MetE] = 0;
+	PlayerDroga[playerid][LancaPer] = 0;
 	PlayerDroga[playerid][Sementes] = 0;
 	PlayerDroga[playerid][BDS] = 0;
 	PlayerDroga[playerid][PBC] = 0;
@@ -20582,6 +20584,7 @@ COMMAND:dropar(playerid, params[])
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(ruim): %d",StrArm,PlayerDroga[playerid][MetR]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(bom): %d",StrArm,PlayerDroga[playerid][MetB]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(excelente): %d",StrArm,PlayerDroga[playerid][MetE]);
+		format(StrArm, sizeof(StrArm), "%s\nnLança Perfume: %d",StrArm,PlayerDroga[playerid][LancaPer]);
 		Dialog_Show(playerid, Dialog_DropDrug, DIALOG_STYLE_LIST, "Dropar Droga", StrArm, "Selecionar", "Cancelar");
 	}
 	return 1;
@@ -20842,6 +20845,15 @@ Dialog:Dialog_DropDrug2(playerid, response, listitem, inputtext[])
 				}
 				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de metanfetamina (excelente).");
 			}
+				case 15:
+		    {
+				if(PlayerDroga[playerid][LancaPer] >= Quant)
+				{
+					format(str2,sizeof(str2),"INSERT INTO drop_drug (dType) VALUES ('%d')", Tipp);
+					mysql_function_query(Pipeline, str2, true, "DropandoDroga", "iii",playerid,Quant,Tipp);
+				}
+				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de Lança Perfume.");
+			}
 		}
 	}
 	else
@@ -20970,6 +20982,12 @@ public DropandoDroga(playerid,Ammo,Tipp)
 		    DropInfo[i][dObject] = CreateDynamicObject(-2303, DropInfo[i][dX], DropInfo[i][dY], DropInfo[i][dZ]-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
     		format(NomeAmmo, sizeof(NomeAmmo), "Metanfetamina (excelente)");
     		PlayerDroga[playerid][MetE] -= Ammo;
+		}
+    	case 16:
+		{
+		    DropInfo[i][dObject] = CreateDynamicObject(-2306, DropInfo[i][dX], DropInfo[i][dY], DropInfo[i][dZ]-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+    		format(NomeAmmo, sizeof(NomeAmmo), "Lança Perfume");
+    		PlayerDroga[playerid][LancaPer] -= Ammo;
 		}
     }
     //==========================================================================
@@ -21511,6 +21529,7 @@ CMD:pegar(playerid, params[])
 			case 13: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (ruim) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetR] += DropInfo[d][dAmmo];
    			case 14: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (boa) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetB] += DropInfo[d][dAmmo];
    			case 15: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (excelente) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetE] += DropInfo[d][dAmmo];
+			case 16: format(NomeDrug,sizeof(NomeDrug),"Tubo de lança perfume com %dml.", DropInfo[d][dAmmo]), PlayerDroga[playerid][LancaPer] += DropInfo[d][dAmmo];
 		}
 
 		format(string, sizeof(string), "[DROGAS] Você pegou um %s do chão.", NomeDrug);
@@ -21696,6 +21715,7 @@ Dialog:Dialog_PegarItem(playerid, response, listitem, inputtext[])
 				case 13: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (ruim) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetR] += DropInfo[d][dAmmo];
 	   			case 14: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (boa) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetB] += DropInfo[d][dAmmo];
 	   			case 15: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (excelente) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetE] += DropInfo[d][dAmmo];
+				case 16: format(NomeDrug,sizeof(NomeDrug),"Tubo de lança perfume com %dml.", DropInfo[d][dAmmo]), PlayerDroga[playerid][LancaPer] += DropInfo[d][dAmmo];
 			}
 
 			format(string, sizeof(string), "{FF6347}[DROGAS]{FFFFFF} Você pegou um %s do chão.", NomeDrug);
@@ -24102,6 +24122,7 @@ public PlayerDeslogouEditandoAlgo(playerid) {
 	    	case 13: PlayerDroga[playerid][MetR] += DropInfo[id][dAmmo];
    			case 14: PlayerDroga[playerid][MetB] += DropInfo[id][dAmmo];
    			case 15: PlayerDroga[playerid][MetE] += DropInfo[id][dAmmo];
+			case 16: PlayerDroga[playerid][LancaPer] += DropInfo[id][dAmmo];
     	}
 
 		DropInfo[id][dX] = 0.0;
@@ -28889,6 +28910,7 @@ Dialog:RefundoItem(playerid, response, listitem, inputtext[])
 			case 17: { etnia = "Munição 5x56 mm "; PlayerInfo[playerid][pMun556] += Refundo[playerid][2];}
 			case 18: { etnia = "Cartucho"; PlayerInfo[playerid][pMunCart] += Refundo[playerid][2];}
 			case 19: { etnia = "Munição 12.7x106mm"; PlayerInfo[playerid][pMun127] += Refundo[playerid][2];}
+			case 20: { etnia = "Lança Perfume"; PlayerDroga[playerid][LancaPer] += Refundo[playerid][2];}
  		}
  		format(string, sizeof(string),"SERVER: Você recebeu o refundo de um de %s [%d unidades].", etnia,Refundo[playerid][2]);
 		SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
@@ -35898,6 +35920,7 @@ CMD:tratar(playerid,params[])
 	    PlayerDroga[playerid][CrackR] > 0 || PlayerDroga[playerid][CrackB] > 0 || PlayerDroga[playerid][CrackE] > 0 ||
 		PlayerDroga[playerid][LSDR] > 0 || PlayerDroga[playerid][LSDB] > 0 || PlayerDroga[playerid][LSDE] > 0 ||
 		PlayerDroga[playerid][MetR] > 0 || PlayerDroga[playerid][MetB] > 0 || PlayerDroga[playerid][MetE] > 0 ||
+		PlayerDroga[playerid][LancaPer] > 0 ||
 		PlayerDroga[playerid][Sementes]) SendClientMessage(playerid,COLOR_LIGHTRED,"[!] As suas drogas do inventário foram removidas pelos médicos.");
 
 	    ResetPlayerDrugs(playerid);
@@ -36075,6 +36098,7 @@ CMD:deixarferido(playerid,params[])
 				    PlayerDroga[idpl][CrackR] > 0 || PlayerDroga[idpl][CrackB] > 0 || PlayerDroga[idpl][CrackE] > 0 ||
 					PlayerDroga[idpl][LSDR] > 0 || PlayerDroga[idpl][LSDB] > 0 || PlayerDroga[idpl][LSDE] > 0 ||
 					PlayerDroga[idpl][MetR] > 0 || PlayerDroga[idpl][MetB] > 0 || PlayerDroga[idpl][MetE] > 0 ||
+					PlayerDroga[idpl][LancaPer] > 0 ||
 					PlayerDroga[idpl][Sementes]) SendClientMessage(idpl,COLOR_LIGHTRED,"[-] As suas drogas do inventário foram removidas pelos médicos.");
 
 				    ResetPlayerDrugs(idpl);
@@ -39400,6 +39424,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 		    	case 13: PlayerDroga[playerid][MetR] += DropInfo[id][dAmmo];
 		    	case 14: PlayerDroga[playerid][MetB] += DropInfo[id][dAmmo];
 		    	case 15: PlayerDroga[playerid][MetE] += DropInfo[id][dAmmo];
+				case 16: PlayerDroga[playerid][LancaPer] += DropInfo[id][dAmmo];
 		    }
 
 		    DropInfo[id][dX] = 0.0;
@@ -51180,6 +51205,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 1. Metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 							case 15: format(_string, 128, "[ 1. Metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 							case 16: format(_string, 128, "[ 1. Sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo1]);
+							case 17: format(_string, 128, "[ 1. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha1, _string);
 					}
@@ -51237,6 +51263,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 2. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 							case 15: format(_string, 128, "[ 2. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 							case 16: format(_string, 128, "[ 2. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo2]);
+							case 17: format(_string, 128, "[ 2. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha1, _string);
 					}
@@ -51294,6 +51321,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 3. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 							case 15: format(_string, 128, "[ 3. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 							case 16: format(_string, 128, "[ 3. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo3]);
+							case 17: format(_string, 128, "[ 3. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha1, _string);
 					}
@@ -51351,6 +51379,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 4. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 							case 15: format(_string, 128, "[ 4. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 							case 16: format(_string, 128, "[ 4. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo4]);
+							case 17: format(_string, 128, "[ 4. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha2, _string);
 					}
@@ -51407,6 +51436,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 5. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 							case 15: format(_string, 128, "[ 5. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 							case 16: format(_string, 128, "[ 5. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo5]);
+							case 17: format(_string, 128, "[ 5. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha2, _string);
 					}
@@ -51463,6 +51493,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 6. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 							case 15: format(_string, 128, "[ 6. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 							case 16: format(_string, 128, "[ 6. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo6]);
+							case 17: format(_string, 128, "[ 6. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha2, _string);
 					}
@@ -51520,6 +51551,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 7. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 							case 15: format(_string, 128, "[ 7. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 							case 16: format(_string, 128, "[ 7. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo7]);
+							case 17: format(_string, 128, "[ 7. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha3, _string);
 					}
@@ -51576,6 +51608,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 8. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 							case 15: format(_string, 128, "[ 8. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 							case 16: format(_string, 128, "[ 8. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo8]);
+							case 17: format(_string, 128, "[ 8. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha3, _string);
 					}
@@ -51632,6 +51665,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 9. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 							case 15: format(_string, 128, "[ 9. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 							case 16: format(_string, 128, "[ 9. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo9]);
+							case 17: format(_string, 128, "[ 9. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha3, _string);
 					}
@@ -51688,6 +51722,7 @@ COMMAND:portamalas(playerid,params[])
 							case 14: format(_string, 128, "[ 10. metanfetamina boa (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 							case 15: format(_string, 128, "[ 10. metanfetamina exelente (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 							case 16: format(_string, 128, "[ 10. sementes de cannabis (%d/100) ]", VehicleInfo[slot][vAmmo10]);
+							case 17: format(_string, 128, "[ 10. Tubos de Lança Perfume (%dml/100ml) ]", VehicleInfo[slot][vAmmo1]);
 						}
 						strcat(Linha3, _string);
 					}
@@ -53145,6 +53180,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 1.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo1] = 6;
@@ -53316,6 +53360,15 @@ COMMAND:portamalas(playerid,params[])
 									    format(drug_name, 128, "[Porta-Malas] Você guardou %d sementes no Slot 2.", qnt);
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
+								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 2.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
 								}
 							}
 
@@ -53489,6 +53542,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 3.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo3] = 6;
@@ -53661,6 +53723,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 4.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo4] = 6;
@@ -53832,6 +53903,15 @@ COMMAND:portamalas(playerid,params[])
 									    format(drug_name, 128, "[Porta-Malas] Você guardou %d sementes no Slot 5.", qnt);
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
+								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 5.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
 								}
 							}
 
@@ -54006,6 +54086,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 6.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo6] = 6;
@@ -54177,6 +54266,15 @@ COMMAND:portamalas(playerid,params[])
 									    format(drug_name, 128, "[Porta-Malas] Você guardou %d sementes no Slot 7.", qnt);
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
+								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 7.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
 								}
 							}
 
@@ -54350,6 +54448,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 8.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo8] = 6;
@@ -54522,6 +54629,15 @@ COMMAND:portamalas(playerid,params[])
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
 								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 9.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
+								}
 							}
 
 							VehicleInfo[slot][vSlotTipo9] = 6;
@@ -54693,6 +54809,15 @@ COMMAND:portamalas(playerid,params[])
 									    format(drug_name, 128, "[Porta-Malas] Você guardou %d sementes no Slot 10.", qnt);
 									}
 									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Sementes.");
+								}
+								case 17:
+								{
+									if(PlayerDroga[playerid][LancaPer] >= qnt)
+									{
+									    PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-qnt;
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dml de lança perfume no Slot 10.", qnt);
+									}
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Lança Perfume.");
 								}
 							}
 
@@ -54911,6 +55036,11 @@ COMMAND:portamalas(playerid,params[])
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no slot 1.", qnt);
 								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 1.", qnt);
+								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
 
@@ -55095,6 +55225,11 @@ COMMAND:portamalas(playerid,params[])
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no slot 2.", qnt);
 								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 2.", qnt);
+								}							
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
 
@@ -55276,6 +55411,11 @@ COMMAND:portamalas(playerid,params[])
 								{
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 3.", qnt);
+								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 3.", qnt);
 								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
@@ -55462,6 +55602,11 @@ COMMAND:portamalas(playerid,params[])
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 4.", qnt);
 								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 4.", qnt);
+								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
 
@@ -55645,6 +55790,11 @@ COMMAND:portamalas(playerid,params[])
 								{
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 5.", qnt);
+								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 5.", qnt);
 								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
@@ -55830,6 +55980,11 @@ COMMAND:portamalas(playerid,params[])
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 6.", qnt);
 								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 6.", qnt);
+								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
 
@@ -56013,6 +56168,11 @@ COMMAND:portamalas(playerid,params[])
 								{
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 7.", qnt);
+								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 7.", qnt);
 								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
@@ -56198,6 +56358,11 @@ COMMAND:portamalas(playerid,params[])
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 8.", qnt);
 								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 8.", qnt);
+								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
 
@@ -56381,6 +56546,11 @@ COMMAND:portamalas(playerid,params[])
 								{
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 9.", qnt);
+								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 9.", qnt);
 								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
@@ -56566,6 +56736,11 @@ COMMAND:portamalas(playerid,params[])
 								{
 									PlayerDroga[playerid][Sementes] = PlayerDroga[playerid][Sementes]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %d sementes no Slot 10.", qnt);
+								}
+								case 17:
+								{
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 10.", qnt);
 								}
 							}
                             SendClientMessage(playerid, COLOR_LIGHTGREEN,drug_name);
@@ -70561,7 +70736,7 @@ public SaveDrogas(playerid)
 	new pname[24];
 	format(pname, 24, "%s", PlayerName(playerid,0));
 
-    format(_dinamicString, sizeof(_dinamicString), "UPDATE `drogas` SET `MaconhaR`=%d,`MaconhaB`=%d,`MaconhaE`=%d,`CocaR`=%d,`CocaB`=%d,`CocaE`=%d ,`CrackR`=%d,`CrackB`=%d,`CrackE`=%d,`LSDR`=%d,`LSDB`=%d,`LSDE`=%d,`MetR`=%d,`MetB`=%d,`MetE`=%d,`Sementes`=%d,`BDS`=%d,`PBC`=%d,`Acloridrico`=%d,`Efedrina`=%d WHERE `IDp` = '%d'",
+    format(_dinamicString, sizeof(_dinamicString), "UPDATE `drogas` SET `MaconhaR`=%d,`MaconhaB`=%d,`MaconhaE`=%d,`CocaR`=%d,`CocaB`=%d,`CocaE`=%d ,`CrackR`=%d,`CrackB`=%d,`CrackE`=%d,`LSDR`=%d,`LSDB`=%d,`LSDE`=%d,`MetR`=%d,`MetB`=%d,`MetE`=%d,`Sementes`=%d,`BDS`=%d,`PBC`=%d,`Acloridrico`=%d,`Efedrina`=%d,`LancaPer`=%d WHERE `IDp` = '%d'",
 	PlayerDroga[playerid][MaconhaR],
 	PlayerDroga[playerid][MaconhaB],
 	PlayerDroga[playerid][MaconhaE],
@@ -70582,7 +70757,8 @@ public SaveDrogas(playerid)
 	PlayerDroga[playerid][PBC],
 	PlayerDroga[playerid][Acloridrico],
 	PlayerDroga[playerid][Efedrina],
-	PlayerInfo[playerid][pID]);
+	PlayerInfo[playerid][pID],
+	PlayerDroga[playerid][LancaPer]);
     mysql_function_query(Pipeline, _dinamicString, false, "noReturnQuery", "d", 5);
     return true;
 }
@@ -70596,6 +70772,7 @@ public ShowDrugs(playerid, ownerid)
 	format(str,sizeof(str),"[ 7. Crack Ruim(%d) ][ 8. Crack Boa(%d)] [ 9. Crack Excelente(%d) ]",PlayerDroga[ownerid][CrackR],PlayerDroga[ownerid][CrackB],PlayerDroga[ownerid][CrackE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 10. LSD Ruim(%d) ][ 11. LSD Bom(%d)] [ 12. LSD Excelente(%d) ]",PlayerDroga[ownerid][LSDR],PlayerDroga[ownerid][LSDB],PlayerDroga[ownerid][LSDE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 13. Metanfetamina Ruim(%d) ][ 14. Metanfetamina Boa(%d) ][ 15. Metanfetamina Excelente(%d) ]",PlayerDroga[ownerid][MetR],PlayerDroga[ownerid][MetB],PlayerDroga[ownerid][MetE]); SendClientMessage(playerid,COLOR_WHITE,str);
+	format(str,sizeof(str),"[ 16. Lança Perfume (%dml) ]",PlayerDroga[ownerid][LancaPer]); SendClientMessage(playerid,COLOR_WHITE,str);
 }
 
 forward ShowIngredientes(playerid, ownerid);
@@ -70688,6 +70865,7 @@ public onDrogasLoaded2(playerid)
 	    cache_get_field_content(0, "PBC", fetch);	PlayerDroga[playerid][PBC] = strval(fetch);
 	    cache_get_field_content(0, "Acloridrico", fetch);	PlayerDroga[playerid][Acloridrico] = strval(fetch);
 	    cache_get_field_content(0, "Efedrina", fetch);	PlayerDroga[playerid][Efedrina] = strval(fetch);
+		cache_get_field_content(0, "Lança Perfume", fetch);	PlayerDroga[playerid][LancaPer] = strval(fetch);
     }
     return 1;
 }
@@ -70730,8 +70908,8 @@ public _checkDrogas2(extraid)
     }
     else
     {
-   		format(string, sizeof(string), "INSERT INTO drogas (Name,MaconhaR,MaconhaB,MaconhaE,CocaR,CocaB,CocaE,CrackR,CrackB,CrackE,LSDR,LSDB,LSDE,MetR,MetB,MetE,Sementes,BDS,PBC,Acloridrico,Efedrina,IDp)\
- 		VALUES('%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d)",
+   		format(string, sizeof(string), "INSERT INTO drogas (Name,MaconhaR,MaconhaB,MaconhaE,CocaR,CocaB,CocaE,CrackR,CrackB,CrackE,LSDR,LSDB,LSDE,MetR,MetB,MetE,Sementes,BDS,PBC,Acloridrico,Efedrina,LancaPer,IDp)\
+ 		VALUES('%s',%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d, %d)",
 	 	GetUserName(extraid),
 	 	PlayerDroga[extraid][MaconhaR],
 	    PlayerDroga[extraid][MaconhaB],
@@ -70753,6 +70931,7 @@ public _checkDrogas2(extraid)
 		PlayerDroga[extraid][PBC],
 		PlayerDroga[extraid][Acloridrico],
 		PlayerDroga[extraid][Efedrina],
+		PlayerDroga[extraid][LancaPer],
 		PlayerInfo[extraid][pID]);
 		mysql_function_query(Pipeline, string, false, "noReturnQuery", "d", 17);
     }
@@ -71014,6 +71193,23 @@ public UsarDroga(playerid,DrogaID, qualidade)
             SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Mais 2.0 de dano ao dar um soco.");
 		}
 	}
+	if(DrogaID == 6) // Lança Perfume
+	{
+	    new tempo = randomEx(20, 30);
+		PlayerInfo[playerid][pMenosDanoTiro] = 6.0;
+		PlayerInfo[playerid][pDrogaTime] = tempo;
+		PlayerInfo[playerid][pUsouDroga] = 54;
+		PlayerInfo[playerid][pTremorAtirar] = PlayerInfo[playerid][pSkillTiro]-6000;
+		if(PlayerInfo[playerid][pTremorAtirar] < 0) PlayerInfo[playerid][pTremorAtirar] = 0;
+		//SetPlayerWeather(playerid, -94);
+		//SetPlayerTime( playerid, 10, 0);
+		PlayerInfo[playerid][pHealthMax] = PlayerInfo[playerid][pHealthMax]+80;
+		SendClientMessage(playerid,COLOR_LIGHTGREEN,"|_____ Beneficios: _____|");
+		SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Vida máxima aumentada em +80.0.");
+		SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Menos 6.0 de dado ao tomar um tiro de qualquer arma.");
+        SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Mais 1.0 de dano ao dar um soco.");
+
+	}
     return 1;
 }
 
@@ -71162,6 +71358,15 @@ public UsarDrogaLogando(playerid)
 		//SetPlayerTime( playerid, 10, 0);
 		SendClientMessage(playerid,-1,"Cheirou/Fumou Metanfetamina excelente");
 	}
+	else if(DrogaID == 54)
+ 	{
+		PlayerInfo[playerid][pMenosDanoTiro] = 12.0;
+		PlayerInfo[playerid][pTremorAtirar] = PlayerInfo[playerid][pSkillTiro]-6000;
+		if(PlayerInfo[playerid][pTremorAtirar] < 0) PlayerInfo[playerid][pTremorAtirar] = 0;
+		//SetPlayerWeather(playerid, -94);
+		//SetPlayerTime( playerid, 10, 0);
+		SendClientMessage(playerid,-1,"Baforou lança perfume.");
+	}
     return 1;
 }
 
@@ -71205,6 +71410,7 @@ stock SetAllPlayerDrugs(playerid)
 	PlayerDroga[playerid][PBC] = 5000;
 	PlayerDroga[playerid][Acloridrico] = 5000;
 	PlayerDroga[playerid][Efedrina] = 5000;
+	PlayerDroga[playerid][LancaPer] = 5000;
 }
 
 stock ResetPlayerDrugs(playerid)
@@ -71234,6 +71440,7 @@ stock ResetPlayerDrugs(playerid)
 	PlayerDroga[playerid][PBC] = 0;
 	PlayerDroga[playerid][Acloridrico] = 0;
 	PlayerDroga[playerid][Efedrina] = 0;
+	PlayerDroga[playerid][LancaPer] = 0;
 }
 
 CMD:drogas(playerid, params[])
@@ -71543,6 +71750,20 @@ CMD:drogas(playerid, params[])
             SaveDrogas(other);
             return 1;
 		}
+		else if(drogaid == 21)
+		{
+		    if(PlayerDroga[playerid][LancaPer] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem Lança Perfume.");
+		    if(PlayerDroga[playerid][LancaPer] < ammount) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de Lança Perfume.");
+            PlayerDroga[playerid][LancaPer] -= ammount;
+            PlayerDroga[other][LancaPer] += ammount;
+            format(str,sizeof(str),"Você entregou %dml de Lança Perfume para %s.",ammount,PlayerName(other,1));
+			SendClientMessage(playerid,COLOR_YELLOW,str);
+			format(str,sizeof(str),"%s lhe entregou %dml de Lança Perfume.",PlayerName(playerid,1),ammount);
+			SendClientMessage(other,COLOR_YELLOW,str);
+            SaveDrogas(playerid);
+            SaveDrogas(other);
+            return 1;
+		}
 	}
  	if(!strcmp(alternativa, "usar", true))
 	{
@@ -71688,6 +71909,15 @@ CMD:drogas(playerid, params[])
 		    if(PlayerDroga[playerid][MetE] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa de pelo menos 1g para utilizar.");
             PlayerDroga[playerid][MetE] = PlayerDroga[playerid][MetE]-1;
             SendClientMessage(playerid,COLOR_YELLOW,"Você usou 1 gramas de Metanfetamina. (Excelente)");
+            UsarDroga(playerid,5,3);
+            SaveDrogas(playerid);
+            return 1;
+		}
+		else if(drogaid == 16)
+		{
+		    if(PlayerDroga[playerid][LancaPer] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa de pelo menos 1ml para utilizar.");
+            PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-1;
+            SendClientMessage(playerid,COLOR_YELLOW,"Você usou 1ml de lança Perfume.");
             UsarDroga(playerid,5,3);
             SaveDrogas(playerid);
             return 1;
@@ -82573,6 +82803,7 @@ public OnVerRefudoItem(extraid, id)
 		case 17: { etnia = "Munição 5x56 mm ";}
 		case 18: { etnia = "Cartucho";}
 		case 19: { etnia = "Munição 12.7x106mm";}
+		case 20: { etnia = "Tubo de lança perfume";}
  	}
 
 	if(strcmp(ReturnName(extraid), nome) == 0)
@@ -82632,10 +82863,9 @@ public OnVerRefudoGrana(extraid, id)
 CMD:refundararma(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-   	if (PlayerInfo[playerid][pAdmin] < 3  && !OutrasInfos[playerid][oAdminOnDuty])
+	if (PlayerInfo[playerid][pAdmin] < 3 && PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
-	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pPropertyTeam] >= 1)
 	{
 	    new userid[24], level;
 		if(sscanf(params, "s[24]d",userid, level))
@@ -82651,7 +82881,7 @@ CMD:refundararma(playerid, params[])
 CMD:refundargrana(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-   	if (PlayerInfo[playerid][pAdmin] < 3 && !OutrasInfos[playerid][oAdminOnDuty])
+   	if (PlayerInfo[playerid][pAdmin] < 3 && PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pPropertyTeam] >= 1)
@@ -82670,7 +82900,7 @@ CMD:refundargrana(playerid, params[])
 CMD:refundaritem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-   	if (PlayerInfo[playerid][pAdmin] < 3 && !OutrasInfos[playerid][oAdminOnDuty])
+   	if (PlayerInfo[playerid][pAdmin] < 3 && PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
 	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pPropertyTeam] >= 1)
@@ -82686,6 +82916,7 @@ CMD:refundaritem(playerid, params[])
 			format(str,sizeof(str),"10. LSD Ruim | 11. LSD Bom | 12. LSD Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"13. Metanfetamina Ruim | 14. Metanfetamina Boa | 15. Metanfetamina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"16. Ammo 9mm | 17. Ammo 5x56mm | 18. Cartucho | 19. Ammo 12.7x106mm"); SendClientMessage(playerid,COLOR_WHITE,str);
+			format(str, sizeof(str), "20. Lança Perfume"); SendClientMessage(playerid,COLOR_WHITE,str);
 			return 1;
 		}
 		if (level < 1 || level > 19)
@@ -82712,6 +82943,7 @@ CMD:refundaritem(playerid, params[])
 			case 17: { etnia = "Munição 5x56mm ";}
 			case 18: { etnia = "Cartucho";}
 			case 19: { etnia = "Munição 12.7x106mm";}
+			case 20: { etnia = "Lança perfume";}
  		}
 
 		new key = randomEx(1000, 99999999);
@@ -82721,100 +82953,6 @@ CMD:refundaritem(playerid, params[])
 	}
 	return 1;
 }
-
-CMD:refundararma2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if (OutrasInfos[playerid][oAdminOnDuty])
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
-
-    if(PlayerInfo[playerid][pPropertyTeam] >= 1)
-    {
-        new userid[24], level;
-        if(sscanf(params, "s[24]d",userid, level))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /refundararma2 [Nome_Sobrenone] [arma]");
-
-        new key = randomEx(1000, 99999999);
-
-        CriarRefundoArma(PlayerInfo[playerid][pNomeOOC], level, key, userid);
-        SendAdminAlert(COLOR_LIGHTRED, "AdmCmd: %s criou uma chave de refundo ID %d para %s (Arma: %d).", PlayerInfo[playerid][pNomeOOC], key, userid, level);
-    }
-    return 1;
-}
-CMD:refundargrana2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if (OutrasInfos[playerid][oAdminOnDuty])
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
-
-    if(PlayerInfo[playerid][pPropertyTeam] >= 1)
-    {
-        new userid[24], level;
-        if(sscanf(params, "s[24]d",userid, level))
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /refundagrana2 [Nome_Sobrenone] [dinheiro].");
-
-        new key = randomEx(1000, 99999999);
-
-        CriarRefundoGrana(PlayerInfo[playerid][pNomeOOC], level, key, userid);
-        SendAdminAlert(COLOR_LIGHTRED, "AdmCmd: %s criou uma chave de refundo ID %d para %s (Dinheiro: R$ %d).", PlayerInfo[playerid][pNomeOOC], key, userid, level);
-    }
-    return 1;
-}
-CMD:refundaritem2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if (OutrasInfos[playerid][oAdminOnDuty])
-        return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
-
-    if(PlayerInfo[playerid][pPropertyTeam] >= 1)
-    {
-        new userid[24], level, etnia[64], quantidade;
-        if(sscanf(params, "s[24]dd",userid, level, quantidade))
-        {
-            new str[128];
-            SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /refundaritem2 [Nome_Sobrenone] [Item ID] [quantidade].");
-            format(str,sizeof(str),"1. Maconha Ruim | 2. Maconha Boa | 3. Maconha Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-            format(str,sizeof(str),"4. Cocaina Ruim | 5. Cocaina Boa | 6. Cocaina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-            format(str,sizeof(str),"7. Crack Ruim| 8. Crack Boa | 9. Crack Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-            format(str,sizeof(str),"10. LSD Ruim | 11. LSD Bom | 12. LSD Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-            format(str,sizeof(str),"13. Metanfetamina Ruim | 14. Metanfetamina Boa | 15. Metanfetamina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-            format(str,sizeof(str),"16. Ammo 9mm | 17. Ammo 5x56mm | 18. Cartucho | 19. Ammo 12.7x106mm"); SendClientMessage(playerid,COLOR_WHITE,str);
-            return 1;
-        }
-        if (level < 1 || level > 19)
-            return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Item inválido.");
-
-        switch (level)
-        {
-            case 1: { etnia = "Maconha Ruim";}
-            case 2: { etnia = "Maconha Boa";}
-            case 3: { etnia = "Maconha Excelente";}
-            case 4: { etnia = "Cocaína Ruim";}
-            case 5: { etnia = "Cocaína Boa";}
-            case 6: { etnia = "Cocaína Excelente";}
-            case 7: { etnia = "Crack Ruim";}
-            case 8: { etnia = "Crack Bom";}
-            case 9: { etnia = "Crack Excelente";}
-            case 10: { etnia = "LSD Ruim";}
-            case 11: { etnia = "LSD Bom";}
-            case 12: { etnia = "LS Excelente";}
-            case 13: { etnia = "Metanfetamina Ruim";}
-            case 14: { etnia = "Metanfetamina Boa";}
-            case 15: { etnia = "Metanfetamina Excelente";}
-            case 16: { etnia = "Munição 9mm";}
-            case 17: { etnia = "Munição 5x56mm ";}
-            case 18: { etnia = "Cartucho";}
-            case 19: { etnia = "Munição 12.7x106mm";}
-        }
-
-        new key = randomEx(1000, 99999999);
-
-        CriarRefundoItem(PlayerInfo[playerid][pNomeOOC], level, key, quantidade, userid);
-        SendAdminAlert(COLOR_LIGHTRED, "AdmCmd: %s criou uma chave de refundo ID %d para %s (Item: %s | Quantidade: %d).", PlayerInfo[playerid][pNomeOOC], key, userid, etnia, quantidade);
-    }
-    return 1;
-}
-
 
 stock VerRefundoArma(playerid, chave)
 {
