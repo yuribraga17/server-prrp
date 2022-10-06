@@ -3,6 +3,7 @@ AddCharModel(121, 20001, "skin.dff", "skin.txd");
 AddCharModel(121, 20002, "skin2.dff", "skin2.txd");
 AddCharModel(121, 20003, "skin3.dff", "skin3.txd");
 AddCharModel(121, 20004, "skin4.dff", "skin4.txd");
+AddCharModel(121, 20005, "skin5.dff", "skin5.txd");
 //skins fem
 AddCharModel(211, 20182, "fem.dff", "fem.txd");
 AddCharModel(211, 20183, "fem1.dff", "fem1.txd");

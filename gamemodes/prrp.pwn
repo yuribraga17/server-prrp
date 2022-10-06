@@ -6421,7 +6421,7 @@ public LoadAmmos()
 			}
 		}
 	}
-	printf("[CARREGADO] Cartuxos no chão do Servidor: %d ", totalarmasChao);
+	printf("[CARREGADO] Cartuchos no chão do Servidor: %d ", totalarmasChao);
 	return 1;
 }
 
@@ -17860,7 +17860,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
         	if(response)
 			{
-   				if(strval(inputtext) < 1 || strval(inputtext) > 1000000000)
+   				if(strval(inputtext) < 1 || strval(inputtext) > 500000000)
    				{
        				return ShowCasinoGamesMenu(playerid, DIALOG_CGAMESSETUPPGAME2);
            		}
@@ -17880,7 +17880,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
         	if(response)
 			{
-   				if(strval(inputtext) < 1 || strval(inputtext) > 1000000000)
+   				if(strval(inputtext) < 1 || strval(inputtext) > 500000000)
    				{
        				return ShowCasinoGamesMenu(playerid, DIALOG_CGAMESSETUPPGAME3);
            		}
@@ -17900,7 +17900,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         {
         	if(response)
 			{
-   				if(strval(inputtext) < 1 || strval(inputtext) > 1000000000)
+   				if(strval(inputtext) < 1 || strval(inputtext) > 500000000)
    				{
        				return ShowCasinoGamesMenu(playerid, DIALOG_CGAMESSETUPPGAME4);
            		}
@@ -25219,7 +25219,7 @@ COMMAND:caixa(playerid, params[])
     	{
     		TaNaATM[playerid] = i;
 			new str[126];
-			format(str, sizeof(str), "Saldo: R$%d\nSacar", PlayerInfo[playerid][pBanco]);
+			format(str, sizeof(str), "Saldo: R$%d\n-------------\nSacar", PlayerInfo[playerid][pBanco]);
 			Dialog_Show(playerid, ATM_Banco, DIALOG_STYLE_LIST, "Caixa Eletronico", str, "Selecionar", "Fechar");
 			return 1;
 		}
@@ -25238,7 +25238,7 @@ Dialog:ATM_Banco(playerid, response, listitem, inputtext[]) {
 		else
 		{
 		    new str[126];
-			format(str, sizeof(str), "Saldo: R$%d\nSacar", PlayerInfo[playerid][pBanco]);
+			format(str, sizeof(str), "Saldo: R$%d\n-------------\nSacar", PlayerInfo[playerid][pBanco]);
 			Dialog_Show(playerid, ATM_Banco, DIALOG_STYLE_LIST, "Caixa eletronico", str, "Selecionar", "Fechar");
 		}
 	}
@@ -37002,7 +37002,7 @@ COMMAND:liberaracesso(playerid, params[])
 		else format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
 
 		UnBlockIpAddress(targetid);
-		format(string, sizeof(string), "AdmCmd: O Administrador %s liberou o acesso do IP: [%f]", admnome, targetid);
+		format(string, sizeof(string), "AdmCmd: O Administrador %s liberou o acesso do IP: [%s]", admnome, targetid);
 		SendAdminMessage(COLOR_LIGHTRED,string);
 	}
 	return 1;
@@ -39087,7 +39087,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 			if(IsValidDynamicObject(ATMs[id][aObjeto]))
 				DestroyDynamicObject(ATMs[id][aObjeto]);
 
-			ATMs[id][aObjeto] = CreateDynamicObject(-2800, x, y, z, 0.000000, 0.000000, rz);
+			ATMs[id][aObjeto] = CreateDynamicObject(-2900, x, y, z, 0.000000, 0.000000, rz);
     		return 1;
         }
         else if(GetPVarInt(playerid, "EditandoAmmoNoChao") != -1)
@@ -55041,7 +55041,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 1.", qnt);
 								}
 							}
@@ -55230,7 +55230,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 2.", qnt);
 								}							
 							}
@@ -55417,7 +55417,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 3.", qnt);
 								}
 							}
@@ -55607,7 +55607,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 4.", qnt);
 								}
 							}
@@ -55796,7 +55796,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 5.", qnt);
 								}
 							}
@@ -55985,7 +55985,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 6.", qnt);
 								}
 							}
@@ -56174,7 +56174,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 7.", qnt);
 								}
 							}
@@ -56363,7 +56363,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 8.", qnt);
 								}
 							}
@@ -56552,7 +56552,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 9.", qnt);
 								}
 							}
@@ -56742,7 +56742,7 @@ COMMAND:portamalas(playerid,params[])
 								}
 								case 17:
 								{
-									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][Sementes]+qnt;
+									PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]+qnt;
 								    format(drug_name, 128, "[Porta-Malas] Você retirou %dml de Lança Perfume no slot 10.", qnt);
 								}
 							}
@@ -62890,11 +62890,11 @@ public PokerPulse(tableid)
 			// Pot
 	  		if(PokerTable[tableid][pkrDelay] > 0 && PokerTable[tableid][pkrActive] == 3)
 	  		{
-	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "Texas Holdem Poker");
+	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
 	      	}
 	  		else if(PokerTable[tableid][pkrActive] == 2)
 	  		{
-	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "Texas Holdem Poker");
+	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
 	      	}
 	  		else if(PokerTable[tableid][pkrActive] == 3)
 	  		{
@@ -62919,7 +62919,7 @@ public PokerPulse(tableid)
 			}
 			else
 			{
-	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "Texas Holdem Poker");
+	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
 	     	}
 			// Bet
 	  		if(PokerTable[tableid][pkrDelay] > 0 && PokerTable[tableid][pkrActive] == 3)
@@ -62944,7 +62944,7 @@ public PokerPulse(tableid)
 	   		}
 	   		else
 	   		{
-	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][46], "Texas Holdem Poker");
+	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][46], "RJ Poker");
 			}// Community Cards
 			switch(PokerTable[tableid][pkrStage])
 			{
@@ -64029,7 +64029,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawBoxColor(playerid, PlayerPokerUI[playerid][36], 50);
         PlayerTextDrawTextSize(playerid, PlayerPokerUI[playerid][36], 390.000000, 110.000000);
 
-        PlayerPokerUI[playerid][37] = CreatePlayerTextDraw(playerid, 318.000000, 191.000000, "Texas Holdem Poker");
+        PlayerPokerUI[playerid][37] = CreatePlayerTextDraw(playerid, 318.000000, 191.000000, "RJ Poker");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][37], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][37], -1);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][37], 2);
@@ -64129,7 +64129,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawSetProportional(playerid, PlayerPokerUI[playerid][45], 1);
         PlayerTextDrawSetShadow(playerid, PlayerPokerUI[playerid][45], 1);
 
-        PlayerPokerUI[playerid][46] = CreatePlayerTextDraw(playerid, 318.000000, 245.000000, "Texas Holdem Poker");
+        PlayerPokerUI[playerid][46] = CreatePlayerTextDraw(playerid, 318.000000, 245.000000, "RJ Poker");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][46], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][46], -1);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][46], 2);
@@ -64391,10 +64391,10 @@ ShowCasinoGamesMenu(playerid, dialogid)
                                 new szString[128];
                                 if(actualBet > GetPVarInt(playerid, "pkrChips")) {
                                         format(szString, sizeof(szString), "{FFFFFF}Tem certeza de que deseja pagar R$%d (All-In)?:", actualBet);
-                                        return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}Texas Holdem Poker - (Pagar)", szString, "All-In", "Cancelar");
+                                        return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Poker - (Pagar)", szString, "All-In", "Cancelar");
                                 }
                                 format(szString, sizeof(szString), "{FFFFFF}Tem certeza de que deseja pagar R$%d?:", actualBet);
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}Texas Holdem Poker - (Pagar)", szString, "Pagar", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Poker - (Pagar)", szString, "Pagar", "Cancelar");
                         } else {
                                 SendClientMessage(playerid, COLOR_WHITE, "DEALER: Você não tem fundos para pagar.");
                                 new noFundsSoundID[] = {5823, 5824, 5825};
@@ -64413,13 +64413,13 @@ ShowCasinoGamesMenu(playerid, dialogid)
                                 SetPVarInt(playerid, "pkrActionChoice", 1);
                                 new szString[128];
                                 format(szString, sizeof(szString), "{FFFFFF}Quanto você quer apostar? (R$%d-R$%d):", PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2, GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips"));
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}Texas Holdem Poker - (Apostar)", szString, "Apostar", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Poker - (Apostar)", szString, "Apostar", "Cancelar");
                         } else if(GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips") == PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2) {
                                 SetPVarInt(playerid, "pkrActionChoice", 1);
 
                                 new szString[128];
                                 format(szString, sizeof(szString), "{FFFFFF}Quanto você quer apostar? (All-In):", PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2, GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips"));
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}Texas Holdem Poker - (Apostar)", szString, "All-In", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Poker - (Apostar)", szString, "All-In", "Cancelar");
                         } else {
                                 SendClientMessage(playerid, COLOR_WHITE, "DEALER: Você não tem fundos para pagar.");
                                 new noFundsSoundID[] = {5823, 5824, 5825};
@@ -70273,7 +70273,7 @@ public QUERY_LOAD_ATMS()
 
     	if(ATMs[i][aSeteda] == 1)
     	{
-    		ATMs[i][aObjeto] = CreateDynamicObject(-2800, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 0.000000, 0.000000, ATMs[i][aposR], 0);
+    		ATMs[i][aObjeto] = CreateDynamicObject(-2900, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 0.000000, 0.000000, ATMs[i][aposR], 0);
 		}
 	}
 	return 1;
@@ -70289,7 +70289,7 @@ CMD:attachtrailer(playerid, params[])
 	if (sscanf(params, "ii", vehicleid, trailerid)) return SendClientMessage(playerid, COLOR_LIGHTRED,"USE: /attachtrailer [veiculoid] [trailerid]");
 	else
 	{
-		SendClientMessage(playerid, -1,"Comando executado");
+		SendClientMessage(playerid, COLOR_WHITE,"Comando executado com sucesso.");
 		AttachTrailerToVehicle(trailerid, vehicleid);
 	}
 	return 1;
@@ -70363,7 +70363,7 @@ public CriouATMnaDB(playerid)
 	ATMs[i][aposY] = sys_pos_dono[1]+2;
 	ATMs[i][aposZ] = sys_pos_dono[2];
 
-	ATMs[i][aObjeto] = CreateDynamicObject(-2800, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
+	ATMs[i][aObjeto] = CreateDynamicObject(-2900, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
    	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
    	Streamer_Update(playerid);
     EditDynamicObject(playerid, ATMs[i][aObjeto]);
@@ -70868,7 +70868,7 @@ public onDrogasLoaded2(playerid)
 	    cache_get_field_content(0, "PBC", fetch);	PlayerDroga[playerid][PBC] = strval(fetch);
 	    cache_get_field_content(0, "Acloridrico", fetch);	PlayerDroga[playerid][Acloridrico] = strval(fetch);
 	    cache_get_field_content(0, "Efedrina", fetch);	PlayerDroga[playerid][Efedrina] = strval(fetch);
-		cache_get_field_content(0, "Lança Perfume", fetch);	PlayerDroga[playerid][LancaPer] = strval(fetch);
+		cache_get_field_content(0, "LancaPer", fetch);	PlayerDroga[playerid][LancaPer] = strval(fetch);
     }
     return 1;
 }
