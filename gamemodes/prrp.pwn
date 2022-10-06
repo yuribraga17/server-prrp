@@ -64100,7 +64100,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawSetOutline(playerid, PlayerPokerUI[playerid][42], 1);
         PlayerTextDrawSetProportional(playerid, PlayerPokerUI[playerid][42], 1);
 
-        PlayerPokerUI[playerid][43] = CreatePlayerTextDraw(playerid, 569.000000, 396.000000, "Texas_Holden");
+        PlayerPokerUI[playerid][43] = CreatePlayerTextDraw(playerid, 569.000000, 396.000000, "Rio_De_Janeiro");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][43], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][43], 255);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][43], 2);
