@@ -48,9 +48,9 @@ new PayDayDuplo = 0;
 
 //Sistema de ROJÃO
 new Foguete[MAX_PLAYERS];
-new Fumaca1[MAX_PLAYERS];
+/*new Fumaca1[MAX_PLAYERS];
 new Fumaca2[MAX_PLAYERS];
-new Luz[100][MAX_PLAYERS];
+new Luz[100][MAX_PLAYERS];*/
 new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX_PLAYERS];
 
 //Sistema de Barreira
@@ -6509,6 +6509,7 @@ public LoadDrugs()
 					case 7,8,9: DropInfo[IdArma][dObject] = CreateDynamicObject(-2302, DropInfo[IdArma][dX], DropInfo[IdArma][dY], DropInfo[IdArma][dZ], DropInfo[IdArma][dRX], DropInfo[IdArma][dRY], DropInfo[IdArma][dRZ], DropInfo[IdArma][dWorld],  DropInfo[IdArma][dInt]);
 					case 10,11,12: DropInfo[IdArma][dObject] = CreateDynamicObject(-2303, DropInfo[IdArma][dX], DropInfo[IdArma][dY], DropInfo[IdArma][dZ], DropInfo[IdArma][dRX], DropInfo[IdArma][dRY], DropInfo[IdArma][dRZ], DropInfo[IdArma][dWorld],  DropInfo[IdArma][dInt]);
 					case 13,14,15: DropInfo[IdArma][dObject] = CreateDynamicObject(-2303, DropInfo[IdArma][dX], DropInfo[IdArma][dY], DropInfo[IdArma][dZ], DropInfo[IdArma][dRX], DropInfo[IdArma][dRY], DropInfo[IdArma][dRZ], DropInfo[IdArma][dWorld],  DropInfo[IdArma][dInt]);
+					case 16: DropInfo[IdArma][dObject] = CreateDynamicObject(-2306, DropInfo[IdArma][dX], DropInfo[IdArma][dY], DropInfo[IdArma][dZ], DropInfo[IdArma][dRX], DropInfo[IdArma][dRY], DropInfo[IdArma][dRZ], DropInfo[IdArma][dWorld],  DropInfo[IdArma][dInt]);
 				}
 				totalarmas++;
 			}
@@ -20584,7 +20585,7 @@ COMMAND:dropar(playerid, params[])
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(ruim): %d",StrArm,PlayerDroga[playerid][MetR]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(bom): %d",StrArm,PlayerDroga[playerid][MetB]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(excelente): %d",StrArm,PlayerDroga[playerid][MetE]);
-		format(StrArm, sizeof(StrArm), "%s\nnLança Perfume: %d",StrArm,PlayerDroga[playerid][LancaPer]);
+		format(StrArm, sizeof(StrArm), "%s\nLança Perfume: %d",StrArm,PlayerDroga[playerid][LancaPer]);
 		Dialog_Show(playerid, Dialog_DropDrug, DIALOG_STYLE_LIST, "Dropar Droga", StrArm, "Selecionar", "Cancelar");
 	}
 	return 1;
@@ -20695,7 +20696,7 @@ Dialog:Dialog_DropDrug(playerid, response, listitem, inputtext[])
 	if(!response) return 1;
 
  	DropandoDrug[playerid] = listitem;
- 	Dialog_Show(playerid, Dialog_DropDrug2, DIALOG_STYLE_INPUT, "Dropar Droga", "Digite a quantidade a ser dropada.\n(Min: 2 / Max: 2000)", "Dropar", "Cancelar");
+ 	Dialog_Show(playerid, Dialog_DropDrug2, DIALOG_STYLE_INPUT, "Dropar Droga", "Digite a quantidade a ser dropada.\n(Min: 2 / Max: 5000)", "Dropar", "Cancelar");
 	return 1;
 }
 
@@ -20704,7 +20705,7 @@ Dialog:Dialog_DropDrug2(playerid, response, listitem, inputtext[])
     if(!response) return 1;
 
     new Quant = strval(inputtext);
-	if(Quant > 1 && Quant < 2001)
+	if(Quant > 1 && Quant < 5001)
 	{
 	    new str2[526];
 	    new Tipp = (DropandoDrug[playerid]+1);
@@ -20858,7 +20859,7 @@ Dialog:Dialog_DropDrug2(playerid, response, listitem, inputtext[])
 	}
 	else
 	{
-	    Dialog_Show(playerid, Dialog_DropDrug2, DIALOG_STYLE_INPUT, "Dropar Droga", "Digite a quantidade a ser dropada.\n(Min: 10 / Max: 1000)", "Dropar", "Cancelar");
+	    Dialog_Show(playerid, Dialog_DropDrug2, DIALOG_STYLE_INPUT, "Dropar Droga", "Digite a quantidade a ser dropada.\n(Min: 10 / Max: 5000)", "Dropar", "Cancelar");
 	}
 	return 1;
 }
@@ -20997,20 +20998,20 @@ public DropandoDroga(playerid,Ammo,Tipp)
 	SetPVarInt(playerid, "EditandoDrogaNoChao", i);
 	SaveDrogas(playerid);
 
-    format(string, sizeof(string), "[DROGAS] Você dropou um pacote com %d gramas de %s no chão.", Ammo, NomeAmmo);
+    format(string, sizeof(string), "[DROGAS] Você dropou um pacote com %dg/ml de %s no chão.", Ammo, NomeAmmo);
 	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 
 
 	if(PlayerInfo[playerid][pEmServico] == 1)
 	{
   		new strl[126];
-		format(strl, sizeof(strl), "[EM SERVIÇO] %s dropou um pacote com %d gramas de %s no chão.", PlayerName(playerid,0), Ammo, NomeAmmo);
+		format(strl, sizeof(strl), "[EM SERVIÇO] %s dropou um pacote com %dg/ml de %s no chão.", PlayerName(playerid,0), Ammo, NomeAmmo);
 		LogCMD_Dropar(strl);
 	}
 	else
 	{
 	    new strl[126];
-		format(strl, sizeof(strl), "%s dropou um pacote com %d gramas de %s no chão.", PlayerName(playerid,0), Ammo, NomeAmmo);
+		format(strl, sizeof(strl), "%s dropou um pacote com %dg/ml de %s no chão.", PlayerName(playerid,0), Ammo, NomeAmmo);
 		LogCMD_Dropar(strl);
 	}
 
@@ -37908,6 +37909,8 @@ COMMAND:gmx(playerid, params[])
 	GiveGMX();
 	return 1;
 }
+
+
 COMMAND:complexosint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -39129,6 +39132,7 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 		    	case 7,8,9: DrugModel = -2303;
 		    	case 10,11,12: DrugModel = -2304;
 		    	case 13,14,15: DrugModel = -2305;
+				case 16: DrugModel = -2306;
 		    }
 
 			DropInfo[id][dObject] = CreateDynamicObject(DrugModel, x, y, z, rx, ry, rz, DropInfo[id][dWorld],DropInfo[id][dInt]);
@@ -39826,7 +39830,6 @@ public CarregandoGoverno()
 
 
 	print("SERVER: Carregado com sucesso!");
-    //SendRconCommand("password 0");
 	return 1;
 }
 //============================================================================================================//
@@ -66664,16 +66667,15 @@ stock IsPlayerNearPlayer(playerid, targetid, Float:radius)
 }
 stock GiveGMX()
 {
-    SendRconCommand("password GMX134");
 	foreach(Player, i)
 	{
 		if(IsPlayerConnected(i) && !IsPlayerNPC(i))
 		{
-			SendClientMessage(i, COLOR_SYSBLUE, "[========================================[GMX]========================================]");
+			SendClientMessage(i, COLOR_LIGHTRED, "[========================================[GMX]========================================]");
 			SendClientMessage(i, COLOR_ESPECIAL1, "O servidor sofrerá um GMX em instantes. Para evitar que você tome rollback, deslogue.");
 			SendClientMessage(i, COLOR_ESPECIAL2, "Caso deseje, tire uma SS do seu /stats AGORA.");
 			SendClientMessage(i, COLOR_ESPECIAL1, "O servidor será reiniciado (e você kickado) em trinta segundos...");
-			SendClientMessage(i, COLOR_SYSBLUE, "[=====================================================================================]");
+			SendClientMessage(i, COLOR_LIGHTRED, "[=====================================================================================]");
 			SalvarPlayer(i);
 		}
 		if (IsPlayerNPC(i)) Kick(i);
@@ -66687,9 +66689,10 @@ public GMXA()
 	{
 		if(IsPlayerConnected(i))
 		{
-			SendClientMessage(i, COLOR_SYSBLUE, "[========================================[GMX]========================================]");
-			SendClientMessage(i, COLOR_ESPECIAL1, "O servidor sofrerá um GMX AGORA. Você será KICKADO.");
-			SendClientMessage(i, COLOR_SYSBLUE, "[=====================================================================================]");
+			SendClientMessage(i, COLOR_YELLOW, "_________[GMX]_________");
+			SendClientMessage(i, COLOR_YELLOW, "Reiniciando servidor...");
+			SendClientMessage(i, COLOR_YELLOW, "_______________________");
+
 			Kick(i);
 		}
 	}
@@ -71465,7 +71468,7 @@ CMD:drogas(playerid, params[])
 		}
 
 	    new drogaid = strval(nomedroga);
-	    if(drogaid < 1 || drogaid > 20) return SendClientMessage(playerid, COLOR_LIGHTRED, "ID da droga inválido.");
+	    if(drogaid < 1 || drogaid > 21) return SendClientMessage(playerid, COLOR_LIGHTRED, "ID da droga inválido.");
 		if(ammount < 1 || ammount > 5000) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode entregar mais de 5000g de uma só vez.");
         if(!PlayerInfo[other][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode entregar drogas a este player.");
         if(!IsPlayerConnected(other)) { SendClientMessageA(playerid,COLOR_LIGHTRED,"Este jogador não está conectado"); return 1; }
@@ -78504,10 +78507,10 @@ COMMAND:rojao(playerid, params[])
 	/*ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 1.0, 0, 0, 0, 0, 0);*/
 
 
-	Foguete[playerid] = CreateDynamicObject(354, X, Y,(Z), 0, 0, 0);
+	/*Foguete[playerid] = CreateDynamicObject(354, X, Y,(Z), 0, 0, 0);
 
 	Fumaca1[playerid] = CreateDynamicObject(2780, X, Y, (Z), 0, 0, 0);
-	Fumaca2[playerid] = CreateDynamicObject(18728, X, Y, (Z), 0, 0, 0);
+	Fumaca2[playerid] = CreateDynamicObject(18728, X, Y, (Z), 0, 0, 0);*/
 
 	foreach(Player, i)
 	{
@@ -78517,9 +78520,9 @@ COMMAND:rojao(playerid, params[])
 		}
 	}
 
-	MoveDynamicObject(Foguete[playerid], X, Y, Z + 20, 10);
+	/*MoveDynamicObject(Foguete[playerid], X, Y, Z + 20, 10);
 	MoveDynamicObject(Fumaca1[playerid], X, Y, Z + 20, 10);
-	MoveDynamicObject(Fumaca2[playerid], X, Y, Z + 20, 10);
+	MoveDynamicObject(Fumaca2[playerid], X, Y, Z + 20, 10);*/
 
 	SetTimerEx("LancarFoguete", 2500, 0, "i", playerid);
 
@@ -78527,12 +78530,12 @@ COMMAND:rojao(playerid, params[])
 	{
 		if(IsPlayerConnected(i) && IsPlayerInRangeOfPoint(i, 180.0, X, Y, Z))
 		{
-			PlayAudioStreamForPlayer(i, "https://progressive-roleplay.com/midia/fogo.mp3", X, Y, Z, 150.0, 1);
+			PlayAudioStreamForPlayer(i, "https://progressive-roleplay.com/midia/fogo.mp3", X, Y, Z, 500.0, 1);
 		}
 	}
 	new stringfogos1[128];
 	format(stringfogos1, sizeof(stringfogos1), "* Sons de fogos e rojões são escutados nas próximidades *");
-	ProxDetector(300.0, playerid, stringfogos1, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	ProxDetector(500.0, playerid, stringfogos1, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 	SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /rojao.", PlayerName(playerid, 0));
 	new strl[126];
@@ -78564,16 +78567,16 @@ public EstourarFoguete1(playerid)
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]-(0+(random(3))),FogueteZ[playerid]-(0+(random(3))), 12, 0);
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]+(0+(random(3))),FogueteZ[playerid]-(0+(random(3))), 12, 0);
 	//
-	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
-	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
-	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-5, 12, 0);
-	CreateExplosion(FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
-	CreateExplosion(FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
+	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-10, 12, 0);
+	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-10, 12, 0);
+	CreateExplosion(FogueteX[playerid]-(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-10, 12, 0);
+	CreateExplosion(FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-10, 12, 0);
+	CreateExplosion(FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-10, 12, 0);
 	CreateExplosion(FogueteX[playerid]+(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-5, 12, 0);
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
 
-	Luz[1][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
+	/*Luz[1][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
 	Luz[2][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
 	Luz[3][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-5, 0, 0,0);
 	Luz[4][playerid] = CreateDynamicObject(354,FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
@@ -78601,11 +78604,11 @@ public EstourarFoguete1(playerid)
 	SetTimerEx("EstourarFoguete2", 100, false, "i", playerid);
 	DestroyDynamicObject(Foguete[playerid]);
 	DestroyDynamicObject(Fumaca1[playerid]);
-	DestroyDynamicObject(Fumaca2[playerid]);
+	DestroyDynamicObject(Fumaca2[playerid]);*/
 	return 1;
 }
 
-forward EstourarFoguete2(playerid);
+/*forward EstourarFoguete2(playerid);
 public EstourarFoguete2(playerid)
 {
 	new Float:X,Float:Y,Float:Z;
@@ -78798,7 +78801,7 @@ public DestruirLuzes(playerid)
 	DestroyDynamicObject(Fumaca1[playerid]);
 	DestroyDynamicObject(Fumaca2[playerid]);
 	return 1;
-}
+}*/
 
 forward AbaixarMao(playerid);
 public AbaixarMao(playerid)
