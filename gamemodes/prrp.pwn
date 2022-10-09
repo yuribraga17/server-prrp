@@ -7555,7 +7555,7 @@ public Timer_Minutos()
 	//Leasing System
 	if((hour == 21 && mins == 00) && !strcmp(GetWeekDay(), "Domingo", false))
 	{
-	        print("|- Cobrando Leasing das empresas");
+	        print("|- Cobrando Leasing das empresas -|");
 			for(new i; i < MAX_EMPRESAS; i++)
 		    {
 		        if(EmpInfo[i][eCriada]){
@@ -7564,7 +7564,7 @@ public Timer_Minutos()
 				            EmpInfo[i][eBank] -= EmpInfo[i][eLeasing];
 				        }
 				        else {
-				            printf("|- Empresa: [%d] %s - Vendida por falta de dinheiro no cofre.", EmpInfo[i][eID], EmpInfo[i][eNome]);
+				            printf("|- Empresa: [%d] %s - Vendida por falta de dinheiro no cofre. -|", EmpInfo[i][eID], EmpInfo[i][eNome]);
 
 							EmpInfo[i][eDono] = 0;
 							EmpInfo[i][eAVenda] = 1;
@@ -11112,6 +11112,9 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//16BPM
+	RemoveBuildingForPlayer(playerid, 616, 2528.709, -1556.680, 21.468, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 2510.560, -1563.479, 21.804, 0.250);
 	//favela LC
 	RemoveBuildingForPlayer(playerid, 714, 2588.250, -1090.015, 66.046, 0.250);
 	RemoveBuildingForPlayer(playerid, 3656, 2620.640, -1068.906, 71.382, 0.250);
@@ -11876,6 +11879,89 @@ public CheckingAccount(playerid)
 {
 	LimparChat(playerid);
 
+	InterpolateCameraPos(playerid, 2482.030517, -1100.739501, 52.487133, 2482.030517, -1100.739501, 52.487133, GetSeconds(60), CAMERA_MOVE);
+	InterpolateCameraLookAt(playerid, 2477.113769, -1099.987792, 51.976806, 2477.113769, -1099.987792, GetSeconds(60), CAMERA_MOVE);
+	
+	new rows, fields;
+	cache_get_data(rows, fields, Pipeline);
+	if(rows)
+	{
+		LoginSeconds[playerid] = 60;
+		TelaDeLogin[playerid] = 1;
+		new tmp[130];
+  		cache_get_field_content(0, "ID", tmp); 			PlayerInfo[playerid][pID] = strval(tmp);
+		cache_get_field_content(0, "Password", tmp);	format(PlayerInfo[playerid][pPassword], 129, "%s", tmp);
+		
+		new JaEstaOn = 0;
+		for(new di = 0; di < MAX_PLAYERS; di++)
+		{
+		    if(IsPlayerConnected(di))
+        	{
+			    if(playerid != di)
+			    {
+			    	if(PlayerInfo[playerid][pID] == PlayerInfo[di][pID])
+			    	{
+			        	JaEstaOn = 1;
+						break;
+					}
+			    }
+			}
+		}
+		
+		if(JaEstaOn == 0) {
+		    new escapedPlayerName[MAX_PLAYER_NAME];
+		    mysql_real_escape_string(GetName(playerid), escapedPlayerName);
+			new str[250];
+			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
+			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+		}
+		else if(JaEstaOn == 1) {
+		    new strdebug[56];
+			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
+			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+		}
+		else {
+		    new strdebug[56];
+		    new pppid = (JaEstaOn-100);
+			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
+			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
+			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
+		}
+	}
+	else
+	{
+	    new str[256];
+		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor se registre-se.", GetName(playerid));
+  		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
+	}
+	return 1;
+}
+
+/*forward CheckingAccount(playerid); //ucp
+public CheckingAccount(playerid)
+{
+	LimparChat(playerid);
+
     TogglePlayerControllable(playerid,false);
 	SetPlayerPos(playerid, 1741.3394, -1875.1597, 13.5859);
 	
@@ -11955,8 +12041,8 @@ public CheckingAccount(playerid)
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 
-		/*format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
-  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");*/
+		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
+  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -11967,7 +12053,7 @@ public CheckingAccount(playerid)
 	}
 	return 1;
 
-}
+}*/
 
 forward PlayerConectCriarTexts(playerid);
 public PlayerConectCriarTexts(playerid)
@@ -13879,11 +13965,11 @@ public OnPlayerText(playerid, text[])
 					        format(AnuncioLista[anid][AnuncioPor], 24, "%s", PlayerName(playerid, 0));
 					        format(AnuncioLista[anid][AnuncioMsg], 162, "[Anúncio] %s", text);
 
-					        SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio]-----|");
-					   		format(string,sizeof(string),"Número de Caracteres: %d",strlen(text));
+					        SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio - Rio de Janeiro]-----|");
+					   		format(string,sizeof(string),"Número de Caracteres: %d.",strlen(text));
 					   		SendClientMessage(playerid,COLOR_WHITE,string);
-					   		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere");
-							format(string,sizeof(string),"Total: R$%d",price);
+					   		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere.");
+							format(string,sizeof(string),"Total: R$%d.",price);
 							SendClientMessage(playerid,COLOR_WHITE,string);
 							format(string,sizeof(string),"Existem %d anuncios na frente do seu. Ele será enviado em breve.",fila);
 							SendClientMessage(playerid,COLOR_WHITE,string);
@@ -13945,10 +14031,10 @@ public OnPlayerText(playerid, text[])
 					        format(AnuncioLista[anid][AnuncioMsg], 162, "[Anúncio] %s, Telefone: %s", text, playernum);
 
 					        SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio — Rio de Janeiro]-----|");
-					   		format(string,sizeof(string),"Número de Caracteres: %d",strlen(text));
+					   		format(string,sizeof(string),"Número de Caracteres: %d.",strlen(text));
 					   		SendClientMessage(playerid,COLOR_WHITE,string);
-					   		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere");
-							format(string,sizeof(string),"Total: R$%d",price);
+					   		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere.");
+							format(string,sizeof(string),"Total: R$%d.",price);
 							SendClientMessage(playerid,COLOR_WHITE,string);
 							format(string,sizeof(string),"Existem %d anuncios na frente do seu. Ele será enviado em breve.",fila);
 							SendClientMessage(playerid,COLOR_WHITE,string);
@@ -17167,13 +17253,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        PlayerInfo[playerid][pGrana] += valor;
 
 		        SendClientMessage(playerid,COLOR_WHITE,"|-----Extrato Bancário-----|");
-				format(string,sizeof(string),"Quantia sacada: R$%d",valor);
+				format(string,sizeof(string),"Quantia sacada: R$%d.",valor);
 				SendClientMessage(playerid,COLOR_WHITE,string);
 				//format(string,sizeof(string),"Taxa: %d% | Taxa liquida: %d",taxa, total);
 			    //SendClientMessage(playerid, COLOR_WHITE, string);
 				//format(string,sizeof(string),"Taxas: R$%d",total);
 				//SendClientMessage(playerid,COLOR_WHITE,string);
-				format(string,sizeof(string),"Novo saldo: R$%d",PlayerInfo[playerid][pBanco]);
+				format(string,sizeof(string),"Novo saldo: R$%d.",PlayerInfo[playerid][pBanco]);
 				SendClientMessage(playerid,COLOR_WHITE,string);
 				SendClientMessage(playerid,COLOR_WHITE,"|-----Extrato Bancário-----|");
                 return 1;
@@ -18453,6 +18539,40 @@ forward CreateUser(playerid);
 public CreateUser(playerid)
 {
     PlayerInfo[playerid][pID] = cache_insert_id();
+    printf("[NEW] Novo player registrado: %s (%d) | DB ID: %d", PlayerName(playerid,0), playerid, PlayerInfo[playerid][pID]);
+
+	new strl[126];
+	format(strl, sizeof(strl), "%s registrou-se no servidor. [DB: %d]", PlayerName(playerid,0), PlayerInfo[playerid][pID]);
+	RegLog(strl);
+
+    PlayerInfo[playerid][pLogado] = 1;
+    PlayerInfo[playerid][pLogouAgr] = 1;//Alterar
+    PlayerInfo[playerid][pPos][0] = 1742.2247; //Alterar para spawn em Los Santos
+    PlayerInfo[playerid][pPos][1] = -1858.8806;
+    PlayerInfo[playerid][pPos][2] = 13.4140;
+    PlayerInfo[playerid][pInterior] = 0;
+    PlayerInfo[playerid][pWorld] = 0;
+    PlayerInfo[playerid][pPayDay] = 60;
+    PlayerInfo[playerid][pGrana] = 2500;
+	PlayerInfo[playerid][pBanco] = 5000;
+    TogSQLstatus(playerid, 1);
+
+    StopAudioStreamForPlayer(playerid);
+
+	SetPlayerPos(playerid, 1742.2247,-1858.8806,13.4140);
+	TogglePlayerControllable(playerid, 0);
+	SetPlayerCameraPos(playerid, 1808.8971, -1754.5114, 56.6778);
+	SetPlayerCameraLookAt(playerid, 1809.8999, -1754.5228, 56.3977);
+	SetPlayerInterior(playerid, 0);
+	SetPlayerVirtualWorld(playerid, 0);
+	Dialog_Show(playerid, Dialog_Genero, DIALOG_STYLE_LIST, "Selecione seu genêro", "Masculino\nFeminino", "Selecionar", "");
+	return 1;
+}
+
+/*forward CreateUser(playerid); //ucp
+public CreateUser(playerid)
+{
+    PlayerInfo[playerid][pID] = cache_insert_id();
     printf("[NOVO] Novo player registrado: %s (%d) | DB ID: %d", PlayerName(playerid,0), playerid, PlayerInfo[playerid][pID]);
 
 	new strl[126];
@@ -18481,7 +18601,7 @@ public CreateUser(playerid)
 	SetPlayerVirtualWorld(playerid, 0);
 	Dialog_Show(playerid, Dialog_Genero, DIALOG_STYLE_LIST, "Selecione seu genêro", "Masculino\nFeminino", "Selecionar", "");
 	return 1;
-}
+}*/
 
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
@@ -23762,11 +23882,11 @@ CMD:anuncio(playerid, params[])
  		format(stringan, sizeof(stringan), "[Anúncio] %s, Telefone: %d", opt, CelularData[playerid][celNumero]);
 		EnviarAnuncioDePlayer(COLOR_LIGHTGREEN, stringan);
 
-		SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio]-----|");
-   		format(string,sizeof(string),"Número de Caracteres: %d",strlen(opt));
+		SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio - Rio de Janeiro]-----|");
+   		format(string,sizeof(string),"Número de Caracteres: %d.",strlen(opt));
    		SendClientMessage(playerid,COLOR_WHITE,string);
    		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere.");
-		format(string,sizeof(string),"Total: R$%d",price);
+		format(string,sizeof(string),"Total: R$%d.",price);
 		SendClientMessage(playerid,COLOR_WHITE,string);
 		GivePlayerMoneyCA(playerid, -price);
 		Anuncio = 15;
@@ -23806,11 +23926,11 @@ CMD:anuncioemp(playerid, params[])
 		EnviarAnuncioDePlayer(COLOR_LIGHTGREEN, string);
 
 
-		SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio]-----|");
-   		format(string,sizeof(string),"Número de Caracteres: %d",strlen(opt));
+		SendClientMessage(playerid,COLOR_WHITE,"|-----[Anúncio - Rio de Janeiro]-----|");
+   		format(string,sizeof(string),"Número de Caracteres: %d.",strlen(opt));
    		SendClientMessage(playerid,COLOR_WHITE,string);
    		SendClientMessage(playerid,COLOR_WHITE,"Taxa: R$1 por caractere.");
-		format(string,sizeof(string),"Total: R$%d",price);
+		format(string,sizeof(string),"Total: R$%d.",price);
 		SendClientMessage(playerid,COLOR_WHITE,string);
 		GivePlayerMoneyCA(playerid, -price);
 		Anuncio = 15;
@@ -24873,12 +24993,12 @@ COMMAND:depositar(playerid, params[])
 		        	PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-qnt;
 					
 					SendClientMessage(playerid, COLOR_LIGHTGREEN, "|___ EXTRATO BANCÁRIO ___|");
-					format(chatstr,sizeof(chatstr)," Balanço antigo: R$ %d", saldoAntigo);
+					format(chatstr,sizeof(chatstr)," Balanço antigo: R$ %d.", saldoAntigo);
 			    	SendClientMessage(playerid, COLOR_ADMDUTYOFF, chatstr);
-			    	format(chatstr,sizeof(chatstr)," Depósito: R$ %d", qnt);
+			    	format(chatstr,sizeof(chatstr)," Depósito: R$ %d.", qnt);
 			    	SendClientMessage(playerid, COLOR_PD2, chatstr);
 			    	SendClientMessage(playerid, COLOR_FINALDEPOSIT, "|-----------------------------------------|");
-			    	format(chatstr,sizeof(chatstr)," Novo balanço: R$ %d", PlayerInfo[playerid][pBanco]);
+			    	format(chatstr,sizeof(chatstr)," Novo balanço: R$ %d.", PlayerInfo[playerid][pBanco]);
 			    	SendClientMessage(playerid, COLOR_WHITE, chatstr);
 
 			    	new strl[126];
@@ -60715,7 +60835,7 @@ public PontodeEntregasCriado(bizid)
 	SalvarPontoEntrega(bizid);
 	Atualizar_PontoEntrega(bizid);
 
-	SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: Um admin criou um ponto de entrega, ID:%d.", PontoEntrega[bizid][emID]);
+	SendAdminAlert(COLOR_LIGHTRED, "[ADMIN]: Um admin criou um ponto de entrega, ID: %d.", PontoEntrega[bizid][emID]);
 
 	return 1;
 }
@@ -60893,7 +61013,7 @@ CMD:editarpe(playerid, params[])
   				if(PontoEntrega[i][emID] != 0) {
 	    			if(IsPlayerInRangeOfPoint(playerid,30.0, PontoEntrega[i][emX], PontoEntrega[i][emY], PontoEntrega[i][emZ])) {
     					new Float:Sinal = GetPlayerDistanceFromPoint(playerid, PontoEntrega[i][emX], PontoEntrega[i][emY], PontoEntrega[i][emZ]);
-					    format(string, sizeof(string), "|- ID: %d | Distancia: %.4f | Nome: %s", i, Sinal, PontoEntrega[i][emNome]);
+					    format(string, sizeof(string), "|- ID: %d | Distancia: %.4f | Nome: %s -|", i, Sinal, PontoEntrega[i][emNome]);
 					    SendClientMessage(playerid, COLOR_WHITE, string);
 					}
 				}
@@ -62880,11 +63000,11 @@ public PokerPulse(tableid)
 			// Pot
 	  		if(PokerTable[tableid][pkrDelay] > 0 && PokerTable[tableid][pkrActive] == 3)
 	  		{
-	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
+	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Holden");
 	      	}
 	  		else if(PokerTable[tableid][pkrActive] == 2)
 	  		{
-	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
+	    		if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Holden");
 	      	}
 	  		else if(PokerTable[tableid][pkrActive] == 3)
 	  		{
@@ -62909,7 +63029,7 @@ public PokerPulse(tableid)
 			}
 			else
 			{
-	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Poker");
+	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][37], "RJ Holden");
 	     	}
 			// Bet
 	  		if(PokerTable[tableid][pkrDelay] > 0 && PokerTable[tableid][pkrActive] == 3)
@@ -62934,7 +63054,7 @@ public PokerPulse(tableid)
 	   		}
 	   		else
 	   		{
-	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][46], "RJ Poker");
+	  			if(playerid != -1) PlayerTextDrawSetString(playerid, PlayerPokerUI[playerid][46], "RJ Holden");
 			}// Community Cards
 			switch(PokerTable[tableid][pkrStage])
 			{
@@ -64019,7 +64139,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawBoxColor(playerid, PlayerPokerUI[playerid][36], 50);
         PlayerTextDrawTextSize(playerid, PlayerPokerUI[playerid][36], 390.000000, 110.000000);
 
-        PlayerPokerUI[playerid][37] = CreatePlayerTextDraw(playerid, 318.000000, 191.000000, "RJ Poker");
+        PlayerPokerUI[playerid][37] = CreatePlayerTextDraw(playerid, 318.000000, 191.000000, "RJ Holden");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][37], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][37], -1);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][37], 2);
@@ -64081,7 +64201,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawTextSize(playerid, PlayerPokerUI[playerid][41], 10.000000, 36.000000);
         PlayerTextDrawSetSelectable(playerid, PlayerPokerUI[playerid][41], 1);
 
-        PlayerPokerUI[playerid][42] = CreatePlayerTextDraw(playerid, 590.000000, 400.000000, "PR:RP");
+        PlayerPokerUI[playerid][42] = CreatePlayerTextDraw(playerid, 590.000000, 400.000000, "2022");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][42], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][42], 255);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][42], 2);
@@ -64119,7 +64239,7 @@ CreatePokerGUI(playerid)
         PlayerTextDrawSetProportional(playerid, PlayerPokerUI[playerid][45], 1);
         PlayerTextDrawSetShadow(playerid, PlayerPokerUI[playerid][45], 1);
 
-        PlayerPokerUI[playerid][46] = CreatePlayerTextDraw(playerid, 318.000000, 245.000000, "RJ Poker");
+        PlayerPokerUI[playerid][46] = CreatePlayerTextDraw(playerid, 318.000000, 245.000000, "RJ Holden");
         PlayerTextDrawAlignment(playerid, PlayerPokerUI[playerid][46], 2);
         PlayerTextDrawBackgroundColor(playerid, PlayerPokerUI[playerid][46], -1);
         PlayerTextDrawFont(playerid, PlayerPokerUI[playerid][46], 2);
@@ -64381,10 +64501,10 @@ ShowCasinoGamesMenu(playerid, dialogid)
                                 new szString[128];
                                 if(actualBet > GetPVarInt(playerid, "pkrChips")) {
                                         format(szString, sizeof(szString), "{FFFFFF}Tem certeza de que deseja pagar R$%d (All-In)?:", actualBet);
-                                        return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Poker - (Pagar)", szString, "All-In", "Cancelar");
+                                        return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Holden - (Pagar)", szString, "All-In", "Cancelar");
                                 }
                                 format(szString, sizeof(szString), "{FFFFFF}Tem certeza de que deseja pagar R$%d?:", actualBet);
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Poker - (Pagar)", szString, "Pagar", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESCALLPOKER, DIALOG_STYLE_MSGBOX, "{FFFFFF}RJ Holden - (Pagar)", szString, "Pagar", "Cancelar");
                         } else {
                                 SendClientMessage(playerid, COLOR_WHITE, "DEALER: Você não tem fundos para pagar.");
                                 new noFundsSoundID[] = {5823, 5824, 5825};
@@ -64403,13 +64523,13 @@ ShowCasinoGamesMenu(playerid, dialogid)
                                 SetPVarInt(playerid, "pkrActionChoice", 1);
                                 new szString[128];
                                 format(szString, sizeof(szString), "{FFFFFF}Quanto você quer apostar? (R$%d-R$%d):", PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2, GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips"));
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Poker - (Apostar)", szString, "Apostar", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Holden - (Apostar)", szString, "Apostar", "Cancelar");
                         } else if(GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips") == PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2) {
                                 SetPVarInt(playerid, "pkrActionChoice", 1);
 
                                 new szString[128];
                                 format(szString, sizeof(szString), "{FFFFFF}Quanto você quer apostar? (All-In):", PokerTable[tableid][pkrActiveBet]+PokerTable[tableid][pkrBlind]/2, GetPVarInt(playerid, "pkrCurrentBet")+GetPVarInt(playerid, "pkrChips"));
-                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Poker - (Apostar)", szString, "All-In", "Cancelar");
+                                return ShowPlayerDialog(playerid, DIALOG_CGAMESRAISEPOKER, DIALOG_STYLE_INPUT, "{FFFFFF}RJ Holden - (Apostar)", szString, "All-In", "Cancelar");
                         } else {
                                 SendClientMessage(playerid, COLOR_WHITE, "DEALER: Você não tem fundos para pagar.");
                                 new noFundsSoundID[] = {5823, 5824, 5825};
@@ -66530,13 +66650,13 @@ Dialog:Dialog_Genero(playerid, response, listitem, inputtext[])
 	    	case 0:
 	    	{
     			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Personagem] Certo, seu personagem é um Homem.");
-				//ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com a idade de seu personagem.", "Proximo", "Cancelar");
+				ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com a idade de seu personagem.", "Proximo", "Cancelar");
 				PlayerInfo[playerid][pGender] = 1;
 			}
 			case 1:
 			{
 			    SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Personagem] Certo, seu personagem é uma Mulher.");
-				//ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com a idade de seu personagem.", "Proximo", "Cancelar");
+				ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com a idade de seu personagem.", "Proximo", "Cancelar");
 				PlayerInfo[playerid][pGender] = 2;
 			}
 		}
@@ -73937,7 +74057,7 @@ CMD:destruircarro(playerid, params[])
 	new slot = GetVehicleSlot(GetPlayerVehicleID(playerid));
  	if(slot > -1)
  	{
-  		SCM(playerid, COLOR_LIGHTRED, "Este véiculo não pode ser excluido.");
+  		SCM(playerid, COLOR_LIGHTRED, "Este veículo não pode ser excluido.");
         return 1;
  	}
 	if(IsPlayerInAnyVehicle(playerid))
@@ -79832,7 +79952,7 @@ COMMAND:atorre(playerid, params[])
 					    new Float:Sinal = GetPlayerDistanceFromPoint(playerid, TorreData[i][torX], TorreData[i][torY], TorreData[i][torZ]);
 					    Sinal = TorreData[i][torSinal]-Sinal;
 
-					    format(str, sizeof(str), "|- Torre %d | Sinal: %.4f", i, Sinal);
+					    format(str, sizeof(str), "|- Torre %d | Sinal: %.4f -|", i, Sinal);
 					    SendClientMessage(playerid, COLOR_WHITE, str);
 					}
 				}
@@ -79984,7 +80104,7 @@ COMMAND:atelpub(playerid, params[])
 					    if(IsPlayerInRangeOfPoint(playerid,30.0,TelPublico[i][orX], TelPublico[i][orY], TelPublico[i][orZ]))
 						{
 						    new Float:Sinal = GetPlayerDistanceFromPoint(playerid, TelPublico[i][orX], TelPublico[i][orY], TelPublico[i][orZ]);
-						    format(str, sizeof(str), "|- Tel: %d | Distancia: %.4f | Número: 024-%.3s-%.3s", i, Sinal, TelPublico[i][orPrefixo], TelPublico[i][orNumero]);
+						    format(str, sizeof(str), "|- Tel: %d | Distancia: %.4f | Número: 024-%.3s-%.3s -|", i, Sinal, TelPublico[i][orPrefixo], TelPublico[i][orNumero]);
 						    SendClientMessage(playerid, COLOR_WHITE, str);
 						}
 					}

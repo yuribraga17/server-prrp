@@ -72,6 +72,9 @@ stock governamental(){
 	tmpobjid = CreateDynamicObject(3035, 1748.716064, -1537.378173, 13.031999, 0.000000, 0.000000, 270.000000, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(1331, 1748.090209, -1542.701049, 13.339275, 0.000000, 0.000000, -71.999992, -1, -1, -1, 300.00, 300.00); 
 	print("[CARREGADO] Mapa: 29ºDP Penha");
+	tmpobjid = CreateDynamicObject(-1600, 2527.567138, -1525.967041, 23.001110, 0.000000, 0.000000, 540.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(-1600, 2504.371093, -1525.967041, 23.000024, 360.000000, 540.000000, 900.000000, -1, -1, -1, 300.00, 300.00);
+	print("[CARREGADO] Mapa: 16ºBPM");
 	tmpobjid = CreateDynamicObject(-1039, 990.085876, -1450.085937, 12.833398, 0.000000, 0.000007, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 16093, "a51_ext", "alleydoor2", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 6284, "bev_law2", "lasjmposh2", 0x00000000);
