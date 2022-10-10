@@ -366,11 +366,11 @@ CMD:aceitarmorte(playerid,params[])
 
    			new tempomorto;
 
-			if(PlayerInfo[playerid][pDoador] == 1) tempomorto = 60;
-			else if(PlayerInfo[playerid][pDoador] == 2) tempomorto = 60;
-			else if(PlayerInfo[playerid][pDoador] == 3) tempomorto = 60;
-			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 300;
-			else tempomorto = 600;
+			if(PlayerInfo[playerid][pDoador] == 1) tempomorto = 5;
+			else if(PlayerInfo[playerid][pDoador] == 2) tempomorto = 5;
+			else if(PlayerInfo[playerid][pDoador] == 3) tempomorto = 5;
+			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 35;
+			else tempomorto = 65;
 
 			PlayerInfo[playerid][pTempoMorto] = gettime()+tempomorto;
 
@@ -673,20 +673,20 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 	  			case 0:
 				{
 	   				new Float:DanoSoco = SOCODANO;
-				    if(PlayerInfo[playerid][pForca] == 10) DanoSoco = DanoSoco+0.3;
-				    else if(PlayerInfo[playerid][pForca] == 20) DanoSoco = DanoSoco+0.5;
-				    else if(PlayerInfo[playerid][pForca] == 30) DanoSoco = DanoSoco+0.6;
-				    else if(PlayerInfo[playerid][pForca] == 40) DanoSoco = DanoSoco+0.7;
-				    else if(PlayerInfo[playerid][pForca] == 50) DanoSoco = DanoSoco+1.8;
-				    else if(PlayerInfo[playerid][pForca] == 60) DanoSoco = DanoSoco+1.9;
-				    else if(PlayerInfo[playerid][pForca] == 70) DanoSoco = DanoSoco+2.0;
-				    else if(PlayerInfo[playerid][pForca] == 80) DanoSoco = DanoSoco+2.1;
-				    else if(PlayerInfo[playerid][pForca] == 90) DanoSoco = DanoSoco+2.2;
-				    else if(PlayerInfo[playerid][pForca] == 100) DanoSoco = DanoSoco+10.0;
+				    if(PlayerInfo[playerid][pForca] == 10) DanoSoco = DanoSoco+0.1;
+				    else if(PlayerInfo[playerid][pForca] == 20) DanoSoco = DanoSoco+0.2;
+				    else if(PlayerInfo[playerid][pForca] == 30) DanoSoco = DanoSoco+0.4;
+				    else if(PlayerInfo[playerid][pForca] == 40) DanoSoco = DanoSoco+0.6;
+				    else if(PlayerInfo[playerid][pForca] == 50) DanoSoco = DanoSoco+0.8;
+				    else if(PlayerInfo[playerid][pForca] == 60) DanoSoco = DanoSoco+1.0;
+				    else if(PlayerInfo[playerid][pForca] == 70) DanoSoco = DanoSoco+1.2;
+				    else if(PlayerInfo[playerid][pForca] == 80) DanoSoco = DanoSoco+1.4;
+				    else if(PlayerInfo[playerid][pForca] == 90) DanoSoco = DanoSoco+1.6;
+				    else if(PlayerInfo[playerid][pForca] == 100) DanoSoco = DanoSoco+1.8;
 
-					if(PlayerInfo[playerid][pUsouDroga] == 51) DanoSoco = DanoSoco+1.2;
-	    			else if(PlayerInfo[playerid][pUsouDroga] == 52) DanoSoco = DanoSoco+1.8;
-	   				else if(PlayerInfo[playerid][pUsouDroga] == 53) DanoSoco = DanoSoco+3.0;
+					if(PlayerInfo[playerid][pUsouDroga] == 51) DanoSoco = DanoSoco+2.0;
+	    			else if(PlayerInfo[playerid][pUsouDroga] == 52) DanoSoco = DanoSoco+2.2;
+	   				else if(PlayerInfo[playerid][pUsouDroga] == 53) DanoSoco = DanoSoco+2.4;
 					Damage = DanoSoco; //soco
 					format(StringDamage,sizeof StringDamage,"%.1f\t%s\t%s\tnão - %d:%d", Damage, GunNames[weaponid], BodyName(bodypart), hour, mins);
 					ProxDamage(damagedid, StringDamage);
