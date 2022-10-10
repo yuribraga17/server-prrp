@@ -74,10 +74,10 @@ new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
 new ambiente = 0; // 0  - Localhost 1 - Produção
 
-#define localhost_Connection   "177.54.147.212"
-#define localhost_User         "yurib_1439"
-#define localhost_DB           "yurib_1439"
-#define localhost_Password     "HnEifnLfQk"
+#define localhost_Connection   "198.50.187.244"
+#define localhost_User         "yurib_6948"
+#define localhost_DB           "yurib_6948"
+#define localhost_Password     "LyGuG8ncYh"
 
 #define sz_Connection   "localhost"
 #define sz_User         "root"
@@ -10629,7 +10629,7 @@ public OnPlayerConnect(playerid)
     //if(LoginTimer[playerid]) KillTimer(LoginTimer[playerid]);
 	TelaDeLogin[playerid] = 0;
 
-    PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/intro.mp3");
+    //PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/intro.mp3");
 
     //GetPlayerHost(playerid);
 
@@ -13056,7 +13056,7 @@ public OnPlayerSpawn(playerid){
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.54, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão final e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão alfa e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthDate] == 0)
                         SCM(playerid, COLOR_LIGHTRED, "O campo de nascimentonão foi preenchido, use /setarnascimento para preenche-lo.");*/
@@ -16353,7 +16353,7 @@ public OnPlayerUpdate_Timer()
       					format(sspeed, sizeof(sspeed), "%.0f km/h", final_speed);
      					PlayerTextDrawSetString(playerid, Speedo[playerid], sspeed);
 					}
-					if(final_speed > 180.0)
+					if(final_speed > 150.0)
 				   	{
 				  		TogglePlayerControllable(playerid, false);
 					   	format(string, sizeof(string), "AdmWarn: O ANTI-CHEAT detectou que %s(%d) pode estar de Speed Hack.", PlayerName(playerid,0), playerid);

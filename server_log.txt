@@ -4662,3 +4662,1869 @@ v0.3.DL-R1, (C)2005-2018 SA-MP Team
 [21:43:21] [artwork:crc] bsimples.txd CRC = 0xB9643631
 [21:43:21] [artwork:crc] bolsanikelateral.dff CRC = 0x82FA00BC
 [21:43:21] [artwork:crc] bolsanikelateral.txd CRC = 0x3D42A41A
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.DL-R1, (C)2005-2018 SA-MP Team
+
+[16:57:20] filterscripts = ""  (string)
+[16:57:20] 
+[16:57:20] Server Plugins
+[16:57:20] --------------
+[16:57:20]  Loading plugin: streamer
+[16:57:22] 
+
+*** Streamer Plugin v2.9.2 by Incognito loaded ***
+
+[16:57:22]   Loaded.
+[16:57:22]  Loading plugin: sscanf
+[16:57:24] 
+
+[16:57:24]  ===============================
+
+[16:57:24]       sscanf plugin loaded.     
+
+[16:57:24]          Version:  2.8.1        
+
+[16:57:24]    (c) 2012 Alex "Y_Less" Cole  
+
+[16:57:24]  ===============================
+
+[16:57:24]   Loaded.
+[16:57:24]  Loading plugin: mysql
+[16:57:24]  >> plugin.mysql: R39-5 successfully loaded.
+[16:57:24]   Loaded.
+[16:57:24]  Loading plugin: Whirlpool
+[16:57:24]  
+[16:57:24]  ==================
+[16:57:24]  
+[16:57:24]   Whirlpool loaded
+[16:57:24]  
+[16:57:24]  ==================
+[16:57:24]  
+[16:57:24]   Loaded.
+[16:57:24]  Loading plugin: ColAndreas
+[16:57:25] *********************
+[16:57:25] ** Created By:     **
+[16:57:25] ** [uL]Chris42O    **
+[16:57:25] ** [uL]Slice       **
+[16:57:25] ** [uL]Pottus      **
+[16:57:25] *********************
+[16:57:25] No collision data found.
+[16:57:25] *********************
+[16:57:25]   ColAndreas Loaded
+[16:57:25]    v1.4.0
+[16:57:25] *********************
+[16:57:25]   Loaded.
+[16:57:25]  Loading plugin: dns
+[16:57:25] 
+
+*** DNS Plugin v2.4 by Incognito loaded ***
+
+[16:57:25]   Loaded.
+[16:57:25]  Loading plugin: filemanager
+[16:57:25] ******************
+[16:57:25] ** FILE MANAGER **
+[16:57:25] **    Loaded    **
+[16:57:25] ** Version 1.5 **
+[16:57:25] ******************
+[16:57:25]   Loaded.
+[16:57:25]  Loading plugin: crashdetect
+[16:57:26]   CrashDetect must be loaded before 'streamer.DLL'
+[16:57:26]   Failed.
+[16:57:26]  Loaded 7 plugins.
+
+[16:57:26] [artwork:crc] skin.dff CRC = 0xC33384E5
+[16:57:26] [artwork:crc] skin.txd CRC = 0x94857979
+[16:57:26] [artwork:crc] skin2.dff CRC = 0x226AF292
+[16:57:26] [artwork:crc] skin2.txd CRC = 0x1EBB3F42
+[16:57:26] [artwork:crc] skin3.dff CRC = 0x883BFAF6
+[16:57:26] [artwork:crc] skin3.txd CRC = 0x818B15C5
+[16:57:26] [artwork:crc] skin4.dff CRC = 0x3D29A175
+[16:57:26] [artwork:crc] skin4.txd CRC = 0xE99012CC
+[16:57:26] [artwork:crc] skin5.dff CRC = 0xF652E175
+[16:57:26] [artwork:crc] skin5.txd CRC = 0x75E2858B
+[16:57:26] [artwork:crc] skin6.dff CRC = 0xB6024E3F
+[16:57:26] [artwork:crc] skin6.txd CRC = 0x21C13E3A
+[16:57:26] [artwork:crc] skin7.dff CRC = 0xAD85C343
+[16:57:26] [artwork:crc] skin7.txd CRC = 0x58491ED9
+[16:57:26] [artwork:crc] skin8.dff CRC = 0x4FDB474F
+[16:57:27] [artwork:crc] skin8.txd CRC = 0x6A9DC132
+[16:57:27] [artwork:crc] fem.dff CRC = 0xF5DEA6D9
+[16:57:27] [artwork:crc] fem.txd CRC = 0xE00589AB
+[16:57:27] [artwork:crc] fem1.dff CRC = 0xF5DEA6D9
+[16:57:27] [artwork:crc] fem1.txd CRC = 0x824644A7
+[16:57:27] [artwork:crc] fem2.dff CRC = 0xF5DEA6D9
+[16:57:27] [artwork:crc] fem2.txd CRC = 0xED639831
+[16:57:27] [artwork:crc] fem3.dff CRC = 0x34C12077
+[16:57:27] [artwork:crc] fem3.txd CRC = 0x6A6D6D15
+[16:57:27] [artwork:crc] fem4.dff CRC = 0x9B35D750
+[16:57:27] [artwork:crc] fem4.txd CRC = 0x52D9CB35
+[16:57:27] [artwork:crc] fem5.dff CRC = 0xCAE7C561
+[16:57:27] [artwork:crc] fem5.txd CRC = 0x8560FEA5
+[16:57:27] [artwork:crc] fem6.dff CRC = 0x41D3059C
+[16:57:27] [artwork:crc] fem6.txd CRC = 0x761C5A52
+[16:57:27] [artwork:crc] fem7.dff CRC = 0x9B35D750
+[16:57:27] [artwork:crc] fem7.txd CRC = 0x3E51B310
+[16:57:27] [artwork:crc] fem8.dff CRC = 0x9B35D750
+[16:57:27] [artwork:crc] fem8.txd CRC = 0xB41C773D
+[16:57:27] [artwork:crc] fem9.dff CRC = 0x9B35D750
+[16:57:27] [artwork:crc] fem9.txd CRC = 0x399DA4BF
+[16:57:27] [artwork:crc] fem10.dff CRC = 0x9B35D750
+[16:57:27] [artwork:crc] fem10.txd CRC = 0xA3B6BED9
+[16:57:27] [artwork:crc] fem11.dff CRC = 0xCAE7C561
+[16:57:27] [artwork:crc] fem11.txd CRC = 0x5B7419E5
+[16:57:28] [artwork:crc] fem12.dff CRC = 0x9B35D750
+[16:57:28] [artwork:crc] fem12.txd CRC = 0xA7202A87
+[16:57:28] [artwork:crc] fem13.dff CRC = 0x1D6F7DB5
+[16:57:28] [artwork:crc] fem13.txd CRC = 0xACA11ED2
+[16:57:28] [artwork:crc] fem14.dff CRC = 0xA0726ABF
+[16:57:28] [artwork:crc] fem14.txd CRC = 0xAECDAC5A
+[16:57:28] [artwork:crc] fem15.dff CRC = 0x91B3F86
+[16:57:28] [artwork:crc] fem15.txd CRC = 0xEF098689
+[16:57:28] [artwork:crc] fem16.dff CRC = 0x32F50B60
+[16:57:28] [artwork:crc] fem16.txd CRC = 0x8103CE81
+[16:57:28] [artwork:crc] fem17.dff CRC = 0x418F583D
+[16:57:28] [artwork:crc] fem17.txd CRC = 0x41AD0C2C
+[16:57:28] [artwork:crc] fem18.dff CRC = 0x4E29E075
+[16:57:28] [artwork:crc] fem18.txd CRC = 0x6654226B
+[16:57:28] [artwork:crc] fem19.dff CRC = 0x6F58AF5F
+[16:57:28] [artwork:crc] fem19.txd CRC = 0x447F152B
+[16:57:28] [artwork:crc] fem20.dff CRC = 0xEF22A886
+[16:57:28] [artwork:crc] fem20.txd CRC = 0x32C2038F
+[16:57:28] [artwork:crc] fem21.dff CRC = 0xE3156601
+[16:57:28] [artwork:crc] fem21.txd CRC = 0x6BB6B454
+[16:57:28] [artwork:crc] fem22.dff CRC = 0x1827F432
+[16:57:28] [artwork:crc] fem22.txd CRC = 0xC2025BDA
+[16:57:28] [artwork:crc] fem23.dff CRC = 0xF1257F5B
+[16:57:28] [artwork:crc] fem23.txd CRC = 0x8FC6385E
+[16:57:28] [artwork:crc] pmerj.dff CRC = 0xAFBCD5CB
+[16:57:29] [artwork:crc] pmerj.txd CRC = 0x11EB541C
+[16:57:29] [artwork:crc] pmerj2.dff CRC = 0x5B5D1B38
+[16:57:29] [artwork:crc] pmerj2.txd CRC = 0x1DC131EA
+[16:57:29] [artwork:crc] pmerj3.dff CRC = 0x97B53A21
+[16:57:29] [artwork:crc] pmerj3.txd CRC = 0xB74E0D3A
+[16:57:29] [artwork:crc] pmerj4.dff CRC = 0xC12F2F32
+[16:57:29] [artwork:crc] pmerj4.txd CRC = 0x3FDB7234
+[16:57:29] [artwork:crc] pmerj5.dff CRC = 0x60E12C9
+[16:57:29] [artwork:crc] pmerj5.txd CRC = 0xA876904F
+[16:57:29] [artwork:crc] pmerj6.dff CRC = 0xBBB8ADC9
+[16:57:29] [artwork:crc] pmerj6.txd CRC = 0x4CBB67D5
+[16:57:29] [artwork:crc] pmerj7.dff CRC = 0xE4D91059
+[16:57:29] [artwork:crc] pmerj7.txd CRC = 0x36C2C571
+[16:57:29] [artwork:crc] pmerjf1.dff CRC = 0x92541F4E
+[16:57:29] [artwork:crc] pmerjf1.txd CRC = 0xEE636E2A
+[16:57:29] [artwork:crc] pmerjtf.dff CRC = 0x5866F28D
+[16:57:29] [artwork:crc] pmerjtf.txd CRC = 0x45FCCAA3
+[16:57:29] [artwork:crc] pmerjf3.dff CRC = 0xD647AD85
+[16:57:29] [artwork:crc] pmerjf3.txd CRC = 0xBF03E073
+[16:57:29] [artwork:crc] skindetreinamento.dff CRC = 0x2DB886F2
+[16:57:29] [artwork:crc] skindetreinamento.txd CRC = 0x4EFE61EC
+[16:57:30] [artwork:crc] skindetreinamento2.dff CRC = 0x761E95A6
+[16:57:30] [artwork:crc] skindetreinamento2.txd CRC = 0x370D1828
+[16:57:30] [artwork:crc] pmerjt.dff CRC = 0x4CC83507
+[16:57:30] [artwork:crc] pmerjt.txd CRC = 0xA73F8355
+[16:57:30] [artwork:crc] pmerjt2.dff CRC = 0x56E9500D
+[16:57:30] [artwork:crc] pmerjt2.txd CRC = 0x4EF3F5BA
+[16:57:30] [artwork:crc] pmerjt3.dff CRC = 0x2600057E
+[16:57:30] [artwork:crc] pmerjt3.txd CRC = 0xB496B2F4
+[16:57:30] [artwork:crc] pmerjt4.dff CRC = 0xD58C980C
+[16:57:30] [artwork:crc] pmerjt4.txd CRC = 0xE520D98E
+[16:57:30] [artwork:crc] pmerjt5.dff CRC = 0xC737806
+[16:57:30] [artwork:crc] pmerjt5.txd CRC = 0x49EB23A
+[16:57:30] [artwork:crc] pmerjt6.dff CRC = 0xF503009F
+[16:57:30] [artwork:crc] pmerjt6.txd CRC = 0x28BFB191
+[16:57:30] [artwork:crc] pmerjt7.dff CRC = 0xD096B3E3
+[16:57:30] [artwork:crc] pmerjt7.txd CRC = 0xFAB931FA
+[16:57:30] [artwork:crc] pmerjt8.dff CRC = 0x10D6BBE1
+[16:57:30] [artwork:crc] pmerjt8.txd CRC = 0xE96D6E10
+[16:57:31] [artwork:crc] delegadocivil.dff CRC = 0x593D4243
+[16:57:31] [artwork:crc] delegadocivil.txd CRC = 0x752A14BD
+[16:57:31] [artwork:crc] delegadocivil2.dff CRC = 0xEA9DFD8E
+[16:57:31] [artwork:crc] delegadocivil2.txd CRC = 0x42F366BC
+[16:57:31] [artwork:crc] investigadorcivil.dff CRC = 0x6A75F36
+[16:57:31] [artwork:crc] investigadorcivil.txd CRC = 0xE058790
+[16:57:31] [artwork:crc] investigadorcivil2.dff CRC = 0x9B65DACD
+[16:57:31] [artwork:crc] investigadorcivil2.txd CRC = 0xA69BC1D8
+[16:57:31] [artwork:crc] skinpcerj1.dff CRC = 0x52C49E2
+[16:57:31] [artwork:crc] skinpcerj1.txd CRC = 0x3D165B01
+[16:57:31] [artwork:crc] skinpcerj2.dff CRC = 0x699F809B
+[16:57:31] [artwork:crc] skinpcerj2.txd CRC = 0x520560C3
+[16:57:31] [artwork:crc] skinpcerj3.dff CRC = 0xE77E6B8
+[16:57:31] [artwork:crc] skinpcerj3.txd CRC = 0xA5500DA6
+[16:57:31] [artwork:crc] skinpcerj4.dff CRC = 0xC4129525
+[16:57:31] [artwork:crc] skinpcerj4.txd CRC = 0xA767E218
+[16:57:31] [artwork:crc] skinpcerj5.dff CRC = 0x12C2BEAC
+[16:57:32] [artwork:crc] skinpcerj5.txd CRC = 0xAC95234D
+[16:57:32] [artwork:crc] skinpcerj6.dff CRC = 0x6D16E452
+[16:57:32] [artwork:crc] skinpcerj6.txd CRC = 0xF13EABB9
+[16:57:32] [artwork:crc] skinpcerj7.dff CRC = 0xF3A72DEC
+[16:57:32] [artwork:crc] skinpcerj7.txd CRC = 0xF6D70DCF
+[16:57:32] [artwork:crc] skinfpcerj1.dff CRC = 0x2C88EB52
+[16:57:32] [artwork:crc] skinfpcerj1.txd CRC = 0xFCC66D6A
+[16:57:32] [artwork:crc] skinfpcerj2.dff CRC = 0x305A517D
+[16:57:32] [artwork:crc] skinfpcerj2.txd CRC = 0xECBBB8A7
+[16:57:32] [artwork:crc] skinfpcerj3.dff CRC = 0x305A517D
+[16:57:32] [artwork:crc] skinfpcerj3.txd CRC = 0x1DB37295
+[16:57:32] [artwork:crc] skinfpcerj4.dff CRC = 0x305A517D
+[16:57:32] [artwork:crc] skinfpcerj4.txd CRC = 0x5FD60640
+[16:57:33] [artwork:crc] skinfpcerj5.dff CRC = 0x305A517D
+[16:57:33] [artwork:crc] skinfpcerj5.txd CRC = 0xA5284F56
+[16:57:33] [artwork:crc] cbmloira.dff CRC = 0xA5F8922B
+[16:57:33] [artwork:crc] cbmloira.txd CRC = 0x61D0B64A
+[16:57:33] [artwork:crc] cbmmorena.dff CRC = 0xA5F8922B
+[16:57:33] [artwork:crc] cbmmorena.txd CRC = 0xE957E606
+[16:57:33] [artwork:crc] cbmnegra.dff CRC = 0xA5F8922B
+[16:57:33] [artwork:crc] cbmnegra.txd CRC = 0x58C013A0
+[16:57:33] [artwork:crc] cbmmoreno.dff CRC = 0xF1B08EA1
+[16:57:33] [artwork:crc] cbmmoreno.txd CRC = 0x5FD50C1B
+[16:57:33] [artwork:crc] cbmloiro.dff CRC = 0xF1B08EA1
+[16:57:33] [artwork:crc] cbmloiro.txd CRC = 0x62985199
+[16:57:33] [artwork:crc] cbmnegrojovem.dff CRC = 0x63333EB5
+[16:57:33] [artwork:crc] cbmnegrojovem.txd CRC = 0xA5EA1B0E
+[16:57:33] [artwork:crc] cbmnegroidoso.dff CRC = 0x5CAAAC3E
+[16:57:34] [artwork:crc] cbmnegroidoso.txd CRC = 0x529BDDE3
+[16:57:34] [artwork:crc] coletepmt.dff CRC = 0xA90DDD51
+[16:57:34] [artwork:crc] coletepmt.txd CRC = 0x168F409A
+[16:57:34] [artwork:crc] coletepmerj.dff CRC = 0x9FA53D02
+[16:57:34] [artwork:crc] coletepmerj.txd CRC = 0xE62777DB
+[16:57:34] [artwork:crc] coletepcerj.dff CRC = 0x9FA53D02
+[16:57:34] [artwork:crc] coletepcerj.txd CRC = 0x19E901D7
+[16:57:34] [artwork:crc] bonecore.dff CRC = 0xE74081F7
+[16:57:34] [artwork:crc] bonecore.txd CRC = 0xA7BC72A9
+[16:57:34] [artwork:crc] bonepmerj.dff CRC = 0x44ED80A3
+[16:57:34] [artwork:crc] bonepmerj.txd CRC = 0xC3A182C0
+[16:57:34] [artwork:crc] bodycam.dff CRC = 0xF9502800
+[16:57:34] [artwork:crc] bodycam.txd CRC = 0x1EBF9A6C
+[16:57:34] [artwork:crc] cone.dff CRC = 0xF711EDD9
+[16:57:34] [artwork:crc] cone.txd CRC = 0xDE86BF96
+[16:57:34] [artwork:crc] cavalete.dff CRC = 0x3A338AFC
+[16:57:34] [artwork:crc] cavalete.txd CRC = 0x6CC0C922
+[16:57:34] [artwork:crc] faixa.dff CRC = 0x7507B9AC
+[16:57:34] [artwork:crc] faixa.txd CRC = 0xC1ACA036
+[16:57:34] [artwork:crc] PatenteSD1.dff CRC = 0xD79713CD
+[16:57:34] [artwork:crc] PatenteSD1.txd CRC = 0x1C1746C5
+[16:57:34] [artwork:crc] PatenteCB2.dff CRC = 0xE7309DAA
+[16:57:34] [artwork:crc] PatenteCB2.txd CRC = 0x58F35F03
+[16:57:34] [artwork:crc] PatenteSGT3.dff CRC = 0xEC4739B5
+[16:57:34] [artwork:crc] PatenteSGT3.txd CRC = 0x58F35F03
+[16:57:34] [artwork:crc] PatenteSGT2.dff CRC = 0x4C1837C0
+[16:57:34] [artwork:crc] PatenteSGT2.txd CRC = 0x58F35F03
+[16:57:34] [artwork:crc] PatenteSGT1.dff CRC = 0x7C41C3FC
+[16:57:34] [artwork:crc] PatenteSGT1.txd CRC = 0x58F35F03
+[16:57:34] [artwork:crc] RadioMotorola.dff CRC = 0xAE250E95
+[16:57:34] [artwork:crc] RadioMotorola.txd CRC = 0xA536719F
+[16:57:34] [artwork:crc] CachorroUm.dff CRC = 0x2A4F1370
+[16:57:34] [artwork:crc] CachorroUm.txd CRC = 0x44F74611
+[16:57:34] [artwork:crc] CachorroDois.dff CRC = 0x2A4F1370
+[16:57:34] [artwork:crc] CachorroDois.txd CRC = 0x43B4E37A
+[16:57:34] [artwork:crc] CachorroTres.dff CRC = 0x2A4F1370
+[16:57:34] [artwork:crc] CachorroTres.txd CRC = 0x1861AF63
+[16:57:34] [artwork:crc] CachorroQuatro.dff CRC = 0x2A4F1370
+[16:57:35] [artwork:crc] CachorroQuatro.txd CRC = 0xF4504A40
+[16:57:35] [artwork:crc] boneobjeto1.dff CRC = 0xC82233C
+[16:57:35] [artwork:crc] boneobjeto1.txd CRC = 0xB81E24C1
+[16:57:35] [artwork:crc] boneobjeto2.dff CRC = 0xC82233C
+[16:57:35] [artwork:crc] boneobjeto2.txd CRC = 0xB81E24C1
+[16:57:35] [artwork:crc] boneobjeto3.dff CRC = 0xC82233C
+[16:57:35] [artwork:crc] boneobjeto3.txd CRC = 0x25EC71FD
+[16:57:35] [artwork:crc] boneobjeto4.dff CRC = 0xC82233C
+[16:57:35] [artwork:crc] boneobjeto4.txd CRC = 0x3D3821FC
+[16:57:35] [artwork:crc] coletebandido.dff CRC = 0x35333281
+[16:57:35] [artwork:crc] coletebandido.txd CRC = 0x7FCB75F7
+[16:57:35] [artwork:crc] coletecore.dff CRC = 0xB6AB6FB
+[16:57:35] [artwork:crc] coletecore.txd CRC = 0x26874B15
+[16:57:35] [artwork:crc] mochila1.dff CRC = 0x7198BBAD
+[16:57:35] [artwork:crc] mochila1.txd CRC = 0xAA488C0D
+[16:57:35] [artwork:crc] mochila2.dff CRC = 0xBA43DBFB
+[16:57:35] [artwork:crc] mochila2.txd CRC = 0xA55E4D43
+[16:57:35] [artwork:crc] mochila3.dff CRC = 0x36D7E922
+[16:57:35] [artwork:crc] mochila3.txd CRC = 0x31D6F73
+[16:57:35] [artwork:crc] mochila4.dff CRC = 0x49A9723A
+[16:57:35] [artwork:crc] mochila4.txd CRC = 0xB888188E
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet6.txd CRC = 0xF4B2FC93
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet7.txd CRC = 0xA69E81C3
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet11.txd CRC = 0x3ADE2234
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet12.txd CRC = 0xDB79DC67
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet15.txd CRC = 0xFAFD327C
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet16.txd CRC = 0x4E2FBC
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet19.txd CRC = 0xC6E81FEF
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet21.txd CRC = 0x7124984F
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet24.txd CRC = 0x4F271835
+[16:57:35] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:35] [artwork:crc] helmet1.txd CRC = 0xFCCAD90E
+[16:57:35] [artwork:crc] ifood.dff CRC = 0xAD546C14
+[16:57:35] [artwork:crc] ifood.txd CRC = 0x8AD5CCA2
+[16:57:35] [artwork:crc] ubereats.dff CRC = 0x64187DA5
+[16:57:35] [artwork:crc] ubereats.txd CRC = 0x7B16FAD9
+[16:57:35] [artwork:crc] bsimples.dff CRC = 0x246AB514
+[16:57:35] [artwork:crc] bsimples.txd CRC = 0xB9643631
+[16:57:35] [artwork:crc] bolsanikelateral.dff CRC = 0x82FA00BC
+[16:57:35] [artwork:crc] bolsanikelateral.txd CRC = 0x3D42A41A
+[16:57:36] [artwork:crc] PacoteMcDonalds.dff CRC = 0x7F3872D5
+[16:57:36] [artwork:crc] PacoteMcDonalds.txd CRC = 0xB1587374
+[16:57:36] [artwork:crc] maconhab.dff CRC = 0xBF46F2FF
+[16:57:36] [artwork:crc] maconhab.txd CRC = 0x68419BE
+[16:57:36] [artwork:crc] maconhar.dff CRC = 0xA0906971
+[16:57:36] [artwork:crc] maconhar.txd CRC = 0x13A26228
+[16:57:36] [artwork:crc] cocaina.dff CRC = 0x22B7B621
+[16:57:36] [artwork:crc] cocaina.txd CRC = 0xF84F4DF
+[16:57:36] [artwork:crc] crackr.dff CRC = 0x7260DE97
+[16:57:36] [artwork:crc] crackr.txd CRC = 0xEB7DC1B6
+[16:57:36] [artwork:crc] crackb.dff CRC = 0xAA6EDDA1
+[16:57:36] [artwork:crc] crackb.txd CRC = 0xEB7DC1B6
+[16:57:36] [artwork:crc] lsd.dff CRC = 0x6CB2980D
+[16:57:36] [artwork:crc] lsd.txd CRC = 0xB190FA30
+[16:57:36] [artwork:crc] lancaperfume.dff CRC = 0xD108D979
+[16:57:36] [artwork:crc] lancaperfume.txd CRC = 0x22D3BE23
+[16:57:36] [artwork:crc] atmbb.dff CRC = 0xB17F632C
+[16:57:36] [artwork:crc] atmbb.txd CRC = 0x69DCFA68
+[16:57:36] [artwork:crc] petrolpumpnew.dff CRC = 0x9E5AC69B
+[16:57:36] [artwork:crc] petrolpumpnew.txd CRC = 0x93533129
+[16:57:36] [artwork:crc] orelhao.dff CRC = 0x2CC18C13
+[16:57:36] [artwork:crc] orelhao.txd CRC = 0x39CA65AC
+[16:57:36] [artwork:crc] dp29.dff CRC = 0x5BFEF895
+[16:57:36] [artwork:crc] dp29.txd CRC = 0xE92438C7
+[16:57:36] [artwork:crc] 16bpm.dff CRC = 0x6A054CE
+[16:57:36] [artwork:crc] 16bpm.txd CRC = 0xA8FC87BA
+[16:57:36] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:57:36] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:36] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:57:36] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:36] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:57:36] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:36] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:57:36] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:36] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:57:36] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:57:37] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:37] [artwork:crc] lawrence1.dff CRC = 0x8F51FF50
+[16:57:37] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:37] [artwork:crc] lawrence2.dff CRC = 0x364941F9
+[16:57:37] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:37] [artwork:crc] lawrence3.dff CRC = 0x97427D97
+[16:57:37] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:37] [artwork:crc] lawrence4.dff CRC = 0xBAC5C171
+[16:57:37] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:37] [artwork:crc] lawrence5.dff CRC = 0x6E1A3848
+[16:57:37] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:37] [artwork:crc] comunidade.dff CRC = 0x909CE0A0
+[16:57:37] [artwork:crc] comunidade.txd CRC = 0x4F0743B
+[16:57:37] [artwork:crc] CBM.dff CRC = 0x137D9C2C
+[16:57:37] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:37] [artwork:crc] CBMfloor.dff CRC = 0x489CB0B4
+[16:57:37] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:37] [artwork:crc] CBMgate.dff CRC = 0x6A1CF2C0
+[16:57:37] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:38] [artwork:crc] cachaca.dff CRC = 0x5AC3118C
+[16:57:38] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:57:38] [artwork:crc] mesacachaca.dff CRC = 0xB76A4AB
+[16:57:38] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:57:38] [artwork:crc] patio.dff CRC = 0x51CE93A5
+[16:57:38] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:57:38] [artwork:crc] patiogate.dff CRC = 0xA1076387
+[16:57:38] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:57:38] [artwork:crc] rojao.dff CRC = 0x6F72D6BB
+[16:57:38] [artwork:crc] rojao.txd CRC = 0x6891CFE5
+[16:57:38] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:57:38] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:57:38] [artwork:crc] idlewood.dff CRC = 0x3917B73D
+[16:57:38] [artwork:crc] idlewood.txd CRC = 0xD326ADA3
+[16:57:38] [artwork:crc] mcdonalds.dff CRC = 0x167C3952
+[16:57:38] [artwork:crc] mcdonalds.txd CRC = 0x5E920F93
+[16:57:38] [artwork:crc] forum.dff CRC = 0x62EC2E52
+[16:57:38] [artwork:crc] forum.txd CRC = 0x5BF5C2DA
+[16:57:38] [artwork:crc] lojao.dff CRC = 0x9DC27EE6
+[16:57:38] [artwork:crc] lojao.txd CRC = 0xA482A3F1
+[16:57:38] [artwork:crc] upp.dff CRC = 0x4BF646AD
+[16:57:38] [artwork:crc] upp.txd CRC = 0xDBAF48F8
+[16:57:38] [artwork:crc] casa.dff CRC = 0xF78B0A85
+[16:57:38] [artwork:crc] casa.txd CRC = 0xC0F52DEE
+[16:57:38] [artwork:crc] casa2.dff CRC = 0xFD694AE0
+[16:57:38] [artwork:crc] casa2.txd CRC = 0x536FD1B9
+[16:57:38] [artwork:crc] casa3.dff CRC = 0x649256F0
+[16:57:38] [artwork:crc] casa3.txd CRC = 0x6FB0C326
+[16:57:38] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:57:38] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:57:38] [artwork:crc] escola.dff CRC = 0x7F98D6C3
+[16:57:38] [artwork:crc] escola.txd CRC = 0xE65A4AA7
+[16:57:38] [artwork:crc] miniextra.dff CRC = 0x649256F0
+[16:57:38] [artwork:crc] miniextra.txd CRC = 0xA294808D
+[16:57:38] [artwork:crc] prosegur.dff CRC = 0x6D7C875
+[16:57:39] [artwork:crc] prosegur.txd CRC = 0xF898B8B0
+[16:57:39] [artwork:crc] campo1.dff CRC = 0x920820A
+[16:57:39] [artwork:crc] campo1.txd CRC = 0xF81DBE2F
+[16:57:39] [artwork:crc] hud.dff CRC = 0x4BC6EDFF
+[16:57:39] [artwork:crc] hud.txd CRC = 0xAB2168BC
+[16:57:39] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:57:39] [artwork:crc] tela.txd CRC = 0x47496B1
+[16:57:39] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:57:39] [artwork:crc] logo.txd CRC = 0xC5CF8DA5
+[16:57:39] [artwork:crc] caixa.dff CRC = 0xD1FB3D2B
+[16:57:39] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:57:39] [artwork:crc] caixa1.dff CRC = 0x450C648C
+[16:57:39] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:57:39] [artwork:crc] posto.dff CRC = 0x7D3D4944
+[16:57:39] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:57:39] [artwork:crc] posto1.dff CRC = 0x9F21A821
+[16:57:39] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:57:39] [artwork:crc] craco.dff CRC = 0x419983FA
+[16:57:39] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:57:39] [artwork:crc] craco2.dff CRC = 0x341DA350
+[16:57:39] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:57:39] [artwork:crc] lomb_sign.dff CRC = 0x10D34E0E
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-a.dff CRC = 0xFFBAA4D4
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-ad.dff CRC = 0xD9AC7E4D
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-b.dff CRC = 0x15FBC9EE
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-bd.dff CRC = 0xFDEEADFE
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-c.dff CRC = 0x5641CCAF
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-cd.dff CRC = 0xE719A6B0
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-d.dff CRC = 0xE2F98E0D
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] lomb-dd.dff CRC = 0x5625A0E9
+[16:57:39] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:39] [artwork:crc] unity_open.dff CRC = 0xD2EBC38F
+[16:57:39] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:57:39] [artwork:crc] unity_open_land.dff CRC = 0x48F4F438
+[16:57:39] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:57:39] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:57:39] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:39] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:57:40] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:40] [artwork:crc] textdraw_object.dff CRC = 0x0
+[16:57:40] [artwork:error] Bad file: textdraw_object.dff
+[16:57:40] [artwork:crc] palco.dff CRC = 0x57287144
+[16:57:40] [artwork:crc] palco.txd CRC = 0xDC7C08B5
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_barbeiro.txd CRC = 0x72629A65
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_bope.txd CRC = 0x8DA9958D
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_claro.txd CRC = 0xD40D19CC
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_gas.txd CRC = 0x70F93064
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_ifood.txd CRC = 0x4FC31800
+[16:57:40] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:40] [artwork:crc] out_pneu.txd CRC = 0x430B2B2C
+[16:57:40] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:57:40] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:40] [artwork:crc] cristo_2.dff CRC = 0x3983BA26
+[16:57:40] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:40] [artwork:crc] cristo_3.dff CRC = 0x4BDE1817
+[16:57:40] [artwork:crc] cristo_3.txd CRC = 0xBD8EAB35
+[16:57:40] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:57:40] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:40] [artwork:crc] b_cristo.dff CRC = 0x5784179F
+[16:57:40] [artwork:crc] b_cristo.txd CRC = 0x6F33E263
+[16:57:40] [artwork:crc] gaseiro.dff CRC = 0x68D3425F
+[16:57:40] [artwork:crc] gaseiro.txd CRC = 0x6FF99FBE
+[16:57:40] [artwork:crc] c_bad.dff CRC = 0x7ED57E76
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] c_bra.dff CRC = 0x99EFC7C6
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] c_ell.dff CRC = 0x4D08CF3C
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] c_est.dff CRC = 0xEE510C93
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] c_hai.dff CRC = 0xE3B2EF7C
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] c_sko.dff CRC = 0x2973BCCF
+[16:57:40] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:40] [artwork:crc] m_fav01.dff CRC = 0xDA2C147
+[16:57:40] [artwork:crc] m_fav01.txd CRC = 0xC603D396
+[16:57:40] [artwork:crc] m_fav02.dff CRC = 0xA1448940
+[16:57:40] [artwork:crc] m_fav02.txd CRC = 0xF286EF1
+[16:57:40] [artwork:crc] garagem01.dff CRC = 0x410C7AA9
+[16:57:40] [artwork:crc] garagem.txd CRC = 0x2FB8942A
+[16:57:41] [artwork:crc] house01.dff CRC = 0x35AB4D83
+[16:57:41] [artwork:crc] house01.txd CRC = 0x4EFB007A
+[16:57:41] [artwork:crc] apartamento.dff CRC = 0x2C57380F
+[16:57:41] [artwork:crc] apartamento.txd CRC = 0xEB98EA55
+[16:57:41] [artwork:crc] casa01.dff CRC = 0xFC3F186B
+[16:57:41] [artwork:crc] casa01.txd CRC = 0x8CB84AD6
+[16:57:41] [artwork:crc] favela01.dff CRC = 0xE0605FDD
+[16:57:41] [artwork:crc] favela01.txd CRC = 0x23BBB57A
+[16:57:41] [artwork:crc] favela02.dff CRC = 0xE09A63A7
+[16:57:42] [artwork:crc] favela02.txd CRC = 0x4E03EE9
+[16:57:42] [artwork:crc] complexo.dff CRC = 0x195A9337
+[16:57:42] [artwork:crc] complexo.txd CRC = 0xB14F85FA
+[16:57:42] [artwork:crc] casenha.dff CRC = 0x6E9BE39C
+[16:57:42] [artwork:crc] casenha.txd CRC = 0xDC7874A5
+[16:57:42] [artwork:crc] oficina.dff CRC = 0xFC31EA97
+[16:57:42] [artwork:crc] oficina.txd CRC = 0x1A44DD35
+[16:57:42] [artwork:crc] muro_grande.dff CRC = 0xD68505C0
+[16:57:42] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:57:42] [artwork:crc] muro_portao.dff CRC = 0xE90813B5
+[16:57:42] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:57:42] [artwork:crc] campo.dff CRC = 0xBB17BBD1
+[16:57:42] [artwork:crc] campo.txd CRC = 0x3A78F6C5
+[16:57:42] [artwork:crc] bar1.dff CRC = 0xD6795F11
+[16:57:42] [artwork:crc] bar1.txd CRC = 0xC7F379C3
+[16:57:42] I couldn't load any gamemode scripts. Please verify your server.cfg
+[16:57:42] It needs a gamemode0 line at the very least.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.DL-R1, (C)2005-2018 SA-MP Team
+
+[16:57:54] filterscripts = ""  (string)
+[16:57:54] 
+[16:57:54] Server Plugins
+[16:57:54] --------------
+[16:57:54]  Loading plugin: streamer
+[16:57:54] 
+
+*** Streamer Plugin v2.9.2 by Incognito loaded ***
+
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: sscanf
+[16:57:54] 
+
+[16:57:54]  ===============================
+
+[16:57:54]       sscanf plugin loaded.     
+
+[16:57:54]          Version:  2.8.1        
+
+[16:57:54]    (c) 2012 Alex "Y_Less" Cole  
+
+[16:57:54]  ===============================
+
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: mysql
+[16:57:54]  >> plugin.mysql: R39-5 successfully loaded.
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: Whirlpool
+[16:57:54]  
+[16:57:54]  ==================
+[16:57:54]  
+[16:57:54]   Whirlpool loaded
+[16:57:54]  
+[16:57:54]  ==================
+[16:57:54]  
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: ColAndreas
+[16:57:54] *********************
+[16:57:54] ** Created By:     **
+[16:57:54] ** [uL]Chris42O    **
+[16:57:54] ** [uL]Slice       **
+[16:57:54] ** [uL]Pottus      **
+[16:57:54] *********************
+[16:57:54] No collision data found.
+[16:57:54] *********************
+[16:57:54]   ColAndreas Loaded
+[16:57:54]    v1.4.0
+[16:57:54] *********************
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: dns
+[16:57:54] 
+
+*** DNS Plugin v2.4 by Incognito loaded ***
+
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: filemanager
+[16:57:54] ******************
+[16:57:54] ** FILE MANAGER **
+[16:57:54] **    Loaded    **
+[16:57:54] ** Version 1.5 **
+[16:57:54] ******************
+[16:57:54]   Loaded.
+[16:57:54]  Loading plugin: crashdetect
+[16:57:54]   CrashDetect must be loaded before 'streamer.DLL'
+[16:57:54]   Failed.
+[16:57:54]  Loaded 7 plugins.
+
+[16:57:54] [artwork:crc] skin.dff CRC = 0xC33384E5
+[16:57:54] [artwork:crc] skin.txd CRC = 0x94857979
+[16:57:54] [artwork:crc] skin2.dff CRC = 0x226AF292
+[16:57:54] [artwork:crc] skin2.txd CRC = 0x1EBB3F42
+[16:57:54] [artwork:crc] skin3.dff CRC = 0x883BFAF6
+[16:57:54] [artwork:crc] skin3.txd CRC = 0x818B15C5
+[16:57:54] [artwork:crc] skin4.dff CRC = 0x3D29A175
+[16:57:54] [artwork:crc] skin4.txd CRC = 0xE99012CC
+[16:57:54] [artwork:crc] skin5.dff CRC = 0xF652E175
+[16:57:54] [artwork:crc] skin5.txd CRC = 0x75E2858B
+[16:57:54] [artwork:crc] skin6.dff CRC = 0xB6024E3F
+[16:57:54] [artwork:crc] skin6.txd CRC = 0x21C13E3A
+[16:57:54] [artwork:crc] skin7.dff CRC = 0xAD85C343
+[16:57:54] [artwork:crc] skin7.txd CRC = 0x58491ED9
+[16:57:54] [artwork:crc] skin8.dff CRC = 0x4FDB474F
+[16:57:54] [artwork:crc] skin8.txd CRC = 0x6A9DC132
+[16:57:54] [artwork:crc] fem.dff CRC = 0xF5DEA6D9
+[16:57:54] [artwork:crc] fem.txd CRC = 0xE00589AB
+[16:57:54] [artwork:crc] fem1.dff CRC = 0xF5DEA6D9
+[16:57:54] [artwork:crc] fem1.txd CRC = 0x824644A7
+[16:57:54] [artwork:crc] fem2.dff CRC = 0xF5DEA6D9
+[16:57:54] [artwork:crc] fem2.txd CRC = 0xED639831
+[16:57:54] [artwork:crc] fem3.dff CRC = 0x34C12077
+[16:57:54] [artwork:crc] fem3.txd CRC = 0x6A6D6D15
+[16:57:54] [artwork:crc] fem4.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem4.txd CRC = 0x52D9CB35
+[16:57:54] [artwork:crc] fem5.dff CRC = 0xCAE7C561
+[16:57:54] [artwork:crc] fem5.txd CRC = 0x8560FEA5
+[16:57:54] [artwork:crc] fem6.dff CRC = 0x41D3059C
+[16:57:54] [artwork:crc] fem6.txd CRC = 0x761C5A52
+[16:57:54] [artwork:crc] fem7.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem7.txd CRC = 0x3E51B310
+[16:57:54] [artwork:crc] fem8.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem8.txd CRC = 0xB41C773D
+[16:57:54] [artwork:crc] fem9.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem9.txd CRC = 0x399DA4BF
+[16:57:54] [artwork:crc] fem10.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem10.txd CRC = 0xA3B6BED9
+[16:57:54] [artwork:crc] fem11.dff CRC = 0xCAE7C561
+[16:57:54] [artwork:crc] fem11.txd CRC = 0x5B7419E5
+[16:57:54] [artwork:crc] fem12.dff CRC = 0x9B35D750
+[16:57:54] [artwork:crc] fem12.txd CRC = 0xA7202A87
+[16:57:54] [artwork:crc] fem13.dff CRC = 0x1D6F7DB5
+[16:57:54] [artwork:crc] fem13.txd CRC = 0xACA11ED2
+[16:57:54] [artwork:crc] fem14.dff CRC = 0xA0726ABF
+[16:57:54] [artwork:crc] fem14.txd CRC = 0xAECDAC5A
+[16:57:54] [artwork:crc] fem15.dff CRC = 0x91B3F86
+[16:57:54] [artwork:crc] fem15.txd CRC = 0xEF098689
+[16:57:54] [artwork:crc] fem16.dff CRC = 0x32F50B60
+[16:57:54] [artwork:crc] fem16.txd CRC = 0x8103CE81
+[16:57:54] [artwork:crc] fem17.dff CRC = 0x418F583D
+[16:57:54] [artwork:crc] fem17.txd CRC = 0x41AD0C2C
+[16:57:54] [artwork:crc] fem18.dff CRC = 0x4E29E075
+[16:57:54] [artwork:crc] fem18.txd CRC = 0x6654226B
+[16:57:54] [artwork:crc] fem19.dff CRC = 0x6F58AF5F
+[16:57:54] [artwork:crc] fem19.txd CRC = 0x447F152B
+[16:57:54] [artwork:crc] fem20.dff CRC = 0xEF22A886
+[16:57:54] [artwork:crc] fem20.txd CRC = 0x32C2038F
+[16:57:54] [artwork:crc] fem21.dff CRC = 0xE3156601
+[16:57:54] [artwork:crc] fem21.txd CRC = 0x6BB6B454
+[16:57:54] [artwork:crc] fem22.dff CRC = 0x1827F432
+[16:57:54] [artwork:crc] fem22.txd CRC = 0xC2025BDA
+[16:57:54] [artwork:crc] fem23.dff CRC = 0xF1257F5B
+[16:57:54] [artwork:crc] fem23.txd CRC = 0x8FC6385E
+[16:57:54] [artwork:crc] pmerj.dff CRC = 0xAFBCD5CB
+[16:57:54] [artwork:crc] pmerj.txd CRC = 0x11EB541C
+[16:57:54] [artwork:crc] pmerj2.dff CRC = 0x5B5D1B38
+[16:57:54] [artwork:crc] pmerj2.txd CRC = 0x1DC131EA
+[16:57:54] [artwork:crc] pmerj3.dff CRC = 0x97B53A21
+[16:57:54] [artwork:crc] pmerj3.txd CRC = 0xB74E0D3A
+[16:57:54] [artwork:crc] pmerj4.dff CRC = 0xC12F2F32
+[16:57:54] [artwork:crc] pmerj4.txd CRC = 0x3FDB7234
+[16:57:54] [artwork:crc] pmerj5.dff CRC = 0x60E12C9
+[16:57:54] [artwork:crc] pmerj5.txd CRC = 0xA876904F
+[16:57:54] [artwork:crc] pmerj6.dff CRC = 0xBBB8ADC9
+[16:57:54] [artwork:crc] pmerj6.txd CRC = 0x4CBB67D5
+[16:57:54] [artwork:crc] pmerj7.dff CRC = 0xE4D91059
+[16:57:54] [artwork:crc] pmerj7.txd CRC = 0x36C2C571
+[16:57:54] [artwork:crc] pmerjf1.dff CRC = 0x92541F4E
+[16:57:54] [artwork:crc] pmerjf1.txd CRC = 0xEE636E2A
+[16:57:54] [artwork:crc] pmerjtf.dff CRC = 0x5866F28D
+[16:57:54] [artwork:crc] pmerjtf.txd CRC = 0x45FCCAA3
+[16:57:54] [artwork:crc] pmerjf3.dff CRC = 0xD647AD85
+[16:57:54] [artwork:crc] pmerjf3.txd CRC = 0xBF03E073
+[16:57:54] [artwork:crc] skindetreinamento.dff CRC = 0x2DB886F2
+[16:57:54] [artwork:crc] skindetreinamento.txd CRC = 0x4EFE61EC
+[16:57:54] [artwork:crc] skindetreinamento2.dff CRC = 0x761E95A6
+[16:57:54] [artwork:crc] skindetreinamento2.txd CRC = 0x370D1828
+[16:57:54] [artwork:crc] pmerjt.dff CRC = 0x4CC83507
+[16:57:54] [artwork:crc] pmerjt.txd CRC = 0xA73F8355
+[16:57:54] [artwork:crc] pmerjt2.dff CRC = 0x56E9500D
+[16:57:54] [artwork:crc] pmerjt2.txd CRC = 0x4EF3F5BA
+[16:57:54] [artwork:crc] pmerjt3.dff CRC = 0x2600057E
+[16:57:54] [artwork:crc] pmerjt3.txd CRC = 0xB496B2F4
+[16:57:54] [artwork:crc] pmerjt4.dff CRC = 0xD58C980C
+[16:57:54] [artwork:crc] pmerjt4.txd CRC = 0xE520D98E
+[16:57:54] [artwork:crc] pmerjt5.dff CRC = 0xC737806
+[16:57:54] [artwork:crc] pmerjt5.txd CRC = 0x49EB23A
+[16:57:54] [artwork:crc] pmerjt6.dff CRC = 0xF503009F
+[16:57:54] [artwork:crc] pmerjt6.txd CRC = 0x28BFB191
+[16:57:54] [artwork:crc] pmerjt7.dff CRC = 0xD096B3E3
+[16:57:54] [artwork:crc] pmerjt7.txd CRC = 0xFAB931FA
+[16:57:54] [artwork:crc] pmerjt8.dff CRC = 0x10D6BBE1
+[16:57:54] [artwork:crc] pmerjt8.txd CRC = 0xE96D6E10
+[16:57:54] [artwork:crc] delegadocivil.dff CRC = 0x593D4243
+[16:57:54] [artwork:crc] delegadocivil.txd CRC = 0x752A14BD
+[16:57:54] [artwork:crc] delegadocivil2.dff CRC = 0xEA9DFD8E
+[16:57:54] [artwork:crc] delegadocivil2.txd CRC = 0x42F366BC
+[16:57:54] [artwork:crc] investigadorcivil.dff CRC = 0x6A75F36
+[16:57:54] [artwork:crc] investigadorcivil.txd CRC = 0xE058790
+[16:57:54] [artwork:crc] investigadorcivil2.dff CRC = 0x9B65DACD
+[16:57:54] [artwork:crc] investigadorcivil2.txd CRC = 0xA69BC1D8
+[16:57:54] [artwork:crc] skinpcerj1.dff CRC = 0x52C49E2
+[16:57:54] [artwork:crc] skinpcerj1.txd CRC = 0x3D165B01
+[16:57:54] [artwork:crc] skinpcerj2.dff CRC = 0x699F809B
+[16:57:54] [artwork:crc] skinpcerj2.txd CRC = 0x520560C3
+[16:57:54] [artwork:crc] skinpcerj3.dff CRC = 0xE77E6B8
+[16:57:54] [artwork:crc] skinpcerj3.txd CRC = 0xA5500DA6
+[16:57:54] [artwork:crc] skinpcerj4.dff CRC = 0xC4129525
+[16:57:54] [artwork:crc] skinpcerj4.txd CRC = 0xA767E218
+[16:57:54] [artwork:crc] skinpcerj5.dff CRC = 0x12C2BEAC
+[16:57:54] [artwork:crc] skinpcerj5.txd CRC = 0xAC95234D
+[16:57:54] [artwork:crc] skinpcerj6.dff CRC = 0x6D16E452
+[16:57:54] [artwork:crc] skinpcerj6.txd CRC = 0xF13EABB9
+[16:57:54] [artwork:crc] skinpcerj7.dff CRC = 0xF3A72DEC
+[16:57:54] [artwork:crc] skinpcerj7.txd CRC = 0xF6D70DCF
+[16:57:54] [artwork:crc] skinfpcerj1.dff CRC = 0x2C88EB52
+[16:57:54] [artwork:crc] skinfpcerj1.txd CRC = 0xFCC66D6A
+[16:57:54] [artwork:crc] skinfpcerj2.dff CRC = 0x305A517D
+[16:57:54] [artwork:crc] skinfpcerj2.txd CRC = 0xECBBB8A7
+[16:57:54] [artwork:crc] skinfpcerj3.dff CRC = 0x305A517D
+[16:57:54] [artwork:crc] skinfpcerj3.txd CRC = 0x1DB37295
+[16:57:54] [artwork:crc] skinfpcerj4.dff CRC = 0x305A517D
+[16:57:54] [artwork:crc] skinfpcerj4.txd CRC = 0x5FD60640
+[16:57:54] [artwork:crc] skinfpcerj5.dff CRC = 0x305A517D
+[16:57:54] [artwork:crc] skinfpcerj5.txd CRC = 0xA5284F56
+[16:57:54] [artwork:crc] cbmloira.dff CRC = 0xA5F8922B
+[16:57:55] [artwork:crc] cbmloira.txd CRC = 0x61D0B64A
+[16:57:55] [artwork:crc] cbmmorena.dff CRC = 0xA5F8922B
+[16:57:55] [artwork:crc] cbmmorena.txd CRC = 0xE957E606
+[16:57:55] [artwork:crc] cbmnegra.dff CRC = 0xA5F8922B
+[16:57:55] [artwork:crc] cbmnegra.txd CRC = 0x58C013A0
+[16:57:55] [artwork:crc] cbmmoreno.dff CRC = 0xF1B08EA1
+[16:57:55] [artwork:crc] cbmmoreno.txd CRC = 0x5FD50C1B
+[16:57:55] [artwork:crc] cbmloiro.dff CRC = 0xF1B08EA1
+[16:57:55] [artwork:crc] cbmloiro.txd CRC = 0x62985199
+[16:57:55] [artwork:crc] cbmnegrojovem.dff CRC = 0x63333EB5
+[16:57:55] [artwork:crc] cbmnegrojovem.txd CRC = 0xA5EA1B0E
+[16:57:55] [artwork:crc] cbmnegroidoso.dff CRC = 0x5CAAAC3E
+[16:57:55] [artwork:crc] cbmnegroidoso.txd CRC = 0x529BDDE3
+[16:57:55] [artwork:crc] coletepmt.dff CRC = 0xA90DDD51
+[16:57:55] [artwork:crc] coletepmt.txd CRC = 0x168F409A
+[16:57:55] [artwork:crc] coletepmerj.dff CRC = 0x9FA53D02
+[16:57:55] [artwork:crc] coletepmerj.txd CRC = 0xE62777DB
+[16:57:55] [artwork:crc] coletepcerj.dff CRC = 0x9FA53D02
+[16:57:55] [artwork:crc] coletepcerj.txd CRC = 0x19E901D7
+[16:57:55] [artwork:crc] bonecore.dff CRC = 0xE74081F7
+[16:57:55] [artwork:crc] bonecore.txd CRC = 0xA7BC72A9
+[16:57:55] [artwork:crc] bonepmerj.dff CRC = 0x44ED80A3
+[16:57:55] [artwork:crc] bonepmerj.txd CRC = 0xC3A182C0
+[16:57:55] [artwork:crc] bodycam.dff CRC = 0xF9502800
+[16:57:55] [artwork:crc] bodycam.txd CRC = 0x1EBF9A6C
+[16:57:55] [artwork:crc] cone.dff CRC = 0xF711EDD9
+[16:57:55] [artwork:crc] cone.txd CRC = 0xDE86BF96
+[16:57:55] [artwork:crc] cavalete.dff CRC = 0x3A338AFC
+[16:57:55] [artwork:crc] cavalete.txd CRC = 0x6CC0C922
+[16:57:55] [artwork:crc] faixa.dff CRC = 0x7507B9AC
+[16:57:55] [artwork:crc] faixa.txd CRC = 0xC1ACA036
+[16:57:55] [artwork:crc] PatenteSD1.dff CRC = 0xD79713CD
+[16:57:55] [artwork:crc] PatenteSD1.txd CRC = 0x1C1746C5
+[16:57:55] [artwork:crc] PatenteCB2.dff CRC = 0xE7309DAA
+[16:57:55] [artwork:crc] PatenteCB2.txd CRC = 0x58F35F03
+[16:57:55] [artwork:crc] PatenteSGT3.dff CRC = 0xEC4739B5
+[16:57:55] [artwork:crc] PatenteSGT3.txd CRC = 0x58F35F03
+[16:57:55] [artwork:crc] PatenteSGT2.dff CRC = 0x4C1837C0
+[16:57:55] [artwork:crc] PatenteSGT2.txd CRC = 0x58F35F03
+[16:57:55] [artwork:crc] PatenteSGT1.dff CRC = 0x7C41C3FC
+[16:57:55] [artwork:crc] PatenteSGT1.txd CRC = 0x58F35F03
+[16:57:55] [artwork:crc] RadioMotorola.dff CRC = 0xAE250E95
+[16:57:55] [artwork:crc] RadioMotorola.txd CRC = 0xA536719F
+[16:57:55] [artwork:crc] CachorroUm.dff CRC = 0x2A4F1370
+[16:57:55] [artwork:crc] CachorroUm.txd CRC = 0x44F74611
+[16:57:55] [artwork:crc] CachorroDois.dff CRC = 0x2A4F1370
+[16:57:55] [artwork:crc] CachorroDois.txd CRC = 0x43B4E37A
+[16:57:55] [artwork:crc] CachorroTres.dff CRC = 0x2A4F1370
+[16:57:55] [artwork:crc] CachorroTres.txd CRC = 0x1861AF63
+[16:57:55] [artwork:crc] CachorroQuatro.dff CRC = 0x2A4F1370
+[16:57:55] [artwork:crc] CachorroQuatro.txd CRC = 0xF4504A40
+[16:57:55] [artwork:crc] boneobjeto1.dff CRC = 0xC82233C
+[16:57:55] [artwork:crc] boneobjeto1.txd CRC = 0xB81E24C1
+[16:57:55] [artwork:crc] boneobjeto2.dff CRC = 0xC82233C
+[16:57:55] [artwork:crc] boneobjeto2.txd CRC = 0xB81E24C1
+[16:57:55] [artwork:crc] boneobjeto3.dff CRC = 0xC82233C
+[16:57:55] [artwork:crc] boneobjeto3.txd CRC = 0x25EC71FD
+[16:57:55] [artwork:crc] boneobjeto4.dff CRC = 0xC82233C
+[16:57:55] [artwork:crc] boneobjeto4.txd CRC = 0x3D3821FC
+[16:57:55] [artwork:crc] coletebandido.dff CRC = 0x35333281
+[16:57:55] [artwork:crc] coletebandido.txd CRC = 0x7FCB75F7
+[16:57:55] [artwork:crc] coletecore.dff CRC = 0xB6AB6FB
+[16:57:55] [artwork:crc] coletecore.txd CRC = 0x26874B15
+[16:57:55] [artwork:crc] mochila1.dff CRC = 0x7198BBAD
+[16:57:55] [artwork:crc] mochila1.txd CRC = 0xAA488C0D
+[16:57:55] [artwork:crc] mochila2.dff CRC = 0xBA43DBFB
+[16:57:55] [artwork:crc] mochila2.txd CRC = 0xA55E4D43
+[16:57:55] [artwork:crc] mochila3.dff CRC = 0x36D7E922
+[16:57:55] [artwork:crc] mochila3.txd CRC = 0x31D6F73
+[16:57:55] [artwork:crc] mochila4.dff CRC = 0x49A9723A
+[16:57:55] [artwork:crc] mochila4.txd CRC = 0xB888188E
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet6.txd CRC = 0xF4B2FC93
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet7.txd CRC = 0xA69E81C3
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet11.txd CRC = 0x3ADE2234
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet12.txd CRC = 0xDB79DC67
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet15.txd CRC = 0xFAFD327C
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet16.txd CRC = 0x4E2FBC
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet19.txd CRC = 0xC6E81FEF
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet21.txd CRC = 0x7124984F
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet24.txd CRC = 0x4F271835
+[16:57:55] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:57:55] [artwork:crc] helmet1.txd CRC = 0xFCCAD90E
+[16:57:55] [artwork:crc] ifood.dff CRC = 0xAD546C14
+[16:57:55] [artwork:crc] ifood.txd CRC = 0x8AD5CCA2
+[16:57:55] [artwork:crc] ubereats.dff CRC = 0x64187DA5
+[16:57:55] [artwork:crc] ubereats.txd CRC = 0x7B16FAD9
+[16:57:55] [artwork:crc] bsimples.dff CRC = 0x246AB514
+[16:57:55] [artwork:crc] bsimples.txd CRC = 0xB9643631
+[16:57:55] [artwork:crc] bolsanikelateral.dff CRC = 0x82FA00BC
+[16:57:55] [artwork:crc] bolsanikelateral.txd CRC = 0x3D42A41A
+[16:57:55] [artwork:crc] PacoteMcDonalds.dff CRC = 0x7F3872D5
+[16:57:55] [artwork:crc] PacoteMcDonalds.txd CRC = 0xB1587374
+[16:57:55] [artwork:crc] maconhab.dff CRC = 0xBF46F2FF
+[16:57:55] [artwork:crc] maconhab.txd CRC = 0x68419BE
+[16:57:55] [artwork:crc] maconhar.dff CRC = 0xA0906971
+[16:57:55] [artwork:crc] maconhar.txd CRC = 0x13A26228
+[16:57:55] [artwork:crc] cocaina.dff CRC = 0x22B7B621
+[16:57:55] [artwork:crc] cocaina.txd CRC = 0xF84F4DF
+[16:57:55] [artwork:crc] crackr.dff CRC = 0x7260DE97
+[16:57:55] [artwork:crc] crackr.txd CRC = 0xEB7DC1B6
+[16:57:55] [artwork:crc] crackb.dff CRC = 0xAA6EDDA1
+[16:57:55] [artwork:crc] crackb.txd CRC = 0xEB7DC1B6
+[16:57:55] [artwork:crc] lsd.dff CRC = 0x6CB2980D
+[16:57:55] [artwork:crc] lsd.txd CRC = 0xB190FA30
+[16:57:55] [artwork:crc] lancaperfume.dff CRC = 0xD108D979
+[16:57:55] [artwork:crc] lancaperfume.txd CRC = 0x22D3BE23
+[16:57:55] [artwork:crc] atmbb.dff CRC = 0xB17F632C
+[16:57:55] [artwork:crc] atmbb.txd CRC = 0x69DCFA68
+[16:57:55] [artwork:crc] petrolpumpnew.dff CRC = 0x9E5AC69B
+[16:57:55] [artwork:crc] petrolpumpnew.txd CRC = 0x93533129
+[16:57:55] [artwork:crc] orelhao.dff CRC = 0x2CC18C13
+[16:57:55] [artwork:crc] orelhao.txd CRC = 0x39CA65AC
+[16:57:55] [artwork:crc] dp29.dff CRC = 0x5BFEF895
+[16:57:55] [artwork:crc] dp29.txd CRC = 0xE92438C7
+[16:57:55] [artwork:crc] 16bpm.dff CRC = 0x6A054CE
+[16:57:55] [artwork:crc] 16bpm.txd CRC = 0xA8FC87BA
+[16:57:55] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] lawrence1.dff CRC = 0x8F51FF50
+[16:57:55] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:55] [artwork:crc] lawrence2.dff CRC = 0x364941F9
+[16:57:55] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:55] [artwork:crc] lawrence3.dff CRC = 0x97427D97
+[16:57:55] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:55] [artwork:crc] lawrence4.dff CRC = 0xBAC5C171
+[16:57:55] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:55] [artwork:crc] lawrence5.dff CRC = 0x6E1A3848
+[16:57:55] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:57:55] [artwork:crc] comunidade.dff CRC = 0x909CE0A0
+[16:57:55] [artwork:crc] comunidade.txd CRC = 0x4F0743B
+[16:57:55] [artwork:crc] CBM.dff CRC = 0x137D9C2C
+[16:57:55] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:55] [artwork:crc] CBMfloor.dff CRC = 0x489CB0B4
+[16:57:55] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:55] [artwork:crc] CBMgate.dff CRC = 0x6A1CF2C0
+[16:57:55] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:57:55] [artwork:crc] cachaca.dff CRC = 0x5AC3118C
+[16:57:55] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:57:55] [artwork:crc] mesacachaca.dff CRC = 0xB76A4AB
+[16:57:55] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:57:55] [artwork:crc] patio.dff CRC = 0x51CE93A5
+[16:57:55] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:57:55] [artwork:crc] patiogate.dff CRC = 0xA1076387
+[16:57:55] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:57:55] [artwork:crc] rojao.dff CRC = 0x6F72D6BB
+[16:57:55] [artwork:crc] rojao.txd CRC = 0x6891CFE5
+[16:57:55] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:57:55] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:57:55] [artwork:crc] idlewood.dff CRC = 0x3917B73D
+[16:57:55] [artwork:crc] idlewood.txd CRC = 0xD326ADA3
+[16:57:55] [artwork:crc] mcdonalds.dff CRC = 0x167C3952
+[16:57:55] [artwork:crc] mcdonalds.txd CRC = 0x5E920F93
+[16:57:55] [artwork:crc] forum.dff CRC = 0x62EC2E52
+[16:57:55] [artwork:crc] forum.txd CRC = 0x5BF5C2DA
+[16:57:55] [artwork:crc] lojao.dff CRC = 0x9DC27EE6
+[16:57:55] [artwork:crc] lojao.txd CRC = 0xA482A3F1
+[16:57:55] [artwork:crc] upp.dff CRC = 0x4BF646AD
+[16:57:55] [artwork:crc] upp.txd CRC = 0xDBAF48F8
+[16:57:55] [artwork:crc] casa.dff CRC = 0xF78B0A85
+[16:57:55] [artwork:crc] casa.txd CRC = 0xC0F52DEE
+[16:57:55] [artwork:crc] casa2.dff CRC = 0xFD694AE0
+[16:57:55] [artwork:crc] casa2.txd CRC = 0x536FD1B9
+[16:57:55] [artwork:crc] casa3.dff CRC = 0x649256F0
+[16:57:55] [artwork:crc] casa3.txd CRC = 0x6FB0C326
+[16:57:55] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:57:55] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:57:55] [artwork:crc] escola.dff CRC = 0x7F98D6C3
+[16:57:55] [artwork:crc] escola.txd CRC = 0xE65A4AA7
+[16:57:55] [artwork:crc] miniextra.dff CRC = 0x649256F0
+[16:57:55] [artwork:crc] miniextra.txd CRC = 0xA294808D
+[16:57:55] [artwork:crc] prosegur.dff CRC = 0x6D7C875
+[16:57:55] [artwork:crc] prosegur.txd CRC = 0xF898B8B0
+[16:57:55] [artwork:crc] campo1.dff CRC = 0x920820A
+[16:57:55] [artwork:crc] campo1.txd CRC = 0xF81DBE2F
+[16:57:55] [artwork:crc] hud.dff CRC = 0x4BC6EDFF
+[16:57:55] [artwork:crc] hud.txd CRC = 0xAB2168BC
+[16:57:55] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:57:55] [artwork:crc] tela.txd CRC = 0x47496B1
+[16:57:55] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:57:55] [artwork:crc] logo.txd CRC = 0xC5CF8DA5
+[16:57:55] [artwork:crc] caixa.dff CRC = 0xD1FB3D2B
+[16:57:55] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:57:55] [artwork:crc] caixa1.dff CRC = 0x450C648C
+[16:57:55] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:57:55] [artwork:crc] posto.dff CRC = 0x7D3D4944
+[16:57:55] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:57:55] [artwork:crc] posto1.dff CRC = 0x9F21A821
+[16:57:55] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:57:55] [artwork:crc] craco.dff CRC = 0x419983FA
+[16:57:55] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:57:55] [artwork:crc] craco2.dff CRC = 0x341DA350
+[16:57:55] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:57:55] [artwork:crc] lomb_sign.dff CRC = 0x10D34E0E
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-a.dff CRC = 0xFFBAA4D4
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-ad.dff CRC = 0xD9AC7E4D
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-b.dff CRC = 0x15FBC9EE
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-bd.dff CRC = 0xFDEEADFE
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-c.dff CRC = 0x5641CCAF
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-cd.dff CRC = 0xE719A6B0
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-d.dff CRC = 0xE2F98E0D
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] lomb-dd.dff CRC = 0x5625A0E9
+[16:57:55] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:57:55] [artwork:crc] unity_open.dff CRC = 0xD2EBC38F
+[16:57:55] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:57:55] [artwork:crc] unity_open_land.dff CRC = 0x48F4F438
+[16:57:55] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:57:55] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:57:55] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:57:55] [artwork:crc] textdraw_object.dff CRC = 0x0
+[16:57:55] [artwork:error] Bad file: textdraw_object.dff
+[16:57:55] [artwork:crc] palco.dff CRC = 0x57287144
+[16:57:55] [artwork:crc] palco.txd CRC = 0xDC7C08B5
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_barbeiro.txd CRC = 0x72629A65
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_bope.txd CRC = 0x8DA9958D
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_claro.txd CRC = 0xD40D19CC
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_gas.txd CRC = 0x70F93064
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_ifood.txd CRC = 0x4FC31800
+[16:57:55] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:57:55] [artwork:crc] out_pneu.txd CRC = 0x430B2B2C
+[16:57:55] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:57:55] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:55] [artwork:crc] cristo_2.dff CRC = 0x3983BA26
+[16:57:55] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:55] [artwork:crc] cristo_3.dff CRC = 0x4BDE1817
+[16:57:55] [artwork:crc] cristo_3.txd CRC = 0xBD8EAB35
+[16:57:55] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:57:55] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:57:55] [artwork:crc] b_cristo.dff CRC = 0x5784179F
+[16:57:55] [artwork:crc] b_cristo.txd CRC = 0x6F33E263
+[16:57:55] [artwork:crc] gaseiro.dff CRC = 0x68D3425F
+[16:57:55] [artwork:crc] gaseiro.txd CRC = 0x6FF99FBE
+[16:57:55] [artwork:crc] c_bad.dff CRC = 0x7ED57E76
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] c_bra.dff CRC = 0x99EFC7C6
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] c_ell.dff CRC = 0x4D08CF3C
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] c_est.dff CRC = 0xEE510C93
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] c_hai.dff CRC = 0xE3B2EF7C
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] c_sko.dff CRC = 0x2973BCCF
+[16:57:55] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:57:55] [artwork:crc] m_fav01.dff CRC = 0xDA2C147
+[16:57:55] [artwork:crc] m_fav01.txd CRC = 0xC603D396
+[16:57:55] [artwork:crc] m_fav02.dff CRC = 0xA1448940
+[16:57:55] [artwork:crc] m_fav02.txd CRC = 0xF286EF1
+[16:57:55] [artwork:crc] garagem01.dff CRC = 0x410C7AA9
+[16:57:55] [artwork:crc] garagem.txd CRC = 0x2FB8942A
+[16:57:55] [artwork:crc] house01.dff CRC = 0x35AB4D83
+[16:57:55] [artwork:crc] house01.txd CRC = 0x4EFB007A
+[16:57:55] [artwork:crc] apartamento.dff CRC = 0x2C57380F
+[16:57:55] [artwork:crc] apartamento.txd CRC = 0xEB98EA55
+[16:57:55] [artwork:crc] casa01.dff CRC = 0xFC3F186B
+[16:57:55] [artwork:crc] casa01.txd CRC = 0x8CB84AD6
+[16:57:55] [artwork:crc] favela01.dff CRC = 0xE0605FDD
+[16:57:56] [artwork:crc] favela01.txd CRC = 0x23BBB57A
+[16:57:56] [artwork:crc] favela02.dff CRC = 0xE09A63A7
+[16:57:56] [artwork:crc] favela02.txd CRC = 0x4E03EE9
+[16:57:56] [artwork:crc] complexo.dff CRC = 0x195A9337
+[16:57:56] [artwork:crc] complexo.txd CRC = 0xB14F85FA
+[16:57:56] [artwork:crc] casenha.dff CRC = 0x6E9BE39C
+[16:57:56] [artwork:crc] casenha.txd CRC = 0xDC7874A5
+[16:57:56] [artwork:crc] oficina.dff CRC = 0xFC31EA97
+[16:57:56] [artwork:crc] oficina.txd CRC = 0x1A44DD35
+[16:57:56] [artwork:crc] muro_grande.dff CRC = 0xD68505C0
+[16:57:56] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:57:56] [artwork:crc] muro_portao.dff CRC = 0xE90813B5
+[16:57:56] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:57:56] [artwork:crc] campo.dff CRC = 0xBB17BBD1
+[16:57:56] [artwork:crc] campo.txd CRC = 0x3A78F6C5
+[16:57:56] [artwork:crc] bar1.dff CRC = 0xD6795F11
+[16:57:56] [artwork:crc] bar1.txd CRC = 0xC7F379C3
+[16:57:56] I couldn't load any gamemode scripts. Please verify your server.cfg
+[16:57:56] It needs a gamemode0 line at the very least.
+
+----------
+Loaded log file: "server_log.txt".
+----------
+
+SA-MP Dedicated Server
+----------------------
+v0.3.DL-R1, (C)2005-2018 SA-MP Team
+
+[16:58:18] filterscripts = ""  (string)
+[16:58:18] 
+[16:58:18] Server Plugins
+[16:58:18] --------------
+[16:58:18]  Loading plugin: streamer
+[16:58:18] 
+
+*** Streamer Plugin v2.9.2 by Incognito loaded ***
+
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: sscanf
+[16:58:18] 
+
+[16:58:18]  ===============================
+
+[16:58:18]       sscanf plugin loaded.     
+
+[16:58:18]          Version:  2.8.1        
+
+[16:58:18]    (c) 2012 Alex "Y_Less" Cole  
+
+[16:58:18]  ===============================
+
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: mysql
+[16:58:18]  >> plugin.mysql: R39-5 successfully loaded.
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: Whirlpool
+[16:58:18]  
+[16:58:18]  ==================
+[16:58:18]  
+[16:58:18]   Whirlpool loaded
+[16:58:18]  
+[16:58:18]  ==================
+[16:58:18]  
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: ColAndreas
+[16:58:18] *********************
+[16:58:18] ** Created By:     **
+[16:58:18] ** [uL]Chris42O    **
+[16:58:18] ** [uL]Slice       **
+[16:58:18] ** [uL]Pottus      **
+[16:58:18] *********************
+[16:58:18] No collision data found.
+[16:58:18] *********************
+[16:58:18]   ColAndreas Loaded
+[16:58:18]    v1.4.0
+[16:58:18] *********************
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: dns
+[16:58:18] 
+
+*** DNS Plugin v2.4 by Incognito loaded ***
+
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: filemanager
+[16:58:18] ******************
+[16:58:18] ** FILE MANAGER **
+[16:58:18] **    Loaded    **
+[16:58:18] ** Version 1.5 **
+[16:58:18] ******************
+[16:58:18]   Loaded.
+[16:58:18]  Loading plugin: crashdetect
+[16:58:18]   CrashDetect must be loaded before 'streamer.DLL'
+[16:58:18]   Failed.
+[16:58:18]  Loaded 7 plugins.
+
+[16:58:19] [artwork:crc] skin.dff CRC = 0xC33384E5
+[16:58:19] [artwork:crc] skin.txd CRC = 0x94857979
+[16:58:19] [artwork:crc] skin2.dff CRC = 0x226AF292
+[16:58:19] [artwork:crc] skin2.txd CRC = 0x1EBB3F42
+[16:58:19] [artwork:crc] skin3.dff CRC = 0x883BFAF6
+[16:58:19] [artwork:crc] skin3.txd CRC = 0x818B15C5
+[16:58:19] [artwork:crc] skin4.dff CRC = 0x3D29A175
+[16:58:19] [artwork:crc] skin4.txd CRC = 0xE99012CC
+[16:58:19] [artwork:crc] skin5.dff CRC = 0xF652E175
+[16:58:19] [artwork:crc] skin5.txd CRC = 0x75E2858B
+[16:58:19] [artwork:crc] skin6.dff CRC = 0xB6024E3F
+[16:58:19] [artwork:crc] skin6.txd CRC = 0x21C13E3A
+[16:58:19] [artwork:crc] skin7.dff CRC = 0xAD85C343
+[16:58:19] [artwork:crc] skin7.txd CRC = 0x58491ED9
+[16:58:19] [artwork:crc] skin8.dff CRC = 0x4FDB474F
+[16:58:19] [artwork:crc] skin8.txd CRC = 0x6A9DC132
+[16:58:19] [artwork:crc] fem.dff CRC = 0xF5DEA6D9
+[16:58:19] [artwork:crc] fem.txd CRC = 0xE00589AB
+[16:58:19] [artwork:crc] fem1.dff CRC = 0xF5DEA6D9
+[16:58:19] [artwork:crc] fem1.txd CRC = 0x824644A7
+[16:58:19] [artwork:crc] fem2.dff CRC = 0xF5DEA6D9
+[16:58:19] [artwork:crc] fem2.txd CRC = 0xED639831
+[16:58:19] [artwork:crc] fem3.dff CRC = 0x34C12077
+[16:58:19] [artwork:crc] fem3.txd CRC = 0x6A6D6D15
+[16:58:19] [artwork:crc] fem4.dff CRC = 0x9B35D750
+[16:58:19] [artwork:crc] fem4.txd CRC = 0x52D9CB35
+[16:58:19] [artwork:crc] fem5.dff CRC = 0xCAE7C561
+[16:58:19] [artwork:crc] fem5.txd CRC = 0x8560FEA5
+[16:58:19] [artwork:crc] fem6.dff CRC = 0x41D3059C
+[16:58:19] [artwork:crc] fem6.txd CRC = 0x761C5A52
+[16:58:19] [artwork:crc] fem7.dff CRC = 0x9B35D750
+[16:58:19] [artwork:crc] fem7.txd CRC = 0x3E51B310
+[16:58:19] [artwork:crc] fem8.dff CRC = 0x9B35D750
+[16:58:19] [artwork:crc] fem8.txd CRC = 0xB41C773D
+[16:58:19] [artwork:crc] fem9.dff CRC = 0x9B35D750
+[16:58:20] [artwork:crc] fem9.txd CRC = 0x399DA4BF
+[16:58:20] [artwork:crc] fem10.dff CRC = 0x9B35D750
+[16:58:20] [artwork:crc] fem10.txd CRC = 0xA3B6BED9
+[16:58:20] [artwork:crc] fem11.dff CRC = 0xCAE7C561
+[16:58:20] [artwork:crc] fem11.txd CRC = 0x5B7419E5
+[16:58:20] [artwork:crc] fem12.dff CRC = 0x9B35D750
+[16:58:20] [artwork:crc] fem12.txd CRC = 0xA7202A87
+[16:58:20] [artwork:crc] fem13.dff CRC = 0x1D6F7DB5
+[16:58:20] [artwork:crc] fem13.txd CRC = 0xACA11ED2
+[16:58:20] [artwork:crc] fem14.dff CRC = 0xA0726ABF
+[16:58:20] [artwork:crc] fem14.txd CRC = 0xAECDAC5A
+[16:58:20] [artwork:crc] fem15.dff CRC = 0x91B3F86
+[16:58:20] [artwork:crc] fem15.txd CRC = 0xEF098689
+[16:58:20] [artwork:crc] fem16.dff CRC = 0x32F50B60
+[16:58:20] [artwork:crc] fem16.txd CRC = 0x8103CE81
+[16:58:20] [artwork:crc] fem17.dff CRC = 0x418F583D
+[16:58:20] [artwork:crc] fem17.txd CRC = 0x41AD0C2C
+[16:58:20] [artwork:crc] fem18.dff CRC = 0x4E29E075
+[16:58:20] [artwork:crc] fem18.txd CRC = 0x6654226B
+[16:58:20] [artwork:crc] fem19.dff CRC = 0x6F58AF5F
+[16:58:20] [artwork:crc] fem19.txd CRC = 0x447F152B
+[16:58:20] [artwork:crc] fem20.dff CRC = 0xEF22A886
+[16:58:20] [artwork:crc] fem20.txd CRC = 0x32C2038F
+[16:58:20] [artwork:crc] fem21.dff CRC = 0xE3156601
+[16:58:20] [artwork:crc] fem21.txd CRC = 0x6BB6B454
+[16:58:20] [artwork:crc] fem22.dff CRC = 0x1827F432
+[16:58:20] [artwork:crc] fem22.txd CRC = 0xC2025BDA
+[16:58:20] [artwork:crc] fem23.dff CRC = 0xF1257F5B
+[16:58:20] [artwork:crc] fem23.txd CRC = 0x8FC6385E
+[16:58:20] [artwork:crc] pmerj.dff CRC = 0xAFBCD5CB
+[16:58:20] [artwork:crc] pmerj.txd CRC = 0x11EB541C
+[16:58:20] [artwork:crc] pmerj2.dff CRC = 0x5B5D1B38
+[16:58:20] [artwork:crc] pmerj2.txd CRC = 0x1DC131EA
+[16:58:20] [artwork:crc] pmerj3.dff CRC = 0x97B53A21
+[16:58:20] [artwork:crc] pmerj3.txd CRC = 0xB74E0D3A
+[16:58:20] [artwork:crc] pmerj4.dff CRC = 0xC12F2F32
+[16:58:20] [artwork:crc] pmerj4.txd CRC = 0x3FDB7234
+[16:58:20] [artwork:crc] pmerj5.dff CRC = 0x60E12C9
+[16:58:20] [artwork:crc] pmerj5.txd CRC = 0xA876904F
+[16:58:20] [artwork:crc] pmerj6.dff CRC = 0xBBB8ADC9
+[16:58:20] [artwork:crc] pmerj6.txd CRC = 0x4CBB67D5
+[16:58:20] [artwork:crc] pmerj7.dff CRC = 0xE4D91059
+[16:58:20] [artwork:crc] pmerj7.txd CRC = 0x36C2C571
+[16:58:20] [artwork:crc] pmerjf1.dff CRC = 0x92541F4E
+[16:58:20] [artwork:crc] pmerjf1.txd CRC = 0xEE636E2A
+[16:58:20] [artwork:crc] pmerjtf.dff CRC = 0x5866F28D
+[16:58:20] [artwork:crc] pmerjtf.txd CRC = 0x45FCCAA3
+[16:58:20] [artwork:crc] pmerjf3.dff CRC = 0xD647AD85
+[16:58:20] [artwork:crc] pmerjf3.txd CRC = 0xBF03E073
+[16:58:20] [artwork:crc] skindetreinamento.dff CRC = 0x2DB886F2
+[16:58:20] [artwork:crc] skindetreinamento.txd CRC = 0x4EFE61EC
+[16:58:20] [artwork:crc] skindetreinamento2.dff CRC = 0x761E95A6
+[16:58:20] [artwork:crc] skindetreinamento2.txd CRC = 0x370D1828
+[16:58:20] [artwork:crc] pmerjt.dff CRC = 0x4CC83507
+[16:58:20] [artwork:crc] pmerjt.txd CRC = 0xA73F8355
+[16:58:20] [artwork:crc] pmerjt2.dff CRC = 0x56E9500D
+[16:58:21] [artwork:crc] pmerjt2.txd CRC = 0x4EF3F5BA
+[16:58:21] [artwork:crc] pmerjt3.dff CRC = 0x2600057E
+[16:58:21] [artwork:crc] pmerjt3.txd CRC = 0xB496B2F4
+[16:58:21] [artwork:crc] pmerjt4.dff CRC = 0xD58C980C
+[16:58:21] [artwork:crc] pmerjt4.txd CRC = 0xE520D98E
+[16:58:21] [artwork:crc] pmerjt5.dff CRC = 0xC737806
+[16:58:21] [artwork:crc] pmerjt5.txd CRC = 0x49EB23A
+[16:58:21] [artwork:crc] pmerjt6.dff CRC = 0xF503009F
+[16:58:21] [artwork:crc] pmerjt6.txd CRC = 0x28BFB191
+[16:58:21] [artwork:crc] pmerjt7.dff CRC = 0xD096B3E3
+[16:58:21] [artwork:crc] pmerjt7.txd CRC = 0xFAB931FA
+[16:58:21] [artwork:crc] pmerjt8.dff CRC = 0x10D6BBE1
+[16:58:21] [artwork:crc] pmerjt8.txd CRC = 0xE96D6E10
+[16:58:21] [artwork:crc] delegadocivil.dff CRC = 0x593D4243
+[16:58:21] [artwork:crc] delegadocivil.txd CRC = 0x752A14BD
+[16:58:21] [artwork:crc] delegadocivil2.dff CRC = 0xEA9DFD8E
+[16:58:21] [artwork:crc] delegadocivil2.txd CRC = 0x42F366BC
+[16:58:21] [artwork:crc] investigadorcivil.dff CRC = 0x6A75F36
+[16:58:21] [artwork:crc] investigadorcivil.txd CRC = 0xE058790
+[16:58:21] [artwork:crc] investigadorcivil2.dff CRC = 0x9B65DACD
+[16:58:21] [artwork:crc] investigadorcivil2.txd CRC = 0xA69BC1D8
+[16:58:23] [artwork:crc] skinpcerj1.dff CRC = 0x52C49E2
+[16:58:23] [artwork:crc] skinpcerj1.txd CRC = 0x3D165B01
+[16:58:23] [artwork:crc] skinpcerj2.dff CRC = 0x699F809B
+[16:58:23] [artwork:crc] skinpcerj2.txd CRC = 0x520560C3
+[16:58:23] [artwork:crc] skinpcerj3.dff CRC = 0xE77E6B8
+[16:58:23] [artwork:crc] skinpcerj3.txd CRC = 0xA5500DA6
+[16:58:23] [artwork:crc] skinpcerj4.dff CRC = 0xC4129525
+[16:58:23] [artwork:crc] skinpcerj4.txd CRC = 0xA767E218
+[16:58:23] [artwork:crc] skinpcerj5.dff CRC = 0x12C2BEAC
+[16:58:23] [artwork:crc] skinpcerj5.txd CRC = 0xAC95234D
+[16:58:23] [artwork:crc] skinpcerj6.dff CRC = 0x6D16E452
+[16:58:23] [artwork:crc] skinpcerj6.txd CRC = 0xF13EABB9
+[16:58:23] [artwork:crc] skinpcerj7.dff CRC = 0xF3A72DEC
+[16:58:23] [artwork:crc] skinpcerj7.txd CRC = 0xF6D70DCF
+[16:58:23] [artwork:crc] skinfpcerj1.dff CRC = 0x2C88EB52
+[16:58:23] [artwork:crc] skinfpcerj1.txd CRC = 0xFCC66D6A
+[16:58:23] [artwork:crc] skinfpcerj2.dff CRC = 0x305A517D
+[16:58:23] [artwork:crc] skinfpcerj2.txd CRC = 0xECBBB8A7
+[16:58:23] [artwork:crc] skinfpcerj3.dff CRC = 0x305A517D
+[16:58:23] [artwork:crc] skinfpcerj3.txd CRC = 0x1DB37295
+[16:58:23] [artwork:crc] skinfpcerj4.dff CRC = 0x305A517D
+[16:58:23] [artwork:crc] skinfpcerj4.txd CRC = 0x5FD60640
+[16:58:23] [artwork:crc] skinfpcerj5.dff CRC = 0x305A517D
+[16:58:23] [artwork:crc] skinfpcerj5.txd CRC = 0xA5284F56
+[16:58:24] [artwork:crc] cbmloira.dff CRC = 0xA5F8922B
+[16:58:24] [artwork:crc] cbmloira.txd CRC = 0x61D0B64A
+[16:58:24] [artwork:crc] cbmmorena.dff CRC = 0xA5F8922B
+[16:58:24] [artwork:crc] cbmmorena.txd CRC = 0xE957E606
+[16:58:24] [artwork:crc] cbmnegra.dff CRC = 0xA5F8922B
+[16:58:24] [artwork:crc] cbmnegra.txd CRC = 0x58C013A0
+[16:58:24] [artwork:crc] cbmmoreno.dff CRC = 0xF1B08EA1
+[16:58:24] [artwork:crc] cbmmoreno.txd CRC = 0x5FD50C1B
+[16:58:24] [artwork:crc] cbmloiro.dff CRC = 0xF1B08EA1
+[16:58:24] [artwork:crc] cbmloiro.txd CRC = 0x62985199
+[16:58:24] [artwork:crc] cbmnegrojovem.dff CRC = 0x63333EB5
+[16:58:24] [artwork:crc] cbmnegrojovem.txd CRC = 0xA5EA1B0E
+[16:58:24] [artwork:crc] cbmnegroidoso.dff CRC = 0x5CAAAC3E
+[16:58:24] [artwork:crc] cbmnegroidoso.txd CRC = 0x529BDDE3
+[16:58:24] [artwork:crc] coletepmt.dff CRC = 0xA90DDD51
+[16:58:24] [artwork:crc] coletepmt.txd CRC = 0x168F409A
+[16:58:24] [artwork:crc] coletepmerj.dff CRC = 0x9FA53D02
+[16:58:24] [artwork:crc] coletepmerj.txd CRC = 0xE62777DB
+[16:58:24] [artwork:crc] coletepcerj.dff CRC = 0x9FA53D02
+[16:58:24] [artwork:crc] coletepcerj.txd CRC = 0x19E901D7
+[16:58:24] [artwork:crc] bonecore.dff CRC = 0xE74081F7
+[16:58:24] [artwork:crc] bonecore.txd CRC = 0xA7BC72A9
+[16:58:24] [artwork:crc] bonepmerj.dff CRC = 0x44ED80A3
+[16:58:24] [artwork:crc] bonepmerj.txd CRC = 0xC3A182C0
+[16:58:24] [artwork:crc] bodycam.dff CRC = 0xF9502800
+[16:58:24] [artwork:crc] bodycam.txd CRC = 0x1EBF9A6C
+[16:58:24] [artwork:crc] cone.dff CRC = 0xF711EDD9
+[16:58:24] [artwork:crc] cone.txd CRC = 0xDE86BF96
+[16:58:24] [artwork:crc] cavalete.dff CRC = 0x3A338AFC
+[16:58:24] [artwork:crc] cavalete.txd CRC = 0x6CC0C922
+[16:58:24] [artwork:crc] faixa.dff CRC = 0x7507B9AC
+[16:58:24] [artwork:crc] faixa.txd CRC = 0xC1ACA036
+[16:58:24] [artwork:crc] PatenteSD1.dff CRC = 0xD79713CD
+[16:58:24] [artwork:crc] PatenteSD1.txd CRC = 0x1C1746C5
+[16:58:24] [artwork:crc] PatenteCB2.dff CRC = 0xE7309DAA
+[16:58:24] [artwork:crc] PatenteCB2.txd CRC = 0x58F35F03
+[16:58:24] [artwork:crc] PatenteSGT3.dff CRC = 0xEC4739B5
+[16:58:24] [artwork:crc] PatenteSGT3.txd CRC = 0x58F35F03
+[16:58:24] [artwork:crc] PatenteSGT2.dff CRC = 0x4C1837C0
+[16:58:24] [artwork:crc] PatenteSGT2.txd CRC = 0x58F35F03
+[16:58:24] [artwork:crc] PatenteSGT1.dff CRC = 0x7C41C3FC
+[16:58:24] [artwork:crc] PatenteSGT1.txd CRC = 0x58F35F03
+[16:58:24] [artwork:crc] RadioMotorola.dff CRC = 0xAE250E95
+[16:58:24] [artwork:crc] RadioMotorola.txd CRC = 0xA536719F
+[16:58:24] [artwork:crc] CachorroUm.dff CRC = 0x2A4F1370
+[16:58:24] [artwork:crc] CachorroUm.txd CRC = 0x44F74611
+[16:58:24] [artwork:crc] CachorroDois.dff CRC = 0x2A4F1370
+[16:58:24] [artwork:crc] CachorroDois.txd CRC = 0x43B4E37A
+[16:58:24] [artwork:crc] CachorroTres.dff CRC = 0x2A4F1370
+[16:58:24] [artwork:crc] CachorroTres.txd CRC = 0x1861AF63
+[16:58:24] [artwork:crc] CachorroQuatro.dff CRC = 0x2A4F1370
+[16:58:24] [artwork:crc] CachorroQuatro.txd CRC = 0xF4504A40
+[16:58:24] [artwork:crc] boneobjeto1.dff CRC = 0xC82233C
+[16:58:24] [artwork:crc] boneobjeto1.txd CRC = 0xB81E24C1
+[16:58:24] [artwork:crc] boneobjeto2.dff CRC = 0xC82233C
+[16:58:24] [artwork:crc] boneobjeto2.txd CRC = 0xB81E24C1
+[16:58:24] [artwork:crc] boneobjeto3.dff CRC = 0xC82233C
+[16:58:24] [artwork:crc] boneobjeto3.txd CRC = 0x25EC71FD
+[16:58:24] [artwork:crc] boneobjeto4.dff CRC = 0xC82233C
+[16:58:24] [artwork:crc] boneobjeto4.txd CRC = 0x3D3821FC
+[16:58:24] [artwork:crc] coletebandido.dff CRC = 0x35333281
+[16:58:24] [artwork:crc] coletebandido.txd CRC = 0x7FCB75F7
+[16:58:24] [artwork:crc] coletecore.dff CRC = 0xB6AB6FB
+[16:58:24] [artwork:crc] coletecore.txd CRC = 0x26874B15
+[16:58:24] [artwork:crc] mochila1.dff CRC = 0x7198BBAD
+[16:58:24] [artwork:crc] mochila1.txd CRC = 0xAA488C0D
+[16:58:24] [artwork:crc] mochila2.dff CRC = 0xBA43DBFB
+[16:58:24] [artwork:crc] mochila2.txd CRC = 0xA55E4D43
+[16:58:24] [artwork:crc] mochila3.dff CRC = 0x36D7E922
+[16:58:24] [artwork:crc] mochila3.txd CRC = 0x31D6F73
+[16:58:24] [artwork:crc] mochila4.dff CRC = 0x49A9723A
+[16:58:24] [artwork:crc] mochila4.txd CRC = 0xB888188E
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet6.txd CRC = 0xF4B2FC93
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet7.txd CRC = 0xA69E81C3
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet11.txd CRC = 0x3ADE2234
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet12.txd CRC = 0xDB79DC67
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet15.txd CRC = 0xFAFD327C
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet16.txd CRC = 0x4E2FBC
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet19.txd CRC = 0xC6E81FEF
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet21.txd CRC = 0x7124984F
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet24.txd CRC = 0x4F271835
+[16:58:24] [artwork:crc] helmet.dff CRC = 0x9F713AEE
+[16:58:24] [artwork:crc] helmet1.txd CRC = 0xFCCAD90E
+[16:58:24] [artwork:crc] ifood.dff CRC = 0xAD546C14
+[16:58:24] [artwork:crc] ifood.txd CRC = 0x8AD5CCA2
+[16:58:24] [artwork:crc] ubereats.dff CRC = 0x64187DA5
+[16:58:24] [artwork:crc] ubereats.txd CRC = 0x7B16FAD9
+[16:58:24] [artwork:crc] bsimples.dff CRC = 0x246AB514
+[16:58:24] [artwork:crc] bsimples.txd CRC = 0xB9643631
+[16:58:24] [artwork:crc] bolsanikelateral.dff CRC = 0x82FA00BC
+[16:58:24] [artwork:crc] bolsanikelateral.txd CRC = 0x3D42A41A
+[16:58:24] [artwork:crc] PacoteMcDonalds.dff CRC = 0x7F3872D5
+[16:58:24] [artwork:crc] PacoteMcDonalds.txd CRC = 0xB1587374
+[16:58:24] [artwork:crc] maconhab.dff CRC = 0xBF46F2FF
+[16:58:24] [artwork:crc] maconhab.txd CRC = 0x68419BE
+[16:58:24] [artwork:crc] maconhar.dff CRC = 0xA0906971
+[16:58:24] [artwork:crc] maconhar.txd CRC = 0x13A26228
+[16:58:24] [artwork:crc] cocaina.dff CRC = 0x22B7B621
+[16:58:24] [artwork:crc] cocaina.txd CRC = 0xF84F4DF
+[16:58:24] [artwork:crc] crackr.dff CRC = 0x7260DE97
+[16:58:24] [artwork:crc] crackr.txd CRC = 0xEB7DC1B6
+[16:58:24] [artwork:crc] crackb.dff CRC = 0xAA6EDDA1
+[16:58:24] [artwork:crc] crackb.txd CRC = 0xEB7DC1B6
+[16:58:24] [artwork:crc] lsd.dff CRC = 0x6CB2980D
+[16:58:24] [artwork:crc] lsd.txd CRC = 0xB190FA30
+[16:58:24] [artwork:crc] lancaperfume.dff CRC = 0xD108D979
+[16:58:24] [artwork:crc] lancaperfume.txd CRC = 0x22D3BE23
+[16:58:24] [artwork:crc] atmbb.dff CRC = 0xB17F632C
+[16:58:24] [artwork:crc] atmbb.txd CRC = 0x69DCFA68
+[16:58:24] [artwork:crc] petrolpumpnew.dff CRC = 0x9E5AC69B
+[16:58:24] [artwork:crc] petrolpumpnew.txd CRC = 0x93533129
+[16:58:24] [artwork:crc] orelhao.dff CRC = 0x2CC18C13
+[16:58:24] [artwork:crc] orelhao.txd CRC = 0x39CA65AC
+[16:58:24] [artwork:crc] dp29.dff CRC = 0x5BFEF895
+[16:58:24] [artwork:crc] dp29.txd CRC = 0xE92438C7
+[16:58:24] [artwork:crc] 16bpm.dff CRC = 0x6A054CE
+[16:58:24] [artwork:crc] 16bpm.txd CRC = 0xA8FC87BA
+[16:58:24] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:58:24] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:24] [artwork:crc] lawrence1.dff CRC = 0x8F51FF50
+[16:58:24] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:58:24] [artwork:crc] lawrence2.dff CRC = 0x364941F9
+[16:58:24] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:58:24] [artwork:crc] lawrence3.dff CRC = 0x97427D97
+[16:58:24] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:58:24] [artwork:crc] lawrence4.dff CRC = 0xBAC5C171
+[16:58:24] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:58:24] [artwork:crc] lawrence5.dff CRC = 0x6E1A3848
+[16:58:24] [artwork:crc] lawrence.txd CRC = 0xEAE8E32A
+[16:58:24] [artwork:crc] comunidade.dff CRC = 0x909CE0A0
+[16:58:24] [artwork:crc] comunidade.txd CRC = 0x4F0743B
+[16:58:24] [artwork:crc] CBM.dff CRC = 0x137D9C2C
+[16:58:24] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:58:24] [artwork:crc] CBMfloor.dff CRC = 0x489CB0B4
+[16:58:24] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:58:24] [artwork:crc] CBMgate.dff CRC = 0x6A1CF2C0
+[16:58:24] [artwork:crc] CBM.txd CRC = 0xB9CC391E
+[16:58:24] [artwork:crc] cachaca.dff CRC = 0x5AC3118C
+[16:58:24] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:58:24] [artwork:crc] mesacachaca.dff CRC = 0xB76A4AB
+[16:58:24] [artwork:crc] cachaca.txd CRC = 0x64CA58F0
+[16:58:24] [artwork:crc] patio.dff CRC = 0x51CE93A5
+[16:58:24] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:58:24] [artwork:crc] patiogate.dff CRC = 0xA1076387
+[16:58:24] [artwork:crc] patio.txd CRC = 0x902E36B2
+[16:58:24] [artwork:crc] rojao.dff CRC = 0x6F72D6BB
+[16:58:24] [artwork:crc] rojao.txd CRC = 0x6891CFE5
+[16:58:24] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:58:24] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:58:24] [artwork:crc] idlewood.dff CRC = 0x3917B73D
+[16:58:24] [artwork:crc] idlewood.txd CRC = 0xD326ADA3
+[16:58:24] [artwork:crc] mcdonalds.dff CRC = 0x167C3952
+[16:58:24] [artwork:crc] mcdonalds.txd CRC = 0x5E920F93
+[16:58:24] [artwork:crc] forum.dff CRC = 0x62EC2E52
+[16:58:24] [artwork:crc] forum.txd CRC = 0x5BF5C2DA
+[16:58:24] [artwork:crc] lojao.dff CRC = 0x9DC27EE6
+[16:58:24] [artwork:crc] lojao.txd CRC = 0xA482A3F1
+[16:58:24] [artwork:crc] upp.dff CRC = 0x4BF646AD
+[16:58:24] [artwork:crc] upp.txd CRC = 0xDBAF48F8
+[16:58:24] [artwork:crc] casa.dff CRC = 0xF78B0A85
+[16:58:24] [artwork:crc] casa.txd CRC = 0xC0F52DEE
+[16:58:24] [artwork:crc] casa2.dff CRC = 0xFD694AE0
+[16:58:24] [artwork:crc] casa2.txd CRC = 0x536FD1B9
+[16:58:24] [artwork:crc] casa3.dff CRC = 0x649256F0
+[16:58:24] [artwork:crc] casa3.txd CRC = 0x6FB0C326
+[16:58:24] [artwork:crc] docas.dff CRC = 0x392CB0
+[16:58:24] [artwork:crc] docas.txd CRC = 0x89974EFC
+[16:58:24] [artwork:crc] escola.dff CRC = 0x7F98D6C3
+[16:58:24] [artwork:crc] escola.txd CRC = 0xE65A4AA7
+[16:58:24] [artwork:crc] miniextra.dff CRC = 0x649256F0
+[16:58:24] [artwork:crc] miniextra.txd CRC = 0xA294808D
+[16:58:24] [artwork:crc] prosegur.dff CRC = 0x6D7C875
+[16:58:24] [artwork:crc] prosegur.txd CRC = 0xF898B8B0
+[16:58:24] [artwork:crc] campo1.dff CRC = 0x920820A
+[16:58:24] [artwork:crc] campo1.txd CRC = 0xF81DBE2F
+[16:58:24] [artwork:crc] hud.dff CRC = 0x4BC6EDFF
+[16:58:24] [artwork:crc] hud.txd CRC = 0xAB2168BC
+[16:58:24] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:58:24] [artwork:crc] tela.txd CRC = 0x47496B1
+[16:58:24] [artwork:crc] login.dff CRC = 0xDCFCC14C
+[16:58:24] [artwork:crc] logo.txd CRC = 0xC5CF8DA5
+[16:58:24] [artwork:crc] caixa.dff CRC = 0xD1FB3D2B
+[16:58:25] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:58:25] [artwork:crc] caixa1.dff CRC = 0x450C648C
+[16:58:25] [artwork:crc] caixa.txd CRC = 0x637ED230
+[16:58:25] [artwork:crc] posto.dff CRC = 0x7D3D4944
+[16:58:25] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:58:25] [artwork:crc] posto1.dff CRC = 0x9F21A821
+[16:58:25] [artwork:crc] posto.txd CRC = 0xB4FC46D8
+[16:58:25] [artwork:crc] craco.dff CRC = 0x419983FA
+[16:58:25] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:58:25] [artwork:crc] craco2.dff CRC = 0x341DA350
+[16:58:25] [artwork:crc] craco.txd CRC = 0xFD423285
+[16:58:25] [artwork:crc] lomb_sign.dff CRC = 0x10D34E0E
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-a.dff CRC = 0xFFBAA4D4
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-ad.dff CRC = 0xD9AC7E4D
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-b.dff CRC = 0x15FBC9EE
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-bd.dff CRC = 0xFDEEADFE
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-c.dff CRC = 0x5641CCAF
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-cd.dff CRC = 0xE719A6B0
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-d.dff CRC = 0xE2F98E0D
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] lomb-dd.dff CRC = 0x5625A0E9
+[16:58:25] [artwork:crc] lomb.txd CRC = 0xC2289EBB
+[16:58:25] [artwork:crc] unity_open.dff CRC = 0xD2EBC38F
+[16:58:25] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:58:25] [artwork:crc] unity_open_land.dff CRC = 0x48F4F438
+[16:58:25] [artwork:crc] union_las.txd CRC = 0xF6FC06F1
+[16:58:25] [artwork:crc] fav_h1.dff CRC = 0xD6DE802B
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h2.dff CRC = 0x9A181992
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h3.dff CRC = 0xF1688C4A
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h4.dff CRC = 0xE6DC7540
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h5.dff CRC = 0xF7DC33E
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h6.dff CRC = 0x490BC57B
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h7.dff CRC = 0x468CA544
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h8.dff CRC = 0xE4A70105
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h9.dff CRC = 0x4276032F
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h10.dff CRC = 0x296E0E8C
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h11.dff CRC = 0xBBC4CC29
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h12.dff CRC = 0x3764BF30
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h13.dff CRC = 0x96067724
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h14.dff CRC = 0xEEF94560
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h15.dff CRC = 0xAB6535B
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h16.dff CRC = 0x6855A7EC
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h17.dff CRC = 0x6DAC482F
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] fav_h18.dff CRC = 0x5DA3525E
+[16:58:25] [artwork:crc] fav_h.txd CRC = 0x99D461CD
+[16:58:25] [artwork:crc] textdraw_object.dff CRC = 0x0
+[16:58:25] [artwork:error] Bad file: textdraw_object.dff
+[16:58:25] [artwork:crc] palco.dff CRC = 0x57287144
+[16:58:25] [artwork:crc] palco.txd CRC = 0xDC7C08B5
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_barbeiro.txd CRC = 0x72629A65
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_bope.txd CRC = 0x8DA9958D
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_claro.txd CRC = 0xD40D19CC
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_gas.txd CRC = 0x70F93064
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_ifood.txd CRC = 0x4FC31800
+[16:58:25] [artwork:crc] outdoor.dff CRC = 0x8640E2DF
+[16:58:25] [artwork:crc] out_pneu.txd CRC = 0x430B2B2C
+[16:58:25] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:58:25] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:58:25] [artwork:crc] cristo_2.dff CRC = 0x3983BA26
+[16:58:25] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:58:25] [artwork:crc] cristo_3.dff CRC = 0x4BDE1817
+[16:58:25] [artwork:crc] cristo_3.txd CRC = 0xBD8EAB35
+[16:58:25] [artwork:crc] cristo.dff CRC = 0xAF522DF6
+[16:58:25] [artwork:crc] cristo.txd CRC = 0x4427F09F
+[16:58:25] [artwork:crc] b_cristo.dff CRC = 0x5784179F
+[16:58:25] [artwork:crc] b_cristo.txd CRC = 0x6F33E263
+[16:58:25] [artwork:crc] gaseiro.dff CRC = 0x68D3425F
+[16:58:25] [artwork:crc] gaseiro.txd CRC = 0x6FF99FBE
+[16:58:25] [artwork:crc] c_bad.dff CRC = 0x7ED57E76
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] c_bra.dff CRC = 0x99EFC7C6
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] c_ell.dff CRC = 0x4D08CF3C
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] c_est.dff CRC = 0xEE510C93
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] c_hai.dff CRC = 0xE3B2EF7C
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] c_sko.dff CRC = 0x2973BCCF
+[16:58:25] [artwork:crc] cervejas.txd CRC = 0xD446CF63
+[16:58:25] [artwork:crc] m_fav01.dff CRC = 0xDA2C147
+[16:58:25] [artwork:crc] m_fav01.txd CRC = 0xC603D396
+[16:58:25] [artwork:crc] m_fav02.dff CRC = 0xA1448940
+[16:58:25] [artwork:crc] m_fav02.txd CRC = 0xF286EF1
+[16:58:25] [artwork:crc] garagem01.dff CRC = 0x410C7AA9
+[16:58:25] [artwork:crc] garagem.txd CRC = 0x2FB8942A
+[16:58:25] [artwork:crc] house01.dff CRC = 0x35AB4D83
+[16:58:25] [artwork:crc] house01.txd CRC = 0x4EFB007A
+[16:58:25] [artwork:crc] apartamento.dff CRC = 0x2C57380F
+[16:58:25] [artwork:crc] apartamento.txd CRC = 0xEB98EA55
+[16:58:25] [artwork:crc] casa01.dff CRC = 0xFC3F186B
+[16:58:25] [artwork:crc] casa01.txd CRC = 0x8CB84AD6
+[16:58:25] [artwork:crc] favela01.dff CRC = 0xE0605FDD
+[16:58:25] [artwork:crc] favela01.txd CRC = 0x23BBB57A
+[16:58:25] [artwork:crc] favela02.dff CRC = 0xE09A63A7
+[16:58:25] [artwork:crc] favela02.txd CRC = 0x4E03EE9
+[16:58:25] [artwork:crc] complexo.dff CRC = 0x195A9337
+[16:58:25] [artwork:crc] complexo.txd CRC = 0xB14F85FA
+[16:58:25] [artwork:crc] casenha.dff CRC = 0x6E9BE39C
+[16:58:25] [artwork:crc] casenha.txd CRC = 0xDC7874A5
+[16:58:25] [artwork:crc] oficina.dff CRC = 0xFC31EA97
+[16:58:25] [artwork:crc] oficina.txd CRC = 0x1A44DD35
+[16:58:25] [artwork:crc] muro_grande.dff CRC = 0xD68505C0
+[16:58:25] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:58:25] [artwork:crc] muro_portao.dff CRC = 0xE90813B5
+[16:58:25] [artwork:crc] muros.txd CRC = 0x17702A6E
+[16:58:25] [artwork:crc] campo.dff CRC = 0xBB17BBD1
+[16:58:25] [artwork:crc] campo.txd CRC = 0x3A78F6C5
+[16:58:25] [artwork:crc] bar1.dff CRC = 0xD6795F11
+[16:58:25] [artwork:crc] bar1.txd CRC = 0xC7F379C3
+[16:58:25] 
+[16:58:25] Filterscripts
+[16:58:25] ---------------
+[16:58:25]   Loaded 0 filterscripts.
+
+[16:58:30]  
+[16:58:30]  
+[16:58:30]  
+[16:58:30]  ======================================= 
+[16:58:30]  |                                     | 
+[16:58:30]  |        YSI version 3.09.0684        | 
+[16:58:30]  |        By Alex "Y_Less" Cole        | 
+[16:58:30]  |                                     | 
+[16:58:30]  ======================================= 
+[16:58:30]  
+[16:58:30]  
+[16:58:30]  
+[16:58:31] [ADM] Info: Load EVF v3.2.1 for SA:MP 0.3.7 by Abyss Morgan
+[16:58:31] |-- Corrida de Cavalos: Carregado
+[16:58:32] [CARREGADO] Mapa: Portões do Pay N' Spray & Mod Shops
+[16:58:32] [CARREGADO] Mapa: Campo de fut idlewood
+[16:58:32] [CARREGADO] Mapa: Ocean Docks
+[16:58:32] [CARREGADO] Mapa: Favela El corona
+[16:58:32] [CARREGADO] Mapa: Construção
+[16:58:32] [CARREGADO] Mapa: Restaurante
+[16:58:32] [CARREGADO] Mapa: Favela original
+[16:58:32] [CARREGADO] Mapa: Desmanche
+[16:58:32] [CARREGADO] Mapa: Willowfield
+[16:58:32] [CARREGADO] Mapa: Favela LC
+[16:58:32] [CARREGADO] Mapa: estação unity
+[16:58:32] [LOAD] Mapa: Oficina Pista de Skate
+[16:58:32] [CARREGADO] Mapa: Oficina El corona
+[16:58:32] [CARREGADO] Mapa: Patio
+[16:58:32] [CARREGADO] Mapa: Ammu nation
+[16:58:32] [CARREGADO] Mapa: bar idlewood.
+[16:58:32] [CARREGADO] Mapa: Oficina aeroporto
+[16:58:32] [CARREGADO] Mapa: Comunidade
+[16:58:32] [CARREGADO] Mapa: Hospital exterior
+[16:58:32] [CARREGADO] Mapa: Prosegur exterior
+[16:58:32] [CARREGADO] Mapa: Caixa federal
+[16:58:32] [CARREGADO] Mapa: 29ºDP Penha
+[16:58:32] [CARREGADO] Mapa: 16ºBPM
+[16:58:32] [CARREGADO] Mapa: Bombeiros EXTERIOR
+[16:58:32] [LOAD] Mapa: Delegacia
+[16:58:32] [CARREGADO] Mapa: WH 2
+[16:58:32] [CARREGADO] Mapa: Factory int
+[16:58:32] [CARREGADO] Mapa: Ghetto droga int
+[16:58:32] [CARREGADO] Mapa: Ghetto ammo int
+[16:58:32] [CARREGADO] Mapa Ilegal gunshop int
+[16:58:32] [CARREGADO] Mapa: int lavagem de grana
+[16:58:32] [CARREGADO] Mapa: Interior PMERJ
+[16:58:32] [CARREGADO] Mapa: Interior bombeiros
+[16:58:32] [CARREGADO] Mapa: Interior DP
+[16:58:32] [CARREGADO] Mapa: Hospital interior
+[16:58:32] [CARREGADO] Mapa: Itau interior
+[16:58:32] [CARREGADO] Mapa: Interior prefeitura.
+[16:58:32] [CARREGADO] Mapa: Fight room
+[16:58:32] [CARREGADO] Mapa: Loja de peças
+[16:58:32] [CARREGADO] Mapa: Empresa 1
+[16:58:32] [CARREGADO] Mapa: Loja de Eletronicos
+[16:58:32] [CARREGADO] Mapa: Agencia de Empregos
+[16:58:32] [CARREGADO] Empresas vazios
+[16:58:32] [CARREGADO] Mapa: Interior fundo verde
+[16:58:32] [CARREGADO] Mapa: Interiores de Casas e Empresas vazios
+[16:58:32] [CARREGADO] Mapa: Apartamento 2
+[16:58:32] [CARREGADO] Mapa: Apartamento 3
+[16:58:32] [CARREGADO] Mapa: Complexo 1
+[16:58:32] [CARREGADO] Mapa: Complexo 2
+[16:58:32] [CARREGADO] Mapa: Complexo 3
+[16:58:32] [CARREGADO] Mapa: Complexo 4
+[16:58:32] [CARREGADO] Mapa: Complexo 5
+[16:58:32] [CARREGADO] Mapa: Complexo 7
+[16:58:32] [CARREGADO] Mapa: Complexo 8
+[16:58:32] [CARREGADO] Mapa: Complexo 9
+[16:58:32] [CARREGADO] Sistema de Grafite
+[16:58:32] 
+----------------------------------	
+[16:58:32] 	Progressive Roleplay				
+[16:58:32] 	por Yur$							
+[16:58:32] ----------------------------------
+	
+[16:58:32] Number of vehicle models: 3
+[16:58:32] [CARREGADO] Veiculos criados.
+[16:58:32] [CARREGADO] 7 veiculos carregados.
+[16:58:32] [CARREGADO] Casas: 1
+[16:58:32] [CARREGADO] Garagens: 0
+[16:58:32] [CARREGADO] Complexos: 0
+[16:58:32] [CARREGADO] Empresas: 5
+[16:58:32] ================ [ Pontos de Entrega ]
+[16:58:32] ID: 1 | i: 0
+[16:58:32] ID: 2 | i: 1
+[16:58:32] ID: 3 | i: 2
+[16:58:32] ID: 4 | i: 3
+[16:58:32] ID: 5 | i: 4
+[16:58:32] ID: 6 | i: 5
+[16:58:32] ID: 7 | i: 6
+[16:58:32] ID: 8 | i: 7
+[16:58:32] ID: 9 | i: 8
+[16:58:32] ID: 10 | i: 9
+[16:58:32] ID: 11 | i: 10
+[16:58:32] ID: 12 | i: 11
+[16:58:32] ID: 13 | i: 12
+[16:58:32] ID: 14 | i: 13
+[16:58:32] ID: 15 | i: 14
+[16:58:32] ID: 16 | i: 15
+[16:58:32] ID: 17 | i: 16
+[16:58:32] ID: 18 | i: 17
+[16:58:32] ID: 19 | i: 18
+[16:58:32] ID: 20 | i: 19
+[16:58:32] ID: 21 | i: 20
+[16:58:32] ID: 22 | i: 21
+[16:58:32] ID: 23 | i: 22
+[16:58:32] ID: 24 | i: 23
+[16:58:32] ID: 25 | i: 24
+[16:58:32] ID: 26 | i: 25
+[16:58:32] ID: 27 | i: 26
+[16:58:32] ID: 28 | i: 27
+[16:58:32] ID: 29 | i: 28
+[16:58:32] ID: 30 | i: 29
+[16:58:32] [CARREGADO] FURNITURE: 0 moveis.
+[16:58:32] [CARREGADO] Armas no Servidor: 37 | Armas no Chão: 19 | Armas na Pos 0: 0
+[16:58:32] [CARREGADO] Total de facções: 2
+[16:58:32] [CARREGADO] Total de Portas/Portões [Fac/Casa/empresa]: 0
+[16:58:32] [CARREGADO] Itens no Servidor: 3 | Itens no Chão: 0 | Itens na Pos 0: 0
+[16:58:32] [CARREGADO] Cartuchos no chão do Servidor: 3 
+[16:58:32] [Drug System] Atualmente existem 0 drogas plantadas por SA.
+[16:58:32] [CARREGADO] Drogas no chão do Servidor: 2 | Drogas na Pos 0: 0
+[16:58:32] [CARREGADO] Pixes: 0
+[16:58:32] [CARREGADO] Multas: 0
+[16:58:32] sscanf warning: Format specifier does not match parameter count.
+[16:58:32] [CARREGADO] Cofre do governo: R$59961556
+[16:58:32] SERVER: Carregado com sucesso!
+[16:58:32] [connection] incoming connection: 127.0.0.1:61355 id: 0
+[16:58:32] [npc:join] Trainbot has joined the server (0:127.0.0.1)
