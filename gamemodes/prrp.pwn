@@ -86,7 +86,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
 #define ULTIMO_GMX      "15/10/2022"
-#define CA_VERSAO       "PR:RP v0.53"
+#define CA_VERSAO       "PR:RP v0.54"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [Paycheck Duplo]"
@@ -5647,8 +5647,8 @@ static const g_aPreloadLibs[][] =
 main()
 {
 	print("\n----------------------------------	");
-	print("	Carregando Progressive Roleplay		");
-	print("	By  Yur$							");
+	print("	Progressive Roleplay				");
+	print("	por Yur$							");
 	print("----------------------------------\n	");
 }
 
@@ -10662,6 +10662,7 @@ public OnPlayerConnect(playerid)
         SendClientMessage(playerid, COLOR_YELLOW, "SERVER: Seu personagem deve ser registrado em nosso UCP.");
 		SendClientMessage(playerid, COLOR_YELLOW, "PARA MAIS INFORMAÇÕES: https://progressive-roleplay.com");
 		
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
@@ -11914,6 +11915,7 @@ public CheckingAccount(playerid)
 			new str[250];
 			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
 			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -11925,6 +11927,7 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -11937,6 +11940,7 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
@@ -11949,6 +11953,7 @@ public CheckingAccount(playerid)
 	    new str[256];
 		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor se registre-se.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
@@ -12001,6 +12006,7 @@ public CheckingAccount(playerid)
 			new str[250];
 			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
 			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -12012,6 +12018,7 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -12024,6 +12031,7 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
+			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
@@ -12036,6 +12044,7 @@ public CheckingAccount(playerid)
 	    new str[256];
 		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com sua senha.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
@@ -12043,6 +12052,7 @@ public CheckingAccount(playerid)
 
 		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
   		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -12419,7 +12429,7 @@ public PlayerConectCriarTexts(playerid)
 	PlayerTextDrawSetProportional(playerid, ClickTD[playerid], 1);
 
     TelaLogin[playerid][0] = CreatePlayerTextDraw(playerid, 0.000, -2.000, "mdl-2200:fundo");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][0], 645.000, 455.000);
+    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][0], 1676.000, 455.000);
     PlayerTextDrawAlignment(playerid, TelaLogin[playerid][0], 1);
     PlayerTextDrawColor(playerid, TelaLogin[playerid][0], -1);
     PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][0], 0);
@@ -13045,7 +13055,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.53, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.54, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão final e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthDate] == 0)
@@ -13071,6 +13081,7 @@ public OnPlayerSpawn(playerid){
 					TextDrawShowForPlayer(playerid, Textdraw49[playerid]);
 
                     //Login
+					PlayerTextDrawDestroy(playerid, TelaLogin[playerid][0]);
                     PlayerTextDrawDestroy(playerid, TelaLogin[playerid][1]);
                     PlayerTextDrawDestroy(playerid, TelaLogin[playerid][2]);
                     PlayerTextDrawDestroy(playerid, TelaLogin[playerid][3]);
@@ -17150,6 +17161,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			  			    new str[250];
 							format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n\nDigite sua senha novamente:");
 							ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+							PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 							PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 							PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 							PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -17163,6 +17175,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	  			    new str[250];
 					format(str, sizeof(str), "SERVER: Você só pode errar sua senha três vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha novamente:");
 					ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
+					PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 					PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 					PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 					PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -35490,6 +35503,7 @@ stock BanExtra(playerid,reason[],admin[])
 	gettime(hour,minuite,second);
     PlayerInfo[playerid][pBanido] = 1;
 	Dialog_Show(playerid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerInfo[playerid][pNomeOOC], admin, reason, ReturnDate());
+	PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 	PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
