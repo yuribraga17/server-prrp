@@ -11113,6 +11113,20 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+    //posto norte
+    RemoveBuildingForPlayer(playerid, 5853, 1018.159, -908.976, 43.648, 0.250);
+    RemoveBuildingForPlayer(playerid, 5898, 1018.159, -908.976, 43.648, 0.250);
+    RemoveBuildingForPlayer(playerid, 1522, 1000.880, -919.109, 41.289, 0.250);
+	//posto sul
+	RemoveBuildingForPlayer(playerid, 5409, 1918.849, -1776.329, 16.976, 0.250);
+	RemoveBuildingForPlayer(playerid, 5535, 1918.849, -1776.329, 16.976, 0.250);
+	RemoveBuildingForPlayer(playerid, 1524, 1910.160, -1779.660, 18.750, 0.250);
+	RemoveBuildingForPlayer(playerid, 5681, 1921.479, -1778.910, 18.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 955, 1928.729, -1772.449, 12.945, 0.250);
+	RemoveBuildingForPlayer(playerid, 1676, 1941.660, -1767.290, 14.140, 0.250);
+	RemoveBuildingForPlayer(playerid, 1676, 1941.660, -1771.339, 14.140, 0.250);
+	RemoveBuildingForPlayer(playerid, 1676, 1941.660, -1774.310, 14.140, 0.250);
+	RemoveBuildingForPlayer(playerid, 1676, 1941.660, -1778.449, 14.140, 0.250);
 	//16BPM
 	RemoveBuildingForPlayer(playerid, 616, 2528.709, -1556.680, 21.468, 0.250);
 	RemoveBuildingForPlayer(playerid, 620, 2510.560, -1563.479, 21.804, 0.250);
@@ -11545,19 +11559,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 620, 1375.0859, -813.5391, 69.5703, 0.25);
 	RemoveBuildingForPlayer(playerid, 13722, 1413.4141, -804.7422, 83.4375, 0.25);
 	RemoveBuildingForPlayer(playerid, 13831, 1413.4141, -804.7422, 83.4375, 0.25);
-	//Favela willowfield
-	RemoveBuildingForPlayer(playerid, 5182, 2115.000, -1921.520, 15.390, 0.250);
-	RemoveBuildingForPlayer(playerid, 5208, 2115.000, -1921.520, 15.390, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2122.659, -1916.790, 10.804, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2121.510, -1909.530, 10.804, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2123.360, -1928.069, 6.843, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2116.929, -1916.079, 10.804, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2115.669, -1922.770, 10.804, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2113.399, -1925.040, 10.804, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2114.550, -1928.189, 5.031, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 2110.270, -1906.589, 5.031, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 2118.290, -1939.400, 16.390, 0.250);
-	RemoveBuildingForPlayer(playerid, 5374, 2085.280, -1909.709, 23.000, 0.250);
     //Favela el corona
     RemoveBuildingForPlayer(playerid, 4820, 1738.390, -2117.023, 13.937, 0.250);
     RemoveBuildingForPlayer(playerid, 4952, 1738.390, -2117.023, 13.937, 0.250);
