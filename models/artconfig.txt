@@ -238,6 +238,7 @@ AddSimpleModel(-1,19369, -1003, "posto.dff", "posto.txd");
 AddSimpleModel(-1,19369, -1004, "posto1.dff", "posto.txd");
 AddSimpleModel(-1,19369, -1005, "craco.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1006, "craco2.dff", "craco.txd"); 
+AddSimpleModel(-1,19369, -1025, "postoip.dff", "postoip.txd");
 
 //lombadas
 AddSimpleModel(-1,1375, -1007, "lomb_sign.dff", "lomb.txd"); 

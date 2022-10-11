@@ -5648,10 +5648,10 @@ static const g_aPreloadLibs[][] =
 
 main()
 {
-	print("\n----------------------------------	");
-	print("	Progressive Roleplay				");
-	print("	por Yur$							");
-	print("----------------------------------\n	");
+	print("\n-------------------------------------------	");
+	print("	Progressive Roleplay							");
+	print("	por Yur$										");
+	print("----------------------------------\n				");
 }
 
 public OnPlayerPause(playerid)
@@ -37782,6 +37782,31 @@ CMD:setardinheiro(playerid, params[])
 
     new strl[126];
 	format(strl, 126, "%s setou R$%d para %s. [/setardinheiro]", PlayerName(playerid, 0), qnt, PlayerName(other, 0));
+	LogCMD_dargrana(strl);
+	return 1;
+}
+
+CMD:asetargrana(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 3000) return 1;
+	new other,qnt;
+    if(sscanf(params, "ii", other, qnt))
+	{
+	    SendClientMessage(playerid,COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} /asetargrana [Playerid] [Quantidade]");
+	    return 1;
+	}
+    PlayerInfo[other][pGrana] += qnt;
+
+    new admnome[24];
+	if(PlayerInfo[playerid][pAdmin] > 3001) format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
+	else format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
+
+    format(string,sizeof(string),"AdmCmd: O Administrador %s lhe setou R$%d.",admnome,qnt);
+    SendClientMessage(other, COLOR_LIGHTRED, string);
+
+    new strl[126];
+	format(strl, 126, "%s setou R$%d para %s. [/asetargrana]", PlayerName(playerid, 0), qnt, PlayerName(other, 0));
 	LogCMD_dargrana(strl);
 	return 1;
 }

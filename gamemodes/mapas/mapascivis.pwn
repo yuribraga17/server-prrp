@@ -5488,15 +5488,14 @@ stock mapacivil(){
 	CreateDynamicObject(19817, 1627.80310, -2154.87183, 11.94460,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(19817, 1619.74304, -2154.87183, 11.94460,   0.00000, 0.00000, 0.00000);
 	print("[CARREGADO] Mapa: Oficina aeroporto");
-	tmpobjid = CreateDynamicObject(-1040, 1918.8516, -1776.3281, 16.9766, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(-1003, 1918.8516, -1776.3281, 16.9766, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 9515, "bigboxtemp1", "lombard_build2_2", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 2, 16640, "a51", "concretewall22_256", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 3, 9524, "blokmodb", "lombard_build1_1", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 4, 5397, "barrio1_lae", "roof06L256", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 5, 16093, "a51_ext", "alleydoor9b", 0x00000000);
-	SetDynamicObjectMaterial(tmpobjid, 10, 16640, "a51", "concretemanky", 0x00000000);
-	//tmpobjid = CreateDynamicObject(-1041, 1918.8516, -1776.3281, 16.9766, 16.946855, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
-	tmpobjid = CreateDynamicObject(-1041, 1918.8516, -1776.3281, 16.9766, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	SetDynamicObjectMaterial(tmpobjid, 10, 16640, "a51", "concretemanky", 0x00000000); 
+	tmpobjid = CreateDynamicObject(-1004, 1918.8516, -1776.3281, 16.9766, 0.000000, 0.000014, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 14581, "ab_mafiasuitea", "barbersmir1", 0xAAAAAAAA);
 	SetDynamicObjectMaterial(tmpobjid, 1, 10765, "airportgnd_sfse", "black64", 0x00000000);
 	tmpobjid = CreateDynamicObject(2414, 1917.363647, -1777.052734, 12.559683, 0.000000, 0.000007, 0.000000, -1, -1, -1, 300.00, 300.00); 
