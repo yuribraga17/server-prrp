@@ -86,6 +86,7 @@ AddCharModel(277, 20306, "cbmnegroidoso.dff", "cbmnegroidoso.txd");
 //objetos policia
 AddSimpleModel(-1,19515, -2100, "coletepmt.dff", "coletepmt.txd");
 AddSimpleModel(-1,19515, -2101, "coletepmerj.dff", "coletepmerj.txd");
+AddSimpleModel(-1,19515, -2126, "coletepmerj2.dff", "coletepmerj2.txd");
 AddSimpleModel(-1,19515, -2102, "coletepcerj.dff", "coletepcerj.txd");
 AddSimpleModel(-1,18933, -2103, "bonecore.dff", "bonecore.txd");
 AddSimpleModel(-1,18933, -2104, "bonepmerj.dff", "bonepmerj.txd");

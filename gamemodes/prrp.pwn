@@ -913,7 +913,8 @@ enum aCaixElet
 	Float:aposZ,
 	Float:aposR,
 	aGrana,
-	aObjeto
+	aObjeto,
+	aRrombado
 };
 static ATMs[MAX_ATM][aCaixElet];
 
@@ -2069,6 +2070,7 @@ enum e_Account
 	pJobTempo,
 	pJobInPd,
 	pPecasMecanicas[7],// 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
+	pBomba,
 	pTempoPLD,
 	pToolKit,
 	pArrombarDNV,
@@ -2705,10 +2707,10 @@ static LOJA_CHAPEU_PMERJ[1] = {
 	-2104
 };
 
-static LOJA_OUTROS_PMERJ[9] = {
-	-2100, -2101, -2105, -2120,
+static LOJA_OUTROS_PMERJ[10] = {
+	-2126, -2101, -2105, -2120,
 	-2121, -2122, -2123, -2124,
-	-2125
+	-2125, -2100
 };
 //======== [PCERJ]======//
 static PCERJ_Uniformes[16] = {
@@ -5641,7 +5643,7 @@ static const g_aPreloadLibs[][] =
 
 #include "../gamemodes/sistemas/Horse.pwn"
 #include "../gamemodes/sistemas/MorteSys.pwn"
-#include "../gamemodes/sistemas/portotrucker.pwn"
+//#include "../gamemodes/sistemas/portotrucker.pwn"
 //==============================================================================//
 
 main()
@@ -5784,7 +5786,7 @@ public OnGameModeInit()
     //Basket
     basket_OnGameModeInit();
     Iniciar_HorseBetSys();
-    PortoTrucker_ModeInit();
+    //PortoTrucker_ModeInit();
 
     //============ Pickup / TextLabel - Anuncio
     CreateDynamic3DTextLabel("[CENTRO DE EMPREGOS]\nUse '/pegaremprego'", 0x008080FF, 1414.9390,-1576.9739,20.0859, 40.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -7318,7 +7320,7 @@ public randomEx(min, max)
 
 public OnGameModeExit()
 {
-    PortoTrucker_ModeExit();
+    //PortoTrucker_ModeExit();
 	AtualizarGraficoPlayers1(1);
 	return 1;
 }
@@ -10432,6 +10434,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pFac] = 0;
 	PlayerInfo[extraid][pExecComando] = 0;
 	PlayerInfo[extraid][pJob] = 0;
+	PlayerInfo[extraid][pBomba] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][0] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][1] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][2] = 0;
@@ -11053,6 +11056,7 @@ public OnPlayerConnect(playerid)
 	progress_wait_type[playerid] = PROGRESS_BAR_INVALID;
 
 	for(new i = 0; i < 7; i++) { PlayerInfo[playerid][pPecasMecanicas][i] = 0; }
+
 	purchasing_vehicle[playerid] = -1;
 	format(PlayerInfo[playerid][pUltimoLogin],50," ");
 
@@ -11818,6 +11822,54 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1308, 2484.093, -1357.320, 27.992, 0.250);
 	RemoveBuildingForPlayer(playerid, 700, 2481.101, -1360.007, 27.859, 0.250);
 	RemoveBuildingForPlayer(playerid, 3698, 2490.695, -1362.656, 30.812, 0.250);
+	//Shopping
+	RemoveBuildingForPlayer(playerid, 6130, 1117.5859, -1490.0078, 32.7188, 0.25);
+	RemoveBuildingForPlayer(playerid, 6255, 1117.5859, -1490.0078, 32.7188, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1050.1328, -1566.4375, 12.6406, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1117.6094, -1536.9766, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1111.5625, -1533.9609, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1105.6016, -1531.1563, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1141.5781, -1566.4375, 12.6172, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1545.6016, 12.6641, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1137.9297, -1537.0625, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1143.7891, -1534.7031, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1148.6016, -1532.2578, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1097.4766, -1523.9766, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1093.4219, -1519.8281, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1089.5781, -1515.7891, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1087.1953, -1510.4922, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1084.9688, -1504.4219, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1101.1406, -1527.9688, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1128.7344, -1518.4922, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1111.2578, -1512.3594, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1077.8594, -1499.8672, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1083.6719, -1499.4922, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1106.4375, -1501.3750, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 712, 1134.0781, -1500.3750, 22.2813, 0.25);
+	RemoveBuildingForPlayer(playerid, 712, 1123.2500, -1500.5313, 22.2813, 0.25);
+	RemoveBuildingForPlayer(playerid, 712, 1124.3672, -1476.9844, 22.2813, 0.25);
+	RemoveBuildingForPlayer(playerid, 712, 1133.2266, -1476.2266, 22.2813, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1144.3984, -1512.7891, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1152.3828, -1502.5391, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1153.5391, -1529.8047, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1157.8203, -1525.4844, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1161.3281, -1521.5781, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1165.1563, -1517.2109, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1167.7813, -1513.1797, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1169.1641, -1509.3359, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 647, 1170.8047, -1503.5547, 30.9688, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1503.3906, 12.6641, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1118.0156, -1467.4688, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 955, 1154.7266, -1460.8906, 15.1563, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1139.9219, -1467.4688, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1139.9219, -1456.4375, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1118.0156, -1456.4375, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1139.9219, -1445.1016, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1118.0156, -1445.1016, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1139.9219, -1434.0703, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1118.0156, -1434.0703, 15.2109, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1458.7344, 12.6641, 0.25);
+	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1426.3516, 12.6641, 0.25);
 
 	for(new i = 0; i < 50; i++) //CaminhaoSyst
 	{
@@ -19664,8 +19716,9 @@ public SalvarPlayer(playerid)
 		);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Mun9mm`='%d', `Mun556`='%d', `MunCart`='%d', `Mun127`='%d', `pSlot1`='%d', `pSlot2`='%d', `pSlot3`='%d', `pSlot4`='%d', `pSlot5`='%d', `pSlot1a`='%d', `pSlot2a`='%d', `pSlot3a`='%d', `pSlot4a`='%d', `pSlot5a`='%d', `FacCargo`='%d', `pEmServico`='%d', `pBanAll`='%d', `pBanido`='%d', `pWalkStyle`='%d', `pDoador`='%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Mun9mm`='%d', `Bomba`='%d', `Mun556`='%d', `MunCart`='%d', `Mun127`='%d', `pSlot1`='%d', `pSlot2`='%d', `pSlot3`='%d', `pSlot4`='%d', `pSlot5`='%d', `pSlot1a`='%d', `pSlot2a`='%d', `pSlot3a`='%d', `pSlot4a`='%d', `pSlot5a`='%d', `FacCargo`='%d', `pEmServico`='%d', `pBanAll`='%d', `pBanido`='%d', `pWalkStyle`='%d', `pDoador`='%d' WHERE `ID` = '%d'",
             PlayerInfo[playerid][pMun9mm],
+			PlayerInfo[playerid][pBomba],
 			PlayerInfo[playerid][pMun556],
 			PlayerInfo[playerid][pMunCart],
 			PlayerInfo[playerid][pMun127],
@@ -19686,6 +19739,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pWalkStyle],
 			PlayerInfo[playerid][pDoador],
 		    PlayerInfo[playerid][pID]
+			
 		);
 	    mysql_function_query(Pipeline, query, false, "", "");
 
@@ -25332,6 +25386,38 @@ public StopTalking(playerid)
     ApplyAnimation(playerid, "CARRY", "crry_prtial", 3.1, 0, 1, 1, 1, 1, 1);
     ComAnim[playerid] = 0;
     ClearAnimations(playerid, 1);
+	return 1;
+}
+
+COMMAND:roubarcaixa(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+	for(new i = 0; i < MAX_ATM; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
+    	{
+    		TaNaATM[playerid] = i;
+			CreateExplosion(ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 12, 0);
+			ATMs[i][aRrombado] = 1;
+			return 1;
+		}
+	}
+	return 1;
+}
+
+
+
+COMMAND:pegardinheiro(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+	for(new i = 0; i < MAX_ATM; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]) && ATMs[i][aRrombado] == 1) 
+    	{
+			PlayerInfo[playerid][pGrana] += 5000;
+			return 1;
+		}
+	}
 	return 1;
 }
 
@@ -38217,6 +38303,7 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "ChaveEmprestada", tmp);PlayerInfo[extraid][pChaveEmprestada] = strval(tmp);
 		cache_get_field_content(0, "Fac", tmp);			PlayerInfo[extraid][pFac] = strval(tmp);
 		cache_get_field_content(0, "Job", tmp);			PlayerInfo[extraid][pJob] = strval(tmp);
+		cache_get_field_content(0, "Bomba", tmp);			PlayerInfo[extraid][pBomba] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas0", tmp);PlayerInfo[extraid][pPecasMecanicas][0] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas1", tmp);PlayerInfo[extraid][pPecasMecanicas][1] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas2", tmp);PlayerInfo[extraid][pPecasMecanicas][2] = strval(tmp);
@@ -65264,6 +65351,44 @@ CMD:comprarplaca(playerid,params[])
     return 1;
 }
 
+CMD:comprarbomba(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	{
+	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1488.6760,-1721.4026,8.2160))
+			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "LOJA DAS BOMBAS", "1x Dinamite [R$200]", "Selecionar", "Voltar");
+		else {
+  			SetPlayerCheckpoint(playerid, 1488.6760,-1721.4026,8.2160, 5.0);
+			cp_target[playerid] = 1;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está no local de venda de bombas.");
+			return 1;
+		}
+	}
+    return 1;
+}
+
+Dialog:Dialog_Bomba(playerid, response, listitem, inputtext[])
+{
+	if(!response) return 1;
+	else
+	{
+		switch(listitem)
+		{
+		    case 0:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 200)
+				{
+					PlayerInfo[playerid][pBomba]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma dinamite por 200R$.");
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-200;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
+            }
+        }
+	}
+	return 1;
+}
+
 Dialog:Dialog_CPlacas(playerid, response, listitem, inputtext[])
 {
 	if(!response) return 1;
@@ -65379,6 +65504,20 @@ Dialog:Dialog_CPecas2(playerid, response, listitem, inputtext[]) {
   	return 1;
 }
 
+
+CMD:minhasbombas(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
+	//if(PlayerInfo[playerid][pJob] != JOB_MECANICO && PlayerInfo[playerid][pJob] != JOB_DESMANCHE) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um mecânico.");
+	format(string,sizeof(string),"_______Peças de %s:_______", PlayerName(playerid, 0));
+	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
+	format(string,sizeof(string),"[Dinamite (%d)] ", PlayerInfo[playerid][pBomba]);
+    SendClientMessage(playerid,-1,string);
+    SendClientMessage(playerid,COLOR_CINZA, "Você pode usar o comando /darbomba para entregar uma a alguém.");
+	return 1;
+}
+
 CMD:minhaspecas(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -65391,6 +65530,42 @@ CMD:minhaspecas(playerid,params[])
     format(string,sizeof(string),"[Immob (%d)] [Tranca (%d)] [Peça de Reparo (%d)]", PlayerInfo[playerid][pPecasMecanicas][3], PlayerInfo[playerid][pPecasMecanicas][4], PlayerInfo[playerid][pPecasMecanicas][5]);
     SendClientMessage(playerid,-1,string);
     SendClientMessage(playerid,COLOR_CINZA, "Você pode usar o comando /darpeca para entregar uma a alguém.");
+	return 1;
+}
+
+CMD:darbomba(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
+	new option[12],
+		other = -1,
+		quant;
+
+	if (sscanf(params, "s[12]ii",option, other, quant)) {
+		SendClientMessage(playerid,COLOR_LIGHTRED, "USE: /darbomba [opcao] [playerid] [quantidade]");
+		SendClientMessage(playerid,COLOR_LIGHTRED, "Opções: {FFFFFF}dinamite");
+		return 1;
+	}
+	else {
+	    if(other < 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Player inválido.");
+	    if(quant < 0) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Quantidade inválida.");
+	    if(other == playerid) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode se entregar.");
+	    if(!PlayerInfo[other][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não está logado!");
+     	if(GetDistanceBetweenPlayers(playerid,other) > 7.5) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está perto deste jogador.");
+
+	    if(strcmp(option, "dinamite", true) == 0){
+		    if(PlayerInfo[playerid][pBomba] >= quant) {
+            	PlayerInfo[other][pBomba] += quant;
+            	PlayerInfo[playerid][pBomba] -= quant;
+
+            	format(string,sizeof(string),"%s lhe entregou %d dinamites.", PlayerName(playerid, 1), quant);
+    			SendClientMessage(other, COLOR_LIGHTGREEN, string);
+
+    			format(string,sizeof(string),"Você entregou %d dinamites para %s.", quant, PlayerName(other, 1));
+    			SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
+            }
+            else SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de dinamites.");
+		}
+	}
 	return 1;
 }
 
