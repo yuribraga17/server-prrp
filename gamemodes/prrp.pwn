@@ -11117,6 +11117,28 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//Favela carecas
+	RemoveBuildingForPlayer(playerid, 3654, 2428.218, -1290.585, 26.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 3647, 2428.078, -1273.664, 26.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 3654, 2395.007, -1278.375, 25.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 3647, 2395.257, -1347.460, 26.320, 0.250);
+	RemoveBuildingForPlayer(playerid, 3656, 2432.132, -1358.171, 25.742, 0.250);
+	RemoveBuildingForPlayer(playerid, 3656, 2432.132, -1339.851, 25.742, 0.250);
+	RemoveBuildingForPlayer(playerid, 3650, 2426.554, -1321.898, 26.929, 0.250);
+	RemoveBuildingForPlayer(playerid, 3650, 2426.554, -1304.578, 26.929, 0.250);
+	RemoveBuildingForPlayer(playerid, 3706, 2394.437, -1327.117, 25.960, 0.250);
+	RemoveBuildingForPlayer(playerid, 3706, 2390.109, -1365.007, 25.328, 0.250);
+	RemoveBuildingForPlayer(playerid, 3648, 2395.257, -1347.460, 26.320, 0.250);
+	RemoveBuildingForPlayer(playerid, 3646, 2390.109, -1365.007, 25.328, 0.250);
+	RemoveBuildingForPlayer(playerid, 3646, 2394.437, -1327.117, 25.960, 0.250);
+	RemoveBuildingForPlayer(playerid, 3649, 2395.007, -1278.375, 25.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 17527, 2414.398, -1362.203, 32.601, 0.250);
+	RemoveBuildingForPlayer(playerid, 3655, 2432.132, -1358.171, 25.742, 0.250);
+	RemoveBuildingForPlayer(playerid, 3651, 2426.554, -1321.898, 26.929, 0.250);
+	RemoveBuildingForPlayer(playerid, 3651, 2426.554, -1304.578, 26.929, 0.250);
+	RemoveBuildingForPlayer(playerid, 3655, 2432.132, -1339.851, 25.742, 0.250);
+	RemoveBuildingForPlayer(playerid, 3649, 2428.218, -1290.585, 26.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 3648, 2428.078, -1273.664, 26.000, 0.250);
     //posto norte
     RemoveBuildingForPlayer(playerid, 5853, 1018.159, -908.976, 43.648, 0.250);
     RemoveBuildingForPlayer(playerid, 5898, 1018.159, -908.976, 43.648, 0.250);

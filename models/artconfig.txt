@@ -188,7 +188,6 @@ AddSimpleModel(-1,19379, -1065, "idlewood.dff", "idlewood.txd");
 AddSimpleModel(-1,19379, -1066, "mcdonalds.dff", "mcdonalds.txd");
 AddSimpleModel(-1,19379, -1067, "forum.dff", "forum.txd");
 AddSimpleModel(-1,19379, -1068, "lojao.dff", "lojao.txd");
-AddSimpleModel(-1, 19379, -2016, "upp.dff", "upp.txd");
 AddSimpleModel(-1, 19379, -2071, "casa.dff", "casa.txd");
 AddSimpleModel(-1, 19379, -2072, "casa2.dff", "casa2.txd");
 AddSimpleModel(-1, 19379, -2073, "casa3.dff", "casa3.txd");
@@ -197,6 +196,34 @@ AddSimpleModel(-1, 19379, -2075, "escola.dff", "escola.txd");
 AddSimpleModel(-1, 19379, -2079, "miniextra.dff", "miniextra.txd");
 AddSimpleModel(-1, 19379, -2081, "prosegur.dff", "prosegur.txd");
 AddSimpleModel(-1, 19379, -7102, "campo1.dff", "campo1.txd");
+
+//favela carecas
+AddSimpleModel(-1,19480,-2010,"barraco.dff","barraco.txd");
+AddSimpleModel(-1,19480,-2011,"barraco2.dff","barraco2.txd");
+AddSimpleModel(-1,19480,-2012,"barracon1.dff","barracon1.txd");
+AddSimpleModel(-1,19480,-2013,"fav_1fj.dff","fav_1fj.txd");
+AddSimpleModel(-1,19480,-2014,"fav_bask.dff","fav_bask.txd");
+AddSimpleModel(-1,19480,-2015,"fav_football.dff","fav_football.txd");
+AddSimpleModel(-1,19480,-2016,"fav_h1.dff","fav_h1.txd");
+AddSimpleModel(-1,19480,-2017,"fav_h2.dff","fav_h2.txd");
+AddSimpleModel(-1,19480,-2018,"fav_h3.dff","fav_h3.txd");
+AddSimpleModel(-1,19480,-2019,"fav_h5.dff","fav_h5.txd");
+AddSimpleModel(-1,19480,-2020,"fav_h6.dff","fav_h6.txd");
+AddSimpleModel(-1,19480,-2021,"fav_h7.dff","fav_h7.txd");
+AddSimpleModel(-1,19480,-2022,"fav_h8.dff","fav_h8.txd");
+AddSimpleModel(-1,19480,-2023,"fav_h9.dff","fav_h9.txd");
+AddSimpleModel(-1,19480,-2024,"fav_h10.dff","fav_h10.txd");
+AddSimpleModel(-1,19480,-2025,"fav_h11.dff","fav_h11.txd");
+AddSimpleModel(-1,19480,-2026,"fav_h12.dff","fav_h12.txd");
+AddSimpleModel(-1,19480,-2027,"fav_h14.dff","fav_h14.txd");
+AddSimpleModel(-1,19480,-2028,"fav_h16.dff","fav_h16.txd");
+AddSimpleModel(-1,19480,-2029,"fav_h17.dff","fav_h17.txd");
+AddSimpleModel(-1,19480,-2030,"fav_h18.dff","fav_h18.txd");
+AddSimpleModel(-1,19480,-2031,"fav_paint.dff","fav_paint.txd");
+AddSimpleModel(-1,19480,-2032,"fav_shp.dff","fav_shp.txd");
+AddSimpleModel(-1,19480,-2033,"fav_stroika.dff","fav_stroika.txd");
+AddSimpleModel(-1,19480,-2034,"fav_vil.dff","fav_vil.txd");
+AddSimpleModel(-1,19480,-2040, "upp.dff", "upp.txd");
 
 //textdraw
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");
