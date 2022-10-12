@@ -37425,7 +37425,7 @@ COMMAND:setarvida(playerid, params[])
 		if(PlayerInfo[playerid][pAdmin] > 0)
 		{
 		    if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
-		    if(inter > 0 && inter < 501)
+		    if(inter > 0 && inter < 99999999)
 		    {
 		        //PlayerInfo[playerid][pHealth] = inter;
 		        if(inter > PlayerInfo[targetid][pHealthMax])
@@ -37467,7 +37467,7 @@ COMMAND:setarcolete(playerid, params[])
 		if(PlayerInfo[playerid][pAdmin] >= 3)
 		{
 		    if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
-		    if(inter >= 0 && inter < 300)
+		    if(inter >= 0 && inter < 301)
 		    {
 		        P_Armour[targetid] = inter;
 
@@ -65284,7 +65284,7 @@ CMD:pegaremprego(playerid,params[])
 			if(biz != -1)
 			{
 				if( EmpInfo[biz][eTipo] == EMP_TIPO_EMP_CENTER)
-	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nMotoboy", "Selecionar", "Voltar");
+	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador", "Selecionar", "Voltar");
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, 5, 1414.8279,-1577.5049,20.0859))
@@ -65356,13 +65356,13 @@ Dialog:Dialog_Empregos(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
 		    }
-		    /*case 6:
+		    case 6:
 		    {
-		        PlayerInfo[playerid][pJob] = JOB_MOTOBOY;
+		        PlayerInfo[playerid][pJob] = JOB_TREINADOR;
 		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um motoboy, utilize /ajudaemprego para mais informações.");
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
-		    }*/
+		    }
 		}
 	}
 	return 1;
@@ -65409,7 +65409,7 @@ CMD:comprarbomba(playerid,params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	{
 	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1488.6760,-1721.4026,8.2160))
-			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "LOJA DAS BOMBAS", "1x Dinamite [R$200]", "Selecionar", "Voltar");
+			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "Loja de Bombas", "1x Dinamite [R$200]", "Selecionar", "Voltar");
 		else {
   			SetPlayerCheckpoint(playerid, 1488.6760,-1721.4026,8.2160, 5.0);
 			cp_target[playerid] = 1;
@@ -81754,47 +81754,56 @@ public DesmanchandoVeh(playerid, parte)
 			if(IsATruck(vid))
 			{
 				PlayerInfo[playerid][pPecasMecanicas][5]+= 32;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 32 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 4500;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 32 peças de carro e R$4,500 por desmanchar este veículo.");
 			}
 			else if(IsASUV(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 25;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 3500;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro e R$3500 por desmanchar este veículo.");
 			}
 			else if(IsASportCar(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 20;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 3000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro e R$3000 por desmanchar este veículo.");
 			}
 			else if(IsAVan(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 27;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 27 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 2505;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 27 peças de carro e R$2,505 por desmanchar este veículo.");
 			}
 			else if(IsAPopularCar(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 18;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 2000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro e R$2000 por desmanchar este veículo.");
 			}
 			else if(IsAUnique(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 17;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 17 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 1800;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 17 peças de carro e R$1,800 por desmanchar este veículo.");
 			}
 			else if(IsABike(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 2;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 2 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 450;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 2 peças de carro e R$450 por desmanchar este veículo.");
 			}
 			else if(IsABicicleta(vid))
 			{
 				PlayerInfo[playerid][pPecasMecanicas][5]+= 1;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 1 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 300;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 1 peças de carro e R$300 por desmanchar este veículo.");
 			}
 			else
 			{
 			    PlayerInfo[playerid][pPecasMecanicas][5]+= 3;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 3 peças de carro por desmanchar este veículo");
+				PlayerInfo[playerid][pGrana] += 200;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 3 peças de carro e R$200 por desmanchar este veículo.");
 			}
 			new slot = GetVehicleSlot(vid);
 			if(slot > -1)
