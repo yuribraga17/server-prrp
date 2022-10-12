@@ -48619,7 +48619,7 @@ CMD:entrar(playerid, params[])
                             else if(EmpInfo[i][eTipo] != 0) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprar");
 
 							SetPlayerInterior(playerid, EmpInfo[i][eInt]);
-		   					SetPlayerVirtualWorld(playerid,100+i);
+		   					SetPlayerVirtualWorld(playerid,110);
 
 		   					SetPlayerPosFreeze(playerid,EmpInfo[i][eInX],EmpInfo[i][eInY],EmpInfo[i][eInZ],1);
 
@@ -48637,7 +48637,7 @@ CMD:entrar(playerid, params[])
 
 		   					PlayerInfo[playerid][pEntrouCasa] = -1;
 		   					PlayerInfo[playerid][pEntrouComplexo] = -1;
-				    	    PlayerInfo[playerid][pEntrouEmpresa] = i;
+				    	    PlayerInfo[playerid][pEntrouEmpresa] = 110;
 				    	    PlayerInfo[playerid][pEntrouGaragem] = -1;
 
 				    	    Streamer_Update(playerid);
@@ -48688,7 +48688,7 @@ CMD:entrar(playerid, params[])
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 2514.5640,-1525.5608,24.0324))//PMERJ
 	{
 	    SetPlayerInterior(playerid, 5);
-	    SetPlayerVirtualWorld(playerid, 9);
+	    SetPlayerVirtualWorld(playerid, 1);
 
 	    SetPlayerPosFreeze(playerid, 1513.2678,-1623.1249,774.0040, 1);
 	}
