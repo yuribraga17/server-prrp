@@ -80504,8 +80504,8 @@ public TelPubCriado(playerid)
 
     new Float:X, Float:Y, Float:Z;
     GetPlayerPos(playerid, X, Y, Z);
-    //TelPublico[id][orObj] = CreateDynamicObject(-2819, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
-	TelPublico[id][orObj] = CreateDynamicObject(-2819, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
+    //TelPublico[id][orObj] = CreateDynamicObject(-2919, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
+	TelPublico[id][orObj] = CreateDynamicObject(-2919, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
     EditDynamicObject(playerid, TelPublico[id][orObj]);
     return 1;
 }
@@ -80514,7 +80514,7 @@ public AtualizarTelPub(id)
 {
     if (IsValidDynamicObject(TelPublico[id][orObj])) DestroyDynamicObject(TelPublico[id][orObj]);
 
-    //TelPublico[id][orObj] = CreateDynamicObject(-2819, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
+    //TelPublico[id][orObj] = CreateDynamicObject(-2919, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
     TelPublico[id][orObj] = CreateDynamicObject(-2919, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
 	return 1;
 }
