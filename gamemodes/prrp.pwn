@@ -65213,12 +65213,12 @@ public ReparandoVeiculo(playerid, vid, momento)
 	}
 	else
 	{
-	    if (IsPlayerInRangeOfPoint( playerid, 5, -1622.9995, 659.8107, -5.7172) )
+	    if (IsPlayerInRangeOfPoint( playerid, 5, 2507.6438,-1551.7308,24.0324) )
 		{
 		    RepairVehicleEx(vid);
 	    	return 1;
 		}
-		else if (IsPlayerInRangeOfPoint( playerid, 5, 613.3480,-589.6611,17.2330) )
+		else if (IsPlayerInRangeOfPoint( playerid, 5, 1720.7937,-1578.8098,13.5547) )
 		{
         	RepairVehicleEx(vid);
 	    	return 1;
