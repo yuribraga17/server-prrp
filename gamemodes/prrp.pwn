@@ -9246,7 +9246,7 @@ public Timer_Segundos()
 						new Float:Perda;
 						if(PlayerInfo[i][pFome] == 0) Perda = 3.0;
 						if(PlayerInfo[i][pSede] == 0) Perda = 3.0;
-						else Perda = 0.10;
+						//else Perda = 0.10;
 
             			PlayerInfo[i][pFomeTime]++;
 						PlayerInfo[i][pSedeTime]++;
