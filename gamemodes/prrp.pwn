@@ -19670,7 +19670,7 @@ public SalvarPlayer(playerid)
 		   	}
 		}
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Age` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
    			PlayerInfo[playerid][pLevel],
 			PlayerInfo[playerid][pGender],
 			PlayerInfo[playerid][pAge],
@@ -32188,10 +32188,10 @@ Dialog:Equipar_PMERJ(playerid, response, listitem, inputtext[])
         {
             case 0:
 			{
-				Dialog_Show(playerid, Equipar_PMERJ1, DIALOG_STYLE_TABLIST_HEADERS, "[PMERJ] Equipamentos", "Arma:\tCargo nescessário:\nCassetete\t1\nGranada de Fumaça\t1\nColt 45\t1\nDesert Eagle\t1\nShotgun\t1\nMP5\t1\nM4\t4", "Pegar", "Fechar");
+				Dialog_Show(playerid, Equipar_PMERJ1, DIALOG_STYLE_TABLIST_HEADERS, "[PMERJ] Equipamentos", "Arma:\tCargo nescessário:\nCassetete\t1\nGranada de Fumaça\t1\nColt 45\t1\nDesert Eagle\t1\nShotgun\t1\nMP5\t1\nM4\t2", "Pegar", "Fechar");
 			}
 			case 1: Dialog_Show(playerid, Equipar_PMERJ2, DIALOG_STYLE_TABLIST_HEADERS, "[PMERJ] Equipamentos", "Tipo de Munição:\tQuantidade:\n9mm\t60\nCartuchos\t60\n5.56mm\t120\n12.7x106mm\t60", "Pegar", "Fechar");
-            case 2: { P_Armour[playerid] = 100; SetPlayerArmour_CA(playerid, 100); }
+            case 2: { P_Armour[playerid] = 120; SetPlayerArmour_CA(playerid, 120); }
             case 3: { P_Armour[playerid] = 0; SetPlayerArmour_CA(playerid, 0); }
             case 4:
             {
@@ -32292,7 +32292,7 @@ Dialog:Equipar_PMERJ1(playerid, response, listitem, inputtext[])
 			case 6:
 			{
 			    if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
-			    if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem cargo o suficiente para pegar essa arma.");
+			    if(PlayerInfo[playerid][pFacCargo] < 2) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem cargo o suficiente para pegar essa arma.");
 			    EntregandoArmaSQL(playerid, 31, 0, 1, 0);
 			    PlayerInfo[playerid][pMun556] += 60;
 			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu uma M4 e 60 balas 5.56mm.");
