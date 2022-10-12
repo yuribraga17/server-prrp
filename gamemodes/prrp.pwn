@@ -2040,7 +2040,7 @@ enum e_Account
 	pPassword[129],
 	pLevel,
 	pGender,
-	pBirthDate,
+	pAge,
 	pAdmin,
 	pSkin,
 	Float:pHealth,
@@ -2707,10 +2707,10 @@ static LOJA_CHAPEU_PMERJ[1] = {
 	-2104
 };
 
-static LOJA_OUTROS_PMERJ[10] = {
+static LOJA_OUTROS_PMERJ[9] = {
 	-2126, -2101, -2105, -2120,
 	-2121, -2122, -2123, -2124,
-	-2125, -2100
+	-2125
 };
 //======== [PCERJ]======//
 static PCERJ_Uniformes[16] = {
@@ -4511,7 +4511,7 @@ stock ShowInterioresDialog(playerid)
     return ShowPlayerDialog(playerid, DIALOG_COMPLEXO_MENU, DIALOG_STYLE_LIST, "Interiores", dialog_string, "Select", "Cancel");
 }
 //==============================================================================
-new EmpresaDialogNames[21][] =
+new EmpresaDialogNames[24][] =
 {
     "Banco",
     "Prefeitura",
@@ -4533,10 +4533,13 @@ new EmpresaDialogNames[21][] =
 	"Prefeitura",
 	"Fight Room",
 	"StripClub",
-	"Fundo verde"
+	"Fundo verde",
+	"Caixa Economica",
+	"Lavagem dinheiro",
+	"Loja de peças"
 };
 
-new Float:EmpresaDialogData[21][4] =
+new Float:EmpresaDialogData[24][4] =
 {
     {1409.53857, 1316.47266, 1501.04822, 0.0}, 		// Banco
     {1461.6343, -1726.4952, 1051.3344, 0.0}, 		// Prefeitura
@@ -4558,7 +4561,10 @@ new Float:EmpresaDialogData[21][4] =
     {-500.8079, 293.8986, 2000.7140, 0.0},     // Prefeitura
     {2001.6118, 1105.6027, 331.0500, 0.0},     // FightRoom
     {1973.7617, 1342.8131, 246.5860, 0.0},     // StripClub_New
-	{1392.7712,-13.4471,1000.9965, 0.0}		//fundo verde
+	{1392.7712,-13.4471,1000.9965, 0.0},		//fundo verde
+	{1406.1774,-5.3591,1003.9926, 0.0},		//banco
+	{1392.7712,-13.4471,1000.9965, 0.0},		//lavagem dinheiro
+	{1411.8286,2.7863,1000.9764, 0.0}		//loja peças
 };
 new InteriorDialogEmpresa[21][1] =
 {
@@ -5797,24 +5803,12 @@ public OnGameModeInit()
 
     CreateDynamic3DTextLabel("[CENTRAL DE ANÚNCIOS]\nUse '/anuncio'\nUse '/anuncioemp'", 0xffffffff, 1166.6110,-1473.7046,15.7921, 40.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1166.6110,-1473.7046,15.7921, -1);
-   
-    CreateDynamic3DTextLabel("[PCERJ]\nUse '/trabalho'\nUse '/equipar'\nUse '/uniforme'", 0xffffffff, 1372.3121,-26.7843,1000.9219, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 1372.3121,-26.7843,1000.9219, 0);
-    
-	CreateDynamic3DTextLabel("[CBERJ]\nUse '/trabalho'\nUse '/equipar'\nUse '/uniforme'", 0xffffffff, 959.5063,-1440.9656,13.5387, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 959.5063,-1440.9656,13.5387, 0);
-    
-	
     
 	CreateDynamic3DTextLabel("[EB]\n/trabalho'\nUse '/equipar'\nUse '/uniforme'", 0xffffffff, 140.4548,1874.9152,17.8359, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 140.4548,1874.9152,17.8359, 0);
 
-	CreateDynamic3DTextLabel("[GOVERNO]\n/reparar", 0xffffffff, 1046.8956,-904.1373,42.4056, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 1046.8956,-904.1373,42.4056, 0);
-
-	CreateDynamic3DTextLabel("[EB]\n/reparar", 0xffffffff, 201.0273,1916.7688,17.6406, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 201.0273,1916.7688,17.6406, 0);
-
+	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 2501.8445,-1564.4512,24.0324, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+    CreatePickup(1239, 1, 2501.8445,-1564.4512,24.0324, 0);
 
     //MULTAS
     CreateDynamic3DTextLabel("{FFFFFF}[DETRAN]\nUse '/Multas'\nPara pagar suas multas", 0xffffffff,-501.2948,293.6831,2001.0950, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -5832,8 +5826,8 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 2784.9338,-2454.6338,13.6344, 0);
 
     //CADEIA
-    CreateDynamic3DTextLabel("{FFFFFF}[CADEIA]\nUse '/prender'",0xffffffff, 1395.3456,-14.0476,1001.0098, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
-    CreatePickup(1239, 1, 1395.3456,-14.0476,1001.0098, 0);
+    CreateDynamic3DTextLabel("{FFFFFF}[CADEIA]\nUse '/prender'",0xffffffff, 1226.5448,-1668.6948,-39.7341, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreatePickup(1239, 1, 1226.5448,-1668.6948,-39.7341, 0);
 
     //ENTRADA HOSPITAL
     CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/entrar",0xffffffff, 1172.1819,-1323.7139,15.4038, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -5844,8 +5838,8 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 176.0948,2785.6223,767.7469, 0);
 
 	//COMPRAR PEÇAS
-    CreateDynamic3DTextLabel("{FFFFFF}[LOJA DE PEÇAS]\n/comprarpecas\n/comprarplaca",0xffffffff, 1096.2115,-1528.2255,22.7397, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
-    CreatePickup(1239, 1, 1096.2115,-1528.2255,22.7397, 0);
+    CreateDynamic3DTextLabel("{FFFFFF}[LOJA DE PEÇAS]\n/comprarpecas\n/comprarplaca",0xffffffff, 1407.0126,0.9440,1000.9764, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreatePickup(1239, 1, 1407.0126,0.9440,1000.9764, 0);
 	//==========================================================
     //Tunning
     for(new i = 1; i < MAX_GARAGES; i++)
@@ -6865,7 +6859,7 @@ CMD:veraparencia(playerid, params[])
 }
 CMD:setaridade(playerid, params[])
 {
-    //if(PlayerInfo[playerid][pBirthDate] <= 1);
+    //if(PlayerInfo[playerid][pAge] <= 1);
     ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Idade minima: 5\n Idade máxima: 99.\n Entre com uma idade válida.", "Confirmar", "Cancelar");
     return 1;
 }
@@ -10411,7 +10405,7 @@ public ResetVarsPlayerInfo(extraid)
 	format(PlayerInfo[extraid][pPassword], 129, "YRDVEDdfnekwnvie23oejdfd@!566#iosdfjsdofi");
 	PlayerInfo[extraid][pLevel] = 0;
 	PlayerInfo[extraid][pGender] = 0;
-	format(PlayerInfo[extraid][pBirthDate], 128, " ");
+	format(PlayerInfo[extraid][pAge], 128, " ");
 	PlayerInfo[extraid][pAdmin] = 0;
 	PlayerInfo[extraid][pSkin] = 0;
 	PlayerInfo[extraid][pPos][0] = 0;
@@ -13133,7 +13127,7 @@ public OnPlayerSpawn(playerid){
                     format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.54, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão alfa e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
-                    /*if(PlayerInfo[playerid][pBirthDate] == 0)
+                    /*if(PlayerInfo[playerid][pAge] == 0)
                         SCM(playerid, COLOR_LIGHTRED, "O campo de nascimentonão foi preenchido, use /setarnascimento para preenche-lo.");*/
 
                     if((PlayerInfo[playerid][pFac] > 0) && (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 0 || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 2)){
@@ -14163,19 +14157,19 @@ public OnPlayerText(playerid, text[])
 	                    CelularData[playerid][LigandoParaNum] = 101;
 	                    return 0;
 	                }
-	                else if(strfind(text, "paramedicos", true) != -1 || strfind(text, "paramédicos", true) != -1 || strfind(text, "Paramedicos", true) != -1 || strfind(text, "Paramédicos", true) != -1)
+	                else if(strfind(text, "bombeiros", true) != -1 || strfind(text, "Bombeiros", true) != -1 || strfind(text, "BOMBEIROS", true) != -1)
 	                {
 	                    format(str, sizeof(str), "%s diz (celular): %s", PlayerName(playerid, 1), text);
 				    	ProxDetectorJanela(DISTANCIA_CHAT, playerid, str, COLOR_FADE1, COLOR_FADE2, COLOR_FADE3, COLOR_FADE4, COLOR_FADE5);
 
 	                    if(CelularData[playerid][VivaVoz] == 0)
 						{
-	                    	format(str, sizeof(str), "%s Atendente diz: Estou transferindo sua ligação para os paramedicos, aguarde um momento...", strop);
+	                    	format(str, sizeof(str), "%s Atendente diz: Estou transferindo sua ligação para os bombeiros, aguarde um momento...", strop);
 		            		SendClientMessage(playerid, COLOR_LINHATELEFONICA, str);
 						}
 						else
 						{
-						    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Estou transferindo sua ligação para os paramedicos, aguarde um momento...");
+						    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Estou transferindo sua ligação para os bombeiros, aguarde um momento...");
 		    				ProxDetectorJanela(RANGE_VIVAVOZ, playerid, str, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA);
 						}
 
@@ -14192,12 +14186,12 @@ public OnPlayerText(playerid, text[])
 
 	                    if(CelularData[playerid][VivaVoz] == 0)
 						{
-	                    	format(str, sizeof(str), "%s Atendente diz: Desculpe mas eu não lhe entendi, qual serviço você necessita? ((Policia ou paramedicos))", strop);
+	                    	format(str, sizeof(str), "%s Atendente diz: Desculpe mas eu não lhe entendi, qual serviço você necessita? ((Policia ou bombeiros))", strop);
 		            		SendClientMessage(playerid, COLOR_LINHATELEFONICA, str);
 						}
 						else
 						{
-						    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Desculpe mas eu não lhe entendi, qual serviço você necessita? ((Policia ou paramedicos))");
+						    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Desculpe mas eu não lhe entendi, qual serviço você necessita? ((Policia ou bombeiros))");
 		    				ProxDetectorJanela(RANGE_VIVAVOZ, playerid, str, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA);
 						}
 					    return 0;
@@ -17371,11 +17365,13 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if(!response) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com o nascimento de seu personagem.", "Confirmar", "Cancelar");
 		    if(response)
 		    {
-		    	if(strval(inputtext) < 1 || strval(inputtext) > 9999999) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Nascimento", "ERRO!\n Entre com uma data de nascimento válida.", "Confirmar", "Cancelar");
-				format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem nasceu em %d.", strval(inputtext));
-				SendClientMessage(playerid, COLOR_LIGHTGREEN, szQuery);
-				PlayerInfo[playerid][pBirthDate] = strval(inputtext);
-
+				if(strfind(inputtext, "'") != -1)
+				{
+					if(strval(inputtext) < 1 || strval(inputtext) > 120) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Nascimento", "ERRO!\n Entre com uma Idade válida.", "Confirmar", "Cancelar");
+					format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem nasceu em %d.", strval(inputtext));
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, szQuery);
+					PlayerInfo[playerid][pAge] = strval(inputtext);
+				}
 				ShowPlayerDialog(playerid, DIALOG_OOCREG, DIALOG_STYLE_INPUT, "Nome OOC", "Qual o seu nome OOC?", "Próximo", "Cancelar");
 			}
 		}
@@ -17387,7 +17383,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        if(strfind(inputtext, "'") != -1)
 				{
 				    ShowPlayerDialog(playerid, DIALOG_OOCREG, DIALOG_STYLE_INPUT, "Nome OOC", "Qual o seu nome OOC?", "Avançar", "Cancelar");
-    				SendClientMessage(playerid, COLOR_LIGHTGREEN, "ERRO:{FFFFFF} {FFFFFF}Você não pode colocar caracteres especiais no nome da empresa.");
+    				SendClientMessage(playerid, COLOR_LIGHTGREEN, "ERRO:{FFFFFF} {FFFFFF}Você não pode colocar caracteres especiais no nome OOC.");
 				    return 1;
 				}
 
@@ -19677,7 +19673,7 @@ public SalvarPlayer(playerid)
 		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
    			PlayerInfo[playerid][pLevel],
 			PlayerInfo[playerid][pGender],
-			PlayerInfo[playerid][pBirthDate],
+			PlayerInfo[playerid][pAge],
 			PlayerInfo[playerid][pAdmin],
 			PlayerInfo[playerid][pSkin],
 			PlayerInfo[playerid][pInterior],
@@ -20074,7 +20070,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "| Dinheiro | Dinheiro: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
-	format(string, 256, "| Outro | Genero: [%s]  Data de Nascimento: [%d] Admin: [%d] Tester: [%d]", str_gen, PlayerInfo[playerid][pBirthDate], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pTester]);
+	format(string, 256, "| Outro | Genero: [%s]  Idade: [%d] Admin: [%d] Tester: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pTester]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "|____________________%s____________________|", PlayerName(playerid,0));
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -22672,22 +22668,26 @@ CMD:documentos(playerid, params[])
 	    {
 	        if(var == 9999)
 	        {
-	            SendClientMessage(playerid,COLOR_GREEN,"Identificação");
+				SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
+				SendClientMessage(playerid,COLOR_GREEN,"Identificação");
 	            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
-	   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pBirthDate]);
+	   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
+				SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 	   			SendClientMessage(playerid, COLOR_WHITE,"Você pode usar '/documentos pessoal [id]' para mostrar a alguém.");
 	        }
 	        else
 	        {
 	            if(GetDistanceBetweenPlayers(playerid,var) < 5.0)
 				{
-		            SendClientMessage(var,COLOR_GREEN,"Identificação");
+		            SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
+					SendClientMessage(var,COLOR_GREEN,"Identificação");
 		            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 		   			SendClientMessage(var, COLOR_WHITE, string);
-		   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pBirthDate]);
+		   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
 		   			SendClientMessage(var, COLOR_WHITE, string);
+					SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 
 		   			format(string,sizeof(string),"Você mostrou seus documentos pessoais para %s.",PlayerName(var, 1));
 		   			SendClientMessage(playerid, COLOR_WHITE, string);
@@ -30229,9 +30229,9 @@ CMD:prender(playerid, params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
     new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), StrMsg[124];
 
-    if(IsPlayerInRangeOfPoint(playerid, 8, 1396.2157,-10.9901,1001.0098))
+    if(IsPlayerInRangeOfPoint(playerid, 8, 1226.5448,-1668.6948,-39.7341))
 	{
-	    if(FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ || FacInfo[FacId][fTipo] == FAC_TIPO_EB || FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ)
+	    if(FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ || FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ)
 		{
 		    new var, other;
 			if (sscanf(params, "I(9999)I(9999)",other,var)) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} /prender [playerid] [Tempo (Minutos)]");
@@ -30288,7 +30288,7 @@ CMD:prender(playerid, params[])
 			     	RemovePlayerAttachedObject(other, 0);
 			        //========================================
 
-			        SetPlayerPos(other, 1393.1328,-14.6677,1001.1564);
+			        SetPlayerPos(other, 1230.2012,-1666.4192,-39.7341);
 
 
 					format(StrMsg, sizeof(StrMsg), "[Cadeia] %s %s prendeu %s por %d minutos.", GetPlayerCargo(playerid), PlayerName(playerid, 0), PlayerName(other, 0), var);
@@ -30317,9 +30317,9 @@ CMD:prender(playerid, params[])
 		}
 		else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no portão do pavilhão do presidio.");
 	}
-	if(IsPlayerInRangeOfPoint(playerid, 15, 1778.2954,-1579.6117,542.5177)) //Departamento PMERJ
+	if(IsPlayerInRangeOfPoint(playerid, 15, 1226.5448,-1668.6948,-39.7341)) //Departamento PMERJ
 	{
-		if(FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ || FacInfo[FacId][fTipo] == FAC_TIPO_EB)
+		if(FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ || FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ)
 		{
 		    new var, other;
 			if (sscanf(params, "I(9999)I(9999)",other,var)) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} /prender [playerid] [Tempo (Minutos)]");
@@ -30332,7 +30332,7 @@ CMD:prender(playerid, params[])
 				{
 			    	//EB - Delegacia
 			    	PlayerInfo[other][pPrisao] = 2;
-			    	SetPlayerPos(other, 1393.1201,-11.2215,1001.0263);
+			    	SetPlayerPos(other, 1230.1840,-1669.9172,-39.7341);
 					PlayerInfo[other][pTemPreso] = var;
 					format(string, sizeof(string), "[Cadeia] O oficial %s lhe prendeu por %d minuto(s)", PlayerName(playerid,1),var);
 					SendClientMessage(other, COLOR_LIGHTRED, string);
@@ -31123,7 +31123,7 @@ CMD:trabalho(playerid, params[])
             {
 			    new StrMsg[256];
 
-			    if(PlayerInfo[playerid][pDutySkin] == 0) PlayerInfo[playerid][pDutySkin] = 20100;
+			    if(PlayerInfo[playerid][pDutySkin] == 0) PlayerInfo[playerid][pDutySkin] = 20400;
 			    switch(PlayerInfo[playerid][pEmServico])
 			    {
 			    	case 0:
@@ -37664,8 +37664,8 @@ COMMAND:mudaridade(playerid, params[])
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Este jogador não está conectado!");
-		PlayerInfo[targetid][pBirthDate] = inter;
-		format(string,sizeof(string),"AdmCmd: Você setou a data de nascimento de %s para %d.",PlayerName(targetid, 0), inter);
+		PlayerInfo[targetid][pAge] = inter;
+		format(string,sizeof(string),"AdmCmd: Você setou a Idade de %s para %d.",PlayerName(targetid, 0), inter);
 		SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	}
 	return 1;
@@ -38328,7 +38328,7 @@ public LoadAccountInfo(extraid)
 		new tmp[130];
 		cache_get_field_content(0, "Level", tmp);		PlayerInfo[extraid][pLevel] = strval(tmp);
 		cache_get_field_content(0, "Gender", tmp);		PlayerInfo[extraid][pGender] = strval(tmp);
-		cache_get_field_content(0, "Birthdate", tmp);	format(PlayerInfo[extraid][pBirthDate], 50, "%s", tmp);
+		cache_get_field_content(0, "Age", tmp);	format(PlayerInfo[extraid][pAge], 50, "%s", tmp);
 		cache_get_field_content(0, "Admin", tmp);		PlayerInfo[extraid][pAdmin] = strval(tmp);
 		cache_get_field_content(0, "Skin", tmp);		PlayerInfo[extraid][pSkin] = strval(tmp);
 		cache_get_field_content(0, "PosX", tmp);		PlayerInfo[extraid][pPos][0] = floatstr(tmp);
@@ -48678,19 +48678,19 @@ CMD:entrar(playerid, params[])
 	    PlayerInfo[playerid][pEntrouGaragem] = -1;
 	    EntrouInt[playerid] = 1;
 	}
-	else if(IsPlayerInRangeOfPoint(playerid, 5, 1400.2466,-12.0288,1001.0098))//PCERJ 2 andar
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 1728.8789,-1565.1876,14.5625))//PCERJ 1 andar
 	{
 	    SetPlayerInterior(playerid, 5);
 	    SetPlayerVirtualWorld(playerid, 9);
 
-	    SetPlayerPosFreeze(playerid, 1390.3551,-30.4054,1000.9183, 1);
+	    SetPlayerPosFreeze(playerid, 1230.7296,-1695.0405,-39.7341, 1);
 	}
-	else if(IsPlayerInRangeOfPoint(playerid, 5, 1243.5646,-1264.8900,15.6787))//PCERJ 1 andar
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 2514.5640,-1525.5608,24.0324))//PMERJ
 	{
 	    SetPlayerInterior(playerid, 5);
 	    SetPlayerVirtualWorld(playerid, 9);
 
-	    SetPlayerPosFreeze(playerid, 1410.3545,-10.5601,1001.0098, 1);
+	    SetPlayerPosFreeze(playerid, 1513.2678,-1623.1249,774.0040, 1);
 	}
 	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 954.6230,-1467.4749,13.5547)) // CBERJ GARAGEM
 	{
@@ -48755,7 +48755,7 @@ CMD:entrar(playerid, params[])
 
 		}
 	}
-	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 1229.3035,-1243.7617,15.6528)) // PCERJ GARAGEM
+	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 1744.0854,-1555.1968,8.4305)) // PCERJ GARAGEM
 	{
 		new PlayerNoCarro[4];
 		new PlayerNoCarroL[4];
@@ -48818,7 +48818,7 @@ CMD:entrar(playerid, params[])
 
 		}
 	}
-	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 708.0598,-573.6811,14.9958)) // PMERJ GARAGEM
+	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 2501.8445,-1564.4512,24.0324)) // PMERJ GARAGEM
 	{
 		new PlayerNoCarro[4];
 		new PlayerNoCarroL[4];
@@ -49360,28 +49360,33 @@ CMD:sair(playerid, params[])
 	    SetPlayerPosFreeze(playerid, 1173.1841,-1323.3143,15.3952, 1);
 	}
 
-	else if (IsPlayerInRangeOfPoint(playerid, 5, 1390.3551,-30.4054,1000.9183))//PCERJ 2 andar
-	{
-	    PlayerInfo[playerid][pEntrouCasa] = -1;
-   		PlayerInfo[playerid][pEntrouComplexo] = 1;
-	    PlayerInfo[playerid][pEntrouEmpresa] = -1;
-	    PlayerInfo[playerid][pEntrouGaragem] = -1;
-	    EntrouInt[playerid] = 1;
-	    SetPlayerPosFreeze(playerid, 1400.2466,-12.0288,1001.0098, 1);
-	}
-
-	else if(IsPlayerInRangeOfPoint(playerid, 5, 1410.3545,-10.5601,1001.0098))//PCERJ 1 andar
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 1230.7296,-1695.0405,-39.7341))//PCERJ 1 andar
 	{
 	    SetPlayerInterior(playerid, 0);
 	    SetPlayerVirtualWorld(playerid, 0);
 
 	    PlayerInfo[playerid][pEntrouCasa] = -1;
-   		PlayerInfo[playerid][pEntrouComplexo] = 1;
+   		PlayerInfo[playerid][pEntrouComplexo] = -1;
 	    PlayerInfo[playerid][pEntrouEmpresa] = -1;
 	    PlayerInfo[playerid][pEntrouGaragem] = -1;
 	    EntrouInt[playerid] = -1;
 
-	    SetPlayerPosFreeze(playerid, 1243.5646,-1264.8900,15.6787, 1);
+	    SetPlayerPosFreeze(playerid, 1728.8789,-1565.1876,14.5625, 1);
+	}
+
+
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 1513.2678,-1623.1249,774.0040))//PMERJ
+	{
+	    SetPlayerInterior(playerid, 0);
+	    SetPlayerVirtualWorld(playerid, 0);
+
+	    PlayerInfo[playerid][pEntrouCasa] = -1;
+   		PlayerInfo[playerid][pEntrouComplexo] = -1;
+	    PlayerInfo[playerid][pEntrouEmpresa] = -1;
+	    PlayerInfo[playerid][pEntrouGaragem] = -1;
+	    EntrouInt[playerid] = -1;
+
+	    SetPlayerPosFreeze(playerid, 2514.5640,-1525.5608,24.0324, 1);
 	}
 
 	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 2296.9138,2498.3650,-7.4531)) // CBERJ GARAGEM
@@ -49473,7 +49478,7 @@ CMD:sair(playerid, params[])
 				}
 			}
 
-			SetVehiclePos(vehi, 1231.0511,-1276.3663,13.3828) ;
+			SetVehiclePos(vehi, 1744.0854,-1555.1968,8.4305) ;
 			LinkVehicleToInterior(vehi, 0);
 			SetVehicleVirtualWorld(vehi, 0);
 			SetVehicleZAngle(vehi, 180);
@@ -49498,7 +49503,7 @@ CMD:sair(playerid, params[])
 		}else{
 			SetPlayerVirtualWorld(playerid, 0);
 			SetPlayerInterior(playerid, 0);
-			SetPlayerPos(playerid, 1231.0511,-1276.3663,13.3828);
+			SetPlayerPosFreeze(playerid, 1744.0854,-1555.1968,8.4305, 1);
 			SetPlayerFacingAngle(playerid, 180);
 		}
 	}
@@ -49531,7 +49536,7 @@ CMD:sair(playerid, params[])
 				}
 			}
 
-			SetVehiclePos(vehi, 717.4901,-573.2466,16.1875);
+			SetVehiclePos(vehi, 2501.8445,-1564.4512,24.0324);
 			LinkVehicleToInterior(vehi, 0);
 			SetVehicleVirtualWorld(vehi, 0);
 			SetVehicleZAngle(vehi, 180);
@@ -49556,7 +49561,8 @@ CMD:sair(playerid, params[])
 		}else{
 			SetPlayerVirtualWorld(playerid, 0);
 			SetPlayerInterior(playerid, 0);
-			SetPlayerPos(playerid, 717.4901,-573.2466,16.1875);
+			SetPlayerPosFreeze(playerid, 2501.8445,-1564.4512,24.0324, 1);
+			
 			SetPlayerFacingAngle(playerid, 180);
 		}
 		PlayerInfo[playerid][pInterior] = 0;
@@ -50633,9 +50639,9 @@ stock RemontarCarro(playerid,offset)
 
                                         if(Remontou == 1)
 									    {
-									        VehicleInfo[i][vSpawnX] = 2333.0037;
-											VehicleInfo[i][vSpawnY] = -2080.2627;
-											VehicleInfo[i][vSpawnZ] = 13.1274;
+									        VehicleInfo[i][vSpawnX] = 1500.2792;
+											VehicleInfo[i][vSpawnY] = -1241.3109;
+											VehicleInfo[i][vSpawnZ] = 14.5563;
 											VehicleInfo[i][vSpawnR] = 0.0;
 											VehicleInfo[i][vSemUso] = 3600;
 
@@ -58286,7 +58292,7 @@ COMMAND:veiculo(playerid,params[])
 
 	if(strcmp(tmp,"remontar",true) == 0)
 	{
-		if(IsPlayerInRangeOfPoint(playerid,7.5,-136.9582, 1070.6067, 19.7495))
+		if(IsPlayerInRangeOfPoint(playerid,7.5,1500.2792,-1241.3109,14.5563))
 		{
 		    new tmp2[32];
 		    tmp2 = strtok(params,idx);
@@ -58299,7 +58305,7 @@ COMMAND:veiculo(playerid,params[])
 		else
 		{
 		    SendClientMessage(playerid,COLOR_LIGHTRED,"Você não esta na agência de seguros. (Marcada no mapa)");
-		    SetPlayerCheckpoint(playerid,-136.9582, 1070.6067, 19.7495,5.0);
+		    SetPlayerCheckpoint(playerid,1500.2792,-1241.3109,14.5563,5.0);
 		    cp_target[playerid] = 2;
 		    return 1;
 		}
@@ -65367,10 +65373,10 @@ CMD:comprarpecas(playerid,params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pJob] == JOB_MECANICO)
 	{
-	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1096.2115,-1528.2255,22.7397))
+	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1407.0126,0.9440,1000.9764))
 			Dialog_Show(playerid, Dialog_CPecas, DIALOG_STYLE_LIST, "Peças de Mecanico", "1x Rádio [R$20]\n1x Neon [R$100]\n1x GPS [R$20]\n1x Immob [R$30]\n1x Tranca [R$20]\nPeças de Reparo", "Selecionar", "Voltar");
 		else {
-  			SetPlayerCheckpoint(playerid, 1096.2115,-1528.2255,22.7397, 5.0);
+  			SetPlayerCheckpoint(playerid, 1097.8562,-1520.4569,22.7452, 5.0);
 			cp_target[playerid] = 1;
 			SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está no local de venda de peças.");
 			return 1;
@@ -65385,7 +65391,7 @@ CMD:comprarplaca(playerid,params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pJob] == JOB_FALSIFICADOR)
 	{
-	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1096.2115,-1528.2255,22.7397) )
+	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1407.0126,0.9440,1000.9764) )
 			Dialog_Show(playerid, Dialog_CPlacas, DIALOG_STYLE_LIST, "Itens para Falsificadores", "1x Placa [R$1000]", "Selecionar", "Voltar");
 		else {
   			SetPlayerCheckpoint(playerid, 1096.2115,-1528.2255,22.7397, 5.0);
@@ -70007,7 +70013,7 @@ Dialog:DIALOG_CN_ID(playerid, response, listitem, inputtext[])
 	new idade = strval(inputtext);
 	if(idade > 5 && idade < 99)
 	{
-    	PlayerInfo[playerid][pBirthDate] = idade;
+    	PlayerInfo[playerid][pAge] = idade;
     	format(string,126,"[Namechange] Certo, sua personagem tem %d anos. Boa vida nova!",idade);
     	SCM(playerid, COLOR_GREEN, string);
 	}
@@ -76146,7 +76152,7 @@ public CriarCelular_Base()
 	TextDrawSetProportional(Celular_Base[0], 0);
 	TextDrawSetShadow(Celular_Base[0], 0);
 
-	Celular_Base[1] = TextDrawCreate(537.199829, 334.8, "SP_Telefonica");
+	Celular_Base[1] = TextDrawCreate(537.199829, 334.8, "RJ_Telefonica");
 	TextDrawLetterSize(Celular_Base[1], 0.253598, 1.069864);
 	TextDrawAlignment(Celular_Base[1], 1);
 	TextDrawColor(Celular_Base[1], -1);
@@ -76425,7 +76431,7 @@ public CriarCelular_Base()
 	TextDrawSetProportional(TelPubBase[2], 1);
 	TextDrawSetShadow(TelPubBase[2], 0);
 
-	TelPubBase[3] = TextDrawCreate(549.599853, 400.560180, "SP_Telefonica");
+	TelPubBase[3] = TextDrawCreate(549.599853, 400.560180, "RJ_Telefonica");
 	TextDrawLetterSize(TelPubBase[3], 0.150000, 1.000000);
 	TextDrawAlignment(TelPubBase[3], 2);
 	TextDrawColor(TelPubBase[3], 0xB5B5B5FF);
@@ -77689,12 +77695,12 @@ public TempoParaAtenderem911(playerid,tipo)
 	{
 	    if(CelularData[playerid][VivaVoz] == 0)
 		{
- 			format(str, sizeof(str), "%s Atendente diz: Polícia, %s, qual o seu nome?", strop, strmomento);
+ 			format(str, sizeof(str), "%s Atendente diz: Polícia Militar, %s, qual o seu nome?", strop, strmomento);
     		SendClientMessage(playerid, COLOR_LINHATELEFONICA, str);
 		}
 		else
 		{
-  			format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Polícia, %s, qual o seu nome?", strmomento);
+  			format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Polícia Militar, %s, qual o seu nome?", strmomento);
 			ProxDetector(RANGE_VIVAVOZ, playerid, str, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA);
 		}
     	CelularData[playerid][LigandoParaNum] = 191;
@@ -77703,12 +77709,12 @@ public TempoParaAtenderem911(playerid,tipo)
 	{
 	    if(CelularData[playerid][VivaVoz] == 0)
 		{
-	    	format(str, sizeof(str), "%s Atendente diz: Médicos %s, qual o seu nome?", strop, strmomento);
+	    	format(str, sizeof(str), "%s Atendente diz: Bombeiros %s, qual o seu nome?", strop, strmomento);
     		SendClientMessage(playerid, COLOR_LINHATELEFONICA, str);
 		}
 		else
 		{
-		    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Médicos %s, qual o seu nome?", strmomento);
+		    format(str, sizeof(str), "[VIVA VOZ] Atendente diz: Bombeiros %s, qual o seu nome?", strmomento);
 		    ProxDetector(RANGE_VIVAVOZ, playerid, str, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA, COLOR_LINHATELEFONICA);
 		}
     	CelularData[playerid][LigandoParaNum] = 194;
@@ -79618,7 +79624,7 @@ public LigarPara(playerid, numero, tipo, id_orelhao) //Tipo 1 = Ligação Normal (
 		    if(id_orelhao == -1)
 		    {
 			    CelularData[playerid][UsandoCelOrOre] = 1;
-			    CelularData[playerid][LigandoParaNum] = 911;
+			    CelularData[playerid][LigandoParaNum] = 190;
 			    CelularData[playerid][LigandoParaNumAtendido] = 0;
 				new str[56], tempo = randomEx(4, 10);
 				format(str,sizeof(str),"Chamando~n~(%d)", numero);
@@ -79905,7 +79911,7 @@ public TempoParaAtenderem(playerid,tipo) //Tipo 1: Celular | Tipo 2: Orelhão
 			else format(strr, 24, "Boa noite");
 
 	        CelularData[playerid][LigandoParaNumAtendido] = 1;
-	        format(str,sizeof(str),"%s Atendente diz: Serviço de emergências %s, qual serviço você necessita? ((policia, paramedicos, ambos))", strop, strr);
+	        format(str,sizeof(str),"%s Atendente diz: Serviço de emergências %s, qual serviço você necessita? ((policia, bombeiros, ambos))", strop, strr);
 	        SendClientMessage(playerid, COLOR_LINHATELEFONICA, str);
 
 			format(str,sizeof(str),"Em_chamada~n~(%d)~n~00:00:00", CelularData[playerid][LigandoParaNum]);
@@ -83497,7 +83503,7 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 		    Dialog_Show(playerid, DIALOG_GPS_END, DIALOG_STYLE_INPUT, "GPS - Endereço residêncial", "Entre com o endereço da residência:", "Encontrar", "Cancelar");
 			return 1;
 		}
-	    case 1: GPS(playerid, "PMERJ", 714.3266,-581.3564,16.0630);
+	    case 1: GPS(playerid, "PMERJ", 2515.4541,-1524.9955,24.0324);
 	    case 2:
 		{
             emp_pox = GetClosetPump(playerid);
@@ -83541,21 +83547,20 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 		    GPS(playerid, EmpInfo[emp_pox][eNome], EmpInfo[emp_pox][eExX],EmpInfo[emp_pox][eExY],EmpInfo[emp_pox][eExZ]);
 		}
 		case 12: GPS(playerid, "Hospital", 1172.1819,-1323.7139,15.4038);
-        case 13: GPS(playerid, "Loja de Peças", 1096.2115,-1528.2255,22.7397);
+        case 13: GPS(playerid, "Loja de Peças", 1097.8562,-1520.4569,22.7452);
         case 14: GPS(playerid, "Central de anúncios", 1166.6110,-1473.7046,15.7921);
 		case 15:
 		{
 			 emp_pox = GetClosetBusiness(playerid, EMP_TIPO_LIC_CENTER);
 			 GPS(playerid, "Auto Escola", EmpInfo[emp_pox][eExX],EmpInfo[emp_pox][eExY],EmpInfo[emp_pox][eExZ]);
 		}
-		case 16: GPS(playerid, "Delegacia", 1244.1155,-1276.7404,13.1913);
-		case 17: GPS(playerid, "Quartel Exército", 135.7106,1945.6769,19.3516);
-		case 18:
+		case 16: GPS(playerid, "Delegacia", 1729.1348,-1577.5988,13.5451);
+		case 17:
 		{
 		    emp_pox = GetClosetBusiness(playerid, 8);
 		    GPS(playerid, "Loja de Armas", EmpInfo[emp_pox][eExX],EmpInfo[emp_pox][eExY],EmpInfo[emp_pox][eExZ]);
 		}
-		case 19: LGPS(playerid);
+		case 18: LGPS(playerid);
  	}
  	SendClientMessage(playerid, COLOR_LIGHTGREEN, "O local escolhido foi marcado em seu GPS.");
   	return 1;
@@ -83563,7 +83568,7 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 CMD:gps(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	Dialog_Show(playerid, WoW, DIALOG_STYLE_LIST, "GPS", "Procurar Endereço >>\nPMERJ\nPosto de Gasolina\nAgência de Empregos\n24-7\nConcesionária\nLoja de Roupas\nBanco\nPawn Shop\nPizzaria\nPier de Pesca\nCasa de Apostas\nHospital\nLoja de Peças\nAnuncios\nAuto Escola\nDelegacia\nQuartel Exército\nLoja de Armas\nDesligar o GPS", "Selecionar", "Fechar");
+	Dialog_Show(playerid, WoW, DIALOG_STYLE_LIST, "GPS", "Procurar Endereço >>\n16ºBPM\nPosto de Gasolina\nAgência de Empregos\n24-7\nConcesionária\nLoja de Roupas\nBanco\nPawn Shop\nPizzaria\nPier de Pesca\nCasa de Apostas\nHospital\nLoja de Peças\nAnuncios\nAuto Escola\n29ºDP Penha\nLoja de Armas\nDesligar o GPS", "Selecionar", "Fechar");
 	return 1;
 }
 
