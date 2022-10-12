@@ -5804,8 +5804,8 @@ public OnGameModeInit()
     CreateDynamic3DTextLabel("[CENTRAL DE ANÚNCIOS]\nUse '/anuncio'\nUse '/anuncioemp'", 0xffffffff, 1166.6110,-1473.7046,15.7921, 40.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1166.6110,-1473.7046,15.7921, -1);
     
-	CreateDynamic3DTextLabel("[EB]\n/trabalho'\nUse '/equipar'\nUse '/uniforme'", 0xffffffff, 140.4548,1874.9152,17.8359, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 140.4548,1874.9152,17.8359, 0);
+	CreateDynamic3DTextLabel("[OFICINA GOV]\n/reparar", 0xffffffff, 1538.9513,-1645.4020,5.9767, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+    CreatePickup(1239, 1, 1538.9513,-1645.4020,5.9767, 0);
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 2501.8445,-1564.4512,24.0324, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 2501.8445,-1564.4512,24.0324, 0);
@@ -65056,7 +65056,7 @@ CMD:reparar(playerid,params[])
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
     new veh = GetPlayerVehicleID(playerid);
 
-    if (IsPlayerInRangeOfPoint (playerid, 5, 1046.8956,-904.1373,42.4056) || IsPlayerInRangeOfPoint( playerid, 5, 201.0273,1916.7688,17.6406) ) {
+    if (IsPlayerInRangeOfPoint (playerid, 10, 1538.9513,-1645.4020,5.9767) || IsPlayerInRangeOfPoint( playerid, 5, 201.0273,1916.7688,17.6406) ) {
 		if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PMERJ || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PCERJ || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_EB) {
 		    new slot = GetVehicleSlot(veh);
 		    if(slot > -1) {
