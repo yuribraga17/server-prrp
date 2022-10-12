@@ -1,6 +1,9 @@
 stock mapacivil(){
 	new tmpobjid;
 	new texture_object;
+	CreateObject(-2038, 1966.512939, -1788.279541, 12.553071, 89.999992, 90.299972, -0.099999);
+	CreateObject(1280, 1968.776123, -1795.904296, 12.962811, 0.000000, 0.000000, -89.600006);
+	print("[CARREGADO] Mapa: Ponto mototaxi");
 	CreateObject(-7102, 1891.74219, -1872.28125, 14.85940,   0.00000, 0.00000, 0.00000, 700.0);
 	print("[CARREGADO] Mapa: Campo de fut idlewood");
 	// Seaport . ext
