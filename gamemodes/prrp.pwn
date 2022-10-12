@@ -49316,7 +49316,7 @@ CMD:sair(playerid, params[])
 	{
 	   	for(new i; i < MAX_EMPRESAS; i++)
 	    {
-	   		if(IsPlayerInRangeOfPoint(playerid, 3, EmpInfo[i][eInX], EmpInfo[i][eInY], EmpInfo[i][eInZ]) && GetPlayerVirtualWorld(playerid) == 100+i)
+	   		if(IsPlayerInRangeOfPoint(playerid, 3, EmpInfo[i][eInX], EmpInfo[i][eInY], EmpInfo[i][eInZ]) && GetPlayerVirtualWorld(playerid) == 110)
 	    	{
 		    	if(EmpInfo[i][eTrancada] == 0)
 	 	    	{
