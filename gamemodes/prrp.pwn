@@ -80167,7 +80167,7 @@ COMMAND:atorre(playerid, params[])
 	{
 	    if(strcmp(option, "criar", true) == 0)
 		{
-			format(str,sizeof(str),"INSERT INTO torres (torSinal) VALUES ('200.0')");
+			format(str,sizeof(str),"INSERT INTO torres (torSinal) VALUES ('100000')");
 			mysql_function_query(Pipeline, str, true, "TorreCriada", "d",playerid);
 		}
 		else if(strcmp(option, "sinal", true) == 0)
@@ -80235,7 +80235,7 @@ public TorreCriada(playerid)
 {
     new id = cache_insert_id(), str[56];
     TorreData[id][torID] = id;
-    TorreData[id][torSinal] = 200.0;
+    TorreData[id][torSinal] = 1000000.0;
 
     format(str, sizeof(str), "AdmCmd: Você criou a torre %d.", id);
 	SendClientMessage(playerid, COLOR_WHITE, str);

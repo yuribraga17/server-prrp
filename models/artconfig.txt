@@ -146,7 +146,7 @@ AddSimpleModel(-1,19141, -2306, "lancaperfume.dff", "lancaperfume.txd");
 //objetos servidor
 AddSimpleModel(-1,19324, -2900, "atmbb.dff", "atmbb.txd");
 AddSimpleModel(-1,1676, -2901, "petrolpumpnew.dff", "petrolpumpnew.txd");
-AddSimpleModel(-1,19141, -2919, "orelhao.dff", "orelhao.txd");
+AddSimpleModel(-1,19141, -2919, "telpub.dff", "telpub.txd");
 AddSimpleModel(-1, 19324, -1000, "dp29.dff", "dp29.txd");
 AddSimpleModel(-1, 19324, -1600, "16bpm.dff", "16bpm.txd");
 AddSimpleModel(-1,19480,-2038,"PontoMototaxi.dff","PontoMototaxi.txd");
