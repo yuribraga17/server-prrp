@@ -62133,7 +62133,7 @@ public Pump_Load()
 
 			format(string, sizeof(string), "[%d]\n{FFFFFF} %d litros", pumpid, PumpData[pumpid][pumpFuel]);
 			PumpData[pumpid][pumpText3D] = CreateDynamic3DTextLabel(string, 0xB9FFBC54, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 15.0);
-	        PumpData[pumpid][pumpObject] = CreateDynamicObject(-2801, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 0.0, 0.0, PumpData[pumpid][pumpPos][3]);
+	        PumpData[pumpid][pumpObject] = CreateDynamicObject(-2901, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 0.0, 0.0, PumpData[pumpid][pumpPos][3]);
 		}
 	}
 	return 1;
@@ -62188,7 +62188,7 @@ Pump_Refresh(pumpid)
 		    DestroyDynamicObject(PumpData[pumpid][pumpObject]);
 
 		PumpData[pumpid][pumpText3D] = CreateDynamic3DTextLabel(string, 0xB9FFBC54, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 15.0);
-        PumpData[pumpid][pumpObject] = CreateDynamicObject(-2801, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 0.0, 0.0, PumpData[pumpid][pumpPos][3]);
+        PumpData[pumpid][pumpObject] = CreateDynamicObject(-2901, PumpData[pumpid][pumpPos][0], PumpData[pumpid][pumpPos][1], PumpData[pumpid][pumpPos][2], 0.0, 0.0, PumpData[pumpid][pumpPos][3]);
 
         Pump_Save(pumpid);
 	}
@@ -62251,7 +62251,7 @@ public OnPumpCreated(playerid,bizid)
 	GetPlayerPos(playerid, x, y, z);
 	GetPlayerFacingAngle(playerid, angle);
 
-	PumpData[id][pumpObject] = CreateDynamicObject(-2801, x, y, z, 0.0, 0.0, angle);
+	PumpData[id][pumpObject] = CreateDynamicObject(-2901, x, y, z, 0.0, 0.0, angle);
 	EditDynamicObject(playerid, PumpData[id][pumpObject]);
 
 	PumpData[id][pumpExists] = true;
@@ -80509,7 +80509,7 @@ public AtualizarTelPub(id)
     if (IsValidDynamicObject(TelPublico[id][orObj])) DestroyDynamicObject(TelPublico[id][orObj]);
 
     //TelPublico[id][orObj] = CreateDynamicObject(-2819, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
-    TelPublico[id][orObj] = CreateDynamicObject(-2819, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
+    TelPublico[id][orObj] = CreateDynamicObject(-2919, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
 	return 1;
 }
 
