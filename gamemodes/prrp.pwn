@@ -48619,7 +48619,7 @@ CMD:entrar(playerid, params[])
                             else if(EmpInfo[i][eTipo] != 0) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprar");
 
 							SetPlayerInterior(playerid, EmpInfo[i][eInt]);
-							SetPlayerVirtualWorld(playerid,100+i)
+		   					SetPlayerVirtualWorld(playerid,100+i);
 
 		   					SetPlayerPosFreeze(playerid,EmpInfo[i][eInX],EmpInfo[i][eInY],EmpInfo[i][eInZ],1);
 
