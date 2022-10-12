@@ -48619,7 +48619,7 @@ CMD:entrar(playerid, params[])
                             else if(EmpInfo[i][eTipo] != 0) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprar");
 
 							SetPlayerInterior(playerid, EmpInfo[i][eInt]);
-		   					SetPlayerVirtualWorld(playerid,110);
+							SetPlayerVirtualWorld(playerid,100+i)
 
 		   					SetPlayerPosFreeze(playerid,EmpInfo[i][eInX],EmpInfo[i][eInY],EmpInfo[i][eInZ],1);
 
@@ -48637,7 +48637,7 @@ CMD:entrar(playerid, params[])
 
 		   					PlayerInfo[playerid][pEntrouCasa] = -1;
 		   					PlayerInfo[playerid][pEntrouComplexo] = -1;
-				    	    PlayerInfo[playerid][pEntrouEmpresa] = 110;
+				    	    PlayerInfo[playerid][pEntrouEmpresa] = i;
 				    	    PlayerInfo[playerid][pEntrouGaragem] = -1;
 
 				    	    Streamer_Update(playerid);
@@ -49316,7 +49316,7 @@ CMD:sair(playerid, params[])
 	{
 	   	for(new i; i < MAX_EMPRESAS; i++)
 	    {
-	   		if(IsPlayerInRangeOfPoint(playerid, 3, EmpInfo[i][eInX], EmpInfo[i][eInY], EmpInfo[i][eInZ]) && GetPlayerVirtualWorld(playerid) == 110)
+	   		if(IsPlayerInRangeOfPoint(playerid, 3, EmpInfo[i][eInX], EmpInfo[i][eInY], EmpInfo[i][eInZ]) && GetPlayerVirtualWorld(playerid) == i)
 	    	{
 		    	if(EmpInfo[i][eTrancada] == 0)
 	 	    	{
