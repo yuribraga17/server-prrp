@@ -26,9 +26,10 @@ forward MyHttpResponse(playerid, response_code, data[]);
 
 public OnPlayerConnect(playerid)
 {
-	new ip[16], string[59];
+	new ip[16], string[255];
 	GetPlayerIp(playerid, ip, sizeof ip);
-	format(string, sizeof string, "proxy.mind-media.com/block/proxycheck.php?ip=%s", ip);
+	format(string, sizeof string, "proxy.progressive-roleplay.com/proxy.php?ip=%s", ip);
+	printf("%s", ip);
 	HTTP(playerid, HTTP_GET, string, "", "MyHttpResponse");
 
     return 1;
@@ -57,7 +58,7 @@ public MyHttpResponse(playerid, response_code, data[])
 		}
 		if(data[0] == 'N')
 		{
-			/*format(string, 256, "[PROXY N√ÉO DETECTADO] %s(%d) conectou sem proxy.", name, playerid);
+			/*format(string, 256, "[PROXY N√O DETECTADO] %s(%d) conectou sem proxy.", name, playerid);
 	    	SendClientMessage( 0x09F7DFC8, string );*/
 		}
 		if(data[0] == 'X')
