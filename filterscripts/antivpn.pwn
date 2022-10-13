@@ -52,8 +52,8 @@ public MyHttpResponse(playerid, response_code, data[])
 	{	
 		if(data[0] == 'Y')
 		{
-			format(string, 256, "[PROXY DETECTADO] %s(%d) foi kickado do servidor por usar VPN.", name, playerid);
-	    	SendClientMessageToAll( 0xFF0000FF, string);
+			format(string, 256, "AdmCmd: %s(%d) foi banido do servidor por usar VPN/PROXY.", name, playerid);
+	    	SendClientMessageToAll( 0xFF6347AA, string);
 	    	SetTimerEx("DelayedKick", 100, false, "i", playerid);
 		}
 		if(data[0] == 'N')
@@ -63,11 +63,11 @@ public MyHttpResponse(playerid, response_code, data[])
 		}
 		if(data[0] == 'X')
 		{
-			printf("WRONG IP FORMAT");
+			printf("FORMATO DE IP ERRADO, %s", ip);
 		}
 		else
 		{
-			printf("The request failed! The response code was: %d", response_code);
+			printf("A solicitação falhou! O código de resposta foi: %d", response_code);
 		}
 	}
 	return 1;
@@ -76,6 +76,10 @@ public MyHttpResponse(playerid, response_code, data[])
 forward DelayedKick(playerid);
 public DelayedKick(playerid)
 {
+	new type[128], string [255];
+	format(string, sizeof(string),"banip %s", type);
+	SendRconCommand(string);
+	SendRconCommand("reloadbans");
     Kick(playerid);
     return 1;
 }
