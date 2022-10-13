@@ -61557,7 +61557,7 @@ Dialog:TruckerPDA(playerid, response, listitem, inputtext[])
 					}
 				}
 			}
-  			Dialog_Show(playerid, TruckerPDA_Primarias, DIALOG_STYLE_LIST, "ASDC - Industrias Primárias ", stringlist, "Selecionar", "Voltar");
+  			Dialog_Show(playerid, TruckerPDA_Primarias, DIALOG_STYLE_LIST, "ASDC - Industrias Primárias", stringlist, "Selecionar", "Voltar");
 		}
 		case 1:
 	    {
@@ -61588,7 +61588,7 @@ Dialog:TruckerPDA(playerid, response, listitem, inputtext[])
 					}
 				}
 			}
-  			Dialog_Show(playerid, TruckerPDA_Secundarias, DIALOG_STYLE_LIST, "ASDC - Industrias Secundárias ", stringlist, "Selecionar", "Voltar");
+  			Dialog_Show(playerid, TruckerPDA_Secundarias, DIALOG_STYLE_LIST, "ASDC - Industrias Secundárias", stringlist, "Selecionar", "Voltar");
 		}
 	    case 2:
 	    {
@@ -61650,7 +61650,7 @@ Dialog:TruckerPDA(playerid, response, listitem, inputtext[])
    				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros", stringlist, "Fechar", "");
    				return 1;
 			}
-  			Dialog_Show(playerid, TruckerPDA_Empresas, DIALOG_STYLE_LIST, "ASDC - Empresas ", stringlist, "Selecionar", "Voltar");
+  			Dialog_Show(playerid, TruckerPDA_Empresas, DIALOG_STYLE_LIST, "ASDC - Empresas", stringlist, "Selecionar", "Voltar");
 		}
 		case 3:
 		{
@@ -61669,7 +61669,7 @@ Dialog:TruckerPDA(playerid, response, listitem, inputtext[])
 					}
 				}
 			}
-		    Dialog_Show(playerid, TruckerPDA_Porto, DIALOG_STYLE_MSGBOX, "ASDC - Porto do RJ ", stringlist, "Fechar", "Voltar");
+		    Dialog_Show(playerid, TruckerPDA_Porto, DIALOG_STYLE_MSGBOX, "ASDC - Porto do RJ", stringlist, "Fechar", "Voltar");
 		}
 	}
     return 1;
@@ -61752,7 +61752,7 @@ Dialog:TruckerPDA_Empresas(playerid, response, listitem, inputtext[])
 				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros", stringlist, "Fechar", "");
 				return 1;
 			}
-			Dialog_Show(playerid, TruckerPDA_Empresas2, DIALOG_STYLE_LIST, "ASDC - Empresas ", stringlist, "Selecionar", "Voltar");
+			Dialog_Show(playerid, TruckerPDA_Empresas2, DIALOG_STYLE_LIST, "ASDC - Empresas", stringlist, "Selecionar", "Voltar");
 		}
 	}
 	return 1;
@@ -61819,7 +61819,7 @@ Dialog:TruckerPDA_Empresas2(playerid, response, listitem, inputtext[])
    				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros", stringlist, "Fechar", "");
    				return 1;
 			}
-  			Dialog_Show(playerid, TruckerPDA_Empresas, DIALOG_STYLE_LIST, "ASDC - Empresas ", stringlist, "Selecionar", "Voltar");
+  			Dialog_Show(playerid, TruckerPDA_Empresas, DIALOG_STYLE_LIST, "ASDC - Empresas", stringlist, "Selecionar", "Voltar");
 	    }
 	    case 2..11:
 	    {
@@ -61884,7 +61884,7 @@ Dialog:TruckerPDA_Empresas2(playerid, response, listitem, inputtext[])
 				Dialog_Show(playerid, 9999, DIALOG_STYLE_MSGBOX, "Assistente Digital dos Caminhoneiros", stringlist, "Fechar", "");
 				return 1;
 			}
-			Dialog_Show(playerid, TruckerPDA_Empresas2, DIALOG_STYLE_LIST, "ASDC - Empresas ", stringlist, "Selecionar", "Voltar");
+			Dialog_Show(playerid, TruckerPDA_Empresas2, DIALOG_STYLE_LIST, "ASDC - Empresas", stringlist, "Selecionar", "Voltar");
 		}
 	}
 	return 1;
