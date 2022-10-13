@@ -20563,25 +20563,25 @@ public updateTextDrawFomeSede(playerid){
 }
 
 stock createDisplayFomeSede(playerid){
-        FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, 606.000, 159.000, "mdl-2007:fome");
-        PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 40.000, 24.000);
-        PlayerTextDrawAlignment(playerid, FomeSede[playerid][0], 1);
-        PlayerTextDrawColor(playerid, FomeSede[playerid][0], -1);
-        PlayerTextDrawSetShadow(playerid, FomeSede[playerid][0], 0);
-        PlayerTextDrawSetOutline(playerid, FomeSede[playerid][0], 0);
-        PlayerTextDrawBackgroundColor(playerid, FomeSede[playerid][0], 255);
-        PlayerTextDrawFont(playerid, FomeSede[playerid][0], 4);
-        PlayerTextDrawSetProportional(playerid, FomeSede[playerid][0], 1);
+		FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, 593.000, 163.000, "mdl-2007:fome");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 68.000, 74.000);
+		PlayerTextDrawAlignment(playerid, FomeSede[playerid][0], 1);
+		PlayerTextDrawColor(playerid, FomeSede[playerid][0], -1);
+		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][0], 0);
+		PlayerTextDrawSetOutline(playerid, FomeSede[playerid][0], 0);
+		PlayerTextDrawBackgroundColor(playerid, FomeSede[playerid][0], 255);
+		PlayerTextDrawFont(playerid, FomeSede[playerid][0], 4);
+		PlayerTextDrawSetProportional(playerid, FomeSede[playerid][0], 1);
 
-        FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, 606.000, 187.000, "mdl-2007:sede");
-        PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 40.000, 24.000);
-        PlayerTextDrawAlignment(playerid, FomeSede[playerid][1], 1);
-        PlayerTextDrawColor(playerid, FomeSede[playerid][1], -1);
-        PlayerTextDrawSetShadow(playerid, FomeSede[playerid][1], 0);
-        PlayerTextDrawSetOutline(playerid, FomeSede[playerid][1], 0);
-        PlayerTextDrawBackgroundColor(playerid, FomeSede[playerid][1], 255);
-        PlayerTextDrawFont(playerid, FomeSede[playerid][1], 4);
-        PlayerTextDrawSetProportional(playerid, FomeSede[playerid][1], 1);
+		FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, 593.000, 191.000, "mdl-2007:sede");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 68.000, 74.000);
+		PlayerTextDrawAlignment(playerid, FomeSede[playerid][1], 1);
+		PlayerTextDrawColor(playerid, FomeSede[playerid][1], -1);
+		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][1], 0);
+		PlayerTextDrawSetOutline(playerid, FomeSede[playerid][1], 0);
+		PlayerTextDrawBackgroundColor(playerid, FomeSede[playerid][1], 255);
+		PlayerTextDrawFont(playerid, FomeSede[playerid][1], 4);
+		PlayerTextDrawSetProportional(playerid, FomeSede[playerid][1], 1);
 
 		new fomeString[32];
 		format(fomeString, sizeof(fomeString), "%d", PlayerInfo[playerid][pFome]);
@@ -38417,17 +38417,17 @@ CMD:pm(playerid, params[])
 		if(PlayerInfo[playerid][pAdmin] > 3001)
 		{
 			format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
-			format(string,sizeof(string),"(( PM Para: %s(%d): %s ))",PlayerName(var, 1),var,opcao);
+			format(string,sizeof(string),"(( PM enviada para %s (ID: %d): %s ))",PlayerName(var, 1),var,opcao);
 	 		SendClientMessage(playerid, 0xFCF545FF,string);
-	 		format(string,sizeof(string),"(( PM De: %s: %s ))",admnome, opcao);
+	 		format(string,sizeof(string),"(( PM recebida de %s (ID: %d): %s  ))",admnome, opcao);
 	 		SendClientMessage(var, 0xFFDC18FF,string);
 		}
 		else
 		{
 			format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
-			format(string,sizeof(string),"(( PM Para: %s(%d): %s ))",PlayerName(var, 1),var,opcao);
+			format(string,sizeof(string),"(( PM enviada para %s (ID: %d): %s ))",PlayerName(var, 1),var,opcao);
 	 		SendClientMessage(playerid, 0xFCF545FF,string);
-	 		format(string,sizeof(string),"(( PM De: %s(%d): %s ))",PlayerName(playerid, 1),playerid, opcao);
+	 		format(string,sizeof(string),"(( PM recebida de %s (ID: %d): %s  ))",PlayerName(playerid, 1),playerid, opcao);
 	 		SendClientMessage(var, 0xFFDC18FF,string);
 		}
 	}
