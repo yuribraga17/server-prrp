@@ -28,7 +28,7 @@ public OnPlayerConnect(playerid)
 {
 	new ip[16], string[255];
 	GetPlayerIp(playerid, ip, sizeof ip);
-	format(string, sizeof string, "proxy.progressive-roleplay.com/proxy.php?ip=%s", ip);
+	format(string, sizeof string, "proxy.progressive-roleplay.com/index.php?ip=%s", ip);
 	printf("%s", ip);
 	HTTP(playerid, HTTP_GET, string, "", "MyHttpResponse");
 
@@ -48,22 +48,16 @@ public MyHttpResponse(playerid, response_code, data[])
 	    SendClientMessage( 0x09F7DFC8, string);*/
         return 1;
 	}
+	
 	if(response_code == 200)
 	{	
-		if(data[0] == 'Y')
+		
+        printf("IP %s conectando de %s", ip, data);
+        if (strcmp(data, "Brazil", true)) 
 		{
 			format(string, 256, "AdmCmd: %s(%d) foi banido do servidor por usar VPN/PROXY.", name, playerid);
-	    	SendClientMessageToAll( 0xFF6347AA, string);
-	    	SetTimerEx("DelayedKick", 100, false, "i", playerid);
-		}
-		if(data[0] == 'N')
-		{
-			/*format(string, 256, "[PROXY NÃO DETECTADO] %s(%d) conectou sem proxy.", name, playerid);
-	    	SendClientMessage( 0x09F7DFC8, string );*/
-		}
-		if(data[0] == 'X')
-		{
-			printf("FORMATO DE IP ERRADO, %s", ip);
+			SendClientMessageToAll( 0xFF6347AA, string);
+			SetTimerEx("DelayedKick", 100, false, "i", playerid);
 		}
 		else
 		{
