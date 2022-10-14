@@ -1,4 +1,4 @@
-//Skins trafico
+//Skins trafico /a 04 e 08
 AddCharModel(121, 20001, "skin.dff", "skin.txd");
 AddCharModel(121, 20002, "skin2.dff", "skin2.txd");
 AddCharModel(121, 20003, "skin3.dff", "skin3.txd");
@@ -7,6 +7,17 @@ AddCharModel(121, 20005, "skin5.dff", "skin5.txd");
 AddCharModel(121, 20006, "skin6.dff", "skin6.txd");
 AddCharModel(121, 20007, "skin7.dff", "skin7.txd");
 AddCharModel(121, 20008, "skin8.dff", "skin8.txd");
+AddCharModel(121, 20009, "skin9.dff", "skin9.txd");
+AddCharModel(121, 20010, "skin10.dff", "skin10.txd");
+AddCharModel(121, 20011, "skin11.dff", "skin11.txd");
+AddCharModel(121, 20012, "skin12.dff", "skin12.txd");
+AddCharModel(121, 20013, "skin13.dff", "skin13.txd");
+AddCharModel(121, 20014, "skin14.dff", "skin14.txd");
+AddCharModel(121, 20015, "skin15.dff", "skin15.txd");
+AddCharModel(121, 20016, "skin16.dff", "skin16.txd");
+AddCharModel(121, 20017, "skin17.dff", "skin17.txd");
+AddCharModel(121, 20018, "skin18.dff", "skin18.txd");
+AddCharModel(121, 20019, "skin19.dff", "skin19.txd");
 //skins fem
 AddCharModel(211, 20182, "fem.dff", "fem.txd");
 AddCharModel(211, 20183, "fem1.dff", "fem1.txd");
@@ -231,7 +242,7 @@ AddSimpleModel(-1,19480,-2040, "upp.dff", "upp.txd");
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");
 AddSimpleModel(-1,19379, -2200, "login.dff", "tela.txd");
 AddSimpleModel(-1, 19379, -2201, "login.dff", "logo.txd");
-
+AddSimpleModel(-1, 19379, -7800, "login.dff", "logo32.txd"); //Não remover
 
 //mapas civis
 AddSimpleModel(-1,12843, -1001, "caixa.dff", "caixa.txd");
@@ -315,8 +326,6 @@ AddSimpleModel(-1,19141, -1302,"garagem01.dff", "garagem.txd");
 AddSimpleModel(-1,19141, -1304,"house01.dff", "house01.txd");
 AddSimpleModel(-1,19141, -1305,"apartamento.dff", "apartamento.txd");
 AddSimpleModel(-1,19141, -1306,"casa01.dff", "casa01.txd");
-AddSimpleModel(-1,19141, -1307,"favela01.dff", "favela01.txd");
-AddSimpleModel(-1,19141, -1308,"favela02.dff", "favela02.txd");
 AddSimpleModel(-1,19141, -1309,"complexo.dff", "complexo.txd");
 AddSimpleModel(-1,19141, -1310,"casenha.dff", "casenha.txd");
 AddSimpleModel(-1,19141, -1311,"oficina.dff", "oficina.txd");
