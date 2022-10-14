@@ -1668,7 +1668,7 @@ new Pos_Z_Old_AV[MAX_PLAYERS];
 #define JOB_HOTDOG          6
 #define JOB_DESMANCHE       7
 #define JOB_PESCADOR	    8
-//#define JOB_MOTOBOY       9
+#define JOB_MOTOBOY       9
 #define JOB_LIXEIRO         10
 
 //HotDog
@@ -15079,6 +15079,9 @@ public placeVehicle(playerid, iVehicleID, iSeatID, iWeaponID)
 }
 
 
+
+new bool: MotoboyEntrega[MAX_PLAYERS];
+
 public OnPlayerEnterCheckpoint(playerid)
 {
     if (PlayerInfo[playerid][pWaypoint])
@@ -15170,6 +15173,13 @@ public OnPlayerEnterCheckpoint(playerid)
 	    DisablePlayerCheckpoint(playerid);
 	    going_to_scrap[playerid] = 0;
 	}
+    if (MotoboyEntrega[playerid])
+    {
+        PlayerInfo[playerid][pGrana] += 50000;
+        DisablePlayerCheckpoint(playerid);
+        MotoboyEntrega[playerid] = false;
+    }
+            
 	return 1;
 }
 
@@ -26385,7 +26395,7 @@ CMD:ajudaemprego(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
 		}
 
-		/*case JOB_MOTOBOY:
+		case JOB_MOTOBOY:
         {
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
             SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
@@ -26393,7 +26403,7 @@ CMD:ajudaemprego(playerid, params[])
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarentrega {ffffff}para iniciar uma entrega de fast-food.");
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/pegarlanche {ffffff}para pegar o lanche na bag.");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
-        }*/
+        }
 	}
 	return 1;
 }
@@ -65401,7 +65411,7 @@ CMD:pegaremprego(playerid,params[])
 			if(biz != -1)
 			{
 				if( EmpInfo[biz][eTipo] == EMP_TIPO_EMP_CENTER)
-	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador", "Selecionar", "Voltar");
+	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador\nMotoboy [Requisito: Veículo Próprio]", "Selecionar", "Voltar");
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, 5, 1414.8279,-1577.5049,20.0859))
@@ -65476,6 +65486,13 @@ Dialog:Dialog_Empregos(playerid, response, listitem, inputtext[])
 		    case 6:
 		    {
 		        PlayerInfo[playerid][pJob] = JOB_TREINADOR;
+		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um treinador, utilize /ajudaemprego para mais informações.");
+		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
+				else PlayerInfo[playerid][pJobTempo] = 5;
+		    }
+		    case 7:
+		    {
+		        PlayerInfo[playerid][pJob] = JOB_MOTOBOY;
 		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um motoboy, utilize /ajudaemprego para mais informações.");
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
@@ -68612,6 +68629,60 @@ public IsMedic(playerid)
 	return false;
 }
 
+
+//Pizza System - Pigeon
+COMMAND:iniciarentrega(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
+    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
+    {
+        SetPlayerAttachedObject(playerid, 6, -2701, 1, 0.160999, -0.172999, -0.013000, 0.000000, 87.200042);
+        SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço como moto-boy.");
+    }     
+
+    return 1;
+}
+
+COMMAND:pegarpizza(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");  
+        
+    {
+    	SetPlayerAttachedObject(playerid, 8, 1582, 5, 0, 0, -0.16, 50, 0, 10);
+    	SendClientMessage(playerid, COLOR_WHITE, "Você pegou a pizza. Vá até sua moto e use o comando /colocarpizza.");
+    }   
+    
+    return 1;
+}
+
+COMMAND:colocarpizza(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");    
+    {
+        SetTimerEx("Destruirpizza", 1, false, "d", playerid);
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Você colocou as pizzas na bag da moto. Vá entregar.");
+        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Checkpoints  definidos no seu radar!");
+        SetPlayerCheckpoint(playerid, 1931.8823, -1867.9221, 17.7278, 3.0);
+        MotoboyEntrega[playerid] = true;
+    }
+
+    return 1;
+}
+
+forward Destruirpizza(playerid);
+public Destruirpizza(playerid)
+{
+	{  
+		RemovePlayerAttachedObject(playerid, 8);
+	}
+
+	return 1;
+}
+
+
 COMMAND:sirene(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -68814,7 +68885,7 @@ stock SendPOLICIAMessage(radioid,slot,color,strings[])
 {
     for(new i = 0; i < MAX_PLAYERS; i++)
     {
-        if(FacInfo[PlayerInfo[i][pFac]][fTipo] == FAC_TIPO_EB || FacInfo[PlayerInfo[i][pFac]][fTipo] == FAC_TIPO_PCERJ)
+        if(FacInfo[PlayerInfo[i][pFac]][fTipo] == FAC_TIPO_PCERJ)
         {
             if(PlayerInfo[i][pRadioChan] == radioid || PlayerInfo[i][pRadioChan2] == radioid)
             {
@@ -68849,28 +68920,6 @@ stock SendPOLICIAMessage(radioid,slot,color,strings[])
     }
     return 1;
 }
-/*COMMAND:slotradio(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pMorto] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Você está muito ferido para executar essa ação.");
-    if(!PlayerInfo[playerid][pRadio]) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Você não tem um rádio.");
-
-	new aimid;
-	if(sscanf(params, "i", aimid)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /slotradio [canais de 1 até 5]");
-	else
-	{
-	    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-	    if(FacId == 0) return 1;
-		if(FacInfo[FacId][fTipo] == 1)
-		{
-		    if(aimid < 1 || aimid > 5) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /slotradio [canais de 1 até 5]");
-		    format(string, sizeof(string),"Canal do rádio da PMERJ alternado para (%d).", aimid);
-		    SendClientMessage(playerid, COLOR_WHITE, string);
-	        OutrasInfos[playerid][oRadioPD] = aimid;
-		}
-	}
-	return 1;
-}*/
 
 COMMAND:canalradio(playerid, params[])
 {
@@ -75132,86 +75181,6 @@ COMMAND:cancelarcoleta(playerid,params[])
         return 1;
     }
 }
-
-/*COMMAND:iniciarentrega(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
-  
-    {
-		SetPlayerAttachedObject(playerid, 6, -2701, 1, 0.160999, -0.172999, -0.013000, 0.000000, 87.200042);
-		SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço de Motoboy.");
-    }     
-
-    return 1;
-}*/
-
-/*COMMAND:pegarlanche(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");    
-    {
-		SetPlayerAttachedObject(playerid, 8, -2041, 6, 0.265127, 0.015637, 0.053388, 355.166931, 262.028015);
-		SendClientMessage(playerid, COLOR_WHITE, "VocÊ pegou a pizza. vá até sua moto e use o comando /colocarlanche.");
-    } 
-
-    return 1;
-}
-
-COMMAND:colocarlanche(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
-        
-    {
-		SetTimerEx("destruirlanche", 1, false, "d", playerid);
-		SetTimerEx("FinalizarEntrega", 1, false, "d", playerid);
-		SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Você colocou aos lanches na bag da moto. vá entregar.");
-		SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Checkpoints definidos no seu radar!");
-		SetPlayerCheckpoint (playerid, 1848.1523,-1593.8646,23.8835, 3.0);
-	}
-
-    return 1;
-}*/
-
-/*COMMAND:finalizarentrega(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF}Você não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já trabalhou bastante neste PayDay, volte apÃ³s seu pagamento.");
-
-	{
-		SendClientMessage(playerid, COLOR_LIGHTGREEN,"INFO:{FFFFFF} Você parou de trabalhar.")
-		RemovePlayerAttachedObject(playerid, 6);
-	}
-
-	return 1;
-}*/
-
-/*forward destruirlanche(playerid);
-public destruirlanche(playerid)
-{
-    RemovePlayerAttachedObject(playerid, 8);
-
-    return 1;
-}
-
-forward Finalizarentrega(playerid);
-public Finalizarentrega(playerid)
-{
-    SendClientMessage(playerid, COLOR_WHITE, "Dona Lurdes: Obrigado pelo lanche, meu filho. Veio super rápido. Toma dez da entrega e cinco de gorjeta.");
-    SendClientMessage(playerid, COLOR_LIGHTGREEN, "Lanche entregue, você recebeu R$15,00 pela entrega.");
-    {
-		GivePlayerMoneyCA(playerid, 15);
-		RemovePlayerAttachedObject(playerid, 1);
-		DisablePlayerCheckpoint(playerid);
-	}
-
-	return 1;
-}*/
 
 //==============================================================================
 COMMAND:apagao(playerid, params[])
