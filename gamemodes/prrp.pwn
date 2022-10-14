@@ -15173,11 +15173,10 @@ public OnPlayerEnterCheckpoint(playerid)
 	    DisablePlayerCheckpoint(playerid);
 	    going_to_scrap[playerid] = 0;
 	}
-
-    if(MotoboyEntrega[playerid] = 1)
+    if(MotoboyEntrega[playerid] == 1)
     {
-        GivePlayerMoneyCA(playerid, 1000);
         DisablePlayerCheckpoint(playerid);
+		GivePlayerMoneyCA(playerid, 1000);
         MotoboyEntrega[playerid] = false;
     }
             
