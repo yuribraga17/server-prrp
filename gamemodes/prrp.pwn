@@ -86,7 +86,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
 #define ULTIMO_GMX      "15/10/2022"
-#define CA_VERSAO       "PR:RP v0.54"
+#define CA_VERSAO       "PR:RP v0.55"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [Paycheck Duplo]"
@@ -928,6 +928,9 @@ new company_work_stage[MAX_PLAYERS];
 new progress_wait[MAX_PLAYERS];
 new progress_wait_max[MAX_PLAYERS];
 new progress_wait_type[MAX_PLAYERS];
+
+
+new MotoboyEntrega[MAX_PLAYERS];
 //==============================================================================
 new Float:PlayerCruiseSpeed[MAX_PLAYERS];
 new Float:PlayerHeadingAngle[MAX_PLAYERS];
@@ -13241,7 +13244,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.54, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/10/2022, v0.55, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão alfa e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pAge] == 0)
@@ -15080,10 +15083,15 @@ public placeVehicle(playerid, iVehicleID, iSeatID, iWeaponID)
 
 
 
-new bool: MotoboyEntrega[MAX_PLAYERS];
-
 public OnPlayerEnterCheckpoint(playerid)
 {
+    if(MotoboyEntrega[playerid])
+    {
+        GivePlayerMoney(playerid, 1000);
+		GameTextForPlayer(playerid, "~w~Chegou ao cliente.", 5000, 1);
+		MotoboyEntrega[playerid] = false;
+        DisablePlayerCheckpoint(playerid);
+    }
     if (PlayerInfo[playerid][pWaypoint])
 	{
  		PlayerInfo[playerid][pWaypoint] = 0;
@@ -15173,13 +15181,7 @@ public OnPlayerEnterCheckpoint(playerid)
 	    DisablePlayerCheckpoint(playerid);
 	    going_to_scrap[playerid] = 0;
 	}
-    if(MotoboyEntrega[playerid] == 1)
-    {
-        DisablePlayerCheckpoint(playerid);
-		GivePlayerMoneyCA(playerid, 1000);
-        MotoboyEntrega[playerid] = false;
-    }
-            
+
 	return 1;
 }
 
@@ -20238,7 +20240,7 @@ stock createDisplayFomeSede(playerid){
 
 		new fomeString[32];
 		format(fomeString, sizeof(fomeString), "%d", PlayerInfo[playerid][pFome]);
-		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 620.000, 175.000, fomeString);
+		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 622.000, 175.000, fomeString);
 		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][2], 0.180, 0.799);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][2], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][2], -1);
