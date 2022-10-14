@@ -15173,11 +15173,12 @@ public OnPlayerEnterCheckpoint(playerid)
 	    DisablePlayerCheckpoint(playerid);
 	    going_to_scrap[playerid] = 0;
 	}
-    if (MotoboyEntrega[playerid])
+
+    if(MotoboyEntrega[playerid] == 1)
     {
-        PlayerInfo[playerid][pGrana] += 50000;
+        GivePlayerMoneyCA(playerid, 1000);
         DisablePlayerCheckpoint(playerid);
-        MotoboyEntrega[playerid] = false;
+        MotoboyEntrega[playerid] = 0;
     }
             
 	return 1;
@@ -68666,7 +68667,7 @@ COMMAND:colocarpizza(playerid,params[])
         SendClientMessage(playerid, COLOR_LIGHTGREEN,"Você colocou as pizzas na bag da moto. Vá entregar.");
         SendClientMessage(playerid, COLOR_LIGHTGREEN,"Checkpoints  definidos no seu radar!");
         SetPlayerCheckpoint(playerid, 1931.8823, -1867.9221, 17.7278, 3.0);
-        MotoboyEntrega[playerid] = true;
+        MotoboyEntrega[playerid] == 1;
     }
 
     return 1;
