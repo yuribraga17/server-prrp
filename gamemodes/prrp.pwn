@@ -85,11 +85,11 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "15/10/2022"
+#define ULTIMO_GMX      "16/10/2022"
 #define CA_VERSAO       "PR:RP v0.55"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
-#define CA_NOME2        "hostname Progressive Roleplay [Paycheck Duplo]"
+#define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
 #define CA_LANGUAGE     "language Português Brasileiro"
 #define MAP_NAME        "mapname Rio de Janeiro"
 //==============================================================================
@@ -34992,7 +34992,7 @@ COMMAND:ajail(playerid, params[])
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Este jogador não está conectado.");
 	    if(PlayerInfo[targetid][pAdmin] >= 5 && PlayerInfo[targetid][pAdmin] <= 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não pode dar ajail em um Head Staff.");
-	    if(IsPlayerNPC(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}NPC's não podem ser presos.");
+	    if(IsPlayerNPC(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} NPC's não podem ser presos.");
 		if(PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pTester] >= 1)
 		
 		{
@@ -69879,7 +69879,7 @@ COMMAND:tempoaberto(playerid, params[])
 CMD:aportao(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5 || PlayerInfo[playerid][pFactionTeam] < 1 || PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(300)", opcao,var))
 	{
@@ -69891,7 +69891,7 @@ CMD:aportao(playerid, params[])
     {
         if (!strcmp(opcao, "criar", true))
         {
-            if(var == 300) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /aportao criar [modelo]");
+            if(var == 300) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}ERRO:{FFFFFF} /aportao criar [modelo]");
             new str2[520];
             format(str2,sizeof(str2),"INSERT INTO portoes (ptModelo) VALUES ('%d')",var);
             mysql_function_query(Pipeline, str2, false, "PortaoCriado", "dd",playerid,var);
@@ -69899,13 +69899,13 @@ CMD:aportao(playerid, params[])
         }
 		else if (!strcmp(opcao, "editar", true))
 		{
-		    if(var == 300) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /aportao editar [Portao ID]");
+		    if(var == 300) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}ERRO:{FFFFFF} /aportao editar [Portao ID]");
 			for(new i; i < MAX_PORTOES; i++)
 		    {
 		        if(!PortaoInfo[var][ptCriado]) return 1;
 		    	if(IsPlayerInRangeOfPoint(playerid, 10, PortaoInfo[i][ptX], PortaoInfo[i][ptY], PortaoInfo[i][ptZ]) && GetPlayerVirtualWorld(playerid) == PortaoInfo[i][ptWorld] && GetPlayerInterior(playerid) == PortaoInfo[i][ptInt])
 		    	{
-					format(string, sizeof(string), "{FF6347}USE:{FFFFFF} Editando portão: %d!", i);
+					format(string, sizeof(string), "{FF6347}INFO:{FFFFFF} Editando portão: %d!", i);
  					SendClientMessage(playerid, COLOR_WHITE, string);
 
  					PlayerInfo[playerid][pEditandoPortao][0] = i;
