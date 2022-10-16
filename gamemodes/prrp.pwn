@@ -2716,11 +2716,11 @@ static LOJA_OUTROS_PMERJ[9] = {
 	-2125
 };
 //======== [PCERJ]======//
-static PCERJ_Uniformes[16] = {
+static PCERJ_Uniformes[13] = {
     20200, 20201, 20202, 20203,
 	20204, 20205, 20206, 20207,
 	20208, 20209, 20210, 20211,
-	20212, 20213, 20214, 20215
+	20212
 };
 static LOJA_OCULOS_PCERJ[3] = {
     19138, 19139, 19140
@@ -11115,7 +11115,42 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
-
+	//Favela el corona 2
+	RemoveBuildingForPlayer(playerid, 3588, 1907.630, -2025.939, 15.132, 0.250);
+	RemoveBuildingForPlayer(playerid, 3667, 1907.630, -2025.939, 15.132, 0.250);
+	RemoveBuildingForPlayer(playerid, 3588, 1904.800, -1991.739, 15.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 3667, 1904.800, -1991.739, 15.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 3588, 1861.449, -1991.750, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 3667, 1861.449, -1991.750, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 3588, 1858.630, -2025.939, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 3667, 1858.630, -2025.939, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 3588, 1826.599, -1989.609, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 3667, 1826.599, -1989.609, 15.210, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1870.189, -2041.040, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1849.530, -2041.290, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 712, 1839.949, -2041.000, 21.960, 0.250);
+	RemoveBuildingForPlayer(playerid, 712, 1811.250, -2012.619, 21.960, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1808.880, -1985.339, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 700, 1792.750, -1974.550, 11.445, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1794.589, -1980.750, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1841.930, -1977.089, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 1531, 1889.239, -1982.510, 15.757, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1914.880, -1980.339, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1922.119, -1981.209, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1924.589, -2002.349, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 1307, 1922.579, -2023.550, 12.710, 0.250);
+	RemoveBuildingForPlayer(playerid, 671, 1921.489, -2040.520, 12.640, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 1893.949, -2013.050, 12.695, 0.250);
+	RemoveBuildingForPlayer(playerid, 671, 1835.010, -2015.359, 12.640, 0.250);
+	RemoveBuildingForPlayer(playerid, 1307, 1832.630, -2012.829, 12.687, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1841.930, -2007.479, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1822.959, -2015.910, 16.390, 0.250);
+	RemoveBuildingForPlayer(playerid, 1308, 1813.089, -2013.030, 12.750, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1808.880, -2016.609, 9.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1882.369, -1992.130, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1882.369, -1975.939, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 1226, 1924.589, -1977.089, 16.273, 0.250);
+	RemoveBuildingForPlayer(playerid, 708, 1837.640, -1968.339, 12.187, 0.250);
 	//favela las colinas alta
 	RemoveBuildingForPlayer(playerid, 659, 2568.938, -1021.510, 68.093, 0.250);
 	RemoveBuildingForPlayer(playerid, 3241, 2578.948, -1029.979, 69.084, 0.250);
@@ -19767,6 +19802,7 @@ public OnQueryFinish(resultid, extraid, ConnectionHandle)
 	return 1;
 }
 
+
 forward SalvarPlayer(playerid);
 public SalvarPlayer(playerid)
 {
@@ -20235,8 +20271,8 @@ public updateTextDrawFomeSede(playerid){
 }
 
 stock createDisplayFomeSede(playerid){
-		FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, 593.000, 163.000, "mdl-2007:fome");
-		PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 68.000, 74.000);
+		FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, 585.000, 226.000, "mdl-2007:fome");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 90.000, 90.000);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][0], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][0], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][0], 0);
@@ -20245,8 +20281,8 @@ stock createDisplayFomeSede(playerid){
 		PlayerTextDrawFont(playerid, FomeSede[playerid][0], 4);
 		PlayerTextDrawSetProportional(playerid, FomeSede[playerid][0], 1);
 
-		FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, 593.000, 191.000, "mdl-2007:sede");
-		PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 68.000, 74.000);
+		FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, 585.000, 248.000, "mdl-2007:sede");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 90.000, 90.000);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][1], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][1], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][1], 0);
@@ -20257,8 +20293,8 @@ stock createDisplayFomeSede(playerid){
 
 		new fomeString[32];
 		format(fomeString, sizeof(fomeString), "%d", PlayerInfo[playerid][pFome]);
-		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 622.000, 175.000, fomeString);
-		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][2], 0.180, 0.799);
+		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 624.000, 239.000, fomeString);
+		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][2], 0.150, 0.799);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][2], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][2], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][2], 1);
@@ -20269,8 +20305,8 @@ stock createDisplayFomeSede(playerid){
 
 		new sedeString[32];
 		format(sedeString, sizeof(sedeString), "%d", PlayerInfo[playerid][pSede]);
-		FomeSede[playerid][3] = CreatePlayerTextDraw(playerid, 620.000, 203.000, sedeString);
-		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][3], 0.180, 0.799);
+		FomeSede[playerid][3] = CreatePlayerTextDraw(playerid, 624.000, 262.000, sedeString);
+		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][3], 0.150, 0.799);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][3], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][3], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][3], 1);
@@ -20837,7 +20873,7 @@ COMMAND:dropar(playerid, params[])
 	if(TaEmUmElevador(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode dropar algo dentro de um elevador.");
     if(gettime() < FloodCMD[playerid]) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Aguarde um segundo antes de usar um comando novamente.");
     if(PlayerInfo[playerid][pEmServico] == 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando em serviço.");
-	if(PlayerInfo[playerid][pLevel] < 10) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 10 ou mais para dropar algo.");
+	if(PlayerInfo[playerid][pLevel] < 2) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para dropar algo.");
 	if(IsPlayerEditandoAlgo(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Termine de editar o objeto antes.");
 
 	new option[11], InvId, StrArm[526];
@@ -25557,7 +25593,8 @@ public StopTalking(playerid)
 	return 1;
 }
 
-COMMAND:roubarcaixa(playerid, params[])
+//Sistema roubo caixa eletronico
+/*COMMAND:explodircaixa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
 	for(new i = 0; i < MAX_ATM; i++)
@@ -25573,8 +25610,6 @@ COMMAND:roubarcaixa(playerid, params[])
 	return 1;
 }
 
-
-
 COMMAND:pegardinheiro(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
@@ -25587,7 +25622,7 @@ COMMAND:pegardinheiro(playerid, params[])
 		}
 	}
 	return 1;
-}
+}*/
 
 COMMAND:caixa(playerid, params[])
 {
@@ -34239,7 +34274,7 @@ CMD:ajudaadmin(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Lead Admin]{FFFFFF} /amotor /atrancar /entrarveiculo /pnomeooc /verveiculos /ulogin /mudarsexo /setaremprego /savevehicles");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Lead Admin]{FFFFFF} /abrirelevador /abrirelevador1 /irpos /unbanip /limpargrana /limparbanco /mudarclima /mudaridade");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Equipes]{FFFFFF} /refundteam /banappeal /factionteam /propertyteam /medicteam");
-			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Geral]{FFFFFF} /acasa /acomplexo /aemp /aveiculo");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Geral]{FFFFFF} /acasa /acomplexo /aemp /aveiculo /salvarcontas");
 		}
     	if(PlayerInfo[playerid][pAdmin] >= 3000){
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /setarammo /setararma /setarpremium /editarpe /palcopref /casinogames /liberaracesso");
@@ -38091,7 +38126,7 @@ CMD:pm(playerid, params[])
 			format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
 			format(string,sizeof(string),"(( PM enviada para %s (ID: %d): %s ))",PlayerName(var, 1),var,opcao);
 	 		SendClientMessage(playerid, 0xFCF545FF,string);
-	 		format(string,sizeof(string),"(( PM recebida de %s (ID: %d): %s  ))",admnome, opcao);
+	 		format(string,sizeof(string),"(( PM recebida de %s (ID: %d): %s  ))",PlayerName(playerid, 1),admnome, opcao);
 	 		SendClientMessage(var, 0xFFDC18FF,string);
 		}
 		else
@@ -69216,7 +69251,7 @@ stock SendRadioMessage(color,radioid,stringa[])
     return 1;
 }
 
-ALTCOMMAND:dep->departamento;
+ALTCOMMAND:dep->departamento; 
 CMD:departamento(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -69727,6 +69762,7 @@ Dialog:FactionsList_NewName(playerid, response, listitem, inputtext[]){
     }
 	return 1;
 }
+
 
 COMMAND:setarportaofac(playerid, params[])
 {

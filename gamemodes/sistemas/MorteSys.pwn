@@ -1,6 +1,3 @@
-
-
-
 //Forward
 forward SairDoHospital(playerid);
 forward ZerarDamages(playerid);
@@ -26,7 +23,7 @@ public SetPlayerMorto(playerid, status) {
 			SetPVarInt(playerid, "TempoParaSerLevantado", 300);
 
 			TogglePlayerControllable(playerid, 0);
-			SendClientMessage(playerid, COLOR_LIGHTRED, "você está ferido, você pode aguardar um médico chegar ou aceitar a morte daqui a 3 minutos. ((Se o anim bugar, use /morto))");
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Você está ferido, você pode aguardar um médico chegar ou aceitar a morte daqui a 3 minutos. ((Se o anim bugar, use /morto))");
 
 			PlayerInfo[playerid][pMancando] = 0;
 
@@ -1241,7 +1238,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 		            if(PlayerInfo[damagedid][pMancando] == 0)
 					{
 						PlayerInfo[damagedid][pMancando] = 1;
-						SendClientMessage(damagedid, COLOR_LIGHTRED, "-> você foi atingido na perna. você não vai poder correr muito e nem pular.");
+						SendClientMessage(damagedid, COLOR_LIGHTRED, "-> Você foi atingido na perna. você não vai poder correr muito e nem pular.");
 					}
 		        }
 		        case 8:
@@ -1249,7 +1246,7 @@ public OnPlayerGiveDamage(playerid, damagedid, Float:amount, weaponid, bodypart)
 		            if(PlayerInfo[damagedid][pMancando] == 0)
 		            {
 						PlayerInfo[damagedid][pMancando] = 1;
-						SendClientMessage(damagedid, COLOR_LIGHTRED, "-> você foi atingido na perna. você não vai poder correr muito e nem pular.");
+						SendClientMessage(damagedid, COLOR_LIGHTRED, "-> Você foi atingido na perna. você não vai poder correr muito e nem pular.");
 					}
 		        }
 		        case 9:
