@@ -5840,7 +5840,7 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 1172.1819,-1323.7139,15.4038, 0);
 
     //HOSPITAL
-    CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/tratar\n/convenio",0xffffffff, 1177.7151,-1321.4143,2015.4130, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/tratar(somente para vida menor que 70)\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1177.7151,-1321.4143,2015.4130, 0);
 
 	//COMPRAR PEÇAS
@@ -13191,7 +13191,7 @@ public OnPlayerSpawn(playerid){
             return 1;
         }
         else {
-            if(GetPVarInt(playerid, "ChamouOnPlayerDeath") == 1) {
+            if(GetPVarInt(playerid, "ChamouOnPlayerDeath") == 1 || (PlayerInfo[playerid][pMorto] > 0 && PlayerInfo[playerid][pMorto] < 3)) {
                 P_Health[playerid] = 20;
                 SetPlayerHealth(playerid, 20);
 
@@ -13199,9 +13199,8 @@ public OnPlayerSpawn(playerid){
                 SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
 
                 SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
-                SetPVarInt(playerid, "ChamouOnPlayerDeath", 0);
 
-                SetPlayerMorto(playerid, 1);
+                SetPlayerMorto(playerid, PlayerInfo[playerid][pMorto]);
                 SetarItensDoPlayer(playerid);
                 //================================================
                 if(PlayerInfo[playerid][pColde] > 0) AttachArmaCorpo(playerid, ArmaData[PlayerInfo[playerid][pColde]][ArmaModelo], PlayerInfo[playerid][pColdreBone]);
@@ -20264,7 +20263,6 @@ public VerStats(playerid, targetid)
 }
 forward createHudRadio(playerid);
 public createHudRadio(playerid){
-new radioText[256];
 RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 207.000, 356.000, "mdl-2007:radio-on");
 PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 78.000, 92.000);
 PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][0], 1);
@@ -20284,12 +20282,15 @@ PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
 PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
 PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 4);
 PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
-if (PlayerInfo[playerid][pRadioChan] == 0){
-	format(radioText, sizeof(radioText), "OFF");
-}else{
-	format(radioText, sizeof(radioText), "%d", PlayerInfo[playerid][pRadioChan]);
+if(PlayerInfo[playerid][pRadio]){
+	if (PlayerInfo[playerid][pRadioChan] == 0){
+		PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+	}else{
+		PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
+		PlayerTextDrawShow(playerid, RadioComunicador[playerid][2]);
+		updateTextDrawCanalRadio(playerid, PlayerInfo[playerid][pRadioChan]);
+	}
 }
-
 
 RadioComunicador[playerid][2] = CreatePlayerTextDraw(playerid, 238.000, 411.000, "");
 PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][2], 0.270, 1.199);
@@ -20304,11 +20305,10 @@ PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][2], 1);
 
 
 }
-forward updateTextDrawCanalRadio(playerid, canal);
-public updateTextDrawCanalRadio(playerid, canal){
+forward updateTextDrawCanalRadio(playerid, rcanali);
+public updateTextDrawCanalRadio(playerid, rcanali){
 	new rcanal[32];
-
-	format(rcanal, sizeof(rcanal), "%d", PlayerInfo[playerid][pRadioChan]);
+	format(rcanal, sizeof(rcanal), "%d", rcanali);
 	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][2], rcanal); 
 
 }
@@ -31228,7 +31228,7 @@ CMD:arbarricadas(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"{FF6347}USE:{FFFFFF} Termine de editar a barreira atual antes de deletar alguma.");
-    if(PlayerInfo[playerid][pAdmin] > 1) return SendClientMessage(playerid, COLOR_LIGHTRED,"Você não é um administrador.");
+    if(PlayerInfo[playerid][pAdmin] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED,"Você não é um administrador.");
 	{
 	    for(new id; id < MAX_PMERJ_BARREIRAS; id++)
 	    {
@@ -33821,12 +33821,10 @@ COMMAND:tog(playerid, params[])
 			{
 				SetPVarInt(playerid, "TogHud", 1);
 				SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD desativada.");
-				PlayerTextDrawHide(playerid, Speedo[playerid]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][0]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][1]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][2]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][3]);
-
 				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
                 PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
                 PlayerTextDrawHide(playerid, RadioComunicador[playerid][2]);
@@ -33835,15 +33833,21 @@ COMMAND:tog(playerid, params[])
 			{
 	   			SetPVarInt(playerid, "TogHud", 0);
 	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD ativada.");
-	   			PlayerTextDrawShow(playerid, Speedo[playerid]);
+	   			
                 PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
 
+				
+
+				if (PlayerInfo[playerid][pRadioChan] == 0){
+				
+				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+			}else{
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-                PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
-                PlayerTextDrawShow(playerid, RadioComunicador[playerid][2]);
+				PlayerTextDrawShow(playerid, RadioComunicador[playerid][2]);
+			}
 				
 			}
 		}
@@ -36251,8 +36255,8 @@ public SendBankErrorMessage(playerid){
 CMD:tratar(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pMorto] == 0 && PlayerInfo[playerid][pMancando] == 0 && PlayerInfo[playerid][pDrogaTime] == 0 && PlayerInfo[playerid][pTomouAlgumTiro] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem por que se tratar agora.");
-    if(IsPlayerInRangeOfPoint(playerid, 20, 1177.7151,-1321.4143,2015.4130))
+	if(PlayerInfo[playerid][pHealth] > 70 && PlayerInfo[playerid][pMorto] == 0 && PlayerInfo[playerid][pMancando] == 0 && PlayerInfo[playerid][pDrogaTime] == 0 && PlayerInfo[playerid][pTomouAlgumTiro] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem por que se tratar agora.");
+    if(IsPlayerInRangeOfPoint(playerid, 20, 174.4834,2784.5520,767.7469))
 	{
         if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
 		TempoDesistir[playerid] = 0;
@@ -69083,11 +69087,11 @@ COMMAND:canalradio(playerid, params[])
             }
 			if(aimid == 197)
             {
-                if(FacInfo[FacId][fTipo] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PCERJ.");
+                if(FacInfo[FacId][fTipo] != 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PCERJ.");
                 temperm = 1;
             }
             if(aimid == 193) {
-                if(FacInfo[FacId][fTipo] != 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a CBERJ.");
+                if(FacInfo[FacId][fTipo] != 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a CBERJ.");
                 temperm = 1;
             }
             if(aimid == 183) {
@@ -69151,8 +69155,13 @@ COMMAND:canalradio2(playerid, params[])
                 if(FacInfo[FacId][fTipo] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PMERJ.");
                 temperm = 1;
             }
+           if(aimid == 197)
+            {
+                if(FacInfo[FacId][fTipo] != 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PCERJ.");
+                temperm = 1;
+            }
             if(aimid == 193) {
-                if(FacInfo[FacId][fTipo] != 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito ao CBERJ.");
+                if(FacInfo[FacId][fTipo] != 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a CBERJ.");
                 temperm = 1;
             }
             if(aimid == 183) {
@@ -71396,7 +71405,7 @@ public SaveDrogas(playerid)
 	new pname[24];
 	format(pname, 24, "%s", PlayerName(playerid,0));
 
-    format(_dinamicString, sizeof(_dinamicString), "UPDATE `drogas` SET `Name` = '%s' `MaconhaR`=%d,`MaconhaB`=%d,`MaconhaE`=%d,`CocaR`=%d,`CocaB`=%d,`CocaE`=%d ,`CrackR`=%d,`CrackB`=%d,`CrackE`=%d,`LSDR`=%d,`LSDB`=%d,`LSDE`=%d,`MetR`=%d,`MetB`=%d,`MetE`=%d,`Sementes`=%d,`BDS`=%d,`PBC`=%d,`Acloridrico`=%d,`Efedrina`=%d,`LancaPer`=%d WHERE `IDp` = '%d'",
+    format(_dinamicString, sizeof(_dinamicString), "UPDATE `drogas` SET `Name` = '%s', `MaconhaR`=%d,`MaconhaB`=%d,`MaconhaE`=%d,`CocaR`=%d,`CocaB`=%d,`CocaE`=%d ,`CrackR`=%d,`CrackB`=%d,`CrackE`=%d,`LSDR`=%d,`LSDB`=%d,`LSDE`=%d,`MetR`=%d,`MetB`=%d,`MetE`=%d,`Sementes`=%d,`BDS`=%d,`PBC`=%d,`Acloridrico`=%d,`Efedrina`=%d,`LancaPer`=%d WHERE `IDp` = '%d'",
 	PlayerInfo[playerid][pNomeP],
 	PlayerDroga[playerid][MaconhaR],
 	PlayerDroga[playerid][MaconhaB],
@@ -81828,7 +81837,7 @@ CMD:convenio(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pConvenio] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem um convênio, use /cancelarconvenio para cancela-lo.");
-    if(IsPlayerInRangeOfPoint(playerid, 20, 1177.7151,-1321.4143,2015.4130))
+    if(IsPlayerInRangeOfPoint(playerid, 20, 174.4834,2784.5520,767.7469))
 	{
         new ConvDial[522];
 		format(ConvDial, 255, "\t\t\t- Convênio Médico -\t\t\t\n\n \

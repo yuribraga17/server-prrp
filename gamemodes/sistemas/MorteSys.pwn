@@ -112,6 +112,7 @@ public SairDoHospital(playerid)
 
 	SetPlayerPosFreeze(playerid, 1173.1841,-1323.3143,15.3952, 1);
 	PlayerInfo[playerid][pMorto] = 0;
+	SetPVarInt(playerid, "ChamouOnPlayerDeath", 0);
 	PlayerInfo[playerid][pTomouAlgumTiro] = 0;
 	PlayerInfo[playerid][pTomouTiroPesado] = 0;
     PlayerInfo[playerid][pTomouTiroBrancas] = 0;
