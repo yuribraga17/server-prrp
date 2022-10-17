@@ -5827,7 +5827,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(3465, 996.034301, -921.386779, 42.609447, 0.000006, 0.000045, 7.709994, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(1440, 1020.401977, -921.939575, 41.809665, 0.000000, 0.000000, 97.699996, -1, -1, -1, 300.00, 300.00); 
 	print("[CARREGADO] Mapa: posto norte");
-	tmpobjid = CreateDynamicObject(1499, 2414.722900, -1388.471313, 23.693756, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	/*tmpobjid = CreateDynamicObject(1499, 2414.722900, -1388.471313, 23.693756, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 10226, "sfeship1", "sf_ship_handrail", 0x00000000);
 	SetDynamicObjectMaterial(tmpobjid, 1, 1493, "shop_doors", "CJ_SHOPDOOR1", 0x00000000);
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5891,7 +5891,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(1297, 2408.345947, -1297.187377, 26.728916, 0.000000, 0.000000, -166.000000, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(-2040, 2410.983154, -1392.996704, 23.675325, 90.300033, -88.599906, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(851, 2401.542236, -1392.391845, 23.270004, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00);
-	print("[CARREGADO] Mapa: Favela carecas");
+	print("[CARREGADO] Mapa: Favela carecas");*/
     CreateDynamicObject(626, 1128.77637, -1439.42468, 16.81744,   0.00000, 0.00000, 180.31766);
 	CreateDynamicObject(626, 1129.17932, -1450.61145, 16.81632,   0.00000, 0.00000, 1.76857);
 	CreateDynamicObject(626, 1129.21765, -1461.84351, 16.81679,   0.00000, 0.00000, 3.93856);
