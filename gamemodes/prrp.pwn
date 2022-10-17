@@ -58,11 +58,10 @@ new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX
 
 //Fome e Sede
 new PlayerText:FomeSede[MAX_PLAYERS][5];
-//Hud Radio
-new PlayerText:RadioComunicador[MAX_PLAYERS][3];
 
-//Tela de login
-new PlayerText: TelaLogin[MAX_PLAYERS][9];
+//Hud Radio
+new PlayerText:RadioComunicador[MAX_PLAYERS][2];
+
 
 new PlayersOnline = 0,
     RecordDia = 0,
@@ -7449,7 +7448,7 @@ public Timer_Minutos()
 				    if(PlayerInfo[i][pPrisao] == 1)
 				    {
 				    	SendClientMessage(i, COLOR_LIGHTGREEN, "[!] Você foi liberto.");
-				    	SetPlayerPosFreeze(i, 1808.6868,-1578.7084,13.4993, 1);
+				    	SetPlayerPosFreeze(i, 1734.3285,-1861.4269,13.5775, 1);
 				    	SetPlayerVirtualWorld(i,0);
 				    	SetPlayerInterior(i, 0);
 						SetPlayerAlgema(i, 0);
@@ -7457,7 +7456,7 @@ public Timer_Minutos()
 					else if(PlayerInfo[i][pPrisao] == 2)
 				    {
 				    	SendClientMessage(i, COLOR_LIGHTGREEN, "[!] Você foi liberto.");
-				    	SetPlayerPosFreeze(i, 1808.6868,-1578.7084,13.4993, 1);
+				    	SetPlayerPosFreeze(i, 1734.3285,-1861.4269,13.5775, 1);
 				    	SetPlayerVirtualWorld(i,0);
 				    	SetPlayerInterior(i, 0);
 						SetPlayerAlgema(i, 0);
@@ -7466,7 +7465,7 @@ public Timer_Minutos()
 				    {
 				        //Ajail
 				    	SendClientMessage(i, COLOR_LIGHTGREEN, "-> Você foi liberto da prisão administrativa.");
-				    	SetPlayerPosFreeze(i, 1808.6868,-1578.7084,13.4993, 1);
+				    	SetPlayerPosFreeze(i, 1734.3285,-1861.4269,13.5775, 1);
 				    	SetPlayerVirtualWorld(i,0);
 				    	SetPlayerInterior(i, 0);
 						SetPlayerAlgema(i, 0);
@@ -10665,13 +10664,7 @@ public OnPlayerConnect(playerid)
 		SendClientMessage(playerid, COLOR_YELLOW, "EXEMPLO: Nome_Sobrenome (Dica: não use numeros e muitas letras maiusculas em CAPSLOCK).");
         SendClientMessage(playerid, COLOR_YELLOW, "SERVER: Seu personagem deve ser registrado em nosso UCP.");
 		SendClientMessage(playerid, COLOR_YELLOW, "PARA MAIS INFORMAÇÕES: https://progressive-roleplay.com");
-		
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-
+	
 		SetTimerEx("KickInTime", 1000, 0, "i", playerid);
 	    return 1;
 	}
@@ -12159,24 +12152,12 @@ public CheckingAccount(playerid)
 			new str[250];
 			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
 			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 		}
 		else if(JaEstaOn == 1) {
 		    new strdebug[56];
 			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 		}
 		else {
 		    new strdebug[56];
@@ -12184,12 +12165,6 @@ public CheckingAccount(playerid)
 			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
 			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
 			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
 		}
 	}
 	else
@@ -12197,117 +12172,11 @@ public CheckingAccount(playerid)
 	    new str[256];
 		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor se registre-se.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 	}
 	return 1;
 }
 
-/*forward CheckingAccount(playerid); //ucp
-public CheckingAccount(playerid)
-{
-	LimparChat(playerid);
 
-    TogglePlayerControllable(playerid,false);
-	SetPlayerPos(playerid, 1741.3394, -1875.1597, 13.5859);
-	
-	InterpolateCameraPos(playerid, 2482.030517, -1100.739501, 52.487133, 2482.030517, -1100.739501, 52.487133, GetSeconds(60), CAMERA_MOVE);
-	InterpolateCameraLookAt(playerid, 2477.113769, -1099.987792, 51.976806, 2477.113769, -1099.987792, GetSeconds(60), CAMERA_MOVE);
-
-	new rows, fields;
-	cache_get_data(rows, fields, Pipeline);
-	if(rows)
-	{
-		LoginSeconds[playerid] = 50000;
-		TelaDeLogin[playerid] = 1;
-		new tmp[130];
-  		cache_get_field_content(0, "ID", tmp); 			PlayerInfo[playerid][pID] = strval(tmp);
-		cache_get_field_content(0, "Password", tmp);	format(PlayerInfo[playerid][pPassword], 129, "%s", tmp);
-		cache_get_field_content(0, "ucpOwn", tmp);	    PlayerInfo[playerid][pucpOwn] = strval(tmp);
-
-		new JaEstaOn = 0;
-		for(new di = 0; di < MAX_PLAYERS; di++) {
-		    if(IsPlayerConnected(di)) {
-			    if(playerid != di) {
-			    	if(PlayerInfo[playerid][pID] == PlayerInfo[di][pID]) {
-			        	JaEstaOn = 1;
-						break;
-					}
-					if(PlayerInfo[playerid][pucpOwn] == PlayerInfo[di][pucpOwn]) {
-					    JaEstaOn = di+100;
-					    break;
-					}
-			    }
-			}
-		}
-
-		if(JaEstaOn == 0) {
-		    new escapedPlayerName[MAX_PLAYER_NAME];
-		    mysql_real_escape_string(GetName(playerid), escapedPlayerName);
-			new str[250];
-			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
-			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		}
-		else if(JaEstaOn == 1) {
-		    new strdebug[56];
-			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		}
-		else {
-		    new strdebug[56];
-		    new pppid = (JaEstaOn-100);
-			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
-		}
-	}
-	else
-	{
-	    new str[256];
-		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com sua senha.", GetName(playerid));
-  		ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-
-		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
-  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		SetTimerEx("TimerKick", 30, 0, "d", playerid);
-
-	}
-	return 1;
-
-}*/
 
 forward PlayerConectCriarTexts(playerid);
 public PlayerConectCriarTexts(playerid)
@@ -12672,96 +12541,6 @@ public PlayerConectCriarTexts(playerid)
 	PlayerTextDrawFont(playerid, ClickTD[playerid], 2);
 	PlayerTextDrawSetProportional(playerid, ClickTD[playerid], 1);
 
-    TelaLogin[playerid][0] = CreatePlayerTextDraw(playerid, 0.000, -2.000, "mdl-2200:fundo");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][0], 1676.000, 455.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][0], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][0], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][0], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][0], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][0], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][0], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][0], 1);
-
-    TelaLogin[playerid][1] = CreatePlayerTextDraw(playerid, 220.000, -13.000, "mdl-2201:logo");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][1], 210.000, 230.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][1], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][1], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][1], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][1], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][1], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][1], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][1], 1);
-
-    TelaLogin[playerid][2] = CreatePlayerTextDraw(playerid, 235.000, 169.000, "mdl-2200:ucp");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][2], 173.000, 112.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][2], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][2], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][2], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][2], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][2], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][2], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][2], 1);
-
-    TelaLogin[playerid][3] = CreatePlayerTextDraw(playerid, 18.000, 428.000, "mdl-2200:serverok");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][3], 625.000, 22.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][3], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][3], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][3], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][3], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][3], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][3], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][3], 1);
-
-    TelaLogin[playerid][4] = CreatePlayerTextDraw(playerid, 0.000, 428.000, "mdl-2200:fok");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][4], 18.000, 43.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][4], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][4], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][4], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][4], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][4], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][4], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][4], 1);
-
-    TelaLogin[playerid][5] = CreatePlayerTextDraw(playerid, 2.000, 432.000, "mdl-2200:ok");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][5], 11.000, 12.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][5], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][5], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][5], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][5], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][5], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][5], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][5], 1);
-
-    TelaLogin[playerid][6] = CreatePlayerTextDraw(playerid, 234.000, 137.000, "mdl-2200:welcomeback");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][6], 174.000, 15.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][6], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][6], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][6], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][6], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][6], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][6], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][6], 1);
-
-    TelaLogin[playerid][7] = CreatePlayerTextDraw(playerid, 224.000, 154.000, "mdl-2200:ban");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][7], 192.000, 122.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][7], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][7], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][7], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][7], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][7], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][7], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][7], 1);
-
-    TelaLogin[playerid][8] = CreatePlayerTextDraw(playerid, 234.000, 169.000, "mdl-2200:pjon");
-    PlayerTextDrawTextSize(playerid, TelaLogin[playerid][8], 175.000, 122.000);
-    PlayerTextDrawAlignment(playerid, TelaLogin[playerid][8], 1);
-    PlayerTextDrawColor(playerid, TelaLogin[playerid][8], -1);
-    PlayerTextDrawSetShadow(playerid, TelaLogin[playerid][8], 0);
-    PlayerTextDrawSetOutline(playerid, TelaLogin[playerid][8], 0);
-    PlayerTextDrawBackgroundColor(playerid, TelaLogin[playerid][8], 255);
-    PlayerTextDrawFont(playerid, TelaLogin[playerid][8], 4);
-    PlayerTextDrawSetProportional(playerid, TelaLogin[playerid][8], 1);
-
 
 	return 1;
 }
@@ -12943,9 +12722,11 @@ public OnPlayerDisconnect(playerid, reason)
     PlayersOnline--;
     PlayerDisconectDelTexts(playerid);
 
-    if(GetPVarInt(playerid, "ChamouOnPlayerDeath") == 1) {
-    	SetPVarInt(playerid, "ChamouOnPlayerDeath", 0);
-    }
+	if(GetPVarInt(playerid, "AcabouDeMorrer") == 1)
+	{
+		SetPVarInt(playerid, "AcabouDeMorrer", 0);
+	}
+	
     //if(LoginTimer[playerid]) KillTimer(LoginTimer[playerid]);
 	TelaDeLogin[playerid] = 0;
  	KillTimer(UpdateTimerAr[playerid]);
@@ -13195,14 +12976,14 @@ public OnPlayerSpawn(playerid){
                 P_Health[playerid] = 20;
                 SetPlayerHealth(playerid, 20);
 
+				Anim2Morreu[playerid] = SetTimerEx("AnimMorreu", ANIM_DOIS_MORTE, false, "d", playerid);
+
                 SetPlayerVirtualWorld(playerid, PlayerInfo[playerid][pWorld]);
                 SetPlayerInterior(playerid, PlayerInfo[playerid][pInterior]);
 
                 SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 
-                SetPlayerMorto(playerid, PlayerInfo[playerid][pMorto]);
                 SetarItensDoPlayer(playerid);
-				SetarAnimMorto(playerid); //acabei de adicionar
                 //================================================
                 if(PlayerInfo[playerid][pColde] > 0) AttachArmaCorpo(playerid, ArmaData[PlayerInfo[playerid][pColde]][ArmaModelo], PlayerInfo[playerid][pColdreBone]);
 
@@ -13235,10 +13016,10 @@ public OnPlayerSpawn(playerid){
                 if(PlayerInfo[playerid][pColde] > 0) AttachArmaCorpo(playerid, ArmaData[PlayerInfo[playerid][pColde]][ArmaModelo], PlayerInfo[playerid][pColdreBone]);
 
                 if(PlayerInfo[playerid][pAdmin] > 0)
-                    if(OutrasInfos[playerid][oAdminOnDuty]) SetPlayerColor(playerid,0x7D697DFF);
+                    if(OutrasInfos[playerid][oAdminOnDuty]) SetPlayerColor(playerid,0x587b9500);
 
                 if(PlayerInfo[playerid][pTester] > 0)
-                    if(OutrasInfos[playerid][oTesterOnDuty]) SetPlayerColor(playerid,0xC10000FF);
+                    if(OutrasInfos[playerid][oTesterOnDuty]) SetPlayerColor(playerid,0x587b9500);
 
                 new slot;
                 for(new m; m < MAX_ITENS; m++)
@@ -13294,11 +13075,6 @@ public OnPlayerSpawn(playerid){
                     God_Aviso2[playerid] = 0;
                     StopAudioStreamForPlayer(playerid);
 
-                    /*if(PlayerInfo[playerid][pMorto] >= 1){
-                        SCM(playerid, COLOR_LIGHTRED, "INFO: Você logou gravimente ferido/morto.");
-                        SetarAnimMorto(playerid);
-						AnimMorreu(playerid);
-                    }*/
 
                     new stringl[124];
                     format(stringl,sizeof(stringl),"~w~Bem vindo ~n~~Y~%s", PlayerName(playerid,0));
@@ -13330,17 +13106,6 @@ public OnPlayerSpawn(playerid){
 
                     SetarItensDoPlayer(playerid);
 					TextDrawShowForPlayer(playerid, Textdraw49[playerid]);
-
-                    //Login
-					PlayerTextDrawDestroy(playerid, TelaLogin[playerid][0]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][1]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][2]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][3]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][4]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][5]);
-                    PlayerTextDrawDestroy(playerid, TelaLogin[playerid][6]);
-					PlayerTextDrawDestroy(playerid, TelaLogin[playerid][7]);
-					PlayerTextDrawDestroy(playerid, TelaLogin[playerid][8]);
 
 					createDisplayFomeSede(playerid);
 					createHudRadio(playerid);
@@ -13428,6 +13193,35 @@ public OnPlayerSpawn(playerid){
                     AtualizarCaPCERJata(playerid);
                     AtualizarGaragensData(playerid);
 
+					/*if(PlayerInfo[playerid][pMorto] >= 1)
+					{
+						//SendClientMessage(playerid, "VOCÊ LOGOU FERIDO.")
+
+						PlayerInfo[playerid][pMorto] = 1;
+						AcabouDeMorrer[playerid] = 2;
+
+						TogglePlayerControllable(playerid, 0);
+						//SendClientMessage(playerid, "Você está ferido, você pode aguardar um médico chegar ou aceitar a morte daqui a 3 minutos.");
+
+						if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
+
+						PlayerInfo[playerid][pMancando] = 0;
+
+						TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este jogador está brutalmente ferido\n/ferimentos para mais informações\n))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid);
+						TempoDesistir[playerid] = 180;
+
+						//SetPlayerPosLogin(playerid, PlayerInfo[playerid][pPos][0], PlayerInfo[playerid][pPos][1], PlayerInfo[playerid][pPos][2], 1);
+
+						ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
+						ComAnim[playerid] = 0;
+						ClearAnimations(playerid, 1);
+
+
+						ApplyAnimation(playerid, "ped", "KO_shot_stom", 4.0, 0, 1, 1, 1, -1, 1);
+						ApplyAnimation(playerid, "ped", "KO_shot_stom", 4.0, 0, 1, 1, 1, -1, 1);
+
+						Anim2Morreu[playerid] = SetTimerEx("AnimMorreu", ANIM_DOIS_MORTE, false, "d", playerid);
+					}*/
 
                     new TotalBugPecas = 0,
                         pecas0, pecas1, pecas2,
@@ -13509,10 +13303,10 @@ public OnPlayerSpawn(playerid){
                     else SetPlayerSkin(playerid,PlayerInfo[playerid][pSkin]);
 
                     if(PlayerInfo[playerid][pAdmin] > 0)
-                        if(OutrasInfos[playerid][oAdminOnDuty]) SetPlayerColor(playerid,0x7D697DFF);
+                        if(OutrasInfos[playerid][oAdminOnDuty]) SetPlayerColor(playerid,0x587b9500);
 
                     if(PlayerInfo[playerid][pTester] > 0)
-                        if(OutrasInfos[playerid][oTesterOnDuty]) SetPlayerColor(playerid,0xC10000FF);
+                        if(OutrasInfos[playerid][oTesterOnDuty]) SetPlayerColor(playerid,0x587b9500);
                     SetPlayerLocalSpawn(playerid);
                 }
                 else
@@ -17422,12 +17216,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 			  			    new str[250];
 							format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n\nDigite sua senha novamente:");
 							ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-							PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 						}
 					}
 	  			}
@@ -17436,12 +17224,6 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 	  			    new str[250];
 					format(str, sizeof(str), "SERVER: Você só pode errar sua senha três vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha novamente:");
 					ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-					PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 
 				}
 			}
@@ -17554,16 +17336,14 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
         }
 		case DIALOG_AGE:
 		{
-		    if(!response) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com o nascimento de seu personagem.", "Confirmar", "Cancelar");
+		    if(!response) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Entre com a idade de seu personagem.", "Confirmar", "Cancelar");
 		    if(response)
 		    {
-				if(strfind(inputtext, "'") != -1)
-				{
-					if(strval(inputtext) < 1 || strval(inputtext) > 120) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Nascimento", "ERRO!\n Entre com uma Idade válida.", "Confirmar", "Cancelar");
-					format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem nasceu em %d.", strval(inputtext));
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, szQuery);
-					PlayerInfo[playerid][pAge] = strval(inputtext);
-				}
+		    	if(strval(inputtext) < 5 || strval(inputtext) > 99) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "ERRO!\n Idade minima: 5\n Idade máxima: 99.\n Entre com uma idade válida.", "Confirmar", "Cancelar");
+				format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem tem %d anos de idade.", strval(inputtext));
+				SendClientMessage(playerid, COLOR_LIGHTGREEN, szQuery);
+				PlayerInfo[playerid][pAge] = strval(inputtext);
+
 				ShowPlayerDialog(playerid, DIALOG_OOCREG, DIALOG_STYLE_INPUT, "Nome OOC", "Qual o seu nome OOC?", "Próximo", "Cancelar");
 			}
 		}
@@ -17575,7 +17355,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        if(strfind(inputtext, "'") != -1)
 				{
 				    ShowPlayerDialog(playerid, DIALOG_OOCREG, DIALOG_STYLE_INPUT, "Nome OOC", "Qual o seu nome OOC?", "Avançar", "Cancelar");
-    				SendClientMessage(playerid, COLOR_LIGHTGREEN, "ERRO:{FFFFFF} {FFFFFF}Você não pode colocar caracteres especiais no nome OOC.");
+    				SendClientMessage(playerid, COLOR_LIGHTGREEN, "ERRO: {FFFFFF}Você não pode colocar caracteres especiais no nome da empresa.");
 				    return 1;
 				}
 
@@ -19789,23 +19569,11 @@ public OnQueryFinish(resultid, extraid, ConnectionHandle)
 
 				Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
 				
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][0]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][1]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][3]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][4]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][5]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][7]);
 				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 			else
 			{
 		    	Dialog_Show(extraid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay.\n\nNome: %s\nAdministrador: Desconhecido\nMotivo: Deconhecido\nData e hora: Desconhecida\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerName(extraid,0), stringadm, strMot, strdat);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][0]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][1]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][3]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][4]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][5]);
-				PlayerTextDrawShow(extraid, TelaLogin[extraid][7]);
 				SetTimerEx("TimerKick", 1000, 0, "d", extraid);
 			}
 		}
@@ -20271,15 +20039,22 @@ public VerStats(playerid, targetid)
 }
 forward createHudRadio(playerid);
 public createHudRadio(playerid){
-RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 207.000, 356.000, "mdl-2007:radio-on");
-PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 78.000, 92.000);
+RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 391.000000, 278.000000, "Preview_Model");
+PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 5);
+PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][0], 0.600000, 2.000000);
+PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 260.000000, 240.000000);
+PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
+PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
 PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][0], 1);
 PlayerTextDrawColor(playerid, RadioComunicador[playerid][0], -1);
-PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 255);
-PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 4);
+PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 0);
+PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][0], 255);
+PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][0], 0);
 PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][0], 1);
+PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][0], 0);
+PlayerTextDrawSetPreviewModel(playerid, RadioComunicador[playerid][0], 2967);
+PlayerTextDrawSetPreviewRot(playerid, RadioComunicador[playerid][0], -80.000000, 0.000000, -180.000000, 0.759999);
+PlayerTextDrawSetPreviewVehCol(playerid, RadioComunicador[playerid][0], 1, 1);
 
 RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 207.000, 356.000, "mdl-2007:radio-off");
 PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 78.000, 92.000);
@@ -20292,24 +20067,27 @@ PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 4);
 PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
 if(PlayerInfo[playerid][pRadio]){
 	if (PlayerInfo[playerid][pRadioChan] == 0){
-		PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+		PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
 	}else{
 		PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-		PlayerTextDrawShow(playerid, RadioComunicador[playerid][2]);
+		PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
 		updateTextDrawCanalRadio(playerid, PlayerInfo[playerid][pRadioChan]);
 	}
 }
 
-RadioComunicador[playerid][2] = CreatePlayerTextDraw(playerid, 238.000, 411.000, "");
-PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][2], 0.270, 1.199);
-PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][2], -12.000, 14.000);
-PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][2], 1);
-PlayerTextDrawColor(playerid, RadioComunicador[playerid][2], -1);
-PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][2], 0);
-PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][2], 1);
-PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][2], 150);
-PlayerTextDrawFont(playerid, RadioComunicador[playerid][2], 1);
-PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][2], 1);
+RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 541.000000, 368.000000, "");
+PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 2);
+PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][1], 0.204166, 1.500000);
+PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 400.000000, 17.000000);
+PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
+PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 0);
+PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
+PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], 255);
+PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
+PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][1], 50);
+PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][1], 0);
+PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
+PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][1], 1);
 
 
 }
@@ -20317,7 +20095,7 @@ forward updateTextDrawCanalRadio(playerid, rcanali);
 public updateTextDrawCanalRadio(playerid, rcanali){
 	new rcanal[32];
 	format(rcanal, sizeof(rcanal), "%d", rcanali);
-	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][2], rcanal); 
+	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][1], rcanal); 
 
 }
 forward updateTextDrawFomeSede(playerid);
@@ -22543,9 +22321,9 @@ CMD:comprarlicenca(playerid, params[])
 	if(biz != -1)
 	{
 		if( EmpInfo[biz][eTipo] == EMP_TIPO_LIC_CENTER)
- 			return Dialog_Show(playerid, DIALOG_CLICS, DIALOG_STYLE_TABLIST_HEADERS, "Comprar Licenças", "Categoria\tPreço\nMotorista\tR$400\nCaminhoneiro\tR$800", "Comprar", "Cancelar");
+ 			return Dialog_Show(playerid, DIALOG_CLICS, DIALOG_STYLE_TABLIST_HEADERS, "Comprar Licenças", "Categoria\tPreço\nMotorista\tR$150\nCaminhoneiro\tR$250", "Comprar", "Cancelar");
 	}
-	SetPlayerCheckpoint(playerid, -205.6919,1217.7445,19.8906, 3.0);
+	SetPlayerCheckpoint(playerid, 1991.5050,-1991.8192,13.5469, 3.0);
 	cp_target[playerid] = 1;
 	SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está no centro de Licenças, o mesmo foi marcado em seu mapa.");
 	return 1;
@@ -22561,17 +22339,17 @@ Dialog:DIALOG_CLICS(playerid, response, listitem, inputtext[])
 	    	case 0: //Motorista
 	    	{
 	    	    if(PlayerInfo[playerid][pDriveLic] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma licença de motorista.");
-				if(PlayerInfo[playerid][pGrana] < 400) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem R$60 para comprar a licença de motorista.");
+				if(PlayerInfo[playerid][pGrana] < 150) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem R$150 para comprar a licença de motorista.");
 				PlayerInfo[playerid][pDriveLic] = 1;
-				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-400;
+				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-150;
 				SendClientMessage(playerid, COLOR_LIGHTGREEN, "Parabéns, você acaba de adquirir uma carteira de motorista.");
 			}
 			case 1: //Caminhoneiro
 	    	{
 	    	    if(PlayerInfo[playerid][pTruckLic] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma licença de Caminhoneiro.");
-				if(PlayerInfo[playerid][pGrana] < 800) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem R$80 para comprar a licença de Caminhoneiro.");
+				if(PlayerInfo[playerid][pGrana] < 250) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem R$250 para comprar a licença de Caminhoneiro.");
 				PlayerInfo[playerid][pTruckLic] = 1;
-				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-800;
+				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-250;
 				SendClientMessage(playerid, COLOR_LIGHTGREEN, "Parabéns, você acaba de adquirir uma licença de Caminhoneiro.");
 			}
 		}
@@ -33838,7 +33616,6 @@ COMMAND:tog(playerid, params[])
                 PlayerTextDrawHide(playerid, FomeSede[playerid][3]);
 				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
                 PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
-                PlayerTextDrawHide(playerid, RadioComunicador[playerid][2]);
 			}
 			case 1:
 			{
@@ -33850,7 +33627,7 @@ COMMAND:tog(playerid, params[])
                 PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-				PlayerTextDrawShow(playerid, RadioComunicador[playerid][2]);
+				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
 				
 			}
 		}
@@ -35879,12 +35656,6 @@ stock BanExtra(playerid,reason[],admin[])
 	gettime(hour,minuite,second);
     PlayerInfo[playerid][pBanido] = 1;
 	Dialog_Show(playerid, ShowBan, DIALOG_STYLE_MSGBOX, "Informativo de banimento", "Lamentamos informar que sua conta foi banida do Progressive Roleplay\n\nNome: %s\nAdministrador: %s\nMotivo: %s\nData e hora: %s\n\nCaso queira recorrer, poste seu Ban Appeal em nosso fórum.", "Fechar", "", PlayerInfo[playerid][pNomeOOC], admin, reason, ReturnDate());
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-	PlayerTextDrawShow(playerid, TelaLogin[playerid][7]);
 
 	SetTimerEx("TimerKick", 500, 0, "d", playerid);
 	return 1;
@@ -48859,8 +48630,9 @@ CMD:entrar(playerid, params[])
 
                             if(EmpInfo[i][eTipo] == EMP_TIPO_CAVALO) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /apostar /assistir");
                             else if(EmpInfo[i][eTipo] == EMP_TIPO_BANCO) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /sacar /depositar");
-							else if(EmpInfo[i][eTipo] == EMP_TIPO_EMP_CENTER) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprarlicenca");
-                            else if(EmpInfo[i][eTipo] != 0) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprar");
+							else if(EmpInfo[i][eTipo] == EMP_TIPO_EMP_CENTER) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /pegaremprego");
+                            else if(EmpInfo[i][eTipo] == EMP_TIPO_LIC_CENTER) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprarlicenca");
+							else if(EmpInfo[i][eTipo] != 0) SendClientMessage(playerid, COLOR_LIGHTGREEN, "Comandos disponiveis na empresa: /comprar");
 
 							SetPlayerInterior(playerid, EmpInfo[i][eInt]);
 		   					SetPlayerVirtualWorld(playerid,100+i);
@@ -51544,7 +51316,7 @@ COMMAND:portamalas(playerid,params[])
 	    				if(chance > unlock_chance)
 					    {
 	   						SetVehicleParamsEx(carid, engine, lights, alarm, doors, bonnet, true, objective);
-                            PlayerInfo[playerid][pArrombarDNV] = 1200;
+                            PlayerInfo[playerid][pArrombarDNV] = 600;
 					        switch(VehicleInfo[slot][vLock])
 	    					{
 	 	    					case 0:
@@ -51590,7 +51362,7 @@ COMMAND:portamalas(playerid,params[])
 						}
 						else
 						{
-							PlayerInfo[playerid][pArrombarDNV] = 1200;
+							PlayerInfo[playerid][pArrombarDNV] = 600;
 
                             new Float:X, Float:Y, Float:Z;
 	      					GetPlayerPos(playerid,X,Y,Z);
@@ -68748,7 +68520,7 @@ public IsMedic(playerid)
 
 
 //Pizza System - Pigeon
-COMMAND:iniciarentrega(playerid,params[])
+COMMAND:iniciarwwwentrega(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
@@ -68761,7 +68533,7 @@ COMMAND:iniciarentrega(playerid,params[])
     return 1;
 }
 
-COMMAND:pegarpizza(playerid,params[])
+COMMAND:pegarwwpizza(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");  
@@ -68774,7 +68546,7 @@ COMMAND:pegarpizza(playerid,params[])
     return 1;
 }
 
-COMMAND:colocarpizza(playerid,params[])
+COMMAND:colocarwwpizza(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");    
