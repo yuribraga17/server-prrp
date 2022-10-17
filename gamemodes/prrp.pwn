@@ -934,6 +934,20 @@ new progress_wait_type[MAX_PLAYERS];
 
 new MotoboyEntrega[MAX_PLAYERS];
 //==============================================================================
+#define MAX_COFRE 150
+enum aCofreLoja
+{
+	clID,
+	clSeteda,
+	Float:clposX,
+	Float:clposY,
+	Float:clposZ,
+	Float:clposR,
+	clObjeto,
+	clRrombado
+};
+static cLoja[MAX_COFRE][aCofreLoja];
+//==============================================================================
 new Float:PlayerCruiseSpeed[MAX_PLAYERS];
 new Float:PlayerHeadingAngle[MAX_PLAYERS];
 forward CruiseControl(playerid);
@@ -5890,6 +5904,7 @@ public OnGameModeInit()
     mysql_function_query(Pipeline, "SELECT * FROM `portoes`", true, "CarregarPortoes", "");
     mysql_function_query(Pipeline, "SELECT * FROM `itens`", true, "LoadItens", "");
     mysql_function_query(Pipeline, "SELECT * FROM `rp_atms`", true, "QUERY_LOAD_ATMS", "");
+	mysql_function_query(Pipeline, "SELECT * FROM `rp_cloja`", true, "QUERY_LOAD_COFRELOJAS", "");
     mysql_function_query(Pipeline, "SELECT * FROM `cartuxo`", true, "LoadAmmos", "");
     mysql_function_query(Pipeline, "SELECT * FROM `rp_drogasplant`", true, "QUERY_LOAD_DRUGPLAN", "");
     mysql_function_query(Pipeline, "SELECT * FROM `drop_drug`", true, "LoadDrugs", "");
@@ -7358,14 +7373,6 @@ encode_tires(tires1, tires2, tires3, tires4) {
 	return tires1 | (tires2 << 1) | (tires3 << 2) | (tires4 << 3);
 }
 
-forward AnimMorreu(i);
-public AnimMorreu(i)
-{
-	if(PlayerInfo[i][pMorto] > 0) {
-    	ApplyAnimation(i, "WUZI", "CS_Dead_Guy", 4.0, 1, 1, 1, 1, -1, 1);
-	}
-	return 1;
-}
 forward SetarAnimMorto(i);
 public SetarAnimMorto(i) {
 	if(IsPlayerInAnyVehicle(i)) {
@@ -7385,6 +7392,15 @@ public SetarAnimMorto(i) {
 		else
 		    ApplyAnimation(i, "ped", "FLOOR_hit_f", 4.0, 0, 1, 1, 1, -1, 1);
 		    //ApplyAnimation(i, "WUZI", "CS_Dead_Guy", 4.0, 1, 1, 1, 1, -1, 1);
+	}
+	return 1;
+}
+
+forward AnimMorreu(i);
+public AnimMorreu(i)
+{
+	if(PlayerInfo[i][pMorto] > 0) {
+    	ApplyAnimation(i, "WUZI", "CS_Dead_Guy", 4.0, 1, 1, 1, 1, -1, 1);
 	}
 	return 1;
 }
@@ -8091,8 +8107,8 @@ public PayDay(playerid) {
 
 			if(PlayerInfo[playerid][pLevel] >= 10 && PlayerInfo[playerid][pAjudaInicialDim] != 1) {
 			    PlayerInfo[playerid][pAjudaInicialDim] = 1;
-			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Foi depositado em seu banco R$35.000 referente a ajuda do TC 10.");
-			    PlayerInfo[playerid][pBanco]+= 35000;
+			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Foi depositado em seu banco R$5.000 referente a ajuda do TC 10.");
+			    PlayerInfo[playerid][pBanco]+= 5000;
 			}
 
 			if(PlayerInfo[playerid][pMascaraU] != 2) SetPlayerScore(playerid, PlayerInfo[playerid][pLevel]);
@@ -11084,6 +11100,7 @@ public OnPlayerConnect(playerid)
 	SetPVarInt(playerid, "TogPM", 0);
 	SetPVarInt(playerid, "TogFacChat", 0);
 	SetPVarInt(playerid, "TogHud", 0);
+	SetPVarInt(playerid, "TogRadio", 0);
 
 	SetPVarInt(playerid, "QuerRevistar", 9999);
 
@@ -11280,7 +11297,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 671, 2303.729, -1061.900, 47.812, 0.250);
 	RemoveBuildingForPlayer(playerid, 759, 2341.449, -1053.939, 51.453, 0.250);
 	//Favela carecas
-	RemoveBuildingForPlayer(playerid, 3654, 2428.218, -1290.585, 26.187, 0.250);
+	/*RemoveBuildingForPlayer(playerid, 3654, 2428.218, -1290.585, 26.187, 0.250);
 	RemoveBuildingForPlayer(playerid, 3647, 2428.078, -1273.664, 26.000, 0.250);
 	RemoveBuildingForPlayer(playerid, 3654, 2395.007, -1278.375, 25.968, 0.250);
 	RemoveBuildingForPlayer(playerid, 3647, 2395.257, -1347.460, 26.320, 0.250);
@@ -11300,7 +11317,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 3651, 2426.554, -1304.578, 26.929, 0.250);
 	RemoveBuildingForPlayer(playerid, 3655, 2432.132, -1339.851, 25.742, 0.250);
 	RemoveBuildingForPlayer(playerid, 3649, 2428.218, -1290.585, 26.187, 0.250);
-	RemoveBuildingForPlayer(playerid, 3648, 2428.078, -1273.664, 26.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 3648, 2428.078, -1273.664, 26.000, 0.250);*/
     //posto norte
     RemoveBuildingForPlayer(playerid, 5853, 1018.159, -908.976, 43.648, 0.250);
     RemoveBuildingForPlayer(playerid, 5898, 1018.159, -908.976, 43.648, 0.250);
@@ -20037,65 +20054,52 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
 	return 1;
 }
+
 forward createHudRadio(playerid);
-public createHudRadio(playerid){
-RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 391.000000, 278.000000, "Preview_Model");
-PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 5);
-PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][0], 0.600000, 2.000000);
-PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 260.000000, 240.000000);
-PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][0], 1);
-PlayerTextDrawColor(playerid, RadioComunicador[playerid][0], -1);
-PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][0], 255);
-PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][0], 1);
-PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][0], 0);
-PlayerTextDrawSetPreviewModel(playerid, RadioComunicador[playerid][0], 2967);
-PlayerTextDrawSetPreviewRot(playerid, RadioComunicador[playerid][0], -80.000000, 0.000000, -180.000000, 0.759999);
-PlayerTextDrawSetPreviewVehCol(playerid, RadioComunicador[playerid][0], 1, 1);
+public createHudRadio(playerid)
+{
+	RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 391.000000, 278.000000, "Preview_Model");
+	PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 5);
+	PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][0], 0.600000, 2.000000);
+	PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 260.000000, 240.000000);
+	PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][0], 1);
+	PlayerTextDrawColor(playerid, RadioComunicador[playerid][0], -1);
+	PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][0], 255);
+	PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][0], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawSetPreviewModel(playerid, RadioComunicador[playerid][0], 2967);
+	PlayerTextDrawSetPreviewRot(playerid, RadioComunicador[playerid][0], -80.000000, 0.000000, -180.000000, 0.759999);
+	PlayerTextDrawSetPreviewVehCol(playerid, RadioComunicador[playerid][0], 1, 1);
 
-RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 207.000, 356.000, "mdl-2007:radio-off");
-PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 78.000, 92.000);
-PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
-PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], -1);
-PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 0);
-PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
-PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
-PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 4);
-PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
-if(PlayerInfo[playerid][pRadio]){
-	if (PlayerInfo[playerid][pRadioChan] == 0){
-		PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-	}else{
-		PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-		PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
-		updateTextDrawCanalRadio(playerid, PlayerInfo[playerid][pRadioChan]);
-	}
-}
 
-RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 541.000000, 368.000000, "");
-PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 2);
-PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][1], 0.204166, 1.500000);
-PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 400.000000, 17.000000);
-PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
-PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 0);
-PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
-PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], 255);
-PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
-PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][1], 50);
-PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][1], 0);
-PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
-PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][1], 1);
-
+	new RadioString[32];
+	format(RadioString, sizeof(RadioString), "%d.00", PlayerInfo[playerid][pRadioChan]);
+	RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 541.000000, 368.000000, RadioString);
+	PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 2);
+	PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][1], 0.204166, 1.500000);
+	PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 400.000000, 17.000000);
+	PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
+	PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 0);
+	PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
+	PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], 255);
+	PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
+	PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][1], 50);
+	PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][1], 0);
+	PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
+	PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][1], 1);
 
 }
-forward updateTextDrawCanalRadio(playerid, rcanali);
-public updateTextDrawCanalRadio(playerid, rcanali){
-	new rcanal[32];
-	format(rcanal, sizeof(rcanal), "%d", rcanali);
-	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][1], rcanal); 
+
+forward updateTextDrawCanalRadio(playerid);
+public updateTextDrawCanalRadio(playerid){
+	new RadioString[126];
+	format(RadioString, sizeof(RadioString), "%d.00", PlayerInfo[playerid][pRadioChan]);
+
+	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][1], RadioString); 
 
 }
 forward updateTextDrawFomeSede(playerid);
@@ -25434,17 +25438,76 @@ public StopTalking(playerid)
 	return 1;
 }
 
-//Sistema roubo caixa eletronico
-/*COMMAND:explodircaixa(playerid, params[])
+//Sistema roubo
+COMMAND:explodircaixa(playerid, params[])
 {
-    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 5) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 5 ou mais para explodir o caixa.");
+	if(PlayerInfo[playerid][pBomba] < 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 1 dinamite para explodir o caixa.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringroubo2[128];
+		format(stringroubo2, sizeof(stringroubo2),"Aguarde %d segundos antes de explodir um caixa novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringroubo2);
+		return 1;
+	}
+
 	for(new i = 0; i < MAX_ATM; i++)
  	{
   		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
     	{
+
+			new PolicesOnline = 0;
+			for(new cops = 0; cops < MAX_PLAYERS; cops++)
+			{
+				if(IsPlayerConnected(cops))
+				{
+					if(PlayerInfo[cops][pLogado])
+					{
+						if(FacInfo[GetFactionBySqlId(PlayerInfo[cops][pFac])][fTipo] == FAC_TIPO_PMERJ)
+						{
+							if(PlayerInfo[cops][pEmServico] == 1)
+							{
+								PolicesOnline++;
+							}
+						}
+					}
+				}
+				if(PolicesOnline < 6) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 6 policiais em serviço para executar essa ação.");
+			}
+
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]);
+
     		TaNaATM[playerid] = i;
-			CreateExplosion(ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 12, 0);
-			ATMs[i][aRrombado] = 1;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você armou uma dinamite.");
+			
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
+			SetTimerEx("ExplodindoCaixa", 8500, false, "d", playerid);
+
+			new stringCaixaF[256];
+			format(stringCaixaF,sizeof(stringCaixaF),"** %s está armando uma dinamite no caixa eletronico.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+			format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas próximidades *");
+			ProxDetector(500.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			format(string, sizeof(stringCaixaF), "** MARE 0: Um caixa eletronico explodiu em %s.**", location);
+   			SendFacMessage(0x6666CCFF,1,stringCaixaF);
+   			SendFacMessage(0x6666CCFF,2,stringCaixaF);
+
+			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
+			
+			new strl[126];
+			format(strl, 126, "%s explodiu um caixa eletronico. [/setararma]", PlayerName(playerid, 0));
+			LogCMD_explodircaixa(strl);
+
 			return 1;
 		}
 	}
@@ -25454,16 +25517,96 @@ public StopTalking(playerid)
 COMMAND:pegardinheiro(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 5) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 5 ou mais para pegar a grana.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringroubo2[128];
+		format(stringroubo2, sizeof(stringroubo2),"Aguarde %d segundos antes de explodir um caixa novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringroubo2);
+		return 1;
+	}
+
 	for(new i = 0; i < MAX_ATM; i++)
  	{
   		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]) && ATMs[i][aRrombado] == 1) 
     	{
 			PlayerInfo[playerid][pGrana] += 5000;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
+
+			new stringCaixaF[256];	
+			format(stringCaixaF,sizeof(stringCaixaF),"** %s se abaixa e começa a recolher o dinheiro do chão.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			SetTimerEx("PegandoGrana", 1, false, "d", playerid);
 			return 1;
 		}
 	}
 	return 1;
-}*/
+}
+
+forward ExplodindoCaixa(playerid);
+public ExplodindoCaixa(playerid)
+{
+	for(new i = 0; i < MAX_ATM; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
+		{
+			PlayerInfo[playerid][pArrombarDNV_C] = 3600;
+			
+			CreateExplosion(ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 13, 0);
+			ATMs[i][aRrombado] = 1;
+			PlayerInfo[playerid][pBomba]--;
+
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegardinheiro.");
+
+			new stringCaixaF[256];
+			format(stringCaixaF, sizeof(stringCaixaF), "* O caixa eletronico explode e o dinheiro se espalha *");
+			ProxDetector(500.0, playerid, stringCaixaF, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+		}
+	}
+    return 1;
+}
+
+forward PegandoGrana(playerid);
+public PegandoGrana(playerid)
+{
+	for(new i = 0; i < MAX_ATM; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
+		{
+			ATMs[i][aRrombado] = 0;
+
+			TogglePlayerControllable(playerid, 0);
+			SetTimerEx("AnimGrana", 5500, false, "d", playerid);
+		}
+	}
+
+    return 1;
+}
+
+
+forward AnimGrana(playerid);
+public AnimGrana(playerid)
+{
+	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
+
+    return 1;
+}
+
+forward PegouGrana(playerid);
+public PegouGrana(playerid)
+{
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
 
 COMMAND:caixa(playerid, params[])
 {
@@ -29907,7 +30050,7 @@ COMMAND:aceitar(playerid, params[])
 				    new Arma1[126],Arma2[126],Arma3[126],Arma4[126],Arma5[126],Armas[856];
 					if(PlayerInfo[playerid][pSlot1] > 0) format(Arma1, sizeof(Arma1), "1. %s [Munição:%d]", GunNames[ArmaData[PlayerInfo[playerid][pSlot1]][ArmaModelo]], PlayerInfo[playerid][pSlot1a]);
 					else format(Arma1, sizeof(Arma1), "1. Vazio [Munição:0]");
-					if(PlayerInfo[playerid][pSlot2] > 0) format(Arma2, sizeof(Arma2), "%2. %s [Munição:%d]", GunNames[ArmaData[PlayerInfo[playerid][pSlot2]][ArmaModelo]], PlayerInfo[playerid][pSlot2a]);
+					if(PlayerInfo[playerid][pSlot2] > 0) format(Arma2, sizeof(Arma2), "2. %s [Munição:%d]", GunNames[ArmaData[PlayerInfo[playerid][pSlot2]][ArmaModelo]], PlayerInfo[playerid][pSlot2a]);
                     else format(Arma2, sizeof(Arma2), "2. Vazio [Munição:0]");
 					if(PlayerInfo[playerid][pSlot3] > 0) format(Arma3, sizeof(Arma3), "3. %s [Munição:%d]", GunNames[ArmaData[PlayerInfo[playerid][pSlot3]][ArmaModelo]], PlayerInfo[playerid][pSlot3a]);
                     else format(Arma3, sizeof(Arma3), "3. Vazio [Munição:0]");
@@ -33481,7 +33624,7 @@ COMMAND:tog(playerid, params[])
 	new option[32];
 	if(sscanf(params,"s[32]",option))
 	{
-	    SendClientMessage(playerid, COLOR_LIGHTRED, "USE:{FFFFFF} /tog [ pm / faccao / hud / anuncios / bairros / qmmatou ]");
+	    SendClientMessage(playerid, COLOR_LIGHTRED, "USE:{FFFFFF} /tog [ pm / faccao / hud / anuncios / bairros / qmmatou / radio ]");
 	    if(PlayerInfo[playerid][pTester] >= 1 || PlayerInfo[playerid][pAdmin] >= 1)
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "Administração: {FFFFFF}sos, achat");
@@ -33614,20 +33757,38 @@ COMMAND:tog(playerid, params[])
                 PlayerTextDrawHide(playerid, FomeSede[playerid][1]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][2]);
                 PlayerTextDrawHide(playerid, FomeSede[playerid][3]);
-				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
-                PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
+
 			}
 			case 1:
 			{
 	   			SetPVarInt(playerid, "TogHud", 0);
 	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD ativada.");
-	   			
                 PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
                 PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
+				
+			}
+		}
+	}
+	else if(strcmp(option, "radio", true) == 0)
+	{
+		switch(GetPVarInt(playerid, "TogRadio"))
+	  	{
+			case 0:
+			{
+	   			SetPVarInt(playerid, "TogRadio", 0);
+	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio ativada.");
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+				
+			}
+			case 1:
+			{
+				SetPVarInt(playerid, "TogRadio", 1);
+				SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio desativada.");
+				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
+                PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
 				
 			}
 		}
@@ -37357,7 +37518,7 @@ COMMAND:desfibrilador(playerid, params[])
 	{
         if(PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar logado para utilizar este comando.");
         if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não está conectado!");
-        if(PlayerInfo[targetid][pMorto] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não necessita de cuidados médicos.");
+        if(PlayerInfo[targetid][pMorto] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não necessita de cuidados médicos.");
         if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
         if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
         if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
@@ -39382,6 +39543,25 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 				DestroyDynamicObject(ATMs[id][aObjeto]);
 
 			ATMs[id][aObjeto] = CreateDynamicObject(-2900, x, y, z, 0.000000, 0.000000, rz);
+    		return 1;
+        }
+		else if(GetPVarInt(playerid, "EditCOFREL") == 1)
+		{
+		    //SCM(playerid, -1, "DEBUG: Instalou caixa eletrônico | Salvou");
+            SendClientMessage( playerid,COLOR_YELLOW,"Cofre loja instalado.");
+            new id = GetPVarInt(playerid, "EditCOFRELID");
+			cLoja[id][aposX] = x;
+			cLoja[id][aposY] = y;
+			cLoja[id][aposZ] = z;
+			cLoja[id][clposR] = rz;
+			SetPVarInt(playerid, "EditCOFREL", 0);
+    		SetPVarInt(playerid, "EditCOFRELid", 0);
+    		SaveCOFREL(id);
+
+			if(IsValidDynamicObject(cLoja[id][clObjeto]))
+				DestroyDynamicObject(cLoja[id][clObjeto]);
+
+			cLoja[id][clObjeto] = CreateDynamicObject(-2900, x, y, z, 0.000000, 0.000000, rz);
     		return 1;
         }
         else if(GetPVarInt(playerid, "EditandoAmmoNoChao") != -1)
@@ -60508,7 +60688,7 @@ COMMAND:arrombar(playerid,params[])
 												}
 												if(HouseInfo[i][hAlarme] > 2)
 												{
-												    format(string, sizeof(string), "** MARE 0: O alarme da casa nº%d em %s foi disparado.**", i, location);
+												    format(string, sizeof(string), "** MARE 0: O alarme da casa %d em %s foi disparado.**", i, location);
    													SendFacMessage(0x6666CCFF,1,string);
    													SendFacMessage(0x6666CCFF,2,string);
 												}
@@ -68867,7 +69047,7 @@ COMMAND:canalradio(playerid, params[])
 			    format(string, sizeof(string),"Canal do rádio alternado para (%d).", aimid);
 	    		SendClientMessage(playerid, COLOR_WHITE, string);
      			PlayerInfo[playerid][pRadioChan] = aimid;
-				updateTextDrawCanalRadio(playerid, aimid);
+				updateTextDrawCanalRadio(playerid);
 			}
 			else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este canal de rádio é de uso restrito.");
 
@@ -68876,6 +69056,7 @@ COMMAND:canalradio(playerid, params[])
    			format(string, sizeof(string),"Canal do rádio alternado para (%d).", aimid);
 	    	SendClientMessage(playerid, COLOR_WHITE, string);
      		PlayerInfo[playerid][pRadioChan] = aimid;
+			updateTextDrawCanalRadio(playerid);
 		}
 	}
 	return 1;
@@ -70689,6 +70870,30 @@ public QUERY_LOAD_ATMS()
 	}
 	return 1;
 }
+
+forward QUERY_LOAD_COFRELOJAS();
+public QUERY_LOAD_COFRELOJAS()
+{
+	new b[256];
+	new rows,fields;
+	cache_get_data(rows, fields);
+ 	for(new i; i < rows; i++)
+  	{
+        cache_get_field_content(i,"id",b);  				cLoja[i][clID] = strval(b);
+        cache_get_field_content(i,"setada",b);         		cLoja[i][clSeteda] = strval(b);
+        cache_get_field_content(i,"posx",b);         		cLoja[i][clposX] = floatstr(b);
+        cache_get_field_content(i,"posy",b);         		cLoja[i][clposY] = floatstr(b);
+        cache_get_field_content(i,"posz",b);         		cLoja[i][clposZ] = floatstr(b);
+    	cache_get_field_content(i,"posr",b);         		cLoja[i][clposR] = floatstr(b);
+
+
+    	if(cLoja[i][clSeteda] == 1)
+    	{
+    		cLoja[i][clObjeto] = CreateDynamicObject(-2900, cLoja[i][clposX], cLoja[i][aposY], cLoja[i][clposZ], 0.000000, 0.000000, cLoja[i][clposR], 0);
+		}
+	}
+	return 1;
+}
 //=========================================================================================================================================================
 //                                                          ARMARIO DINAMICO / Dudut
 //=========================================================================================================================================================
@@ -70793,6 +70998,65 @@ public SaveATM(i)
 	ATMs[i][aposR],
 	ATMs[i][aGrana],
 	ATMs[i][atID]);
+	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
+	return 1;
+}
+//=================[SISTEMA ROUBO DE COFRE]======================
+COMMAND:criarcofrel(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5)
+	{
+		CriarCOFRELDB(playerid);
+		return 1;
+	}
+	return 1;
+}
+stock CriarCOFRELDB(playerid)
+{
+	new str[256];
+    for(new i = 0; i < MAX_COFRE; i++)
+    {
+        if(cLoja[i][clSeteda] == 0)
+        {
+            cLoja[i][clSeteda] = 1;
+            format(str,sizeof(str),"INSERT INTO rp_cloja (setada) VALUES ('%d')", cLoja[i][clSeteda]);
+   			mysql_function_query(Pipeline, str, false, "CriouCOFRELnaDB", "d",playerid);
+   			return 1;
+		}
+	}
+	return 1;
+}
+forward CriouCOFRELnaDB(playerid);
+public CriouCOFRELnaDB(playerid)
+{
+    new Float:sys_pos_dono[3];
+	new i = cache_insert_id();
+    GetPlayerPos(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2]);
+
+    cLoja[i][clID] = i;
+	cLoja[i][clposX] = sys_pos_dono[0];
+	cLoja[i][clposY] = sys_pos_dono[1]+2;
+	cLoja[i][clposZ] = sys_pos_dono[2];
+
+	cLoja[i][clObjeto] = CreateDynamicObject(-2900, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
+   	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+   	Streamer_Update(playerid);
+    EditDynamicObject(playerid, cLoja[i][clObjeto]);
+    SetPVarInt(playerid, "EditCOFREL", 1);
+    SetPVarInt(playerid, "EditCOFRELid", i);
+    return 1;
+}
+forward SaveCOFREL(i);
+public SaveCOFREL(i)
+{
+	new str[254];
+	format(str,sizeof(str),"UPDATE `rp_cloja` SET `posx`='%f',`posy`='%f',`posz`='%f',`posr`='%f' WHERE id=%d LIMIT 1",
+ 	cLoja[i][clposX],
+	cLoja[i][clposY],
+	cLoja[i][clposZ],
+	cLoja[i][clposR],
+	cLoja[i][clID]);
 	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
 	return 1;
 }
@@ -71188,7 +71452,7 @@ public ShowDrugs(playerid, ownerid)
 	format(str,sizeof(str),"[ 7. Crack Ruim(%d) ][ 8. Crack Boa(%d)] [ 9. Crack Excelente(%d) ]",PlayerDroga[ownerid][CrackR],PlayerDroga[ownerid][CrackB],PlayerDroga[ownerid][CrackE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 10. LSD Ruim(%d) ][ 11. LSD Bom(%d)] [ 12. LSD Excelente(%d) ]",PlayerDroga[ownerid][LSDR],PlayerDroga[ownerid][LSDB],PlayerDroga[ownerid][LSDE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 13. Metanfetamina Ruim(%d) ][ 14. Metanfetamina Boa(%d) ][ 15. Metanfetamina Excelente(%d) ]",PlayerDroga[ownerid][MetR],PlayerDroga[ownerid][MetB],PlayerDroga[ownerid][MetE]); SendClientMessage(playerid,COLOR_WHITE,str);
-	format(str,sizeof(str),"[ 16. Lança Perfume (%dml) ]",PlayerDroga[ownerid][LancaPer]); SendClientMessage(playerid,COLOR_WHITE,str);
+	format(str,sizeof(str),"[ 21. Lança Perfume (%dml) ]",PlayerDroga[ownerid][LancaPer]); SendClientMessage(playerid,COLOR_WHITE,str);
 }
 
 forward ShowIngredientes(playerid, ownerid);
