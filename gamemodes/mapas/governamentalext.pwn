@@ -26,6 +26,8 @@ stock governamental(){
 	texture_object = CreateDynamicObject(2670,1387.881,-1442.221,12.634,0.000,0.000,-73.300,-1,-1,-1,1000.000,1000.000);
 	texture_object = CreateDynamicObject(2670,1387.474,-1430.649,12.634,0.000,0.000,-32.900,-1,-1,-1,1000.000,1000.000);
 	print("[CARREGADO] Mapa: Hospital exterior");
+	tmpobjid = CreateDynamicObject(-2042, -536.0938, -985.0391, 38.0703, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	print("[CARREGADO] Mapa: BOPE");
 	tmpobjid = CreateDynamicObject(-2081, 1786.725830, -1565.138549, 12.554236, 90.299873, 0.200000, -0.500010, -1, -1, -1, 300.00, 300.00); 
 	print("[CARREGADO] Mapa: Prosegur exterior");
 	tmpobjid = CreateDynamicObject(-1001, 1391.151000, -1317.419, 24.800680, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
