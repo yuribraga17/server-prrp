@@ -53,8 +53,8 @@ new Fumaca2[MAX_PLAYERS];
 new Luz[100][MAX_PLAYERS];*/
 new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX_PLAYERS];
 
-//Sistema de Barreira
-//#define  MAX_TRAF_BARREIRAS 100
+//Sistema de tráfico
+#define MAX_VICIADOS 1
 
 //Fome e Sede
 new PlayerText:FomeSede[MAX_PLAYERS][5];
@@ -322,6 +322,51 @@ new TomouTazer[MAX_PLAYERS];
 
 //TextDraw Bairros/ Areas
 new Text:Textdraw49[MAX_PLAYERS];
+
+//Sistema tráfico
+new ViciadoSpawned[MAX_VICIADOS];
+enum vViciados{
+	viID,
+	viTempoSumir,
+	Float:viPos[3]
+};
+
+new ViciadoInfo[MAX_VICIADOS][vViciados];
+
+
+new const Float:vViciadoSpawn[30][4]= {
+	{2574.0564,-1124.1001,65.4064,52.3413}, 
+	{2440.6191,-1110.2405,42.5847,106.4993}, 
+	{2366.9009,-1092.4224,34.7411,288.0444}, 
+	{2411.7742,-1078.0925,40.3637,194.0043}, 
+	{2520.9370,-1070.3898,69.5631,285.5693}, 
+	{1099.9789,-1944.7341,43.4169,357.6813},
+	{1169.9949,-1930.6910,39.4807,228.8569},
+	{1221.6272,-1923.1931,31.5683,224.8069},
+	{1188.4438,-1940.1082,36.0620,32.9466},
+	{1126.1588,-1954.5850,48.7037,61.2702},
+	{2538.2656,-953.2560,82.3339,255.1967},
+	{2444.9390,-947.0045,80.1504,219.4531},
+	{2610.2480,-1017.0445,76.7236,45.9751},
+	{2580.3184,-1020.4722,73.8814,33.1892},
+	{2535.8806,-1014.0533,73.9472,54.2782},
+	{2241.2219,-1468.0210,24.1087,44.5011},
+	{2262.3010,-1460.6958,24.0102,247.2963},
+	{2249.4666,-1440.1630,25.0306,250.8605},
+	{2227.1982,-1433.1844,23.9856,235.8203},
+	{2236.3918,-1427.2529,24.3184,354.0988},
+	{1877.1324,-2001.6146,13.5544,224.4719},
+	{1838.6575,-2017.2982,13.8340,323.6427},
+	{1794.6405,-1973.5907,13.5428,174.7922},
+	{1814.2332,-2013.8800,13.5775,355.7205},
+	{1920.8618,-2008.9086,13.6033,79.7770},
+	{1718.2262,-2082.9451,11.7215,237.4603},
+	{1803.1705,-2079.8821,13.5150,204.3249},
+	{1727.8035,-2127.3574,12.7933,3.7756},
+	{1695.6813,-2116.9331,15.8322,177.1330},
+	{1690.4685,-2148.3352,15.9533,299.2050}
+
+};
 //==============================================================================
 new EntrouInt[MAX_PLAYERS];
 //====== [TUNNING SYSTEM] =======================================================
@@ -2715,12 +2760,13 @@ static OBJ_TELEVISOES[MAX_TVS] = {
 };
 
 //===== [ PMERJ ] =====//
-static PMERJ_Uniformes[20] = {
+static PMERJ_Uniformes[22] = {
 	20400, 20401, 20402, 20403,
 	20404, 20405, 20406, 20407,
 	20408, 20409, 20410, 20411,
 	20412, 20413, 20414, 20415,
-	20416, 20417, 20418, 20419
+	20416, 20417, 20418, 20419,
+	20420, 20411
 };
 
 static PMERJ_Barreiras[16] = {
@@ -2839,12 +2885,12 @@ static LOJA_OCULOS[31] = {
 	19028, 19029, 19030, 19031, 19032, 19033, 19034, 19035, 19015
 };
 
-static LOJA_OUTROS[50] = {
+static LOJA_OUTROS[51] = {
 	2919, 371, 3026, 11745, 19624, 19625, 1210, 19079, 19078, 18975, 19136,
 	19090, 19091, 19092, 19350, 19351, 19421, 19422, 19423, 19424, 19556, 19555,
 	19559, 19904, 11735, 19317, 19318, 19319, 19622, 19631, 19626, 19591, 19586,
 	19307, 19306, -2125, -2126, -2180, -2181, -2182, -2055, -2057, -2058, -2059, 
-	-2060, -2700, -2701, -2702, -2703, -2183
+	-2060, -2700, -2701, -2702, -2703, -2183, -2610
 	
 };
 
@@ -6108,6 +6154,7 @@ public OnGameModeInit()
   	//Poker System
   	InitPokerTables();
   	//Grafitti System
+	SetTimer("criandonoia", 300, true);
   	print("[CARREGADO] Sistema de Grafite");
 	return 1;
 }
@@ -11152,6 +11199,22 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//BOPE
+	RemoveBuildingForPlayer(playerid, 3276, -525.039, -1037.160, 24.421, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -536.218, -1037.420, 24.851, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -546.398, -1042.229, 24.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -559.867, -1060.420, 23.710, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -565.312, -1070.369, 23.359, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -571.304, -1079.250, 23.359, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -577.593, -1088.160, 23.359, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -576.351, -1097.810, 23.359, 0.250);
+	RemoveBuildingForPlayer(playerid, 696, -560.093, -1089.839, 25.773, 0.250);
+	RemoveBuildingForPlayer(playerid, 790, -560.210, -1067.949, 26.250, 0.250);
+	RemoveBuildingForPlayer(playerid, 3276, -554.250, -1050.390, 24.015, 0.250);
+	RemoveBuildingForPlayer(playerid, 696, -603.296, -1054.800, 27.523, 0.250);
+	RemoveBuildingForPlayer(playerid, 17067, -588.750, -1046.180, 22.289, 0.250);
+	RemoveBuildingForPlayer(playerid, 17102, -536.093, -985.039, 38.070, 0.250);
+	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);
 	//Favela el corona 2
 	RemoveBuildingForPlayer(playerid, 3588, 1907.630, -2025.939, 15.132, 0.250);
 	RemoveBuildingForPlayer(playerid, 3667, 1907.630, -2025.939, 15.132, 0.250);
@@ -14611,7 +14674,7 @@ public OnPlayerCommandPerformed(playerid, cmdtext[], success)
 		    /*new strings[128];
 	        format(strings, sizeof(strings),"{adc3e7}ERRO:{FFFFFF} O comando {adc3e7}'%s' não existe, utilize {adc3e7}/ajuda {FFFFFF}ou {adc3e7}/sos.", cmdtext);
 	        return SendClientMessage(playerid,COLOR_WHITE,strings);*/
-	        GameTextForPlayer(playerid, "~r~Comando invalido", 2000, 1);
+	        GameTextForPlayer(playerid, "~r~Comando invalido", 1000, 1);
 	        return 1;
 		}
 		case 1:
@@ -25297,7 +25360,7 @@ COMMAND:upgrade(playerid, params[])
 	    SendClientMessage(playerid, COLOR_WHITE, "*** UPGRADES ***");
         format(string, 256, "SINTAXE: /upgrade [nome do upgrade (Você tem %d pontos de upgrade)]", PlayerInfo[playerid][pPontos]);
      	SendClientMessage(playerid, COLOR_CINZA, string);
-	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Vida Extra: vida");
+	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Vida Extra: vida - desativado.");
 	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Força Extra: forca");
 
 	    //Habilidade Criação de Drogas
@@ -25307,7 +25370,7 @@ COMMAND:upgrade(playerid, params[])
 
 		return 1;
 	}
-    if(strcmp(option, "vida", true) == 0)
+    if(strcmp(option, "desativadovida123", true) == 0)
 	{
 	    if(PlayerInfo[playerid][pPontos] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem pontos de Upgrade.");
         if(PlayerInfo[playerid][pUsouDroga] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando sob o efeito de drogas...");
@@ -25461,6 +25524,37 @@ public StopTalking(playerid)
     ApplyAnimation(playerid, "CARRY", "crry_prtial", 3.1, 0, 1, 1, 1, 1, 1);
     ComAnim[playerid] = 0;
     ClearAnimations(playerid, 1);
+	return 1;
+}
+//Sistema de tráfico
+forward criandonoia();
+public criandonoia()
+{
+              
+	new Float:VCspawn[4],
+		rand = random(sizeof(vViciadoSpawn)),
+		vSkin = randomEx(1, 120);
+		
+	VCspawn[0] = vViciadoSpawn[rand][0];
+	VCspawn[1] = vViciadoSpawn[rand][1];
+	VCspawn[2] = vViciadoSpawn[rand][2];
+	VCspawn[3] = vViciadoSpawn[rand][3];
+
+
+
+	for(new i; i != MAX_VICIADOS; i++) if(!ViciadoSpawned[i])
+	{
+		DestroyActor(ViciadoSpawned[i]);
+		ViciadoInfo[i][viID] = 0;
+		
+		ViciadoSpawned[i] = CreateActor(vSkin, VCspawn[0], VCspawn[1], VCspawn[2], VCspawn[3]);
+		ViciadoInfo[i][viPos][0] = VCspawn[0];
+		ViciadoInfo[i][viPos][1] = VCspawn[1];
+		ViciadoInfo[i][viPos][2] = VCspawn[2];
+
+		ViciadoInfo[i][viID] = randomEx(1, 20);
+		
+	}
 	return 1;
 }
 
@@ -29667,7 +29761,7 @@ Dialog:RefundoItem(playerid, response, listitem, inputtext[])
 			case 9: { etnia = "Crack Excelente"; PlayerDroga[playerid][CrackE] += Refundo[playerid][2];}
 			case 10: { etnia = "LSD Ruim"; PlayerDroga[playerid][LSDR] += Refundo[playerid][2];}
 			case 11: { etnia = "LSD Bom"; PlayerDroga[playerid][LSDB] += Refundo[playerid][2];}
-			case 12: { etnia = "LS Excelente"; PlayerDroga[playerid][LSDE] += Refundo[playerid][2];}
+			case 12: { etnia = "LSD Excelente	"; PlayerDroga[playerid][LSDE] += Refundo[playerid][2];}
 			case 13: { etnia = "Metanfetamina Ruim"; PlayerDroga[playerid][MetR] += Refundo[playerid][2];}
 			case 14: { etnia = "Metanfetamina Boa"; PlayerDroga[playerid][MetB] += Refundo[playerid][2];}
   			case 15: { etnia = "Metanfetamina Excelente"; PlayerDroga[playerid][MetE] += Refundo[playerid][2];}
@@ -72187,6 +72281,7 @@ public UsarDroga(playerid,DrogaID, qualidade)
 			PlayerInfo[playerid][pHealthMax] = PlayerInfo[playerid][pHealthMax]+40;
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"|_____ Beneficios: _____|");
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Vida máxima aumentada em +40.0.");
+			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Menos dano ao tomar tiro. (-4.0)");
 		}
 		else if(qualidade == 2)
 	    {
@@ -72201,6 +72296,7 @@ public UsarDroga(playerid,DrogaID, qualidade)
 			PlayerInfo[playerid][pHealthMax] = PlayerInfo[playerid][pHealthMax]+50;
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"|_____ Beneficios: _____|");
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Vida máxima aumentada em +50.0.");
+			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Menos dano ao tomar tiro. (-6.0)");
 		}
 		else if(qualidade == 3)
 	    {
@@ -72215,6 +72311,7 @@ public UsarDroga(playerid,DrogaID, qualidade)
 			PlayerInfo[playerid][pHealthMax] = PlayerInfo[playerid][pHealthMax]+60;
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"|_____ Beneficios: _____|");
 			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Vida máxima aumentada em +60.0.");
+			SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Menos dano ao tomar tiro. (-8.0)");
 		}
 	}
 	if(DrogaID == 3) // Crack
@@ -72947,7 +73044,7 @@ CMD:drogas(playerid, params[])
 		}
 
 		new drogaid = strval(nomedroga);
-	    if(drogaid < 1 || drogaid > 15) return SendClientMessage(playerid, COLOR_LIGHTRED, "ID da droga inválido.");
+	    if(drogaid < 1 || drogaid > 21) return SendClientMessage(playerid, COLOR_LIGHTRED, "ID da droga inválido.");
 
 	    if(drogaid == 1)
 		{
@@ -73084,7 +73181,7 @@ CMD:drogas(playerid, params[])
             SaveDrogas(playerid);
             return 1;
 		}
-		else if(drogaid == 16)
+		else if(drogaid == 21)
 		{
 		    if(PlayerDroga[playerid][LancaPer] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa de pelo menos 1ml para utilizar.");
             PlayerDroga[playerid][LancaPer] = PlayerDroga[playerid][LancaPer]-1;
@@ -83679,7 +83776,7 @@ public OnVerRefudoItem(extraid, id)
 		case 9: { etnia = "Crack Excelente";}
 		case 10: { etnia = "LSD Ruim";}
 		case 11: { etnia = "LSD Bom";}
-		case 12: { etnia = "LS Excelente";}
+		case 12: { etnia = "LSD Excelente";}
 		case 13: { etnia = "Metanfetamina Ruim";}
 		case 14: { etnia = "Metanfetamina Boa";}
   		case 15: { etnia = "Metanfetamina Excelente";}
@@ -83819,7 +83916,7 @@ CMD:refundaritem(playerid, params[])
 			case 9: { etnia = "Crack Excelente";}
 			case 10: { etnia = "LSD Ruim";}
 			case 11: { etnia = "LSD Bom";}
-			case 12: { etnia = "LS Excelente";}
+			case 12: { etnia = "LSD Excelente";}
 			case 13: { etnia = "Metanfetamina Ruim";}
 			case 14: { etnia = "Metanfetamina Boa";}
   			case 15: { etnia = "Metanfetamina Excelente";}
