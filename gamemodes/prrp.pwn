@@ -79592,13 +79592,6 @@ COMMAND:rojao(playerid, params[])
     ApplyAnimation(playerid, "camera", "picstnd_in", 4.1, 0, 1, 1, 1, 0, 1);
     SetTimerEx("AbaixarMao", 5500, false, "d", playerid);
 
-	/*ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 1.0, 0, 0, 0, 0, 0);*/
-
-
-	/*Foguete[playerid] = CreateDynamicObject(354, X, Y,(Z), 0, 0, 0);
-
-	Fumaca1[playerid] = CreateDynamicObject(2780, X, Y, (Z), 0, 0, 0);
-	Fumaca2[playerid] = CreateDynamicObject(18728, X, Y, (Z), 0, 0, 0);*/
 
 	foreach(Player, i)
 	{
@@ -79608,9 +79601,6 @@ COMMAND:rojao(playerid, params[])
 		}
 	}
 
-	/*MoveDynamicObject(Foguete[playerid], X, Y, Z + 20, 10);
-	MoveDynamicObject(Fumaca1[playerid], X, Y, Z + 20, 10);
-	MoveDynamicObject(Fumaca2[playerid], X, Y, Z + 20, 10);*/
 
 	SetTimerEx("LancarFoguete", 2500, 0, "i", playerid);
 
@@ -79639,7 +79629,7 @@ public LancarFoguete(playerid)
 	GetDynamicObjectPos(Foguete[playerid], FogueteX[playerid], FogueteY[playerid], FogueteZ[playerid]);
 	CreateExplosion(FogueteX[playerid], FogueteY[playerid], FogueteZ[playerid], 12, 0);
 	SetTimerEx("EstourarFoguete1", 100, false, "i", playerid);
-	PlayerInfo[playerid][pArrombarDNV_C] = 30;
+	PlayerInfo[playerid][pArrombarDNV_C] = 45;
 	return 1;
 }
 
@@ -79664,232 +79654,26 @@ public EstourarFoguete1(playerid)
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
 	CreateExplosion(FogueteX[playerid],FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 12, 0);
 
-	/*Luz[1][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	Luz[2][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	Luz[3][playerid] = CreateDynamicObject(354,FogueteX[playerid]-(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-5, 0, 0,0);
-	Luz[4][playerid] = CreateDynamicObject(354,FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	Luz[5][playerid] = CreateDynamicObject(354,FogueteX[playerid]+(0+(random(10))),FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	Luz[6][playerid] = CreateDynamicObject(354,FogueteX[playerid]+(0+(random(10))),FogueteY[playerid],FogueteZ[playerid]-5, 0, 0,0);
-	Luz[7][playerid] = CreateDynamicObject(354,FogueteX[playerid],FogueteY[playerid]-(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	Luz[8][playerid] = CreateDynamicObject(354,FogueteX[playerid],FogueteY[playerid]+(0+(random(10))),FogueteZ[playerid]-5, 0, 0,0);
-	new Float:X,Float:Y,Float:Z;
-	GetDynamicObjectPos(Luz[1][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[1][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[2][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[2][playerid], X-6, Y+6, Z-20, 4);
-	GetDynamicObjectPos(Luz[3][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[3][playerid], X-6, Y, Z-20, 4);
-	GetDynamicObjectPos(Luz[4][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[4][playerid], X+6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[5][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[5][playerid], X+6, Y+6, Z-20, 4);
-	GetDynamicObjectPos(Luz[6][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[6][playerid], X+6, Y, Z-20, 4);
-	GetDynamicObjectPos(Luz[7][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[7][playerid], X, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[8][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[8][playerid], X, Y+6, Z-20, 4);
+	
 	SetTimerEx("EstourarFoguete2", 100, false, "i", playerid);
-	DestroyDynamicObject(Foguete[playerid]);
-	DestroyDynamicObject(Fumaca1[playerid]);
-	DestroyDynamicObject(Fumaca2[playerid]);*/
 	return 1;
 }
 
-/*forward EstourarFoguete2(playerid);
+forward EstourarFoguete2(playerid);
 public EstourarFoguete2(playerid)
 {
 	new Float:X,Float:Y,Float:Z;
-	GetDynamicObjectPos(Luz[1][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[2][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[3][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[4][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[5][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[6][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[7][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[8][playerid], X, Y, Z);
 	CreateExplosion(X, Y, Z, 12, 0);
-	GetDynamicObjectPos(Luz[9][playerid], X, Y, Z);
-	Luz[11][playerid] = CreateDynamicObject(1213,X-7,Y+7,Z+8, 0, 0,0);
-	Luz[12][playerid] = CreateDynamicObject(1213,X-7,Y,Z+5, 0, 0,0);
-	Luz[13][playerid] = CreateDynamicObject(1213,X,Y+7,Z-5, 0, 0,0);
-	Luz[14][playerid] = CreateDynamicObject(1213,X,Y-7,Z-5, 0, 0,0);
-	GetDynamicObjectPos(Luz[2][playerid], X, Y, Z);
-	Luz[15][playerid] = CreateDynamicObject(1213,X,Y-7,Z+5, 0, 0,0);
-	Luz[16][playerid] = CreateDynamicObject(1213,X-7,Y,Z-5, 0, 0,0);
-	Luz[17][playerid] = CreateDynamicObject(1213,X,Y+7,Z-8, 0, 0,0);
-	Luz[18][playerid] = CreateDynamicObject(1213,X,Y+7,Z-5, 0, 0,0);
-	GetDynamicObjectPos(Luz[3][playerid], X, Y, Z);
-	Luz[19][playerid] = CreateDynamicObject(1213,X+7,Y,Z-1, 0, 0,0);
-	Luz[20][playerid] = CreateDynamicObject(1213,X-7,Y,Z-8, 0, 0,0);
-	Luz[21][playerid] = CreateDynamicObject(1213,X+7,Y+7,Z-5, 0, 0,0);
-	Luz[22][playerid] = CreateDynamicObject(1213,X,Y,Z+5, 0, 0,0);
-	GetDynamicObjectPos(Luz[4][playerid], X, Y, Z);
-	Luz[23][playerid] = CreateDynamicObject(1213,X+7,Y-7,Z-5, 0, 0,0);
-	Luz[24][playerid] = CreateDynamicObject(1213,X-7,Y,Z-7, 0, 0,0);
-	Luz[25][playerid] = CreateDynamicObject(1213,X+7,Y+7,Z+5, 0, 0,0);
-	Luz[26][playerid] = CreateDynamicObject(1213,X,Y-7,Z, 0, 0,0);
-	GetDynamicObjectPos(Luz[5][playerid], X, Y, Z);
-	Luz[27][playerid] = CreateDynamicObject(1213,X,Y-7,Z-5, 0, 0,0);
-	Luz[28][playerid] = CreateDynamicObject(1213,X-7,Y,Z+8, 0, 0,0);
-	Luz[29][playerid] = CreateDynamicObject(1213,X+7,Y,Z-8, 0, 0,0);
-	Luz[30][playerid] = CreateDynamicObject(1213,X,Y+7,Z+5, 0, 0,0);
-	GetDynamicObjectPos(Luz[6][playerid], X, Y, Z);
-	Luz[31][playerid] = CreateDynamicObject(1213,X-7,Y-7,Z-7, 0, 0,0);
-	Luz[32][playerid] = CreateDynamicObject(1213,X,Y,Z-5, 0, 0,0);
-	Luz[33][playerid] = CreateDynamicObject(1213,X+7,Y+7,Z+5, 0, 0,0);
-	Luz[34][playerid] = CreateDynamicObject(1213,X+4,Y-7,Z-5, 0, 0,0);
-	GetDynamicObjectPos(Luz[7][playerid], X, Y, Z);
-	Luz[35][playerid] = CreateDynamicObject(1213,X-7,Y-7,Z-8, 0, 0,0);
-	Luz[36][playerid] = CreateDynamicObject(1213,X-7,Y,Z+5, 0, 0,0);
-	Luz[37][playerid] = CreateDynamicObject(1213,X,Y,Z-5, 0, 0,0);
-	Luz[38][playerid] = CreateDynamicObject(1213,X,Y-7,Z+8, 0, 0,0);
-	GetDynamicObjectPos(Luz[8][playerid], X, Y, Z);
-	Luz[39][playerid] = CreateDynamicObject(1213,X-4,Y-7,Z-8, 0, 0,0);
-	Luz[40][playerid] = CreateDynamicObject(1213,X+7,Y,Z+8, 0, 0,0);
-	Luz[41][playerid] = CreateDynamicObject(1213,X+4,Y,Z+5, 0, 0,0);
-	Luz[42][playerid] = CreateDynamicObject(1213,X,Y-7,Z-5, 0, 0,0);
-	GetDynamicObjectPos(Luz[1][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[1][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[2][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[2][playerid], X-6, Y+6, Z-20, 4);
-	GetDynamicObjectPos(Luz[3][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[3][playerid], X-6, Y, Z-20, 4);
-	GetDynamicObjectPos(Luz[4][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[4][playerid], X+6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[5][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[5][playerid], X+6, Y+6, Z-20, 4);
-	GetDynamicObjectPos(Luz[6][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[6][playerid], X+6, Y, Z-20, 4);
-	GetDynamicObjectPos(Luz[7][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[1][playerid], X, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[8][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[8][playerid], X, Y+6, Z-20, 4);
-	GetDynamicObjectPos(Luz[11][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[11][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[12][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[12][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[13][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[13][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[14][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[14][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[15][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[15][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[16][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[16][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[17][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[17][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[18][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[18][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[19][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[19][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[20][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[20][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[21][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[21][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[22][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[22][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[23][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[23][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[24][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[24][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[25][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[25][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[26][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[26][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[27][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[27][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[28][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[28][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[29][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[29][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[30][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[30][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[31][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[31][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[32][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[32][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[33][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[33][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[34][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[34][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[35][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[35][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[36][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[36][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[37][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[37][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[38][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[38][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[39][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[39][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[40][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[40][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[41][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[41][playerid], X-6, Y-6, Z-20, 4);
-	GetDynamicObjectPos(Luz[42][playerid], X, Y, Z);
-	MoveDynamicObject(Luz[42][playerid], X-6, Y-6, Z-20, 4);
-	SetTimerEx("DestruirLuzes", 1000, false, "i", playerid);
-	DestroyDynamicObject(Foguete[playerid]);
-	DestroyDynamicObject(Fumaca1[playerid]);
-	DestroyDynamicObject(Fumaca2[playerid]);
-}
-
-forward DestruirLuzes(playerid);
-public DestruirLuzes(playerid)
-{
-	DestroyDynamicObject(Luz[1][playerid]);
-	DestroyDynamicObject(Luz[2][playerid]);
-	DestroyDynamicObject(Luz[3][playerid]);
-	DestroyDynamicObject(Luz[4][playerid]);
-	DestroyDynamicObject(Luz[5][playerid]);
-	DestroyDynamicObject(Luz[6][playerid]);
-	DestroyDynamicObject(Luz[7][playerid]);
-	DestroyDynamicObject(Luz[8][playerid]);
-	DestroyDynamicObject(Luz[11][playerid]);
-	DestroyDynamicObject(Luz[12][playerid]);
-	DestroyDynamicObject(Luz[13][playerid]);
-	DestroyDynamicObject(Luz[14][playerid]);
-	DestroyDynamicObject(Luz[15][playerid]);
-	DestroyDynamicObject(Luz[16][playerid]);
-	DestroyDynamicObject(Luz[17][playerid]);
-	DestroyDynamicObject(Luz[18][playerid]);
-	DestroyDynamicObject(Luz[19][playerid]);
-	DestroyDynamicObject(Luz[20][playerid]);
-	DestroyDynamicObject(Luz[21][playerid]);
-	DestroyDynamicObject(Luz[22][playerid]);
-	DestroyDynamicObject(Luz[23][playerid]);
-	DestroyDynamicObject(Luz[24][playerid]);
-	DestroyDynamicObject(Luz[25][playerid]);
-	DestroyDynamicObject(Luz[26][playerid]);
-	DestroyDynamicObject(Luz[27][playerid]);
-	DestroyDynamicObject(Luz[28][playerid]);
-	DestroyDynamicObject(Luz[29][playerid]);
-	DestroyDynamicObject(Luz[30][playerid]);
-	DestroyDynamicObject(Luz[31][playerid]);
-	DestroyDynamicObject(Luz[32][playerid]);
-	DestroyDynamicObject(Luz[33][playerid]);
-	DestroyDynamicObject(Luz[34][playerid]);
-	DestroyDynamicObject(Luz[35][playerid]);
-	DestroyDynamicObject(Luz[36][playerid]);
-	DestroyDynamicObject(Luz[37][playerid]);
-	DestroyDynamicObject(Luz[38][playerid]);
-	DestroyDynamicObject(Luz[39][playerid]);
-	DestroyDynamicObject(Luz[40][playerid]);
-	DestroyDynamicObject(Luz[41][playerid]);
-	DestroyDynamicObject(Luz[42][playerid]);
-	DestroyDynamicObject(Foguete[playerid]);
-	DestroyDynamicObject(Fumaca1[playerid]);
-	DestroyDynamicObject(Fumaca2[playerid]);
+    
 	return 1;
-}*/
+}
 
 forward AbaixarMao(playerid);
 public AbaixarMao(playerid)

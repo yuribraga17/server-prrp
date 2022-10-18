@@ -4,6 +4,7 @@ forward LogCMD_AM(strl[]);
 forward LogCMD_FAC(strl[]);
 forward LogCMD_PAGAR(strl[]);
 forward LogCMD_ROJAO(strl[]);
+forward LogCMD_venderdroga(strl[]);
 forward LogCMD_EntregarA(strl[]);
 forward LogCMD_Mascara(strl[]);
 forward LogCMD_Anuncio(strl[]);
@@ -46,7 +47,7 @@ public VehicleDeath(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -75,7 +76,7 @@ public Cofres_Publicos(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -104,7 +105,7 @@ public Retirar_PortaLuvas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -133,7 +134,7 @@ public Colocar_PortaLuvas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -162,7 +163,7 @@ public Retirar_PortaMalas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -191,7 +192,7 @@ public Colocar_PortaMalas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -220,7 +221,7 @@ public LogCMD_Pegar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -249,7 +250,7 @@ public ArrombarLog(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -278,7 +279,7 @@ public LogDevarma_P(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -307,7 +308,7 @@ public LogEquipar_P(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -336,7 +337,7 @@ public RegLog(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -365,7 +366,7 @@ public LogCMD_A(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -394,7 +395,7 @@ public LogCMD_AM(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -423,7 +424,7 @@ public LogCMD_FAC(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -452,7 +453,7 @@ public LogCMD_PAGAR(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -472,6 +473,34 @@ public LogCMD_PAGAR(strl[])
 	fclose(hFile);
 	return 1;
 }
+public LogCMD_venderdroga(strl[])
+{
+    new mtext[20],year1, month1,day1,hour,minuite,second,entry[128],readfile[128];
+	getdate(year1, month1, day1);
+	switch(month1)
+	{
+		case 1: mtext = "Janeiro";
+		case 2: mtext = "Fevereiro";
+		case 3: mtext = "Mar√ßo";
+		case 4: mtext = "Abril";
+		case 5: mtext = "Maio";
+		case 6: mtext = "Junho";
+		case 7: mtext = "Julho";
+		case 8: mtext = "Agosto";
+		case 9: mtext = "Setembro";
+		case 10: mtext = "Outubro";
+		case 11: mtext = "Novembro";
+	    case 12: mtext = "Dezembro";
+	}
+	gettime(hour,minuite,second);
+	format(entry, sizeof(entry), "[%d %s %d:%d:%d] %s\n",day1, mtext, hour, minuite, second, strl);
+	format(readfile, sizeof(readfile), "logs/npc/venderdrogas_%s_%d.log", mtext,year1);
+	new File: hFile = fopen(readfile, io_append);
+	if(!hFile) return 1; // Do not saved a corrupt file.
+	fwrite(hFile, entry);
+	fclose(hFile);
+	return 1;
+}
 
 public LogCMD_ROJAO(strl[])
 {
@@ -481,7 +510,7 @@ public LogCMD_ROJAO(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -510,7 +539,7 @@ public LogCMD_Dropar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -539,7 +568,7 @@ public LogCMD_EntregarA(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -568,7 +597,7 @@ public LogCMD_Mascara(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -597,7 +626,7 @@ public LogCMD_Anuncio(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -626,7 +655,7 @@ public LogCMD_barricada(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -639,7 +668,7 @@ public LogCMD_barricada(strl[])
 	}
 	gettime(hour,minuite,second);
 	format(entry, sizeof(entry), "[%d %s %d:%d:%d] %s\n",day1, mtext, hour, minuite, second, strl);
-	format(readfile, sizeof(readfile), "logs/barricada_%s_%d.log", mtext,year1);
+	format(readfile, sizeof(readfile), "logs/roubos/barricada_%s_%d.log", mtext,year1);
 	new File: hFile = fopen(readfile, io_append);
 	if(!hFile) return 1; // Do not saved a corrupt file.
 	fwrite(hFile, entry);
@@ -655,7 +684,7 @@ public LogCMD_b(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -684,7 +713,7 @@ public LogCMD_me(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -713,7 +742,7 @@ public LogCMD_do(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -742,7 +771,7 @@ public LogCMD_Savings(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -771,7 +800,7 @@ public LogCMD_sacar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -800,7 +829,7 @@ public LogCMD_deposito(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -829,7 +858,7 @@ public LogCMD_transf(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -858,7 +887,7 @@ public LogCMD_dargrana(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -887,7 +916,7 @@ public LogCMD_explodircaixa(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -900,7 +929,7 @@ public LogCMD_explodircaixa(strl[])
 	}
 	gettime(hour,minuite,second);
 	format(entry, sizeof(entry), "[%d %s %d:%d:%d] %s\n",day1, mtext, hour, minuite, second, strl);
-	format(readfile, sizeof(readfile), "logs/explodircaixa_%s_%d.log", mtext,year1);
+	format(readfile, sizeof(readfile), "logs/roubos/explodircaixa_%s_%d.log", mtext,year1);
 	new File: hFile = fopen(readfile, io_append);
 	if(!hFile) return 1; // Do not saved a corrupt file.
 	fwrite(hFile, entry);
@@ -916,7 +945,7 @@ public LogCMD_dararma(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -929,7 +958,7 @@ public LogCMD_dararma(strl[])
 	}
 	gettime(hour,minuite,second);
 	format(entry, sizeof(entry), "[%d %s %d:%d:%d] %s\n",day1, mtext, hour, minuite, second, strl);
-	format(readfile, sizeof(readfile), "logs/dararma_%s_%d.log", mtext,year1);
+	format(readfile, sizeof(readfile), "logs/setararma/dararma_%s_%d.log", mtext,year1);
 	new File: hFile = fopen(readfile, io_append);
 	if(!hFile) return 1; // Do not saved a corrupt file.
 	fwrite(hFile, entry);
@@ -945,7 +974,7 @@ public LogCMD_CasaInatividade(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -974,7 +1003,7 @@ public LogCMD_ZerouGrana(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -1003,7 +1032,7 @@ public LogCMD_ZerouBanco(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -1032,7 +1061,7 @@ public LogCMD_AnuncioEmp(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÁo";
+		case 3: mtext = "Mar√ßo";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
