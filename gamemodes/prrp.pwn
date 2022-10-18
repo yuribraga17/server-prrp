@@ -902,6 +902,9 @@ enum SAZONE_MAIN { //Betamaster
 //====== [SISTEMA DE BANCO E caixa eletrônico] =======================================================
 new TaNaATM[MAX_PLAYERS];
 
+new TaNoCOFREL[MAX_PLAYERS];
+new TaNoCOFREB[MAX_PLAYERS];
+
 #define PROGRESS_BAR_INVALID -1
 #define PROGRESS_BAR_MALOTE 1
 
@@ -947,6 +950,20 @@ enum aCofreLoja
 	clRrombado
 };
 static cLoja[MAX_COFRE][aCofreLoja];
+
+#define MAX_COFREB 1
+enum aCofreBanco
+{
+	cbID,
+	cbSeteda,
+	Float:cbposX,
+	Float:cbposY,
+	Float:cbposZ,
+	Float:cbposR,
+	cbObjeto,
+	cbRrombado
+};
+static cbanco[MAX_COFRE][aCofreBanco];
 //==============================================================================
 new Float:PlayerCruiseSpeed[MAX_PLAYERS];
 new Float:PlayerHeadingAngle[MAX_PLAYERS];
@@ -2090,6 +2107,8 @@ enum e_Account
 	pJobInPd,
 	pPecasMecanicas[7],// 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
 	pBomba,
+	pC4,
+	pTNT,
 	pTempoPLD,
 	pToolKit,
 	pArrombarDNV,
@@ -5905,6 +5924,7 @@ public OnGameModeInit()
     mysql_function_query(Pipeline, "SELECT * FROM `itens`", true, "LoadItens", "");
     mysql_function_query(Pipeline, "SELECT * FROM `rp_atms`", true, "QUERY_LOAD_ATMS", "");
 	mysql_function_query(Pipeline, "SELECT * FROM `rp_cloja`", true, "QUERY_LOAD_COFRELOJAS", "");
+	mysql_function_query(Pipeline, "SELECT * FROM `rp_cofre`", true, "QUERY_LOAD_COFREBANCO", "");
     mysql_function_query(Pipeline, "SELECT * FROM `cartuxo`", true, "LoadAmmos", "");
     mysql_function_query(Pipeline, "SELECT * FROM `rp_drogasplant`", true, "QUERY_LOAD_DRUGPLAN", "");
     mysql_function_query(Pipeline, "SELECT * FROM `drop_drug`", true, "LoadDrugs", "");
@@ -10452,6 +10472,8 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pExecComando] = 0;
 	PlayerInfo[extraid][pJob] = 0;
 	PlayerInfo[extraid][pBomba] = 0;
+	PlayerInfo[extraid][pC4] = 0;
+	PlayerInfo[extraid][pTNT] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][0] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][1] = 0;
 	PlayerInfo[extraid][pPecasMecanicas][2] = 0;
@@ -11046,6 +11068,8 @@ public OnPlayerConnect(playerid)
 	SocosMorto[playerid] = 0;
 	TrocandoInterior[playerid] = 9999;
 	TaNaATM[playerid] = 0;
+	TaNoCOFREL[playerid] = 0;
+	TaNoCOFREB[playerid] = 0;
 	SECURITY_VEHICLE[playerid] = -1;
 	CarregandoATM[playerid] = -1;
 	SECURITY_SEGURANDOMALOTE[playerid] = 0;
@@ -19712,9 +19736,11 @@ public SalvarPlayer(playerid)
 		);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Mun9mm`='%d', `Bomba`='%d', `Mun556`='%d', `MunCart`='%d', `Mun127`='%d', `pSlot1`='%d', `pSlot2`='%d', `pSlot3`='%d', `pSlot4`='%d', `pSlot5`='%d', `pSlot1a`='%d', `pSlot2a`='%d', `pSlot3a`='%d', `pSlot4a`='%d', `pSlot5a`='%d', `FacCargo`='%d', `pEmServico`='%d', `pBanAll`='%d', `pBanido`='%d', `pWalkStyle`='%d', `pDoador`='%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Mun9mm`='%d', `Bomba`='%d', `C4`='%d', `TNT`='%d', `Mun556`='%d', `MunCart`='%d', `Mun127`='%d', `pSlot1`='%d', `pSlot2`='%d', `pSlot3`='%d', `pSlot4`='%d', `pSlot5`='%d', `pSlot1a`='%d', `pSlot2a`='%d', `pSlot3a`='%d', `pSlot4a`='%d', `pSlot5a`='%d', `FacCargo`='%d', `pEmServico`='%d', `pBanAll`='%d', `pBanido`='%d', `pWalkStyle`='%d', `pDoador`='%d' WHERE `ID` = '%d'",
             PlayerInfo[playerid][pMun9mm],
 			PlayerInfo[playerid][pBomba],
+			PlayerInfo[playerid][pC4],
+			PlayerInfo[playerid][pTNT],
 			PlayerInfo[playerid][pMun556],
 			PlayerInfo[playerid][pMunCart],
 			PlayerInfo[playerid][pMun127],
@@ -25505,7 +25531,7 @@ COMMAND:explodircaixa(playerid, params[])
 			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
 			
 			new strl[126];
-			format(strl, 126, "%s explodiu um caixa eletronico. [/setararma]", PlayerName(playerid, 0));
+			format(strl, 126, "%s explodiu um caixa eletronico. [/explodircaixa]", PlayerName(playerid, 0));
 			LogCMD_explodircaixa(strl);
 
 			return 1;
@@ -25533,8 +25559,8 @@ COMMAND:pegardinheiro(playerid, params[])
  	{
   		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]) && ATMs[i][aRrombado] == 1) 
     	{
-			PlayerInfo[playerid][pGrana] += 5000;
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
+			PlayerInfo[playerid][pGrana] += 2000;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 2 mil reais.");
 
 			new stringCaixaF[256];	
 			format(stringCaixaF,sizeof(stringCaixaF),"** %s se abaixa e começa a recolher o dinheiro do chão.", PlayerName(playerid, 1));
@@ -25554,7 +25580,7 @@ public ExplodindoCaixa(playerid)
  	{
   		if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
 		{
-			PlayerInfo[playerid][pArrombarDNV_C] = 3600;
+			PlayerInfo[playerid][pArrombarDNV_C] = 1300;
 			
 			CreateExplosion(ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ], 13, 0);
 			ATMs[i][aRrombado] = 1;
@@ -25599,6 +25625,346 @@ public AnimGrana(playerid)
 
 forward PegouGrana(playerid);
 public PegouGrana(playerid)
+{
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
+
+//Sistema roubo
+COMMAND:explodircofre(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 10) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 10 ou mais para explodir o caixa.");
+	if(PlayerInfo[playerid][pC4] < 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 1 C4 para explodir o caixa.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringcofreroubo[128];
+		format(stringcofreroubo, sizeof(stringcofreroubo),"Aguarde %d segundos antes de explodir um cofre novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreroubo);
+		return 1;
+	}
+
+	for(new i = 0; i < MAX_COFRE; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]))
+    	{
+
+			new PolicesOnline = 0;
+			for(new cops = 0; cops < MAX_PLAYERS; cops++)
+			{
+				if(IsPlayerConnected(cops))
+				{
+					if(PlayerInfo[cops][pLogado])
+					{
+						if(FacInfo[GetFactionBySqlId(PlayerInfo[cops][pFac])][fTipo] == FAC_TIPO_PMERJ)
+						{
+							if(PlayerInfo[cops][pEmServico] == 1)
+							{
+								PolicesOnline++;
+							}
+						}
+					}
+				}
+				if(PolicesOnline < 10) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 10 policiais em serviço para executar essa ação.");
+			}
+
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
+
+    		TaNoCOFREL[playerid] = i;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você armou uma C4.");
+			
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
+			SetTimerEx("ExplodindoCofreL", 8500, false, "d", playerid);
+
+			new stringCaixaF[256];
+			format(stringCaixaF,sizeof(stringCaixaF),"** %s posiciona-se perto do cofre e cola a C4.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+			format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas próximidades *");
+			ProxDetector(200.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			format(string, sizeof(stringCaixaF), "** MARE 0: Um cofre explodiu em %s.**", location);
+   			SendFacMessage(0x6666CCFF,1,stringCaixaF);
+   			SendFacMessage(0x6666CCFF,2,stringCaixaF);
+
+			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircofre.", PlayerName(playerid, 0));
+			
+			new strl[126];
+			format(strl, 126, "%s explodiu um cofre. [/explodircofre]", PlayerName(playerid, 0));
+			LogCMD_explodircaixa(strl);
+
+			return 1;
+		}
+	}
+	return 1;
+}
+
+COMMAND:pegargrana(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 10) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 10 ou mais para pegar a grana.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringcofreroubo[128];
+		format(stringcofreroubo, sizeof(stringcofreroubo),"Aguarde %d segundos antes de explodir um cofre de loja novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreroubo);
+		return 1;
+	}
+
+	for(new i = 0; i < MAX_COFRE; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]) && cLoja[i][clRrombado] == 1) 
+    	{
+			PlayerInfo[playerid][pGrana] += 5000;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
+
+			new stringCaixaF[256];	
+			format(stringCaixaF,sizeof(stringCaixaF),"** %s se abaixa e começa a recolher o dinheiro do cofre.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			SetTimerEx("PegandoGranaCofreL", 1, false, "d", playerid);
+			return 1;
+		}
+	}
+	return 1;
+}
+
+forward ExplodindoCofreL(playerid);
+public ExplodindoCofreL(playerid)
+{
+	for(new i = 0; i < MAX_COFRE; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]))
+		{
+			PlayerInfo[playerid][pArrombarDNV_C] = 3600;
+			
+			CreateExplosion(cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ], 13, 0);
+			cLoja[i][clRrombado] = 1;
+			PlayerInfo[playerid][pC4]--;
+
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegargrana.");
+
+			new stringCaixaF[256];
+			format(stringCaixaF, sizeof(stringCaixaF), "* Um cofre é explodido na região *");
+			ProxDetector(100.0, playerid, stringCaixaF, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+		}
+	}
+    return 1;
+}
+
+forward PegandoGranaCofreL(playerid);
+public PegandoGranaCofreL(playerid)
+{
+	for(new i = 0; i < MAX_COFRE; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]))
+		{
+			cLoja[i][clRrombado] = 0;
+
+			TogglePlayerControllable(playerid, 0);
+			SetTimerEx("AnimGranaCofreL", 5500, false, "d", playerid);
+		}
+	}
+
+    return 1;
+}
+
+
+forward AnimGranaCofreL(playerid);
+public AnimGranaCofreL(playerid)
+{
+	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
+	SetTimerEx("PegouGranaCofreL", 1, false, "d", playerid);
+
+    return 1;
+}
+
+forward PegouGranaCofreL(playerid);
+public PegouGranaCofreL(playerid)
+{
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
+
+//Sistema roubo
+COMMAND:explodirbanco(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 20) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 20 ou mais para explodir o caixa.");
+	if(PlayerInfo[playerid][pTNT] < 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 1 TNT para explodir o caixa.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringcofreb[128];
+		format(stringcofreb, sizeof(stringcofreb),"Aguarde %d segundos (1 hora) antes de explodir o banco novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreb);
+		return 1;
+	}
+
+	for(new i = 0; i < MAX_COFRE; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]))
+    	{
+
+			new PolicesOnline = 0;
+			for(new cops = 0; cops < MAX_PLAYERS; cops++)
+			{
+				if(IsPlayerConnected(cops))
+				{
+					if(PlayerInfo[cops][pLogado])
+					{
+						if(FacInfo[GetFactionBySqlId(PlayerInfo[cops][pFac])][fTipo] == FAC_TIPO_PMERJ)
+						{
+							if(PlayerInfo[cops][pEmServico] == 1)
+							{
+								PolicesOnline++;
+							}
+						}
+					}
+				}
+				if(PolicesOnline < 20) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 20 policiais em serviço para executar essa ação.");
+			}
+
+    		TaNoCOFREB[playerid] = i;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você armou uma TNT de pequeno porte.");
+			
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
+			SetTimerEx("ExplodindoBanco", 8500, false, "d", playerid);
+
+			new stringBCofre[256];
+			format(stringBCofre,sizeof(stringBCofre),"** %s posiciona-se perto do cofre e cola a TNT.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringBCofre,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			new text[128];
+        	format(stringBCofre, sizeof(stringBCofre), "{DC143C}* Ocorre uma grande explosão no banco da Caixa Economica. ((ANRP))", text);
+    		SendClientMessageToAll(0xDC143CFF, stringBCofre);
+
+
+			format(string, sizeof(stringBCofre), "** MARE 0: O banco está sendo roubado. **");
+   			SendFacMessage(0x6666CCFF,1,stringBCofre);
+   			SendFacMessage(0x6666CCFF,2,stringBCofre);
+
+			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodirbanco.", PlayerName(playerid, 0));
+			
+			new strl[126];
+			format(strl, 126, "%s explodiu um cofre. [/explodirbanco]", PlayerName(playerid, 0));
+			LogCMD_explodircaixa(strl);
+
+			return 1;
+		}
+	}
+	return 1;
+}
+
+COMMAND:pegarmoney(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 25) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 25 ou mais para pegar a grana.");
+    if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new stringcofreb[128];
+		format(stringcofreb, sizeof(stringcofreb),"Aguarde %d segundos (24 horas) antes de explodir o banco novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreb);
+		return 1;
+	}
+
+	for(new i = 0; i < MAX_COFREB; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]) && cbanco[i][cbRrombado] == 1) 
+    	{
+			PlayerInfo[playerid][pGrana] += 25000;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 25 mil reais.");
+
+			new stringBCofre[256];	
+			format(stringBCofre,sizeof(stringBCofre),"** %s se abaixa e começa a recolher o dinheiro do cofre.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringBCofre,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			SetTimerEx("PegandoGranaBanco", 1, false, "d", playerid);
+			return 1;
+		}
+	}
+	return 1;
+}
+
+forward ExplodindoBanco(playerid);
+public ExplodindoBanco(playerid)
+{
+	for(new i = 0; i < MAX_COFREB; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]))
+		{
+			PlayerInfo[playerid][pArrombarDNV_C] = 86400;
+			
+			CreateExplosion(cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ], 13, 0);
+			cbanco[i][cbRrombado] = 1;
+			PlayerInfo[playerid][pTNT]--;
+
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegarmoney.");
+
+			new stringBCofre[256];
+			format(stringBCofre, sizeof(stringBCofre), "* Uma grande explosão acontece no banco *");
+			ProxDetector(100.0, playerid, stringBCofre, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+		}
+	}
+    return 1;
+}
+
+forward PegandoGranaBanco(playerid);
+public PegandoGranaBanco(playerid)
+{
+	for(new i = 0; i < MAX_COFREB; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]))
+		{
+			cbanco[i][cbRrombado] = 0;
+
+			TogglePlayerControllable(playerid, 0);
+			SetTimerEx("AnimGranaBanco", 5500, false, "d", playerid);
+		}
+	}
+
+    return 1;
+}
+
+
+forward AnimGranaBanco(playerid);
+public AnimGranaBanco(playerid)
+{
+	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
+	SetTimerEx("PegouGranaBanco", 1, false, "d", playerid);
+
+    return 1;
+}
+
+forward PegouGranaBanco(playerid);
+public PegouGranaBanco(playerid)
 {
 
     TogglePlayerControllable(playerid, 1);
@@ -38547,6 +38913,8 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "Fac", tmp);			PlayerInfo[extraid][pFac] = strval(tmp);
 		cache_get_field_content(0, "Job", tmp);			PlayerInfo[extraid][pJob] = strval(tmp);
 		cache_get_field_content(0, "Bomba", tmp);			PlayerInfo[extraid][pBomba] = strval(tmp);
+		cache_get_field_content(0, "C4", tmp);			PlayerInfo[extraid][pC4] = strval(tmp);
+		cache_get_field_content(0, "TNT", tmp);			PlayerInfo[extraid][pTNT] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas0", tmp);PlayerInfo[extraid][pPecasMecanicas][0] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas1", tmp);PlayerInfo[extraid][pPecasMecanicas][1] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas2", tmp);PlayerInfo[extraid][pPecasMecanicas][2] = strval(tmp);
@@ -39547,21 +39915,39 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
         }
 		else if(GetPVarInt(playerid, "EditCOFREL") == 1)
 		{
-		    //SCM(playerid, -1, "DEBUG: Instalou caixa eletrônico | Salvou");
             SendClientMessage( playerid,COLOR_YELLOW,"Cofre loja instalado.");
             new id = GetPVarInt(playerid, "EditCOFRELID");
-			cLoja[id][aposX] = x;
-			cLoja[id][aposY] = y;
-			cLoja[id][aposZ] = z;
+			cLoja[id][clposX] = x;
+			cLoja[id][clposY] = y;
+			cLoja[id][clposZ] = z;
 			cLoja[id][clposR] = rz;
 			SetPVarInt(playerid, "EditCOFREL", 0);
-    		SetPVarInt(playerid, "EditCOFRELid", 0);
+    		SetPVarInt(playerid, "EditCOFRELID", 0);
     		SaveCOFREL(id);
 
 			if(IsValidDynamicObject(cLoja[id][clObjeto]))
 				DestroyDynamicObject(cLoja[id][clObjeto]);
 
-			cLoja[id][clObjeto] = CreateDynamicObject(-2900, x, y, z, 0.000000, 0.000000, rz);
+			cLoja[id][clObjeto] = CreateDynamicObject(2332, x, y, z, 0.000000, 0.000000, rz);
+		
+    		return 1;
+        }
+		else if(GetPVarInt(playerid, "EditCOFREB") == 1)
+		{
+            SendClientMessage( playerid,COLOR_YELLOW,"Cofre do banco instalado.");
+            new id = GetPVarInt(playerid, "EditCOFREBID");
+			cbanco[id][cbposX] = x;
+			cbanco[id][cbposY] = y;
+			cbanco[id][cbposZ] = z;
+			cbanco[id][cbposR] = rz;
+			SetPVarInt(playerid, "EditCOFREB", 0);
+    		SetPVarInt(playerid, "EditCOFREBID", 0);
+    		SaveCOFREB(id);
+
+			if(IsValidDynamicObject(cbanco[id][cbObjeto]))
+				DestroyDynamicObject(cbanco[id][cbObjeto]);
+
+			cbanco[id][cbObjeto] = CreateDynamicObject(2332, x, y, z, 0.000000, 0.000000, rz);
     		return 1;
         }
         else if(GetPVarInt(playerid, "EditandoAmmoNoChao") != -1)
@@ -65612,7 +65998,7 @@ CMD:comprarbomba(playerid,params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	{
 	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1488.6760,-1721.4026,8.2160))
-			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "Loja de Bombas", "1x Dinamite [R$200]", "Selecionar", "Voltar");
+			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "Loja de Bombas", "1x Dinamite [R$200]\n1x C4 [R$400]\n1x TNT [R$2000]", "Selecionar", "Voltar");
 		else {
   			SetPlayerCheckpoint(playerid, 1488.6760,-1721.4026,8.2160, 5.0);
 			cp_target[playerid] = 1;
@@ -65635,8 +66021,28 @@ Dialog:Dialog_Bomba(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 200)
 				{
 					PlayerInfo[playerid][pBomba]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma dinamite por 200R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma dinamite por R$200.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-200;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
+            }
+		    case 1:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 400)
+				{
+					PlayerInfo[playerid][pC4]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma C4 por R$400.");
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-400;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
+            }
+		    case 2:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 2000)
+				{
+					PlayerInfo[playerid][pTNT]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma C4 por R$2000.");
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-2000;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
             }
@@ -65768,9 +66174,9 @@ CMD:minhasbombas(playerid,params[])
 	//if(PlayerInfo[playerid][pJob] != JOB_MECANICO && PlayerInfo[playerid][pJob] != JOB_DESMANCHE) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um mecânico.");
 	format(string,sizeof(string),"_______Peças de %s:_______", PlayerName(playerid, 0));
 	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
-	format(string,sizeof(string),"[Dinamite (%d)] ", PlayerInfo[playerid][pBomba]);
+	format(string,sizeof(string),"[Dinamite (%d)], [C4 (%d)], [TNT (%d)] ", PlayerInfo[playerid][pBomba], PlayerInfo[playerid][pC4], PlayerInfo[playerid][pTNT]);
     SendClientMessage(playerid,-1,string);
-    SendClientMessage(playerid,COLOR_CINZA, "Você pode usar o comando /darbomba para entregar uma a alguém.");
+    //SendClientMessage(playerid,COLOR_CINZA, "Você pode usar o comando /darbomba para entregar uma a alguém.");
 	return 1;
 }
 
@@ -65789,7 +66195,7 @@ CMD:minhaspecas(playerid,params[])
 	return 1;
 }
 
-CMD:darbomba(playerid,params[])
+CMD:darbomba1(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
 	new option[12],
@@ -70889,7 +71295,31 @@ public QUERY_LOAD_COFRELOJAS()
 
     	if(cLoja[i][clSeteda] == 1)
     	{
-    		cLoja[i][clObjeto] = CreateDynamicObject(-2900, cLoja[i][clposX], cLoja[i][aposY], cLoja[i][clposZ], 0.000000, 0.000000, cLoja[i][clposR], 0);
+    		cLoja[i][clObjeto] = CreateDynamicObject(2332, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ], 0.000000, 0.000000, cLoja[i][clposR], 0);
+		}
+	}
+	return 1;
+}
+
+forward QUERY_LOAD_COFREBANCO();
+public QUERY_LOAD_COFREBANCO()
+{
+	new b[256];
+	new rows,fields;
+	cache_get_data(rows, fields);
+ 	for(new i; i < rows; i++)
+  	{
+        cache_get_field_content(i,"id",b);  				cbanco[i][cbID] = strval(b);
+        cache_get_field_content(i,"setada",b);         		cbanco[i][cbSeteda] = strval(b);
+        cache_get_field_content(i,"posx",b);         		cbanco[i][cbposX] = floatstr(b);
+        cache_get_field_content(i,"posy",b);         		cbanco[i][cbposY] = floatstr(b);
+        cache_get_field_content(i,"posz",b);         		cbanco[i][cbposZ] = floatstr(b);
+    	cache_get_field_content(i,"posr",b);         		cbanco[i][cbposR] = floatstr(b);
+
+
+    	if(cbanco[i][cbSeteda] == 1)
+    	{
+    		cbanco[i][cbObjeto] = CreateDynamicObject(2332, cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ], 0.000000, 0.000000, cbanco[i][cbposR], 0);
 		}
 	}
 	return 1;
@@ -71002,6 +71432,65 @@ public SaveATM(i)
 	return 1;
 }
 //=================[SISTEMA ROUBO DE COFRE]======================
+COMMAND:criarcofre(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5)
+	{
+		CriarCOFREBDB(playerid);
+		return 1;
+	}
+	return 1;
+}
+stock CriarCOFREBDB(playerid)
+{
+	new str[256];
+    for(new i = 0; i < MAX_COFREB; i++)
+    {
+        if(cbanco[i][cbSeteda] == 0)
+        {
+            cbanco[i][cbSeteda] = 1;
+            format(str,sizeof(str),"INSERT INTO rp_cofre (setada) VALUES ('%d')", cbanco[i][cbSeteda]);
+   			mysql_function_query(Pipeline, str, false, "CriouCOFREBnaDB", "d",playerid);
+   			return 1;
+		}
+	}
+	return 1;
+}
+forward CriouCOFREBnaDB(playerid);
+public CriouCOFREBnaDB(playerid)
+{
+    new Float:sys_pos_dono[3];
+	new i = cache_insert_id();
+    GetPlayerPos(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2]);
+
+    cbanco[i][cbID] = i;
+	cbanco[i][cbposX] = sys_pos_dono[0];
+	cbanco[i][cbposY] = sys_pos_dono[1]+2;
+	cbanco[i][cbposZ] = sys_pos_dono[2];
+
+	cbanco[i][cbObjeto] = CreateDynamicObject(2332, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
+   	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+   	Streamer_Update(playerid);
+    EditDynamicObject(playerid, cbanco[i][cbObjeto]);
+    SetPVarInt(playerid, "EditCOFREB", 1);
+    SetPVarInt(playerid, "EditCOFREBID", i);
+    return 1;
+}
+forward SaveCOFREB(i);
+public SaveCOFREB(i)
+{
+	new str[254];
+	format(str,sizeof(str),"UPDATE `rp_cofre` SET `posx`='%f',`posy`='%f',`posz`='%f',`posr`='%f' WHERE id=%d LIMIT 1",
+ 	cbanco[i][cbposX],
+	cbanco[i][cbposY],
+	cbanco[i][cbposZ],
+	cbanco[i][cbposR],
+	cbanco[i][cbID]);
+	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
+	return 1;
+}
+
 COMMAND:criarcofrel(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -71039,12 +71528,12 @@ public CriouCOFRELnaDB(playerid)
 	cLoja[i][clposY] = sys_pos_dono[1]+2;
 	cLoja[i][clposZ] = sys_pos_dono[2];
 
-	cLoja[i][clObjeto] = CreateDynamicObject(-2900, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
+	cLoja[i][clObjeto] = CreateDynamicObject(2332, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
    	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
    	Streamer_Update(playerid);
     EditDynamicObject(playerid, cLoja[i][clObjeto]);
     SetPVarInt(playerid, "EditCOFREL", 1);
-    SetPVarInt(playerid, "EditCOFRELid", i);
+    SetPVarInt(playerid, "EditCOFRELID", i);
     return 1;
 }
 forward SaveCOFREL(i);
