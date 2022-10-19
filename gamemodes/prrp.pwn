@@ -2577,6 +2577,7 @@ new ComprandoCarro[MAX_PLAYERS][5];
 #define MODEL_SELECTION_CHAPEU_PCERJ    59
 #define MODEL_SELECTION_OUTROS_PCERJ    60
 
+
 #define MODEL_SELECTION_OCULOS_CBERJ    61
 #define MODEL_SELECTION_CHAPEU_CBERJ    62
 #define MODEL_SELECTION_OUTROS_CBERJ    33
@@ -2585,6 +2586,7 @@ new ComprandoCarro[MAX_PLAYERS][5];
 #define MODEL_SELECTION_CHAPEU_EB    64
 #define MODEL_SELECTION_OUTROS_EB    65
 
+#define MODEL_SELECTION_OUTROS_PROSEGUR    66
 
 #define MODEL_SELECTION_BINCO       80
 
@@ -2795,6 +2797,14 @@ static LOJA_OUTROS_PMERJ[9] = {
 	-2126, -2101, -2105, -2120,
 	-2121, -2122, -2123, -2124,
 	-2125
+};
+//======== [PROSEGUR]======//
+static PROSEGUR_Uniformes[1] = {
+    71
+};
+static LOJA_OUTROS_BANK[3] = {
+	19138, 19139, 19140
+	
 };
 //======== [PCERJ]======//
 static PCERJ_Uniformes[13] = {
@@ -6911,6 +6921,7 @@ public ArmaEntregueComSucesso(playerid,armaid,ammo,extra,equipar,raspada)
 		    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_GOV) format(strl1, sizeof(strl1), "GOVRJ");
 			else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_EB) format(strl1, sizeof(strl1), "EB");
 		    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_TJRP) format(strl1, sizeof(strl1), "TJRP");
+			else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK) format(strl1, sizeof(strl1), "PROSEGUR");
 			else format(strl1, sizeof(strl1), "Nenhum");
 
 			new strl[326];
@@ -18956,6 +18967,8 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
         if(extraid == MODEL_SELECTION_CHAPEU_PCERJ) OutrasInfos[playerid][oTipoCItem] = 2, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
         if(extraid == MODEL_SELECTION_OUTROS_PCERJ) OutrasInfos[playerid][oTipoCItem] = 4, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
 
+		if(extraid == MODEL_SELECTION_OUTROS_PROSEGUR)  OutrasInfos[playerid][oTipoCItem] = 1, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
+		
         if(extraid == MODEL_SELECTION_OCULOS_EB) OutrasInfos[playerid][oTipoCItem] = 1, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
         if(extraid == MODEL_SELECTION_CHAPEU_EB) OutrasInfos[playerid][oTipoCItem] = 2, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
         if(extraid == MODEL_SELECTION_OUTROS_EB) OutrasInfos[playerid][oTipoCItem] = 4, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
@@ -28867,7 +28880,7 @@ COMMAND:retirar(playerid,params[])
         if(sscanf(params,"ds(32)",other,tmp2))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /retirar [playerid] [opção]");
-			SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Opções:{FFFFFF} licencamotorista, portedearmas, licensavoo, armas, municoes, drogas");
+			SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Opções:{FFFFFF} licencamotorista, c4, tnt, dinamite, portedearmas, licensavoo, armas, municoes, drogas");
 			return 1;
 		}
 		else
@@ -28887,6 +28900,39 @@ COMMAND:retirar(playerid,params[])
 							return 1;
 						}
 						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui uma licença de motorista.");
+				    }
+				    if(strcmp(tmp2,"c4",true) == 0)
+				    {
+				        if(PlayerInfo[other][pC4])
+				        {
+							PlayerInfo[other][pC4] = 0;
+       						format(str,sizeof(str),"* %s retira a C4 de %s.", PlayerName(playerid, 1), PlayerName(other, 1));
+       						ProxDetector(10.0, playerid, str,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+							return 1;
+						}
+						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui C4.");
+				    }
+				    if(strcmp(tmp2,"tnt",true) == 0)
+				    {
+				        if(PlayerInfo[other][pTNT])
+				        {
+							PlayerInfo[other][pTNT] = 0;
+       						format(str,sizeof(str),"* %s retira a TNT de %s.", PlayerName(playerid, 1), PlayerName(other, 1));
+       						ProxDetector(10.0, playerid, str,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+							return 1;
+						}
+						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui TNT.");
+				    }
+				    if(strcmp(tmp2,"dinamite",true) == 0)
+				    {
+				        if(PlayerInfo[other][pBomba])
+				        {
+							PlayerInfo[other][pBomba] = 0;
+       						format(str,sizeof(str),"* %s retira a dinamite de %s.", PlayerName(playerid, 1), PlayerName(other, 1));
+       						ProxDetector(10.0, playerid, str,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+							return 1;
+						}
+						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui dinamite.");
 				    }
 				    else if(strcmp(tmp2,"portedearmas",true) == 0)
 				    {
@@ -31727,6 +31773,18 @@ CMD:uniforme(playerid, params[])
         }
         else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no vestiário do departamento de policia.");
     }
+    if(FacInfo[FacId][fTipo] == FAC_TIPO_BANK)
+    {
+        if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[FacId][fArmarioPosX], FacInfo[FacId][fArmarioPosY], FacInfo[FacId][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[FacId][fArmarioVw])
+        {
+            if(PlayerInfo[playerid][pEmServico] == 1)
+            {
+                ShowModelSelectionMenu(playerid, "[PROSEGUR] Uniformes", MODEL_PMERJ_SKINS, PROSEGUR_Uniformes, sizeof(PROSEGUR_Uniformes), -16.0, 0.0, -55.0);
+            }
+            else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
+        }
+        else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no vestiário da prosegur.");
+    }
     if(FacInfo[FacId][fTipo] == FAC_TIPO_EB)
     {
         if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[FacId][fArmarioPosX], FacInfo[FacId][fArmarioPosY], FacInfo[FacId][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[FacId][fArmarioVw])
@@ -32188,6 +32246,220 @@ CMD:trabalho(playerid, params[])
             }
             else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está vestiário da polícia.");
     }
+    if(FacInfo[FacId][fTipo] == FAC_TIPO_BANK)
+    {
+            if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[FacId][fArmarioPosX], FacInfo[FacId][fArmarioPosY], FacInfo[FacId][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[FacId][fArmarioVw])
+            {
+                new StrMsg[256];
+
+                if(PlayerInfo[playerid][pDutySkin] == 0) PlayerInfo[playerid][pDutySkin] = 20005;
+                switch(PlayerInfo[playerid][pEmServico])
+                {
+                    case 0:
+                    {
+                        new ArmasInv = 0;
+                        if(PlayerInfo[playerid][pSlot1] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot1]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot2] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot2]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot3] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot3]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot4] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot4]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot5] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot5]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pColde] > 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pColde]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pArmaMao] > 0) ArmasInv++;
+                        if(ArmasInv > 0) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve guardar sua arma particulares antes de entrar em serviço. ( Armas da mão, /arma e /inv )");
+
+                        if(PlayerInfo[playerid][pMun9mm] > 0 || PlayerInfo[playerid][pMunCart] > 0 || PlayerInfo[playerid][pMun556] > 0 || PlayerInfo[playerid][pMun127] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve guardar suas munições particulares no armário antes de entrar em serviço.");
+
+                        format(StrMsg, sizeof(StrMsg), "** PROSEGUR: %s %s entrou em serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+                        SendFacMessage(0x6666CCFF,FacId,StrMsg);
+                        PlayerInfo[playerid][pEmServico] = 1;
+                        SetPlayerSkin(playerid, PlayerInfo[playerid][pDutySkin]);
+                        SetPlayerColor(playerid,0xFFFFFFFF);
+                    }
+                    case 1:
+                    {
+                        //if(PlayerInfo[playerid][pArmaMao] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa devolver suas armas ou guarda-las no armário para sair de serviço.");
+                        //if(PlayerInfo[playerid][pColde] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa devolver a arma do corpo para sair de serviço.");
+
+                        format(StrMsg, sizeof(StrMsg), "** PROSEGUR: %s %s saiu de serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+                        SendFacMessage(0x6666CCFF,FacId,StrMsg);
+                        PlayerInfo[playerid][pEmServico] = 0;
+                        SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
+                        SetPlayerColor(playerid,0xFFFFFFFF);
+                        P_Armour[playerid] = 0; SetPlayerArmour_CA(playerid, 0);
+
+                        new ArmasInv = 0;
+                        if(PlayerInfo[playerid][pSlot1] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot1]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pSlot1]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pSlot1]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pSlot1] = 0;
+                                    PlayerInfo[playerid][pSlot1a] = 0;
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot2] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot2]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pSlot2]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pSlot2]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pSlot2] = 0;
+                                    PlayerInfo[playerid][pSlot2a] = 0;
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot3] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot3]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pSlot3]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pSlot3]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pSlot3] = 0;
+                                    PlayerInfo[playerid][pSlot3a] = 0;
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot4] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot4]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pSlot4]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pSlot4]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pSlot4] = 0;
+                                    PlayerInfo[playerid][pSlot4a] = 0;
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pSlot5] != 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pSlot5]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pSlot5]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pSlot5]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pSlot5] = 0;
+                                    PlayerInfo[playerid][pSlot5a] = 0;
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pColde] > 0)
+                        {
+                            switch(ArmaData[PlayerInfo[playerid][pColde]][ArmaModelo])
+                            {
+                                case 22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40:
+                                {
+                                    ArmaData[PlayerInfo[playerid][pColde]][ArmaCor] = 1;
+                                    ArmaData[PlayerInfo[playerid][pColde]][ArmaCom] = 0;
+
+                                    PlayerInfo[playerid][pColde] = 0;
+                                    PlayerInfo[playerid][pColdreA] = 0;
+
+                                    RemovePlayerAttachedObject(playerid, 2);
+                                    ArmasInv++;
+                                }
+                            }
+                        }
+                        if(PlayerInfo[playerid][pArmaMao] > 0)
+                        {
+                            ArmaData[PlayerInfo[playerid][pArmaMao]][ArmaCor] = 1;
+                            ArmaData[PlayerInfo[playerid][pArmaMao]][ArmaCom] = 0;
+
+                            DesarmandoPlayer[playerid] = 2;
+                            ResetPlayerWeapons(playerid);
+                            PlayerInfo[playerid][pArmaMao] = 0;
+                            RemovePlayerAttachedObject(playerid, 0);
+                            ArmasInv++;
+                        }
+                        if(ArmasInv > 0) SendClientMessage(playerid,COLOR_LIGHTRED,"[PROSEGUR] As suas armas do inventário foram retiradas.");
+
+                        if(PlayerInfo[playerid][pMun9mm] > 0 || PlayerInfo[playerid][pMunCart] > 0 || PlayerInfo[playerid][pMun556] > 0 || PlayerInfo[playerid][pMun127] > 0)
+                        {
+                            PlayerInfo[playerid][pMun9mm] = 0;
+                            PlayerInfo[playerid][pMunCart] = 0;
+                            PlayerInfo[playerid][pMun556] = 0;
+                            PlayerInfo[playerid][pMun127] = 0;
+                            SendClientMessage(playerid,COLOR_LIGHTRED,"[PROSEGUR] As suas munições do inventário foram retiradas.");
+                        }
+                    }
+                }
+            }
+            else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está vestiário da PROSEGUR.");
+    }
     if(FacInfo[FacId][fTipo] == FAC_TIPO_EB)
     {
             if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[FacId][fArmarioPosX], FacInfo[FacId][fArmarioPosY], FacInfo[FacId][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[FacId][fArmarioVw])
@@ -32627,6 +32899,13 @@ CMD:equipar(playerid, params[])
             Dialog_Show(playerid, Equipar_eb, DIALOG_STYLE_LIST, "[EB] Equipamentos", "Armas\nMunições\nColete\nRetirar Colete\nDevolver Armas\nAcessórios", "Selecionar", "Fechar");
         else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está na sala de equipamentos.");
     }
+	if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK)
+	{
+	    if(PlayerInfo[playerid][pEmServico] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
+	    if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[i][fArmarioPosX], FacInfo[i][fArmarioPosY], FacInfo[i][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[i][fArmarioVw])
+		  	Dialog_Show(playerid, Equipar_BANK, DIALOG_STYLE_LIST, "[PROSEGUR] Equipamentos", "Armas\nMunições\nColete\nRetirar Colete\nDevolver Armas\nAcessórios", "Selecionar", "Fechar");
+	    else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está na sala de equipamentos.");
+	}
 	return 1;
 }
 
@@ -32986,6 +33265,116 @@ Dialog:Equipar_PMERJ2(playerid, response, listitem, inputtext[])
 			    PlayerInfo[playerid][pMun127] += 60;
 			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu 60 balas 12.7x106mm.");
 			   	format(strl, sizeof(strl), "%s equipou 60 balas 12.7x106mm.", PlayerName(playerid,0));
+			  	LogEquipar_P(playerid,strl);
+			    return 1;
+			}
+        }
+    }
+	return 1;
+}
+
+Dialog:Equipar_BANK(playerid, response, listitem, inputtext[])
+{
+    if(!response) return 1;
+    else
+    {
+        switch(listitem)
+        {
+            case 0:
+			{
+				Dialog_Show(playerid, Equipar_BANK1, DIALOG_STYLE_TABLIST_HEADERS, "[PROSEGUR] Equipamentos", "Arma:\tCargo nescessário:\nColt 45\t1\nShotgun\t1", "Pegar", "Fechar");
+			}
+			case 1: Dialog_Show(playerid, Equipar_BANK2, DIALOG_STYLE_TABLIST_HEADERS, "[PROSEGUR] Equipamentos", "Tipo de Munição:\tQuantidade:\n9mm\t60\nCartuchos", "Pegar", "Fechar");
+            case 2: { P_Armour[playerid] = 100; SetPlayerArmour_CA(playerid, 100); }
+            case 3: { P_Armour[playerid] = 0; SetPlayerArmour_CA(playerid, 0); }
+            case 4:
+            {
+                new ArmaId = PlayerInfo[playerid][pArmaMao];
+                if(ArmaId > 0)
+                {
+                    new strl[326];
+				   	format(strl, sizeof(strl), "%s devolveu uma %s com numeração: %d.", PlayerName(playerid, 0), GunNames[ArmaData[ArmaId][ArmaModelo]], ArmaData[ArmaId][ArmaNumeracao]);
+				  	LogDevarma_P(playerid,strl);
+	                //========================================
+				    DesarmandoPlayer[playerid] = 2;
+					ResetPlayerWeapons(playerid);
+					PlayerInfo[playerid][pArmaMao] = 0;
+					RemovePlayerAttachedObject(playerid, 0);
+					//========================================
+
+					ArmaData[ArmaId][ArmaCor] = 1;
+
+					SalvarArma(ArmaId);
+					return 1;
+				}
+				else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem nenhuma arma para entregar.");
+            }
+            case 5:
+	  		{
+	  		    Dialog_Show(playerid, DIALOGLJROUPAS_PROSEGUR, DIALOG_STYLE_LIST, "Selecione uma categoria.", "Outros Itens", "Selecionar", "Cancelar");
+	    	}
+		}
+	}
+	return 1;
+}
+
+Dialog:Equipar_BANK1(playerid, response, listitem, inputtext[])
+{
+    new strl[100];
+
+    if(!response) return 1;
+    else
+    {
+        switch(listitem)
+        {
+			case 0:
+			{
+			    if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
+			    EntregandoArmaSQL(playerid, 22, 0, 1, 0);
+			    PlayerInfo[playerid][pMun9mm] += 24;
+			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu uma Colt45 e 24 balas 9mm.");
+			   	format(strl, sizeof(strl), "%s equipou uma Colt 45 e 24 balas 9mm.", PlayerName(playerid,0));
+			  	LogEquipar_P(playerid,strl);
+			    return 1;
+			}
+			case 1:
+			{
+			    if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
+			    if(PlayerInfo[playerid][pFacCargo] < 1) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem cargo o suficiente para pegar essa arma.");
+			    EntregandoArmaSQL(playerid, 25, 0, 1, 0);
+			    PlayerInfo[playerid][pMunCart] += 20;
+			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu uma Shotgun e 20 cartuchos.");
+			   	format(strl, sizeof(strl), "%s equipou uma Shotgun e 20 cartuchos.", PlayerName(playerid,0));
+			  	LogEquipar_P(playerid,strl);
+			    return 1;
+			}
+        }
+    }
+	return 1;
+}
+
+Dialog:Equipar_BANK2(playerid, response, listitem, inputtext[])
+{
+    new strl[326];
+
+    if(!response) return 1;
+    else
+    {
+        switch(listitem)
+        {
+            case 0:
+            {
+                PlayerInfo[playerid][pMun9mm] += 60;
+                SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu 60 munições 9mm.");
+			   	format(strl, sizeof(strl), "%s equipou 60 munições 9mm.", PlayerName(playerid,0));
+			  	LogEquipar_P(playerid,strl);
+                return 1;
+    		}
+			case 1:
+			{
+                PlayerInfo[playerid][pMunCart] += 60;
+                SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você recebeu 60 cartuchos.");
+			   	format(strl, sizeof(strl), "%s equipou 60 cartuchos.", PlayerName(playerid,0));
 			  	LogEquipar_P(playerid,strl);
 			    return 1;
 			}
@@ -38225,7 +38614,7 @@ stock setarPlayerFaccao(targetid, facid, cargo){
 
 COMMAND:setarfaccao(playerid, params[])
 {
-    if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pFactionTeam] < 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	new targetid, faccao, cargo, maxcargo;
 	if(sscanf(params, "uii", targetid, faccao, cargo)) SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}USE:{FFFFFF} /setarfaccao [Playerid] [Faction ID] [Cargo]");
@@ -38487,8 +38876,12 @@ CMD:setararma(playerid, params[])
 
 	    format(string,sizeof(string),"* O administrador %s lhe entregou uma %s.",admnome,GunNames[arma]);
 	    SendClientMessage(other, COLOR_LIGHTRED, string);
-	    format(string,sizeof(string),"* Você setou uma uma %s para %s.",GunNames[arma], PlayerName(other, 0));
+	    format(string,sizeof(string),"* Você setou uma %s para %s.",GunNames[arma], PlayerName(other, 0));
 	    SendClientMessage(other, COLOR_LIGHTRED, string);
+
+		new admavisoarma[256];
+	    format(admavisoarma,sizeof(admavisoarma),"AdmCmd: O administrador %s setou uma %s para %s.", admnome, GunNames[arma], PlayerName(other, 0));
+	    SendAdminMessage(COLOR_LIGHTRED, admavisoarma);
 
 		new strl[126];
 		format(strl, 126, "%s entregou uma %s para %s. [/setararma]", PlayerName(playerid, 0), GunNames[arma], PlayerName(other, 0));
@@ -44849,6 +45242,19 @@ Dialog:DIALOGLJROUPAS_PCERJ(playerid, response, listitem, inputtext[])
             case 0: ShowModelSelectionMenu(playerid, "Oculos", MODEL_SELECTION_OCULOS_PCERJ, LOJA_OCULOS_PCERJ, sizeof(LOJA_OCULOS_PCERJ), -16.0, 0.0, 55.0);
             case 1: ShowModelSelectionMenu(playerid, "Chapeus", MODEL_SELECTION_CHAPEU_PCERJ, LOJA_CHAPEU_PCERJ, sizeof(LOJA_CHAPEU_PCERJ), -16.0, 0.0, 55.0);
             case 2: ShowModelSelectionMenu(playerid, "Outros Itens", MODEL_SELECTION_OUTROS_PCERJ, LOJA_OUTROS_PCERJ, sizeof(LOJA_OUTROS_PCERJ), -16.0, 0.0, 55.0);
+        }
+    }
+    return 1;
+}
+
+Dialog:DIALOGLJROUPAS_PROSEGUR(playerid, response, listitem, inputtext[])
+{
+    if(!response) return 1;
+    else
+    {
+        switch(listitem)
+        {
+            case 0: ShowModelSelectionMenu(playerid, "Outros Itens", MODEL_SELECTION_OUTROS_PROSEGUR, LOJA_OUTROS_BANK, sizeof(LOJA_OUTROS_BANK), -16.0, 0.0, 55.0);
         }
     }
     return 1;
@@ -66090,12 +66496,11 @@ CMD:comprarplaca(playerid,params[])
 CMD:comprarbomba(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
+	if(PlayerInfo[playerid][pFactionTeam] >= 1) return 1;
 	{
 	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1488.6760,-1721.4026,8.2160))
 			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "Loja de Bombas", "1x Dinamite [R$200]\n1x C4 [R$400]\n1x TNT [R$2000]", "Selecionar", "Voltar");
 		else {
-  			SetPlayerCheckpoint(playerid, 1488.6760,-1721.4026,8.2160, 5.0);
-			cp_target[playerid] = 1;
 			SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está no local de venda de bombas.");
 			return 1;
 		}
@@ -66289,7 +66694,7 @@ CMD:minhaspecas(playerid,params[])
 	return 1;
 }
 
-CMD:darbomba1(playerid,params[])
+CMD:darbomba(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
 	new option[12],
@@ -66298,7 +66703,7 @@ CMD:darbomba1(playerid,params[])
 
 	if (sscanf(params, "s[12]ii",option, other, quant)) {
 		SendClientMessage(playerid,COLOR_LIGHTRED, "USE: /darbomba [opcao] [playerid] [quantidade]");
-		SendClientMessage(playerid,COLOR_LIGHTRED, "Opções: {FFFFFF}dinamite");
+		SendClientMessage(playerid,COLOR_LIGHTRED, "Opções: {FFFFFF} dinamite, c4, tnt");
 		return 1;
 	}
 	else {
@@ -66320,6 +66725,32 @@ CMD:darbomba1(playerid,params[])
     			SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
             }
             else SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de dinamites.");
+		}
+		if(strcmp(option, "c4", true) == 0){
+		    if(PlayerInfo[playerid][pC4] >= quant) {
+            	PlayerInfo[other][pC4] += quant;
+            	PlayerInfo[playerid][pC4] -= quant;
+
+            	format(string,sizeof(string),"%s lhe entregou %d artefatos de C4.", PlayerName(playerid, 1), quant);
+    			SendClientMessage(other, COLOR_LIGHTGREEN, string);
+
+    			format(string,sizeof(string),"Você entregou %d artefatos de C4 para %s.", quant, PlayerName(other, 1));
+    			SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
+            }
+            else SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de artefatos de C4.");
+		}
+		if(strcmp(option, "tnt", true) == 0){
+		    if(PlayerInfo[playerid][pTNT] >= quant) {
+            	PlayerInfo[other][pTNT] += quant;
+            	PlayerInfo[playerid][pTNT] -= quant;
+
+            	format(string,sizeof(string),"%s lhe entregou %d artefatos de TNT.", PlayerName(playerid, 1), quant);
+    			SendClientMessage(other, COLOR_LIGHTGREEN, string);
+
+    			format(string,sizeof(string),"Você entregou %d artefatos de TNT para %s.", quant, PlayerName(other, 1));
+    			SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
+            }
+            else SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de artefatos de TNT.");
 		}
 	}
 	return 1;
