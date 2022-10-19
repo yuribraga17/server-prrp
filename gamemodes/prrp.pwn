@@ -78,7 +78,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define localhost_Connection   "198.50.187.244"
 #define localhost_User         "yurib_6948"
 #define localhost_DB           "yurib_6948"
-#define localhost_Password     "LyGuG8ncYh"
+#define localhost_Password     "wGfWG501d2"
 
 #define sz_Connection   "localhost"
 #define sz_User         "root"
@@ -89,7 +89,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define ULTIMO_GMX      "21/10/2022"
 #define CA_VERSAO       "PR:RP v0.58"
 #define CA_LINK         "weburl progressive-roleplay.com"
-#define CA_NOME         "hostname Progressive Roleplay | Manutenção programada"
+#define CA_NOME         "hostname PR-RP | Reabertura 21/10 ás 18h00"
 //#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
 #define CA_LANGUAGE     "language Português Brasileiro"
@@ -980,7 +980,7 @@ new progress_wait_max[MAX_PLAYERS];
 new progress_wait_type[MAX_PLAYERS];
 
 
-new MotoboyEntrega[MAX_PLAYERS];
+
 //==============================================================================
 #define MAX_COFRE 150
 enum aCofreLoja
@@ -5727,18 +5727,11 @@ static const g_aPreloadLibs[][] =
 #include "../gamemodes/mapas/whdh.pwn"
 #include "../gamemodes/mapas/complexosint.pwn"
 
-/*#include "../gamemodes/school/Banheiros.pwn"
-#include "../gamemodes/school/Biblioteca.pwn"
-#include "../gamemodes/school/Enfermaria.pwn"
-#include "../gamemodes/school/Main.pwn"
-#include "../gamemodes/school/Main2.pwn"*/
-
 #include "../gamemodes/Anims.pwn"
 #include "../gamemodes/logs.pwn"
 
 #include "../gamemodes/sistemas/Horse.pwn"
 #include "../gamemodes/sistemas/MorteSys.pwn"
-//#include "../gamemodes/sistemas/portotrucker.pwn"
 //==============================================================================//
 
 main()
@@ -5808,7 +5801,7 @@ public Tempo_Clima()
 	return 1;
 }
 
-new SERVER_DOWNLOAD[] = "https://progressive-roleplay.com/models";
+new SERVER_DOWNLOAD[] = "https://progressive-roleplay.com/newloadyurs";
 public OnPlayerRequestDownload(playerid, type, crc)
 {
     if(!IsPlayerConnected(playerid)) return 0;
@@ -6164,7 +6157,7 @@ public OnGameModeInit()
   	//Poker System
   	InitPokerTables();
   	//Grafitti System
-	SetTimer("criandonoia", 300, true);
+	SetTimer("criandonoia", 3000, true); //alterar para 60 segundos = 60000 milisegundos.
   	print("[CARREGADO] Sistema de Grafite");
 	return 1;
 }
@@ -15057,13 +15050,6 @@ public placeVehicle(playerid, iVehicleID, iSeatID, iWeaponID)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
-    if(MotoboyEntrega[playerid])
-    {
-        GivePlayerMoney(playerid, 1000);
-		GameTextForPlayer(playerid, "~w~Chegou ao cliente.", 5000, 1);
-		MotoboyEntrega[playerid] = false;
-        DisablePlayerCheckpoint(playerid);
-    }
     if (PlayerInfo[playerid][pWaypoint])
 	{
  		PlayerInfo[playerid][pWaypoint] = 0;
@@ -20095,7 +20081,7 @@ public VerStats(playerid, targetid)
 		case JOB_HOTDOG: format(str_job, 32, "Vendedor de HotDog");
 		case JOB_DESMANCHE: format(str_job, 32, "Mêcanico Ilegal");
 		case JOB_PESCADOR: format(str_job, 32, "Pescador");
-		//case JOB_MOTOBOY: format(str_job, 32, "Motoboy");
+		case JOB_MOTOBOY: format(str_job, 32, "Motoboy");
 	    default: format(str_job, 32, "Desempregado");
 	}
 
@@ -25569,6 +25555,109 @@ public criandonoia()
 		
 	}
 	return 1;
+}
+
+//Sistema de vender drogas npc - Yur$
+COMMAND:venderdroga(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
+    if(PlayerDroga[playerid][CocaB] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina boa.");
+	if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
+	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+	{
+		new vendadrogas[128];
+		format(vendadrogas, sizeof(vendadrogas),"Aguarde %d segundos antes de vender mais drogas.", PlayerInfo[playerid][pArrombarDNV_C]);
+		SendClientMessage(playerid,COLOR_LIGHTRED, vendadrogas);
+		return 1;
+	}
+
+	for(new i = 0; i < MAX_VICIADOS; i++)
+ 	{
+	     if(IsPlayerInRangeOfPoint(playerid, 5.0, ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
+        {
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");
+			
+			SetTimerEx("VendendoDroga", 5, false, "d", playerid);
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			
+			new strl[126];
+			format(strl, 126, "%s vendeu droga pro NPC. [/venderdroga]", PlayerName(playerid, 0));
+			LogCMD_venderdroga(strl);
+
+			return 1;
+		}
+	}
+	return 1;
+}
+
+
+forward VendendoDroga(playerid);
+public VendendoDroga(playerid)
+{
+	for(new i = 0; i < MAX_VICIADOS; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,5,ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
+		{
+			PlayerInfo[playerid][pArrombarDNV_C] = 35;
+			
+			PlayerDroga[playerid][CocaB]--;
+
+			TogglePlayerControllable(playerid, 0);
+			ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberÃ¡ o dinheiro em alguns segundos.");
+
+			SetTimerEx("PegandoMoneyTrafico", 5, false, "d", playerid);
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s retira um pino de cocaina da bag e entrega ao usuÃ¡rio.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+		}
+	}
+    return 1;
+}
+
+forward PegandoMoneyTrafico(playerid);
+public PegandoMoneyTrafico(playerid)
+{
+	for(new i = 0; i < MAX_VICIADOS; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,1.5,ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
+		{
+
+			PlayerInfo[playerid][pGrana] += 80;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 80 reais pela droga.");
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** O noia retira uma nota de R$80 e oferta a %s.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+			TogglePlayerControllable(playerid, 0);
+			SetTimerEx("PegouGranaTrafico", 200, false, "d", playerid);
+		}
+	}
+
+    return 1;
+}
+
+forward PegouGranaTrafico(playerid);
+public PegouGranaTrafico(playerid)
+{
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
 }
 
 //Sistema roubo
@@ -39221,7 +39310,7 @@ COMMAND:gmx(playerid, params[])
 COMMAND:complexosint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
 	ShowInterioresDialog(playerid);
 	return 1;
@@ -39230,7 +39319,7 @@ COMMAND:complexosint(playerid, params[])
 CMD:empint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog(playerid);
     return 1;
@@ -39239,7 +39328,7 @@ CMD:empint(playerid, params[])
 CMD:empint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog1(playerid);
     return 1;
@@ -39248,7 +39337,7 @@ CMD:empint1(playerid, params[])
 CMD:empint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog2(playerid);
     return 1;
@@ -39257,7 +39346,7 @@ CMD:empint2(playerid, params[])
 CMD:empintv(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpVInterioresDialog(playerid);
     return 1;
@@ -39266,7 +39355,7 @@ CMD:empintv(playerid, params[])
 CMD:casasint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowHouseInterioresDialog(playerid);
     return 1;
@@ -39275,7 +39364,7 @@ CMD:casasint(playerid, params[])
 CMD:casasint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog(playerid);
     return 1;
@@ -39284,7 +39373,7 @@ CMD:casasint1(playerid, params[])
 CMD:casasint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog1(playerid);
     return 1;
@@ -45847,7 +45936,7 @@ CMD:ircasa2(playerid, params[])
 CMD:irgaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
     new var;
     if (sscanf(params, "I(9999)", var))
     {
@@ -45873,7 +45962,7 @@ CMD:irgaragem(playerid, params[])
 CMD:enderecocasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
 	new opcao[32];
 	if (sscanf(params, "s[24]", opcao)) return SendClientMessage(playerid, COLOR_LIGHTRED,"USE: /enderecocasa [edereço]");
 	for(new i; i < MAX_HOUSES; i++)
@@ -45896,7 +45985,7 @@ CMD:enderecocasa(playerid, params[])
 CMD:acasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado para usar este comando.");
-	if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -46336,7 +46425,7 @@ public CasaCriada(houseid,playerid)
 CMD:agaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
 	new opcao[24], var, var2;
 	if (sscanf(params, "s[24]I(9999)I(9999)", opcao,var, var2))
 	{
@@ -47174,7 +47263,7 @@ Dialog:VendendoComplexo1(playerid, response, listitem, inputtext[])
 CMD:acomplexo(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -48323,7 +48412,7 @@ CMD:precogasolina(playerid, params[])
 CMD:aemp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -66366,7 +66455,7 @@ CMD:pegaremprego(playerid,params[])
 			if(biz != -1)
 			{
 				if( EmpInfo[biz][eTipo] == EMP_TIPO_EMP_CENTER)
-	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador\nMotoboy [Requisito: Veículo Próprio]", "Selecionar", "Voltar");
+	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador\nMotoboy [Em desenvolvimento]", "Selecionar", "Voltar");
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, 5, 1414.8279,-1577.5049,20.0859))
@@ -69629,58 +69718,6 @@ public IsMedic(playerid)
 	return false;
 }
 
-
-//Pizza System - Pigeon
-COMMAND:iniciarwwwentrega(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");
-    if(PlayerInfo[playerid][pJobInPd] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"Você já trabalhou bastante neste PayDay, volte após seu pagamento.");
-    {
-        SetPlayerAttachedObject(playerid, 6, -2701, 1, 0.160999, -0.172999, -0.013000, 0.000000, 87.200042);
-        SendClientMessage(playerid, COLOR_WHITE, "Você iniciou seu serviço como moto-boy.");
-    }     
-
-    return 1;
-}
-
-COMMAND:pegarwwpizza(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");  
-        
-    {
-    	SetPlayerAttachedObject(playerid, 8, 1582, 5, 0, 0, -0.16, 50, 0, 10);
-    	SendClientMessage(playerid, COLOR_WHITE, "Você pegou a pizza. Vá até sua moto e use o comando /colocarpizza.");
-    }   
-    
-    return 1;
-}
-
-COMMAND:colocarwwpizza(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não é um motoboy.");    
-    {
-        SetTimerEx("Destruirpizza", 1, false, "d", playerid);
-        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Você colocou as pizzas na bag da moto. Vá entregar.");
-        SendClientMessage(playerid, COLOR_LIGHTGREEN,"Checkpoints  definidos no seu radar!");
-        SetPlayerCheckpoint(playerid, 1931.8823, -1867.9221, 17.7278, 3.0);
-        MotoboyEntrega[playerid] = true;
-    }
-
-    return 1;
-}
-
-forward Destruirpizza(playerid);
-public Destruirpizza(playerid)
-{
-	{  
-		RemovePlayerAttachedObject(playerid, 8);
-	}
-
-	return 1;
-}
 
 
 COMMAND:sirene(playerid,params[])
