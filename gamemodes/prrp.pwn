@@ -19,6 +19,7 @@
 #include <dialogs>
 #include <dns>
 #include <EVF>
+//#include <a_actor>
 
 // --------- [ INCLUDES ] ---------
 
@@ -53,8 +54,7 @@ new Fumaca2[MAX_PLAYERS];
 new Luz[100][MAX_PLAYERS];*/
 new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX_PLAYERS];
 
-//Sistema de tráfico
-#define MAX_VICIADOS 1
+
 
 //Fome e Sede
 new PlayerText:FomeSede[MAX_PLAYERS][5];
@@ -323,50 +323,6 @@ new TomouTazer[MAX_PLAYERS];
 //TextDraw Bairros/ Areas
 new Text:Textdraw49[MAX_PLAYERS];
 
-//Sistema tráfico
-new ViciadoSpawned[MAX_VICIADOS];
-enum vViciados{
-	viID,
-	viTempoSumir,
-	Float:viPos[3]
-};
-
-new ViciadoInfo[MAX_VICIADOS][vViciados];
-
-
-new const Float:vViciadoSpawn[30][4]= {
-	{2574.0564,-1124.1001,65.4064,52.3413}, 
-	{2440.6191,-1110.2405,42.5847,106.4993}, 
-	{2366.9009,-1092.4224,34.7411,288.0444}, 
-	{2411.7742,-1078.0925,40.3637,194.0043}, 
-	{2520.9370,-1070.3898,69.5631,285.5693}, 
-	{1099.9789,-1944.7341,43.4169,357.6813},
-	{1169.9949,-1930.6910,39.4807,228.8569},
-	{1221.6272,-1923.1931,31.5683,224.8069},
-	{1188.4438,-1940.1082,36.0620,32.9466},
-	{1126.1588,-1954.5850,48.7037,61.2702},
-	{2538.2656,-953.2560,82.3339,255.1967},
-	{2444.9390,-947.0045,80.1504,219.4531},
-	{2610.2480,-1017.0445,76.7236,45.9751},
-	{2580.3184,-1020.4722,73.8814,33.1892},
-	{2535.8806,-1014.0533,73.9472,54.2782},
-	{2241.2219,-1468.0210,24.1087,44.5011},
-	{2262.3010,-1460.6958,24.0102,247.2963},
-	{2249.4666,-1440.1630,25.0306,250.8605},
-	{2227.1982,-1433.1844,23.9856,235.8203},
-	{2236.3918,-1427.2529,24.3184,354.0988},
-	{1877.1324,-2001.6146,13.5544,224.4719},
-	{1838.6575,-2017.2982,13.8340,323.6427},
-	{1794.6405,-1973.5907,13.5428,174.7922},
-	{1814.2332,-2013.8800,13.5775,355.7205},
-	{1920.8618,-2008.9086,13.6033,79.7770},
-	{1718.2262,-2082.9451,11.7215,237.4603},
-	{1803.1705,-2079.8821,13.5150,204.3249},
-	{1727.8035,-2127.3574,12.7933,3.7756},
-	{1695.6813,-2116.9331,15.8322,177.1330},
-	{1690.4685,-2148.3352,15.9533,299.2050}
-
-};
 //==============================================================================
 new EntrouInt[MAX_PLAYERS];
 //====== [TUNNING SYSTEM] =======================================================
@@ -2090,6 +2046,37 @@ new Float:garbage_profiles[4][14][3] = {
 };
 new garbage_vehicles[4];
 //==============================================================================//
+new Noia_1,
+    Noia_2,
+    Noia_3,
+    Noia_4,
+    Noia_5,
+    Noia_6,
+    Noia_7,
+    Noia_8,
+    Noia_9,
+    Noia_10,
+    Noia_11,
+    Noia_12,
+    Noia_13,
+    Noia_14,
+    Noia_15,
+    Noia_16,
+    Noia_17,
+    Noia_18,
+    Noia_19,
+    Noia_20,
+    Noia_21,
+    Noia_22,
+    Noia_23,
+    Noia_24,
+    Noia_25,
+    Noia_26,
+    Noia_27,
+    Noia_28,
+    Noia_29,
+    Noia_30;
+//==============================================================================//
 new Float:estacionamento_vagas[19][3] = {
 {1627.2080, -1046.3242, 23.5516},
 {1632.0664, -1046.3995, 23.5516},
@@ -2150,6 +2137,7 @@ enum e_Account
 	pJob,
 	pJobTempo,
 	pJobInPd,
+	pTrafico,
 	pPecasMecanicas[7],// 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
 	pBomba,
 	pC4,
@@ -5871,6 +5859,97 @@ public OnGameModeInit()
     garbage_vehicles[1] = AddStaticVehicle(408,2175.8127,-1970.4688,14.1050,271.2801,1,1); // Lixeiro 1
     garbage_vehicles[2] = AddStaticVehicle(408,2186.2073,-1991.3400,14.1957,358.8047,1,1);  // Lixeiro 1
     garbage_vehicles[3] = AddStaticVehicle(408,2190.6982,-1991.1963,14.1343,359.5683,1,1); // Lixeiro 1
+
+    Noia_1 = CreateActor(20001,2574.0564,-1124.1001,65.4064,52.3413); 
+    SetActorInvulnerable(Noia_1, true);
+    SetActorVirtualWorld(Noia_1, 0);
+    Noia_2 = CreateActor(20002,2440.6191,-1110.2405,42.5847,106.4993);
+    SetActorInvulnerable(Noia_2, true);
+    SetActorVirtualWorld(Noia_2, 0); 
+    Noia_3 = CreateActor(20003,2366.9009,-1092.4224,34.7411,288.0444); 
+    SetActorInvulnerable(Noia_3, true);
+    SetActorVirtualWorld(Noia_3, 0);  
+    Noia_4 = CreateActor(20004,2411.7742,-1078.0925,40.3637,194.0043); 
+    SetActorInvulnerable(Noia_4, true);
+    SetActorVirtualWorld(Noia_4, 0);     
+    Noia_5 = CreateActor(20005,2520.9370,-1070.3898,69.5631,285.5693); 
+    SetActorInvulnerable(Noia_5, true);
+    SetActorVirtualWorld(Noia_5, 0);     
+    Noia_6 = CreateActor(20006,1099.9789,-1944.7341,43.4169,357.6813);
+    SetActorInvulnerable(Noia_6, true);
+    SetActorVirtualWorld(Noia_6, 0);     
+    Noia_7 = CreateActor(20006,1169.9949,-1930.6910,39.4807,228.8569);
+    SetActorInvulnerable(Noia_7, true);
+    SetActorVirtualWorld(Noia_7, 0);     
+    Noia_8 = CreateActor(20008,1221.6272,-1923.1931,31.5683,224.8069);
+    SetActorInvulnerable(Noia_8, true);
+    SetActorVirtualWorld(Noia_8, 0);    
+    Noia_9 = CreateActor(20009,1188.4438,-1940.1082,36.0620,32.9466);
+    SetActorInvulnerable(Noia_9, true);
+    SetActorVirtualWorld(Noia_9, 0);     
+    Noia_10 = CreateActor(20010,1126.1588,-1954.5850,48.7037,61.2702);
+    SetActorInvulnerable(Noia_10, true);
+    SetActorVirtualWorld(Noia_10, 0);     
+    Noia_11 = CreateActor(20011,2538.2656,-953.2560,82.3339,255.1967);
+    SetActorInvulnerable(Noia_11, true);
+    SetActorVirtualWorld(Noia_11, 0);     
+    Noia_12 = CreateActor(20012,2444.9390,-947.0045,80.1504,219.4531);
+    SetActorInvulnerable(Noia_12, true);
+    SetActorVirtualWorld(Noia_12, 0);     
+    Noia_13 = CreateActor(20013,2610.2480,-1017.0445,76.7236,45.9751);
+    SetActorInvulnerable(Noia_13, true);
+    SetActorVirtualWorld(Noia_13, 0);     
+    Noia_14 = CreateActor(20014,2580.3184,-1020.4722,73.8814,33.1892);
+    SetActorInvulnerable(Noia_14, true);
+    SetActorVirtualWorld(Noia_14, 0);     
+    Noia_15 = CreateActor(20015,2535.8806,-1014.0533,73.9472,54.2782);
+    SetActorInvulnerable(Noia_15, true);
+    SetActorVirtualWorld(Noia_15, 0);     
+    Noia_16 = CreateActor(20016,2241.2219,-1468.0210,24.1087,44.5011);
+    SetActorInvulnerable(Noia_16, true);
+    SetActorVirtualWorld(Noia_16, 0);     
+    Noia_17 = CreateActor(20017,2262.3010,-1460.6958,24.0102,247.2963);
+    SetActorInvulnerable(Noia_17, true);
+    SetActorVirtualWorld(Noia_17, 0);     
+    Noia_18 = CreateActor(20018,2249.4666,-1440.1630,25.0306,250.8605);
+    SetActorInvulnerable(Noia_18, true);
+    SetActorVirtualWorld(Noia_18, 0);     
+    Noia_19 = CreateActor(20019,2227.1982,-1433.1844,23.9856,235.8203);
+    SetActorInvulnerable(Noia_19, true);
+    SetActorVirtualWorld(Noia_19, 0);   
+    Noia_20 = CreateActor(20020,2236.3918,-1427.2529,24.3184,354.0988);
+    SetActorInvulnerable(Noia_20, true);
+    SetActorVirtualWorld(Noia_20, 0);     
+    Noia_21 = CreateActor(20021,1877.1324,-2001.6146,13.5544,224.4719);
+    SetActorInvulnerable(Noia_21, true);
+    SetActorVirtualWorld(Noia_21, 0);     
+    Noia_22 = CreateActor(20022,1838.6575,-2017.2982,13.8340,323.6427);
+    SetActorInvulnerable(Noia_22, true);
+    SetActorVirtualWorld(Noia_22, 0);     
+    Noia_23 = CreateActor(20023,1794.6405,-1973.5907,13.5428,174.7922);
+    SetActorInvulnerable(Noia_23, true);
+    SetActorVirtualWorld(Noia_23, 0);     
+    Noia_24 = CreateActor(20024,1814.2332,-2013.8800,13.5775,355.7205);
+    SetActorInvulnerable(Noia_24, true);
+    SetActorVirtualWorld(Noia_24, 0);    
+    Noia_25 = CreateActor(20025,1920.8618,-2008.9086,13.6033,79.7770);
+    SetActorInvulnerable(Noia_25, true);
+    SetActorVirtualWorld(Noia_25, 0);     
+    Noia_26 = CreateActor(20026,1718.2262,-2082.9451,11.7215,237.4603);
+    SetActorInvulnerable(Noia_26, true);
+    SetActorVirtualWorld(Noia_26, 0);     
+    Noia_27 = CreateActor(20027,1803.1705,-2079.8821,13.5150,204.3249);
+    SetActorInvulnerable(Noia_27, true);
+    SetActorVirtualWorld(Noia_27, 0);     
+    Noia_28 = CreateActor(20028,1727.8035,-2127.3574,12.7933,3.7756);
+    SetActorInvulnerable(Noia_28, true);
+    SetActorVirtualWorld(Noia_28, 0);     
+    Noia_29 = CreateActor(20029,1695.6813,-2116.9331,15.8322,177.1330);
+    SetActorInvulnerable(Noia_29, true);
+    SetActorVirtualWorld(Noia_29, 0);     
+    Noia_30 = CreateActor(20030,1690.4685,-2148.3352,15.9533,299.2050);
+    SetActorInvulnerable(Noia_30, true);
+    SetActorVirtualWorld(Noia_30, 0);   
     //Basket
     basket_OnGameModeInit();
     Iniciar_HorseBetSys();
@@ -6007,6 +6086,7 @@ public OnGameModeInit()
     SetTimer("Timer_Minutos", 60000, true);
     SetTimer("OnPlayerUpdate_Timer", 600, true);
     SetTimer("Tempo_Clima", 3600000, true);
+
 	 //Pay N' Spray & Mod Shops : Créditos Forum SAMP
     CreateDynamicObject(971, 1026, -1029.48, 31.7, 0, 0, 0);
 	CreateDynamicObject(971, 1043, -1026, 31.8, 0, 0, 0);
@@ -6157,7 +6237,6 @@ public OnGameModeInit()
   	//Poker System
   	InitPokerTables();
   	//Grafitti System
-	SetTimer("criandonoia", 3000, true); //alterar para 60 segundos = 60000 milisegundos.
   	print("[CARREGADO] Sistema de Grafite");
 	return 1;
 }
@@ -7976,7 +8055,7 @@ public PayDay(playerid) {
 			if(PlayerInfo[playerid][pSavings] > 0 && PlayerInfo[playerid][pSavings] < 100000) {
    				Invest = PlayerInfo[playerid][pSavingsGerando];
 			    PlayerInfo[playerid][pSavings] = PlayerInfo[playerid][pSavings]+Invest;
-				PlayerInfo[playerid][pSavingsGerando] = floatround(PlayerInfo[playerid][pSavings] * 0.005, floatround_ceil);
+				PlayerInfo[playerid][pSavingsGerando] = floatround(PlayerInfo[playerid][pSavings] * 0.011, floatround_ceil);
 				
 
 			    if(PlayerInfo[playerid][pSavings] > 100000) {
@@ -7989,6 +8068,7 @@ public PayDay(playerid) {
 				PlayerInfo[playerid][pJobTempo]--;
 
 			PlayerInfo[playerid][pJobInPd] = 0;
+			PlayerInfo[playerid][pTrafico] = 0;
 
 			new salarfac = 0;
 			if(PlayerInfo[playerid][pFac] > 0) {
@@ -10643,6 +10723,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pJobTempo] = 0;
 	PlayerInfo[extraid][pRaspador] = 0;
 	PlayerInfo[extraid][pJobInPd] = 0;
+	PlayerInfo[extraid][pTrafico] = 0;
 	PlayerInfo[extraid][pHabDrug] = 0;
 	PlayerInfo[extraid][pArmasResetadas] = 0;
 	PlayerInfo[extraid][pEntrouGaragem] = -1;
@@ -10923,6 +11004,7 @@ public OnPlayerConnect(playerid)
 	PlayerInfo[playerid][pJob] = 0;
 	PlayerInfo[playerid][pJobTempo] = 0;
 	PlayerInfo[playerid][pJobInPd] = 0;
+	PlayerInfo[playerid][pTrafico] = 0;
 	PlayerInfo[playerid][pTempoPLD] = 0;
 	PlayerInfo[playerid][pToolKit] = 0;
 	PlayerInfo[playerid][pArrombarDNV] = 0;
@@ -13218,6 +13300,9 @@ public OnPlayerSpawn(playerid){
 					createDisplayFomeSede(playerid);
 					createHudRadio(playerid);
 
+	                PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
+                    PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+
                     PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
                     PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
                     PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
@@ -13300,36 +13385,6 @@ public OnPlayerSpawn(playerid){
                     }
                     AtualizarCaPCERJata(playerid);
                     AtualizarGaragensData(playerid);
-
-					/*if(PlayerInfo[playerid][pMorto] >= 1)
-					{
-						//SendClientMessage(playerid, "VOCÊ LOGOU FERIDO.")
-
-						PlayerInfo[playerid][pMorto] = 1;
-						AcabouDeMorrer[playerid] = 2;
-
-						TogglePlayerControllable(playerid, 0);
-						//SendClientMessage(playerid, "Você está ferido, você pode aguardar um médico chegar ou aceitar a morte daqui a 3 minutos.");
-
-						if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
-
-						PlayerInfo[playerid][pMancando] = 0;
-
-						TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este jogador está brutalmente ferido\n/ferimentos para mais informações\n))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid);
-						TempoDesistir[playerid] = 180;
-
-						//SetPlayerPosLogin(playerid, PlayerInfo[playerid][pPos][0], PlayerInfo[playerid][pPos][1], PlayerInfo[playerid][pPos][2], 1);
-
-						ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
-						ComAnim[playerid] = 0;
-						ClearAnimations(playerid, 1);
-
-
-						ApplyAnimation(playerid, "ped", "KO_shot_stom", 4.0, 0, 1, 1, 1, -1, 1);
-						ApplyAnimation(playerid, "ped", "KO_shot_stom", 4.0, 0, 1, 1, 1, -1, 1);
-
-						Anim2Morreu[playerid] = SetTimerEx("AnimMorreu", ANIM_DOIS_MORTE, false, "d", playerid);
-					}*/
 
                     new TotalBugPecas = 0,
                         pecas0, pecas1, pecas2,
@@ -19925,7 +19980,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d', `trafico`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pColdreX],
 			PlayerInfo[playerid][pColdreY],
 			PlayerInfo[playerid][pColdreZ],
@@ -19946,6 +20001,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pPlacas],
 			PlayerInfo[playerid][pRaspador],
 			PlayerInfo[playerid][pJobInPd],
+			PlayerInfo[playerid][pTrafico],
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -20146,46 +20202,35 @@ public VerStats(playerid, targetid)
 forward createHudRadio(playerid);
 public createHudRadio(playerid)
 {
-	RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 391.000000, 278.000000, "Preview_Model");
-	PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 5);
-	PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][0], 0.600000, 2.000000);
-	PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 260.000000, 240.000000);
-	PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
-	PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
+	RadioComunicador[playerid][0] = CreatePlayerTextDraw(playerid, 471.000, 333.000, "mdl-2007:radio");
+	PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][0], 53.000, 117.000);
 	PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][0], 1);
 	PlayerTextDrawColor(playerid, RadioComunicador[playerid][0], -1);
-	PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 0);
-	PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][0], 255);
-	PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][0], 0);
+	PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][0], 255);
+	PlayerTextDrawFont(playerid, RadioComunicador[playerid][0], 4);
 	PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][0], 1);
-	PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][0], 0);
-	PlayerTextDrawSetPreviewModel(playerid, RadioComunicador[playerid][0], 2967);
-	PlayerTextDrawSetPreviewRot(playerid, RadioComunicador[playerid][0], -80.000000, 0.000000, -180.000000, 0.759999);
-	PlayerTextDrawSetPreviewVehCol(playerid, RadioComunicador[playerid][0], 1, 1);
 
 
 	new RadioString[32];
-	format(RadioString, sizeof(RadioString), "%d.00", PlayerInfo[playerid][pRadioChan]);
-	RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 541.000000, 368.000000, RadioString);
-	PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 2);
-	PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][1], 0.204166, 1.500000);
-	PlayerTextDrawTextSize(playerid, RadioComunicador[playerid][1], 400.000000, 17.000000);
-	PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 0);
-	PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 0);
-	PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
-	PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], 255);
-	PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 255);
-	PlayerTextDrawBoxColor(playerid, RadioComunicador[playerid][1], 50);
-	PlayerTextDrawUseBox(playerid, RadioComunicador[playerid][1], 0);
-	PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
-	PlayerTextDrawSetSelectable(playerid, RadioComunicador[playerid][1], 1);
+	format(RadioString, sizeof(RadioString), "%d", PlayerInfo[playerid][pRadioChan]);
+	RadioComunicador[playerid][1] = CreatePlayerTextDraw(playerid, 487.000, 420.000, RadioString);
+    PlayerTextDrawLetterSize(playerid, RadioComunicador[playerid][1], 0.300, 1.500);
+    PlayerTextDrawAlignment(playerid, RadioComunicador[playerid][1], 1);
+    PlayerTextDrawColor(playerid, RadioComunicador[playerid][1], -1);
+    PlayerTextDrawSetShadow(playerid, RadioComunicador[playerid][1], 1);
+    PlayerTextDrawSetOutline(playerid, RadioComunicador[playerid][1], 1);
+    PlayerTextDrawBackgroundColor(playerid, RadioComunicador[playerid][1], 150);
+    PlayerTextDrawFont(playerid, RadioComunicador[playerid][1], 2);
+    PlayerTextDrawSetProportional(playerid, RadioComunicador[playerid][1], 1);
 
 }
 
 forward updateTextDrawCanalRadio(playerid);
 public updateTextDrawCanalRadio(playerid){
 	new RadioString[126];
-	format(RadioString, sizeof(RadioString), "%d.00", PlayerInfo[playerid][pRadioChan]);
+	format(RadioString, sizeof(RadioString), "%d", PlayerInfo[playerid][pRadioChan]);
 
 	PlayerTextDrawSetString(playerid, RadioComunicador[playerid][1], RadioString); 
 
@@ -25525,74 +25570,65 @@ public StopTalking(playerid)
     ClearAnimations(playerid, 1);
 	return 1;
 }
-//Sistema de tráfico
-forward criandonoia();
-public criandonoia()
-{
-              
-	new Float:VCspawn[4],
-		rand = random(sizeof(vViciadoSpawn)),
-		vSkin = randomEx(1, 120);
-		
-	VCspawn[0] = vViciadoSpawn[rand][0];
-	VCspawn[1] = vViciadoSpawn[rand][1];
-	VCspawn[2] = vViciadoSpawn[rand][2];
-	VCspawn[3] = vViciadoSpawn[rand][3];
-
-
-
-	for(new i; i != MAX_VICIADOS; i++) if(!ViciadoSpawned[i])
-	{
-		DestroyActor(ViciadoSpawned[i]);
-		ViciadoInfo[i][viID] = 0;
-		
-		ViciadoSpawned[i] = CreateActor(vSkin, VCspawn[0], VCspawn[1], VCspawn[2], VCspawn[3]);
-		ViciadoInfo[i][viPos][0] = VCspawn[0];
-		ViciadoInfo[i][viPos][1] = VCspawn[1];
-		ViciadoInfo[i][viPos][2] = VCspawn[2];
-
-		ViciadoInfo[i][viID] = randomEx(1, 20);
-		
-	}
-	return 1;
-}
 
 //Sistema de vender drogas npc - Yur$
 COMMAND:venderdroga(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
 	if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
-    if(PlayerDroga[playerid][CocaB] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina boa.");
+    if(PlayerDroga[playerid][CocaB] < 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina boa.");
+	if(PlayerInfo[playerid][pTrafico] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já traficou bastante neste PayDay, volte após seu payday.");
 	if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
     if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
     if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
-	if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
+
+	if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || 
+    IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533))
 	{
-		new vendadrogas[128];
-		format(vendadrogas, sizeof(vendadrogas),"Aguarde %d segundos antes de vender mais drogas.", PlayerInfo[playerid][pArrombarDNV_C]);
-		SendClientMessage(playerid,COLOR_LIGHTRED, vendadrogas);
-		return 1;
-	}
+		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
+		SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
 
-	for(new i = 0; i < MAX_VICIADOS; i++)
- 	{
-	     if(IsPlayerInRangeOfPoint(playerid, 5.0, ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
-        {
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");
-			
-			SetTimerEx("VendendoDroga", 5, false, "d", playerid);
+		new stringvendeu[256];
+		format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
+		ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			new stringvendeu[256];
-			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
-			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+		format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
+		ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-			
-			new strl[126];
-			format(strl, 126, "%s vendeu droga pro NPC. [/venderdroga]", PlayerName(playerid, 0));
-			LogCMD_venderdroga(strl);
+		format(stringvendeu,sizeof(stringvendeu),"Noia diz: Quero um pino para cheirar.");
+		ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-			return 1;
-		}
+		new location[MAX_ZONE_NAME];
+		GetPlayer2DZone(playerid, location, MAX_ZONE_NAME);
+		new str[126];
+		SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+		SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+		SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
+		SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+		SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
+		SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
+		format(str, sizeof(str), "Local: %s",location);
+		SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+		SendFacMessage(COLOR_LIGHTBLUE, 2, str);
+	
+		new strl[126];
+		format(strl, 126, "%s vendeu droga pro Actor. [/venderdroga]", PlayerName(playerid, 0));
+		LogCMD_venderdroga(strl);
+
 	}
 	return 1;
 }
@@ -25601,50 +25637,44 @@ COMMAND:venderdroga(playerid, params[])
 forward VendendoDroga(playerid);
 public VendendoDroga(playerid)
 {
-	for(new i = 0; i < MAX_VICIADOS; i++)
- 	{
-  		if(IsPlayerInRangeOfPoint(playerid,5,ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
-		{
-			PlayerInfo[playerid][pArrombarDNV_C] = 35;
 			
-			PlayerDroga[playerid][CocaB]--;
+	PlayerDroga[playerid][CocaB]--;
 
-			TogglePlayerControllable(playerid, 0);
-			ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+	TogglePlayerControllable(playerid, 0);
+	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
 
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberÃ¡ o dinheiro em alguns segundos.");
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberá o dinheiro em alguns segundos.");
 
-			SetTimerEx("PegandoMoneyTrafico", 5, false, "d", playerid);
+	SetTimerEx("PegandoMoneyTrafico", 10000, false, "d", playerid);
 
-			new stringvendeu[256];
-			format(stringvendeu,sizeof(stringvendeu),"** %s retira um pino de cocaina da bag e entrega ao usuÃ¡rio.", PlayerName(playerid, 1));
-			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"> %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	format(stringvendeu, sizeof(stringvendeu), "* %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
+    SetPlayerChatBubble(playerid, stringvendeu, COLOR_PURPLE, 20.0, 10000);
 
-		}
-	}
+	format(stringvendeu,sizeof(stringvendeu),"Noia diz: Esse tá bem servido, hein? Gostei.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+	format(stringvendeu,sizeof(stringvendeu),"** O noia sorri ao ver o pino de cocaína cheio.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
     return 1;
 }
 
 forward PegandoMoneyTrafico(playerid);
 public PegandoMoneyTrafico(playerid)
 {
-	for(new i = 0; i < MAX_VICIADOS; i++)
- 	{
-  		if(IsPlayerInRangeOfPoint(playerid,1.5,ViciadoInfo[i][viPos][0], ViciadoInfo[i][viPos][1], ViciadoInfo[i][viPos][2]))
-		{
 
-			PlayerInfo[playerid][pGrana] += 80;
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 80 reais pela droga.");
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"* O noia retira duas notas de cinquenta e oferta a %s.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	
+	format(stringvendeu,sizeof(stringvendeu),"Noia diz: Amanhã eu volto pra entupir meu nariz mais uma vez.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-			new stringvendeu[256];
-			format(stringvendeu,sizeof(stringvendeu),"** O noia retira uma nota de R$80 e oferta a %s.", PlayerName(playerid, 1));
-			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	TogglePlayerControllable(playerid, 0);
+	SetTimerEx("PegouGranaTrafico", 3000, false, "d", playerid);
 
-
-			TogglePlayerControllable(playerid, 0);
-			SetTimerEx("PegouGranaTrafico", 200, false, "d", playerid);
-		}
-	}
 
     return 1;
 }
@@ -25652,6 +25682,14 @@ public PegandoMoneyTrafico(playerid)
 forward PegouGranaTrafico(playerid);
 public PegouGranaTrafico(playerid)
 {
+
+	PlayerInfo[playerid][pGrana] += 100;
+	PlayerInfo[playerid][pTrafico]++;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 100 reais pela cocaina.");
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"%s diz: Fé. Tamo junto!", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
     TogglePlayerControllable(playerid, 1);
     ClearAnimations(playerid, 1);
@@ -25710,7 +25748,7 @@ COMMAND:explodircaixa(playerid, params[])
 			
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
-			SetTimerEx("ExplodindoCaixa", 8500, false, "d", playerid);
+			SetTimerEx("ExplodindoCaixa", 15000, false, "d", playerid);
 
 			new stringCaixaF[256];
 			format(stringCaixaF,sizeof(stringCaixaF),"** %s está armando uma dinamite no caixa eletronico.", PlayerName(playerid, 1));
@@ -25720,9 +25758,16 @@ COMMAND:explodircaixa(playerid, params[])
 			format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas próximidades *");
 			ProxDetector(500.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			format(string, sizeof(stringCaixaF), "** MARE 0: Um caixa eletronico explodiu em %s.**", location);
-   			SendFacMessage(0x6666CCFF,1,stringCaixaF);
-   			SendFacMessage(0x6666CCFF,2,stringCaixaF);
+			new str[126];
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
+			format(str, sizeof(str), "Local: %s",location);
+			SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+			SendFacMessage(COLOR_LIGHTBLUE, 2, str);
 
 			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
 			
@@ -25782,9 +25827,17 @@ public ExplodindoCaixa(playerid)
 			ATMs[i][aRrombado] = 1;
 			PlayerInfo[playerid][pBomba]--;
 
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegardinheiro.");
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]);
 
 			new stringCaixaF[256];
+			format(stringCaixaF, sizeof(stringCaixaF), "** MARE 0: Um caixa eletronico explodiu em %s.**", location);
+   			SendFacMessage(0x6666CCFF,1,stringCaixaF);
+   			SendFacMessage(0x6666CCFF,2,stringCaixaF);
+		
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegardinheiro.");
+
+
 			format(stringCaixaF, sizeof(stringCaixaF), "* O caixa eletronico explode e o dinheiro se espalha *");
 			ProxDetector(500.0, playerid, stringCaixaF, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
@@ -25803,7 +25856,7 @@ public PegandoGrana(playerid)
 			ATMs[i][aRrombado] = 0;
 
 			TogglePlayerControllable(playerid, 0);
-			SetTimerEx("AnimGrana", 5500, false, "d", playerid);
+			SetTimerEx("AnimGrana", 1, false, "d", playerid);
 		}
 	}
 
@@ -25815,6 +25868,7 @@ forward AnimGrana(playerid);
 public AnimGrana(playerid)
 {
 	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
+	SetTimerEx("PegouGrana", 10000, false, "d", playerid);
 
     return 1;
 }
@@ -25825,7 +25879,6 @@ public PegouGrana(playerid)
 
     TogglePlayerControllable(playerid, 1);
     ClearAnimations(playerid, 1);
-    RemovePlayerAttachedObject(playerid, 6);
 
     return 1;
 }
@@ -25880,7 +25933,7 @@ COMMAND:explodircofre(playerid, params[])
 			
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
-			SetTimerEx("ExplodindoCofreL", 8500, false, "d", playerid);
+			SetTimerEx("ExplodindoCofreL", 15000, false, "d", playerid);
 
 			new stringCaixaF[256];
 			format(stringCaixaF,sizeof(stringCaixaF),"** %s posiciona-se perto do cofre e cola a C4.", PlayerName(playerid, 1));
@@ -25890,9 +25943,24 @@ COMMAND:explodircofre(playerid, params[])
 			format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas próximidades *");
 			ProxDetector(200.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			format(string, sizeof(stringCaixaF), "** MARE 0: Um cofre explodiu em %s.**", location);
-   			SendFacMessage(0x6666CCFF,1,stringCaixaF);
-   			SendFacMessage(0x6666CCFF,2,stringCaixaF);
+			new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
+
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
+			format(string, sizeof(string), "Local: %s",location);
+			SendFacMessage(COLOR_LIGHTBLUE, 1, string);
+			SendFacMessage(COLOR_LIGHTBLUE, 2, string);
+
+
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"%s GRITA: VAI FILHA DA PUTA, NO CHÃO, OU ESTOURO SUA CABEÇA!", PlayerName(playerid, 1));
+			ProxDetector(40.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
 			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircofre.", PlayerName(playerid, 0));
 			
@@ -25928,11 +25996,17 @@ COMMAND:pegargrana(playerid, params[])
 			PlayerInfo[playerid][pGrana] += 5000;
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
 
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
+			format(string, sizeof(string), "** MARE 0: Um cofre explodiu em %s.**", location);
+   			SendFacMessage(0x6666CCFF,1,string);
+   			SendFacMessage(0x6666CCFF,2,string);
+
 			new stringCaixaF[256];	
 			format(stringCaixaF,sizeof(stringCaixaF),"** %s se abaixa e começa a recolher o dinheiro do cofre.", PlayerName(playerid, 1));
 			ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			SetTimerEx("PegandoGranaCofreL", 1, false, "d", playerid);
+			SetTimerEx("PegandoGranaCofreL", 10000, false, "d", playerid);
 			return 1;
 		}
 	}
@@ -25973,7 +26047,7 @@ public PegandoGranaCofreL(playerid)
 			cLoja[i][clRrombado] = 0;
 
 			TogglePlayerControllable(playerid, 0);
-			SetTimerEx("AnimGranaCofreL", 5500, false, "d", playerid);
+			SetTimerEx("AnimGranaCofreL", 15000, false, "d", playerid);
 		}
 	}
 
@@ -25985,7 +26059,7 @@ forward AnimGranaCofreL(playerid);
 public AnimGranaCofreL(playerid)
 {
 	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
-	SetTimerEx("PegouGranaCofreL", 1, false, "d", playerid);
+	SetTimerEx("PegouGranaCofreL", 8000, false, "d", playerid);
 
     return 1;
 }
@@ -25996,7 +26070,6 @@ public PegouGranaCofreL(playerid)
 
     TogglePlayerControllable(playerid, 1);
     ClearAnimations(playerid, 1);
-    RemovePlayerAttachedObject(playerid, 6);
 
     return 1;
 }
@@ -26048,7 +26121,7 @@ COMMAND:explodirbanco(playerid, params[])
 			
 			TogglePlayerControllable(playerid, 0);
 			ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
-			SetTimerEx("ExplodindoBanco", 8500, false, "d", playerid);
+			SetTimerEx("ExplodindoBanco", 60000, false, "d", playerid);
 
 			new stringBCofre[256];
 			format(stringBCofre,sizeof(stringBCofre),"** %s posiciona-se perto do cofre e cola a TNT.", PlayerName(playerid, 1));
@@ -26058,10 +26131,28 @@ COMMAND:explodirbanco(playerid, params[])
         	format(stringBCofre, sizeof(stringBCofre), "{DC143C}* Ocorre uma grande explosão no banco da Caixa Economica. ((ANRP))", text);
     		SendClientMessageToAll(0xDC143CFF, stringBCofre);
 
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"%s GRITA: TODO MUNDO NO CHÃO OU ESTOURO A CABEÇA DE TODO MUNDO!", PlayerName(playerid, 1));
+			ProxDetector(40.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-			format(string, sizeof(stringBCofre), "** MARE 0: O banco está sendo roubado. **");
-   			SendFacMessage(0x6666CCFF,1,stringBCofre);
-   			SendFacMessage(0x6666CCFF,2,stringBCofre);
+			format(stringvendeu,sizeof(stringvendeu),"%s GRITA: QUEM É O GERENTE NESSA PORRA?", PlayerName(playerid, 1));
+			ProxDetector(40.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			format(stringvendeu,sizeof(stringvendeu),"Gilberto Martins diz: *Voz de medo*. Sou eu, não faz nada comigo.");
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]);
+
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão assaltando o banco, venham rápido.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão assaltando o banco, venham rápido.");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Local: Avenida da Ammu-Nation, caixa federal.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Local: Avenida da Ammu-Nation, caixa federal.");
+
 
 			SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodirbanco.", PlayerName(playerid, 0));
 			
@@ -26101,7 +26192,7 @@ COMMAND:pegarmoney(playerid, params[])
 			format(stringBCofre,sizeof(stringBCofre),"** %s se abaixa e começa a recolher o dinheiro do cofre.", PlayerName(playerid, 1));
 			ProxDetector(20.0, playerid, stringBCofre,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			SetTimerEx("PegandoGranaBanco", 1, false, "d", playerid);
+			SetTimerEx("PegandoGranaBanco", 120000, false, "d", playerid);
 			return 1;
 		}
 	}
@@ -26120,6 +26211,9 @@ public ExplodindoBanco(playerid)
 			CreateExplosion(cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ], 13, 0);
 			cbanco[i][cbRrombado] = 1;
 			PlayerInfo[playerid][pTNT]--;
+
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Maré-0: Uma explosão na Avenida da Ammu-Nation, caixa federal.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Maré-0: Uma explosão na Avenida da Ammu-Nation, caixa federal.");
 
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegarmoney.");
 
@@ -26142,7 +26236,7 @@ public PegandoGranaBanco(playerid)
 			cbanco[i][cbRrombado] = 0;
 
 			TogglePlayerControllable(playerid, 0);
-			SetTimerEx("AnimGranaBanco", 5500, false, "d", playerid);
+			SetTimerEx("AnimGranaBanco", 120000, false, "d", playerid);
 		}
 	}
 
@@ -26154,7 +26248,7 @@ forward AnimGranaBanco(playerid);
 public AnimGranaBanco(playerid)
 {
 	ApplyAnimation(playerid,"FAT","IDLE_tired", 4.0, 1, 0, 0, 0, 0, 1);
-	SetTimerEx("PegouGranaBanco", 1, false, "d", playerid);
+	SetTimerEx("PegouGranaBanco", 12000, false, "d", playerid);
 
     return 1;
 }
@@ -26165,7 +26259,6 @@ public PegouGranaBanco(playerid)
 
     TogglePlayerControllable(playerid, 1);
     ClearAnimations(playerid, 1);
-    RemovePlayerAttachedObject(playerid, 6);
 
     return 1;
 }
@@ -32958,11 +33051,8 @@ CMD:trabalho(playerid, params[])
 
 CMD:equipar(playerid, params[])
 {
-	printf("SQLID: %d, fid: %d, tipo: %d", PlayerInfo[playerid][pFac], GetFactionBySqlId(PlayerInfo[playerid][pFac]), FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo]);
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(TazerPlayer[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando com o taser na mão.");
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(IsPlayerEditandoAlgo(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Termine de editar o objeto antes.");
 
 	new i = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
 	if(i == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pertence a nenhuma facção.");
@@ -34716,17 +34806,17 @@ COMMAND:tog(playerid, params[])
 			case 0:
 			{
 	   			SetPVarInt(playerid, "TogRadio", 0);
-	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio ativada.");
-				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
-				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio desativada.");
+				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
+                PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
 				
 			}
 			case 1:
 			{
 				SetPVarInt(playerid, "TogRadio", 1);
-				SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio desativada.");
-				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
-                PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
+				SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio ativada.");
+				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
+				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
 				
 			}
 		}
@@ -39608,6 +39698,7 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "pJobTempo", tmp);  PlayerInfo[extraid][pJobTempo] = strval(tmp);
 		cache_get_field_content(0, "pRaspador", tmp);  PlayerInfo[extraid][pRaspador] = strval(tmp);
 		cache_get_field_content(0, "pJobInPd", tmp);  PlayerInfo[extraid][pJobInPd] = strval(tmp);
+		cache_get_field_content(0, "trafico", tmp);  PlayerInfo[extraid][pTrafico] = strval(tmp);
 		cache_get_field_content(0, "pHabDrug", tmp);  PlayerInfo[extraid][pHabDrug] = strval(tmp);
 		cache_get_field_content(0, "pArmasResetadas", tmp);  PlayerInfo[extraid][pArmasResetadas] = strval(tmp);
 		cache_get_field_content(0, "pEntrouGaragem", tmp);	PlayerInfo[extraid][pEntrouGaragem] = strval(tmp);
@@ -70861,7 +70952,7 @@ COMMAND:setarrange(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] < 5 || PlayerInfo[playerid][pFactionTeam] < 1 || PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -70886,7 +70977,7 @@ COMMAND:tempoaberto(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] < 5 || PlayerInfo[playerid][pFactionTeam] < 1 || PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
