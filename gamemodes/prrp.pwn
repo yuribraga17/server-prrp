@@ -2756,7 +2756,7 @@ static PMERJ_Uniformes[22] = {
 	20408, 20409, 20410, 20411,
 	20412, 20413, 20414, 20415,
 	20416, 20417, 20418, 20419,
-	20420, 20411
+	20420, 20421
 };
 
 static PMERJ_Barreiras[16] = {
@@ -2782,7 +2782,7 @@ static LOJA_CHAPEU_PMERJ[1] = {
 };
 
 static LOJA_OUTROS_PMERJ[9] = {
-	-2126, -2101, -2105, -2120,
+	-2126, -2101, -2106, -2120,
 	-2121, -2122, -2123, -2124,
 	-2125
 };
@@ -2790,8 +2790,8 @@ static LOJA_OUTROS_PMERJ[9] = {
 static PROSEGUR_Uniformes[1] = {
     71
 };
-static LOJA_OUTROS_BANK[3] = {
-	19138, 19139, 19140
+static LOJA_OUTROS_BANK[4] = {
+	19138, 19139, 19140, -2106
 	
 };
 //======== [PCERJ]======//
@@ -2809,9 +2809,9 @@ static LOJA_CHAPEU_PCERJ[1] = {
     -2103
 };
 
-static LOJA_OUTROS_PCERJ[5] = {
+static LOJA_OUTROS_PCERJ[6] = {
 	-2102, -2105, -2125, -2056,
-	-2055
+	-2055, -2106
 };
 
 //======== [EB]======//
@@ -34806,16 +34806,16 @@ COMMAND:tog(playerid, params[])
 	  	{
 			case 0:
 			{
-	   			SetPVarInt(playerid, "TogRadio", 0);
-	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio desativada.");
+				SetPVarInt(playerid, "TogRadio", 1);
+				SendClientMessage(playerid, COLOR_YELLOW, "INFO: Rádio desativada.");
 				PlayerTextDrawHide(playerid, RadioComunicador[playerid][0]);
                 PlayerTextDrawHide(playerid, RadioComunicador[playerid][1]);
-				
+
 			}
 			case 1:
 			{
-				SetPVarInt(playerid, "TogRadio", 1);
-				SendClientMessage(playerid, COLOR_YELLOW, "INFO: HUD da rádio ativada.");
+	   			SetPVarInt(playerid, "TogRadio", 0);
+	   			SendClientMessage(playerid, COLOR_YELLOW, "INFO: Rádio ativada.");
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
 				PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
 				
@@ -47355,7 +47355,7 @@ Dialog:VendendoComplexo1(playerid, response, listitem, inputtext[])
 CMD:acomplexo(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
