@@ -25925,8 +25925,7 @@ COMMAND:explodircofre(playerid, params[])
 					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 10 policiais em serviço para executar essa ação.");
 			}
 
-            new location[MAX_ZONE_NAME];
-            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
+
 
     		TaNoCOFREL[playerid] = i;
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você armou uma C4.");
@@ -25943,8 +25942,6 @@ COMMAND:explodircofre(playerid, params[])
 			format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas próximidades *");
 			ProxDetector(200.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-			new location[MAX_ZONE_NAME];
-            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
 
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
@@ -25952,6 +25949,10 @@ COMMAND:explodircofre(playerid, params[])
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
+
+            new location[MAX_ZONE_NAME];
+            Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
+
 			format(string, sizeof(string), "Local: %s",location);
 			SendFacMessage(COLOR_LIGHTBLUE, 1, string);
 			SendFacMessage(COLOR_LIGHTBLUE, 2, string);
