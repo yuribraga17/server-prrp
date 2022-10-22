@@ -89,8 +89,8 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define ULTIMO_GMX      "21/10/2022"
 #define CA_VERSAO       "PR:RP v0.58"
 #define CA_LINK         "weburl progressive-roleplay.com"
-#define CA_NOME         "hostname PR-RP | Reabertura 21/10 ás 18h00"
-//#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
+//#define CA_NOME         "hostname PR-RP | Reabertura 21/10 ás 18h00"
+#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
 #define CA_LANGUAGE     "language Português Brasileiro"
 #define MAP_NAME        "mapname Rio de Janeiro"
@@ -2075,7 +2075,15 @@ new Noia_1,
     Noia_27,
     Noia_28,
     Noia_29,
-    Noia_30;
+    Noia_30,
+	Noia_31,
+	Noia_32,
+	Noia_33,
+	Noia_34,
+	Noia_35,
+	Noia_36,
+	Noia_37,
+	Noia_38;
 //==============================================================================//
 new Float:estacionamento_vagas[19][3] = {
 {1627.2080, -1046.3242, 23.5516},
@@ -2883,11 +2891,11 @@ static LOJA_OCULOS[31] = {
 	19028, 19029, 19030, 19031, 19032, 19033, 19034, 19035, 19015
 };
 
-static LOJA_OUTROS[51] = {
+static LOJA_OUTROS[50] = {
 	2919, 371, 3026, 11745, 19624, 19625, 1210, 19079, 19078, 18975, 19136,
 	19090, 19091, 19092, 19350, 19351, 19421, 19422, 19423, 19424, 19556, 19555,
 	19559, 19904, 11735, 19317, 19318, 19319, 19622, 19631, 19626, 19591, 19586,
-	19307, 19306, -2125, -2126, -2180, -2181, -2182, -2055, -2057, -2058, -2059, 
+	19307, 19306, -2125, -2180, -2181, -2182, -2055, -2057, -2058, -2059, 
 	-2060, -2700, -2701, -2702, -2703, -2183, -2610
 	
 };
@@ -5661,7 +5669,7 @@ static g_aFemaleSkins[77] = {
 	298
 };
 
-static g_NewSkins[40] = {
+static g_NewSkins[39] = {
     20001, 20002, 20003, 20004,
     20005, 20006, 20007, 20008,
     20009, 20010, 20011, 20012,
@@ -5671,7 +5679,7 @@ static g_NewSkins[40] = {
     20026, 20027, 20028, 20029,
     20030, 20031, 20032, 20033,
     20034, 20035, 20036, 20037,
-    20038, 20039, 20040
+    20038, 20039
 };
 
 
@@ -5714,6 +5722,7 @@ static const g_aPreloadLibs[][] =
 #include "../gamemodes/mapas/govinterior.pwn"
 #include "../gamemodes/mapas/whdh.pwn"
 #include "../gamemodes/mapas/complexosint.pwn"
+#include "../gamemodes/mapas/prisao.pwn"
 
 #include "../gamemodes/Anims.pwn"
 #include "../gamemodes/logs.pwn"
@@ -5949,7 +5958,39 @@ public OnGameModeInit()
     SetActorVirtualWorld(Noia_29, 0);     
     Noia_30 = CreateActor(20030,1690.4685,-2148.3352,15.9533,299.2050);
     SetActorInvulnerable(Noia_30, true);
-    SetActorVirtualWorld(Noia_30, 0);   
+    SetActorVirtualWorld(Noia_30, 0); 
+    Noia_31 = CreateActor(20001,-131.6621,-246.6473,1.2875,277.6169);
+    SetActorInvulnerable(Noia_31, true);
+    SetActorVirtualWorld(Noia_31, 0);
+	ApplyActorAnimation(Noia_31, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0);
+    Noia_32 = CreateActor(20002,-119.8660,-256.1620,1.3109,354.3844);
+    SetActorInvulnerable(Noia_32, true);
+    SetActorVirtualWorld(Noia_32, 0);    
+	ApplyActorAnimation(Noia_32, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);
+    Noia_33 = CreateActor(20003,-119.4772,-246.1217,1.3109,358.9425);
+    SetActorInvulnerable(Noia_33, true);
+    SetActorVirtualWorld(Noia_33, 0);   
+	ApplyActorAnimation(Noia_33, "RAPPING","RAP_C_Loop",4.0,1,1,1,1,0); 
+    Noia_34 = CreateActor(20004,-119.6245,-240.3442,1.3109,181.6578);
+    SetActorInvulnerable(Noia_34, true);
+    SetActorVirtualWorld(Noia_34, 0);   
+	ApplyActorAnimation(Noia_34, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0);
+    Noia_35 = CreateActor(20005,-119.6748,-233.7748,1.3109,188.7783);
+    SetActorInvulnerable(Noia_35, true);
+    SetActorVirtualWorld(Noia_35, 0);    
+	ApplyActorAnimation(Noia_35, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);
+    Noia_36 = CreateActor(20006,-99.7123,-228.8780,1.2875,87.3013);
+    SetActorInvulnerable(Noia_36, true);
+    SetActorVirtualWorld(Noia_36, 0);
+	ApplyActorAnimation(Noia_36, "RAPPING","RAP_C_Loop",4.0,1,1,1,1,0);   
+    Noia_37 = CreateActor(20007,-104.4682,-232.1702,1.2875,89.7767);
+    SetActorInvulnerable(Noia_37, true);
+    SetActorVirtualWorld(Noia_37, 0);   
+	ApplyActorAnimation(Noia_37, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0); 
+    Noia_38 = CreateActor(20008,-106.7490,-232.0639,1.2875,267.6941);
+    SetActorInvulnerable(Noia_38, true);
+    SetActorVirtualWorld(Noia_38, 0); 
+	ApplyActorAnimation(Noia_38, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);  
     //Basket
     basket_OnGameModeInit();
     Iniciar_HorseBetSys();
@@ -6121,6 +6162,7 @@ public OnGameModeInit()
 	interiorescasa();
 	complexosint();
 	Hospital_Int();
+	Mapa_Presidio();
 
 	ApagaoEmGanton = 0;
 
@@ -11284,7 +11326,112 @@ public OnPlayerConnect(playerid)
 
 
 	TextDrawHideForPlayer(playerid, HitMark);
-
+	//Presidio
+	RemoveBuildingForPlayer(playerid, 13048, -91.562, -251.515, 0.421, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -207.656, -246.734, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -196.718, -246.164, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -224.500, -183.906, 1.531, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -200.328, -189.734, 1.601, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -200.328, -189.734, 3.945, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -176.679, -195.359, 1.562, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -156.945, -266.914, 4.007, 0.250);
+	RemoveBuildingForPlayer(playerid, 3377, -149.914, -324.343, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 706, -56.609, -387.507, 4.046, 0.250);
+	RemoveBuildingForPlayer(playerid, 780, -42.210, -390.156, 5.179, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -31.406, -382.132, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -42.414, -382.156, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -53.421, -382.171, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -58.921, -382.179, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -64.429, -382.187, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -70.054, -382.195, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 773, -0.867, -387.187, 4.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 780, -23.062, -390.156, 5.179, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -3.890, -382.093, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -9.390, -382.101, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -20.398, -382.117, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -25.906, -382.125, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.593, -377.273, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 1.609, -382.085, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1278, -74.546, -366.164, 18.468, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -68.289, -361.679, 10.382, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.570, -360.632, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.578, -366.179, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.585, -371.726, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1278, 5.710, -371.523, 18.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 780, 9.062, -364.945, 5.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -68.289, -344.242, 11.359, 0.250);
+	RemoveBuildingForPlayer(playerid, 13024, -87.304, -347.500, 3.171, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -33.406, -348.750, 10.382, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.546, -343.984, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.554, -349.539, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.078, -339.851, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 773, -70.835, -338.968, 4.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 12932, -117.960, -337.453, 3.617, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -45.406, -336.101, 10.375, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -149.914, -324.343, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -37.312, -316.804, 10.570, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -69.820, -326.851, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.109, -324.085, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.117, -318.476, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.125, -312.867, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.132, -307.257, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -69.890, -331.460, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -67.085, -334.242, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 773, -71.781, -312.421, 4.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -55.265, -297.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -44.546, -297.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -54.343, -296.054, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -64.031, -298.898, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -57.148, -298.882, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -45.296, -296.023, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -42.343, -298.867, 6.148, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -36.054, -296.039, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 729, -58.531, -292.328, 4.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 729, -41.960, -292.515, 4.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 729, -68.968, -292.328, 4.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 12933, -29.031, -302.125, 6.671, 0.250);
+	RemoveBuildingForPlayer(playerid, 1290, -19.875, -316.648, 10.382, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.468, -294.039, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.476, -299.585, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.484, -305.132, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.492, -310.687, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.507, -321.789, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.515, -327.335, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.523, -332.882, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 780, 10.335, -330.101, 5.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 773, 10.007, -298.937, 4.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 12934, -184.578, -289.898, 3.710, 0.250);
+	RemoveBuildingForPlayer(playerid, 12935, -215.945, -275.750, 3.328, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -55.265, -287.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -55.265, -277.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -44.546, -277.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1232, -44.546, -287.125, 7.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -54.351, -290.445, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -54.359, -284.835, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -54.367, -279.226, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -45.320, -279.195, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -45.312, -284.804, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -45.304, -290.414, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -36.062, -290.429, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -36.070, -284.820, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -36.078, -279.210, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 729, -58.531, -279.367, 4.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 729, -41.960, -279.554, 4.585, 0.250);
+	RemoveBuildingForPlayer(playerid, 1278, 5.960, -287.101, 18.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.445, -277.390, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.460, -288.484, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -156.945, -266.914, 4.007, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, 4.437, -271.835, 6.000, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -54.375, -273.617, 5.968, 0.250);
+	RemoveBuildingForPlayer(playerid, 1408, -45.328, -273.585, 6.187, 0.250);
+	RemoveBuildingForPlayer(playerid, 12931, -91.562, -251.515, 0.421, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -207.656, -246.734, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 13025, -148.976, -228.531, 3.539, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -196.718, -246.164, 1.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -176.679, -195.359, 1.562, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -200.328, -189.734, 1.601, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -200.328, -189.734, 3.945, 0.250);
+	RemoveBuildingForPlayer(playerid, 3378, -224.500, -183.906, 1.531, 0.250);
 	//BOPE
 	RemoveBuildingForPlayer(playerid, 3276, -525.039, -1037.160, 24.421, 0.250);
 	RemoveBuildingForPlayer(playerid, 3276, -536.218, -1037.420, 24.851, 0.250);
@@ -11469,28 +11616,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 759, 2318.050, -1056.050, 51.164, 0.250);
 	RemoveBuildingForPlayer(playerid, 671, 2303.729, -1061.900, 47.812, 0.250);
 	RemoveBuildingForPlayer(playerid, 759, 2341.449, -1053.939, 51.453, 0.250);
-	//Favela carecas
-	/*RemoveBuildingForPlayer(playerid, 3654, 2428.218, -1290.585, 26.187, 0.250);
-	RemoveBuildingForPlayer(playerid, 3647, 2428.078, -1273.664, 26.000, 0.250);
-	RemoveBuildingForPlayer(playerid, 3654, 2395.007, -1278.375, 25.968, 0.250);
-	RemoveBuildingForPlayer(playerid, 3647, 2395.257, -1347.460, 26.320, 0.250);
-	RemoveBuildingForPlayer(playerid, 3656, 2432.132, -1358.171, 25.742, 0.250);
-	RemoveBuildingForPlayer(playerid, 3656, 2432.132, -1339.851, 25.742, 0.250);
-	RemoveBuildingForPlayer(playerid, 3650, 2426.554, -1321.898, 26.929, 0.250);
-	RemoveBuildingForPlayer(playerid, 3650, 2426.554, -1304.578, 26.929, 0.250);
-	RemoveBuildingForPlayer(playerid, 3706, 2394.437, -1327.117, 25.960, 0.250);
-	RemoveBuildingForPlayer(playerid, 3706, 2390.109, -1365.007, 25.328, 0.250);
-	RemoveBuildingForPlayer(playerid, 3648, 2395.257, -1347.460, 26.320, 0.250);
-	RemoveBuildingForPlayer(playerid, 3646, 2390.109, -1365.007, 25.328, 0.250);
-	RemoveBuildingForPlayer(playerid, 3646, 2394.437, -1327.117, 25.960, 0.250);
-	RemoveBuildingForPlayer(playerid, 3649, 2395.007, -1278.375, 25.968, 0.250);
-	RemoveBuildingForPlayer(playerid, 17527, 2414.398, -1362.203, 32.601, 0.250);
-	RemoveBuildingForPlayer(playerid, 3655, 2432.132, -1358.171, 25.742, 0.250);
-	RemoveBuildingForPlayer(playerid, 3651, 2426.554, -1321.898, 26.929, 0.250);
-	RemoveBuildingForPlayer(playerid, 3651, 2426.554, -1304.578, 26.929, 0.250);
-	RemoveBuildingForPlayer(playerid, 3655, 2432.132, -1339.851, 25.742, 0.250);
-	RemoveBuildingForPlayer(playerid, 3649, 2428.218, -1290.585, 26.187, 0.250);
-	RemoveBuildingForPlayer(playerid, 3648, 2428.078, -1273.664, 26.000, 0.250);*/
     //posto norte
     RemoveBuildingForPlayer(playerid, 5853, 1018.159, -908.976, 43.648, 0.250);
     RemoveBuildingForPlayer(playerid, 5898, 1018.159, -908.976, 43.648, 0.250);
@@ -12148,20 +12273,6 @@ public OnPlayerConnect(playerid)
 	//Desmanche
 	RemoveBuildingForPlayer(playerid, 3414, 2351.830, -652.921, 129.188, 0.250);
 	RemoveBuildingForPlayer(playerid, 3421, 2351.830, -652.921, 129.188, 0.250);
-	//campo
-    RemoveBuildingForPlayer(playerid, 4976, 1931.0000, -1871.3906, 15.8438, 0.25);
-    RemoveBuildingForPlayer(playerid, 1413, 1904.3750, -1879.7344, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1413, 1909.6563, -1879.7344, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1412, 1914.9297, -1879.7344, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1413, 1920.1953, -1879.9531, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1413, 1925.4609, -1879.9609, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1412, 1930.7188, -1879.7344, 13.6797, 0.25);
-    RemoveBuildingForPlayer(playerid, 1308, 1946.4766, -1877.1094, 11.5391, 0.25);
-    RemoveBuildingForPlayer(playerid, 4848, 1931.0000, -1871.3906, 15.8438, 0.25);
-    RemoveBuildingForPlayer(playerid, 1226, 1931.8750, -1863.4609, 16.3203, 0.25);
-    RemoveBuildingForPlayer(playerid, 1226, 1915.7422, -1863.4609, 16.3203, 0.25);
-    RemoveBuildingForPlayer(playerid, 4975, 1891.7422, -1872.2813, 14.8594, 0.25);
-    RemoveBuildingForPlayer(playerid, 4858, 1891.7422, -1872.2813, 14.8594, 0.25);
 	//Willowfield
 	RemoveBuildingForPlayer(playerid, 3699, 2471.671, -1428.132, 30.812, 0.250);
 	RemoveBuildingForPlayer(playerid, 3699, 2490.695, -1428.132, 30.515, 0.250);
@@ -25596,8 +25707,11 @@ COMMAND:venderdroga(playerid, params[])
     IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
     IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
     IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533))
+    IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
+	IsPlayerInRangeOfPoint(playerid,2.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,2.0,-119.8660,-256.1620,1.310) ||
+	IsPlayerInRangeOfPoint(playerid,2.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,2.0,-119.6245,-240.3442,1.3109) ||
+	IsPlayerInRangeOfPoint(playerid,2.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,2.0,-119.6748,-233.7748,1.3109) ||
+	IsPlayerInRangeOfPoint(playerid,2.0,-104.4682,-232.1702,1.2875))
 	{
 		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
 		SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
@@ -29192,7 +29306,7 @@ COMMAND:retirar(playerid,params[])
 COMMAND:aretirar(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5)
+    if(PlayerInfo[playerid][pAdmin] < 5)
 	{
 	    new other, tmp2[126], str[256];
         if(sscanf(params,"ds(32)",other,tmp2))
@@ -39401,7 +39515,7 @@ COMMAND:gmx(playerid, params[])
 COMMAND:complexosint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
 	ShowInterioresDialog(playerid);
 	return 1;
@@ -39410,7 +39524,7 @@ COMMAND:complexosint(playerid, params[])
 CMD:empint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog(playerid);
     return 1;
@@ -39419,7 +39533,7 @@ CMD:empint(playerid, params[])
 CMD:empint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog1(playerid);
     return 1;
@@ -39428,7 +39542,7 @@ CMD:empint1(playerid, params[])
 CMD:empint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog2(playerid);
     return 1;
@@ -39437,7 +39551,7 @@ CMD:empint2(playerid, params[])
 CMD:empintv(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpVInterioresDialog(playerid);
     return 1;
@@ -39446,7 +39560,7 @@ CMD:empintv(playerid, params[])
 CMD:casasint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowHouseInterioresDialog(playerid);
     return 1;
@@ -39455,7 +39569,7 @@ CMD:casasint(playerid, params[])
 CMD:casasint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog(playerid);
     return 1;
@@ -39464,7 +39578,7 @@ CMD:casasint1(playerid, params[])
 CMD:casasint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog1(playerid);
     return 1;
@@ -46028,7 +46142,7 @@ CMD:ircasa2(playerid, params[])
 CMD:irgaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     new var;
     if (sscanf(params, "I(9999)", var))
     {
@@ -46054,7 +46168,7 @@ CMD:irgaragem(playerid, params[])
 CMD:enderecocasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 	new opcao[32];
 	if (sscanf(params, "s[24]", opcao)) return SendClientMessage(playerid, COLOR_LIGHTRED,"USE: /enderecocasa [edereço]");
 	for(new i; i < MAX_HOUSES; i++)
@@ -46077,7 +46191,7 @@ CMD:enderecocasa(playerid, params[])
 CMD:acasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado para usar este comando.");
-	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -46517,7 +46631,7 @@ public CasaCriada(houseid,playerid)
 CMD:agaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 	new opcao[24], var, var2;
 	if (sscanf(params, "s[24]I(9999)I(9999)", opcao,var, var2))
 	{
@@ -48504,7 +48618,7 @@ CMD:precogasolina(playerid, params[])
 CMD:aemp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -84425,7 +84539,7 @@ CMD:refundargrana(playerid, params[])
    	if (PlayerInfo[playerid][pAdmin] < 3 && PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
-	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pPropertyTeam] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
 	    new userid[24], level;
 		if(sscanf(params, "s[24]d",userid, level))
@@ -84444,7 +84558,7 @@ CMD:refundaritem(playerid, params[])
    	if (PlayerInfo[playerid][pAdmin] < 3 && PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
-	if(PlayerInfo[playerid][pAdmin] >= 4 || PlayerInfo[playerid][pPropertyTeam] >= 1)
+	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
 	    new userid[24], level, etnia[64], quantidade;
 		if(sscanf(params, "s[24]dd",userid, level, quantidade))
@@ -84460,7 +84574,7 @@ CMD:refundaritem(playerid, params[])
 			format(str, sizeof(str), "20. Lança Perfume"); SendClientMessage(playerid,COLOR_WHITE,str);
 			return 1;
 		}
-		if (level < 1 || level > 19)
+		if (level < 1 || level > 20)
 	    	return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Item inválido.");
 
 		switch (level)
