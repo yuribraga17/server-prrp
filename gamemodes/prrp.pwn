@@ -65,7 +65,7 @@ new PlayersOnline = 0,
 static stock
 	BitArray:g_VehicleDriveBy<MAX_PLAYERS>;
 
-#define MAX_CONNECTIONS_FROM_IP     2 // Máximo de conexões com mesmo IP.
+#define MAX_CONNECTIONS_FROM_IP     11 // Máximo de conexões com mesmo IP.
 new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
 new ambiente = 0; // 0  - Localhost 1 - Produção
@@ -87,6 +87,7 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 //#define CA_NOME         "hostname PR-RP | Reabertura 23/10 ás 18h00"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
+#define CA_NOME3        "hostname Progressive Roleplay [Manutenção rapida]"
 #define CA_LANGUAGE     "language Português Brasileiro"
 #define MAP_NAME        "mapname Rio de Janeiro"
 //==============================================================================
@@ -12290,7 +12291,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1308, 2484.093, -1357.320, 27.992, 0.250);
 	RemoveBuildingForPlayer(playerid, 700, 2481.101, -1360.007, 27.859, 0.250);
 	RemoveBuildingForPlayer(playerid, 3698, 2490.695, -1362.656, 30.812, 0.250);
-	//Shopping
+        //Shopping
 	RemoveBuildingForPlayer(playerid, 6130, 1117.5859, -1490.0078, 32.7188, 0.25);
 	RemoveBuildingForPlayer(playerid, 6255, 1117.5859, -1490.0078, 32.7188, 0.25);
 	RemoveBuildingForPlayer(playerid, 792, 1050.1328, -1566.4375, 12.6406, 0.25);
@@ -25837,8 +25838,8 @@ COMMAND:explodircaixa(playerid, params[])
 						}
 					}
 				}
-				if(PolicesOnline < 6) return 
-					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 6 policiais em serviço para executar essa ação.");
+				if(PolicesOnline < 4) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 4 policiais em serviço para executar essa ação.");
 			}
 
             new location[MAX_ZONE_NAME];
@@ -26022,8 +26023,8 @@ COMMAND:explodircofre(playerid, params[])
 						}
 					}
 				}
-				if(PolicesOnline < 10) return 
-					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 10 policiais em serviço para executar essa ação.");
+				if(PolicesOnline < 6) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 6 policiais em serviço para executar essa ação.");
 			}
 
 
@@ -26214,8 +26215,8 @@ COMMAND:explodirbanco(playerid, params[])
 						}
 					}
 				}
-				if(PolicesOnline < 20) return 
-					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 20 policiais em serviço para executar essa ação.");
+				if(PolicesOnline < 10) return 
+					SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 10 policiais em serviço para executar essa ação.");
 			}
 
     		TaNoCOFREB[playerid] = i;
@@ -29741,6 +29742,21 @@ COMMAND:tablet(playerid, params[])
 	return 1;
 }
 
+COMMAND:tablet2(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+	if(FacInfo[FacId][fTipo] != FAC_TIPO_PCERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
+	new Vehicleid = GetPlayerVehicleID(playerid);
+	new slot = GetVehicleSlot(Vehicleid);
+	if(slot > -1){
+	    if(FacInfo[GetFactionBySqlId(VehicleInfo[slot][vFaction])][fTipo] == FAC_TIPO_PCERJ) {
+   			Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
+   			//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
+	    }
+	}
+	return 1;
+}
 
 COMMAND:computador(playerid, params[])
 {
@@ -31966,7 +31982,7 @@ CMD:rbarricada(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pLevel] < 10) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 10 ou mais para retirar barricada");
-    if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} Termine de editar a barreira atual antes de deletar alguma.");
+    if(PlayerInfo[playerid][pEditandoBareira] != -1) return SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} Termine de editar a barricada atual antes de deletar alguma.");
 	/*new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]), alguma = 0;
 	if(10 < FacInfo[FacId][fTipo] < 18) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você mão faz parte de uma facção ilegal.");*/
 	new alguma = 0;
@@ -36883,6 +36899,8 @@ COMMAND:trancarserver(playerid, params[])
 		format(str,sizeof(str),"AdmCmd: %s trancou o servidor.",ReturnName(playerid));
 		SendClientMessageToAll(COLOR_LIGHTRED, str);
 
+		SendRconCommand(CA_NOME3);
+
 		SendRconCommand("password GMX134");
 	}
 	else return 0;
@@ -36905,7 +36923,9 @@ COMMAND:destrancarserver(playerid, params[])
 		format(str,sizeof(str),"AdmCmd: %s destrancou o servidor.",ReturnName(playerid));
 		SendClientMessageToAll(COLOR_LIGHTRED, str);
 
-		SendRconCommand("0");
+		SendRconCommand(CA_NOME);
+
+		SendRconCommand("password");
 	}
 	else return 0;
 	return 1;
