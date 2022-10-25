@@ -101,6 +101,8 @@ stock mapacivil(){
 	CreateObject(-2038, 1966.512939, -1788.279541, 12.553071, 89.999992, 90.299972, -0.099999);
 	CreateObject(1280, 1968.776123, -1795.904296, 12.962811, 0.000000, 0.000000, -89.600006);
 	print("[CARREGADO] Mapa: Ponto mototaxi");
+	tmpobjid = CreateDynamicObject(-1027, 1436.032592, -1328.824584, 15.391695, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00);
+	print("[CARREGADO] Mapa: Mecanica 03dl");
 	// Seaport . ext
 	texture_object = CreateObject(19552, 2749.449951, -2398.240234, 12.275151, 0.000000, 0.000014, 0.000000, 600.000);
 	SetObjectMaterial(texture_object, 0, 9514, "711_sfw", "ws_carpark2", 0xFFF0FFFF);
