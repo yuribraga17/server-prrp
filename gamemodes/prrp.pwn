@@ -44630,7 +44630,7 @@ CMD:comprar(playerid, params[])
    			 {
        			 if(PlayerInfo[playerid][pWepLic] == 1)
        			 {
-					Dialog_Show(playerid, DIALOG_AMMUNATION, DIALOG_STYLE_LIST, "Selecione um item.", "Colt 45\tR$6000\nSilenced\tR$6500\nDeagle\tR$7000\nShotgun\tR$15400\nMunição 9mm\tR$250\nMunição 12 CBC\tR$500", "Selecionar", "Cancelar");
+					Dialog_Show(playerid, DIALOG_AMMUNATION, DIALOG_STYLE_LIST, "Selecione um item.", "Colt 45\tR$16000\nSilenced\tR$16500\nDeagle\tR$17000\nShotgun\tR$25400\nMunição 9mm\tR$250\nMunição 12 CBC\tR$500", "Selecionar", "Cancelar");
        			 }
 					else return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem uma licença de armas tipo: A.");
 				}
@@ -44822,46 +44822,46 @@ Dialog:DIALOG_AMMUNATION(playerid, response, listitem, inputtext[])
 	 		{
 	 		    case 0:
 	 		    {
-	 		        if(PlayerInfo[playerid][pGrana] >= 6000)
+	 		        if(PlayerInfo[playerid][pGrana] >= 16000)
 	 		        {
                 		if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
 					    EntregandoArmaSQL(playerid, 22, 0, 1, 0);
 
 						SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Colt 45.");
-	     				PlayerInfo[playerid][pGrana] -= 6000;
+	     				PlayerInfo[playerid][pGrana] -= 16000;
 					}
 				}
 				case 1:
 	 		    {
-	 		        if(PlayerInfo[playerid][pGrana] >= 6500)
+	 		        if(PlayerInfo[playerid][pGrana] >= 16500)
 	 		        {
                			if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
     			  		EntregandoArmaSQL(playerid, 23, 0, 1, 0);
 
 						SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Silenced.");
-					    PlayerInfo[playerid][pGrana] -= 6500;
+					    PlayerInfo[playerid][pGrana] -= 16500;
 					}
 				}
 				case 2:
 	 		    {
-	 		        if(PlayerInfo[playerid][pGrana] >= 7000)
+	 		        if(PlayerInfo[playerid][pGrana] >= 17000)
 	 		        {
                 		if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
 					    EntregandoArmaSQL(playerid, 24, 0, 1, 0);
 
 						SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Desert Eagle.");
-	     				PlayerInfo[playerid][pGrana] -= 7000;
+	     				PlayerInfo[playerid][pGrana] -= 17000;
 					}
 				}
 				case 3:
 	 		    {
-	 		        if(PlayerInfo[playerid][pGrana] >= 15400)
+	 		        if(PlayerInfo[playerid][pGrana] >= 25400)
 	 		        {
 	     				if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
 					    EntregandoArmaSQL(playerid, 25, 0, 1, 0);
 
 						SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Shotgun.");
-	     				PlayerInfo[playerid][pGrana] -= 15400;
+	     				PlayerInfo[playerid][pGrana] -= 25400;
 					}
 				}
 				case 4:
