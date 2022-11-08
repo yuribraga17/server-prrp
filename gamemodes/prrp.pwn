@@ -6034,9 +6034,15 @@ public OnGameModeInit()
     CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/tratar(somente para vida menor que 70)\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1177.7151,-1321.4143,2015.4130, 0);
 
+
+
 	//COMPRAR PEÇAS
     CreateDynamic3DTextLabel("{FFFFFF}[LOJA DE PEÇAS]\n/comprarpecas\n/comprarplaca",0xffffffff, 1096.8484,-1528.9009,22.7434, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1096.8484,-1528.9009,22.7434, 0);
+	
+	//COMPRAR
+    CreateDynamic3DTextLabel("{FFFFFF}[Loja]\n/comprar",0xffffffff, 1917.8755,-1776.0514,13.6094, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreatePickup(1239, 1, 1917.8755,-1776.0514,13.6094, 0);
 	//==========================================================
     //Tunning
     for(new i = 1; i < MAX_GARAGES; i++)
@@ -12418,8 +12424,8 @@ public CheckingAccount(playerid)
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 			new str[250];
-			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o http://ucp.forward-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
-			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Forward Roleplay", str, "Autenticar", "Cancelar");
+			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
+			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
 
 		}
 		else if(JaEstaOn == 1) {
@@ -44645,7 +44651,7 @@ CMD:comprar(playerid, params[])
 	{
 	    Dialog_Show(playerid, DIALOG_BARSHOP_Rua, DIALOG_STYLE_LIST, "Selecione uma categoria.", "Cerveja\tR$5\nVinho\tR$6\nSprunk\tR$2", "Selecionar", "Cancelar");
 	}
-	else if(IsPlayerInRangeOfPoint(playerid, 5, 2532.0464,-1916.4795,13.5480)) //comprar 24/7
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 1917.8755,-1776.0514,13.6094)) //comprar 24/7
 	{
 	    Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_LIST, "PRODUTOS", "Celular\tR$120\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nRadio\tR$190\nCâmera\tR$50\nMascara\tR$500\nBoombox\tR$140\nLata de Spray\tR$50", "Selecionar", "Voltar");
 	
