@@ -69,7 +69,7 @@ new PlayersOnline = 0,
 static stock
 	BitArray:g_VehicleDriveBy<MAX_PLAYERS>;
 
-#define MAX_CONNECTIONS_FROM_IP     11 // Máximo de conexões com mesmo IP.
+#define MAX_CONNECTIONS_FROM_IP     2 // Máximo de conexões com mesmo IP.
 new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
 new ambiente = 0; // 0  - Localhost 1 - Produção
@@ -952,7 +952,7 @@ enum aCofreLoja
 };
 static cLoja[MAX_COFRE][aCofreLoja];
 
-#define MAX_COFREB 1
+#define MAX_COFREB 2
 enum aCofreBanco
 {
 	cbID,
@@ -28875,8 +28875,8 @@ CMD:ajudacasa(playerid, params[])
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
     SendClientMessage(playerid, COLOR_BRANCO, "*** AJUDA CASA ***");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA CASA *** /comprar /vender /entrar /sair /casas /sacar /depositar");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA CASA *** /permitdos /darpermissao /furniture /alarmecasa /curar");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA CASA *** /trocarinterior /trancar /bater /xmradio /interruptor");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA CASA *** /permitdos /darpermissao /mobilia /alarmecasa /curar");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA CASA ***  /trancar /bater /xmradio /interruptor");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** Caso suma algum móvel da casa, use: /reloadint");
 
 	return 1;
@@ -28888,7 +28888,7 @@ CMD:ajudagaragem(playerid, params[])
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
     SendClientMessage(playerid, COLOR_BRANCO, "*** AJUDA GARAGEM ***");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA GARAGEM *** /comprar /vender /entrar /sair /garagens");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA GARAGEM *** /permitdos /darpermissao /furniture /alarmegaragem");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA GARAGEM *** /permitdos /darpermissao /mobilia /alarmegaragem");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA GARAGEM *** /trancar /bater /xmradio /interruptor");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** Caso suma algum móvel da casa, use: /reloadint");
 
@@ -34317,9 +34317,9 @@ CMD:ajudaempresa(playerid, params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /comprar /vender /entrar /sair /empresa");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /trocarinterior[bugado] /nomeemp /precogasolina");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /nomeemp /precogasolina");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /empresa /trancar /sacar /depositar /darpermissao /permitidos");
-	SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** /furniture");
+	SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** /mobilia");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** Caso suma algum móvel da casa, use: /reloadint");
 	return 1;
 }
@@ -43838,7 +43838,7 @@ Dialog:DIALOG_PERMITIDOS2(playerid, response, listitem, inputtext[])
 	}
 	return 1;
 }
-COMMAND:trocarinterior(playerid, params[])
+COMMAND:trocarinterior2(playerid, params[])
 {
 	if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(TrocandoInterior[playerid] != 9999) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já está trocando de interior");
@@ -71543,12 +71543,12 @@ public OnPlayerCheckIP(playerid, response_code, data[])
 {
     if(response_code == 200)
     {
-        new pip[16], targetid;
+        new pip[16];
         GetPlayerIp(playerid, pip, 16);
         printf("IP %s conectando de %s", pip, data);
         if (strcmp(data, "Brazil", true)) {
 
-            format(string, sizeof(string), "AdmCmd: Possível VPN no jogador %s, pais %s", PlayerName(targetid, 1), data);
+            format(string, sizeof(string), "AdmCmd: Um jogador conectou do pais %s", data);
             SendAdminMessage(COLOR_LIGHTRED, string);
 
 		    /*format(string, sizeof(string),"banip %s", type);
