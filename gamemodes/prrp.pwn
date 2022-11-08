@@ -44647,7 +44647,7 @@ CMD:comprar(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 2532.0464,-1916.4795,13.5480)) //comprar 24/7
 	{
-	    Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_LIST, "Item \tPreço\nCelular\tR$120\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nRadio\tR$190\nCâmera\tR$50\nMascara\tR$500\nBoombox\tR$140\nLata de Spray\tR$50);
+	    Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_LIST, "PRODUTOS", "Celular\tR$120\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nRadio\tR$190\nCâmera\tR$50\nMascara\tR$500\nBoombox\tR$140\nLata de Spray\tR$50", "Selecionar", "Voltar");
 	
 	}
 	return 1;
