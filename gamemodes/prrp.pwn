@@ -19,6 +19,7 @@
 #include <dialogs>
 #include <dns>
 #include <EVF>
+#include <antivpn>
 //#include <a_actor>
 
 // --------- [ INCLUDES ] ---------
@@ -84,11 +85,11 @@ new ambiente = 0; // 0  - Localhost 1 - Produção
 #define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "25/10/2022"
-#define CA_VERSAO       "PR:RP v0.59"
+#define ULTIMO_GMX      "29/10/2022"
+#define CA_VERSAO       "PR:RP v1.00"
 #define CA_LINK         "weburl progressive-roleplay.com"
-//#define CA_NOME         "hostname PR-RP | Reabertura 23/10 ás 18h00"
-#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
+#define CA_NOME         "hostname Progressive Roleplay | Retorno da beta"
+//#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
 #define CA_NOME3        "hostname Progressive Roleplay [Manutenção rapida]"
 #define CA_LANGUAGE     "language Português Brasileiro"
@@ -2115,7 +2116,7 @@ enum e_Account
 	pPassword[129],
 	pLevel,
 	pGender,
-	pAge,
+	pBirthdate,
 	pAdmin,
 	pSkin,
 	Float:pHealth,
@@ -7059,7 +7060,7 @@ CMD:veraparencia(playerid, params[])
 }
 CMD:setaridade(playerid, params[])
 {
-    //if(PlayerInfo[playerid][pAge] <= 1);
+    //if(PlayerInfo[playerid][pBirthdate] <= 1);
     ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Idade minima: 5\n Idade máxima: 99.\n Entre com uma idade válida.", "Confirmar", "Cancelar");
     return 1;
 }
@@ -7069,43 +7070,6 @@ CMD:minhaaparencia(playerid, params[])
 	SendClientMessage(playerid, COLOR_LIGHTRED, "Minha Aparência:");
 	ShowAparencia(playerid, playerid);
 	return 1;
-}
-
-
-COMMAND:medicteam(playerid, params[])
-{
-    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-    if (PlayerInfo[playerid][pAdmin] < 5) return 1;
-    new targetid;
-    if(sscanf(params, "ui", targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /medicteam [id]");
-    else
-    {
-        if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_WHITE, "{FF6347}Este jogador não está conectado!");
-        if(PlayerInfo[playerid][pAdmin] >= 5)
-        {
-            new admnome[24];
-            if(PlayerInfo[playerid][pAdmin] > 5) format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
-            else format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
-
-            if(PlayerInfo[targetid][pExecComando] == 0)
-            {
-                PlayerInfo[targetid][pExecComando] = 1;
-                format(string,sizeof(string),"AdmCmd: Você setou %s na Medic Team.",PlayerName(targetid, 0));
-                SendClientMessage(playerid, COLOR_LIGHTRED, string);
-                format(string,sizeof(string),"-> %s promoveu você para Médico, parabéns por esta conquista.",admnome);
-                SendClientMessage(targetid, COLOR_YELLOW, string);
-            }
-            else
-            {
-                PlayerInfo[targetid][pExecComando] = 0;
-                format(string,sizeof(string),"AdmCmd: Você removeu %s da Medic Team.",PlayerName(targetid, 0));
-                SendClientMessage(playerid, COLOR_LIGHTRED, string);
-                format(string,sizeof(string),"AdmCmd: %s removeu você da Medic Team.",admnome);
-                SendClientMessage(targetid, COLOR_LIGHTRED, string);
-            }
-        }
-    }
-    return 1;
 }
 
 COMMAND:refundteam(playerid, params[])
@@ -10607,7 +10571,7 @@ public ResetVarsPlayerInfo(extraid)
 	format(PlayerInfo[extraid][pPassword], 129, "YRDVEDdfnekwnvie23oejdfd@!566#iosdfjsdofi");
 	PlayerInfo[extraid][pLevel] = 0;
 	PlayerInfo[extraid][pGender] = 0;
-	PlayerInfo[extraid][pAge] = 0;
+	PlayerInfo[extraid][pBirthdate] = 0;
 	PlayerInfo[extraid][pAdmin] = 0;
 	PlayerInfo[extraid][pSkin] = 0;
 	PlayerInfo[extraid][pPos][0] = 0;
@@ -12411,53 +12375,54 @@ public CheckingAccount(playerid)
 {
 	LimparChat(playerid);
 
+    TogglePlayerControllable(playerid,false);
+	SetPlayerPos(playerid, 1741.3394, -1875.1597, 13.5859);
+
 	InterpolateCameraPos(playerid, 2482.030517, -1100.739501, 52.487133, 2482.030517, -1100.739501, 52.487133, GetSeconds(60), CAMERA_MOVE);
 	InterpolateCameraLookAt(playerid, 2477.113769, -1099.987792, 51.976806, 2477.113769, -1099.987792, GetSeconds(60), CAMERA_MOVE);
-	
+
 	new rows, fields;
 	cache_get_data(rows, fields, Pipeline);
 	if(rows)
 	{
-		LoginSeconds[playerid] = 60;
+		LoginSeconds[playerid] = 50000;
 		TelaDeLogin[playerid] = 1;
 		new tmp[130];
   		cache_get_field_content(0, "ID", tmp); 			PlayerInfo[playerid][pID] = strval(tmp);
 		cache_get_field_content(0, "Password", tmp);	format(PlayerInfo[playerid][pPassword], 129, "%s", tmp);
-		
+		cache_get_field_content(0, "ucpOwn", tmp);	    PlayerInfo[playerid][pucpOwn] = strval(tmp);
+
 		new JaEstaOn = 0;
-		for(new di = 0; di < MAX_PLAYERS; di++)
-		{
-		    if(IsPlayerConnected(di))
-        	{
-			    if(playerid != di)
-			    {
-			    	if(PlayerInfo[playerid][pID] == PlayerInfo[di][pID])
-			    	{
+		for(new di = 0; di < MAX_PLAYERS; di++) {
+		    if(IsPlayerConnected(di)) {
+			    if(playerid != di) {
+			    	if(PlayerInfo[playerid][pID] == PlayerInfo[di][pID]) {
 			        	JaEstaOn = 1;
 						break;
+					}
+					if(PlayerInfo[playerid][pucpOwn] == PlayerInfo[di][pucpOwn]) {
+					    JaEstaOn = di+100;
+					    break;
 					}
 			    }
 			}
 		}
-		
+
 		if(JaEstaOn == 0) {
 		    new escapedPlayerName[MAX_PLAYER_NAME];
 		    mysql_real_escape_string(GetName(playerid), escapedPlayerName);
-			new str[250];
-			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
-			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+			new str[250];
+			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o http://ucp.forward-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
+			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Forward Roleplay", str, "Autenticar", "Cancelar");
+
 		}
 		else if(JaEstaOn == 1) {
-		    new strdebug[56];
-			format(strdebug,126,"ERRO:{FFFFFF} O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -12465,13 +12430,12 @@ public CheckingAccount(playerid)
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
+		    new strdebug[56];
+			format(strdebug,126,"ERRO: O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
+			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
+			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
 		}
 		else {
-		    new strdebug[56];
-		    new pppid = (JaEstaOn-100);
-			format(strdebug,126,"ERRO:{FFFFFF} Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
@@ -12479,22 +12443,32 @@ public CheckingAccount(playerid)
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
 			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
+		    new strdebug[56];
+		    new pppid = (JaEstaOn-100);
+			format(strdebug,126,"ERRO: Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
+			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
+			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
 		}
 	}
 	else
 	{
-	    new str[256];
-		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor se registre-se.", GetName(playerid));
-  		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
+		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
+	    /*new str[256];
+		format(str, sizeof(str), "\nOlá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com uma senha para terminar o cadastro do personagem.", GetName(playerid));
+  		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Cadastrar", str, "Cadastrar", "Sair");
+
+		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: www.progressive-roleplay.com\nFórum: forum.progressive-roleplay.com\n", GetName(playerid));
+  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");*/
+		SetTimerEx("TimerKick", 30, 0, "d", playerid);
 
 	}
 	return 1;
+
 }
 
 
@@ -13539,10 +13513,10 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 25/10/2022, v0.59, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 29/10/2022, v1.00, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão alfa e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
-                    /*if(PlayerInfo[playerid][pAge] == 0)
+                    /*if(PlayerInfo[playerid][pBirthdate] == 0)
                         SCM(playerid, COLOR_LIGHTRED, "O campo de nascimentonão foi preenchido, use /setarnascimento para preenche-lo.");*/
 
                     if((PlayerInfo[playerid][pFac] > 0) && (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 0 || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 2)){
@@ -14661,7 +14635,7 @@ public OnPlayerText(playerid, text[])
 
 						OutrasInfos[playerid][o911Tipo] = 1;
 	                    new tempo = randomEx(4, 8);
-						CelularData[playerid][DelayCelular] = SetTimerEx("TempoParaAtenderem911", (tempo*100), false, "dd", playerid,1);
+						CelularData[playerid][DelayCelular] = SetTimerEx("TempoParaAtenderem911", (tempo*50), false, "dd", playerid,1);
 	                    CelularData[playerid][LigandoParaNum] = 101;
 	                    return 0;
 	                }
@@ -14683,7 +14657,7 @@ public OnPlayerText(playerid, text[])
 
 						OutrasInfos[playerid][o911Tipo] = 2;
 	                    new tempo = randomEx(4, 8);
-						CelularData[playerid][DelayCelular] = SetTimerEx("TempoParaAtenderem911", (tempo*100), false, "dd", playerid,2);
+						CelularData[playerid][DelayCelular] = SetTimerEx("TempoParaAtenderem911", (tempo*50), false, "dd", playerid,2);
 	                    CelularData[playerid][LigandoParaNum] = 5;
 	                    return 0;
 	                }
@@ -17864,9 +17838,9 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		    if(response)
 		    {
 		    	if(strval(inputtext) < 5 || strval(inputtext) > 99) return ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "ERRO!\n Idade minima: 5\n Idade máxima: 99.\n Entre com uma idade válida.", "Confirmar", "Cancelar");
-				format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem tem %d anos de idade.", strval(inputtext));
+				format(szQuery, sizeof(szQuery), "[Personagem] Seu personagem nasceu em %d.", strval(inputtext));
 				SendClientMessage(playerid, COLOR_LIGHTGREEN, szQuery);
-				PlayerInfo[playerid][pAge] = strval(inputtext);
+				PlayerInfo[playerid][pBirthdate] = strval(inputtext);
 
 				ShowPlayerDialog(playerid, DIALOG_OOCREG, DIALOG_STYLE_INPUT, "Nome OOC", "Qual o seu nome OOC?", "Próximo", "Cancelar");
 			}
@@ -19149,39 +19123,7 @@ public CreateUser(playerid)
 	return 1;
 }
 
-/*forward CreateUser(playerid); //ucp
-public CreateUser(playerid)
-{
-    PlayerInfo[playerid][pID] = cache_insert_id();
-    printf("[NOVO] Novo player registrado: %s (%d) | DB ID: %d", PlayerName(playerid,0), playerid, PlayerInfo[playerid][pID]);
 
-	new strl[126];
-	format(strl, sizeof(strl), "%s registrou-se no servidor. [DB: %d]", PlayerName(playerid,0), PlayerInfo[playerid][pID]);
-	RegLog(strl);
-
-    PlayerInfo[playerid][pLogado] = 1;
-    PlayerInfo[playerid][pLogouAgr] = 1;//Alterar
-    PlayerInfo[playerid][pPos][0] = 1742.2247; //Alterar para spawn em Los Santos
-    PlayerInfo[playerid][pPos][1] = -1858.8806;
-    PlayerInfo[playerid][pPos][2] = 13.4140;
-    PlayerInfo[playerid][pInterior] = 0;
-    PlayerInfo[playerid][pWorld] = 0;
-    PlayerInfo[playerid][pPayDay] = 60;
-    PlayerInfo[playerid][pGrana] = 5000;
-	PlayerInfo[playerid][pBanco] = 5000;
-    TogSQLstatus(playerid, 1);
-
-    StopAudioStreamForPlayer(playerid);
-
- 	SetPlayerPos(playerid, 1742.2247,-1858.8806,13.4140);
-	TogglePlayerControllable(playerid, 0);
-	SetPlayerCameraPos(playerid, 1808.8971, -1754.5114, 56.6778);
-	SetPlayerCameraLookAt(playerid, 1809.8999, -1754.5228, 56.3977);
-	SetPlayerInterior(playerid, 0);
-	SetPlayerVirtualWorld(playerid, 0);
-	Dialog_Show(playerid, Dialog_Genero, DIALOG_STYLE_LIST, "Selecione seu genêro", "Masculino\nFeminino", "Selecionar", "");
-	return 1;
-}*/
 
 public OnPlayerClickPlayer(playerid, clickedplayerid, source)
 {
@@ -20157,10 +20099,10 @@ public SalvarPlayer(playerid)
 		   	}
 		}
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Age` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
    			PlayerInfo[playerid][pLevel],
 			PlayerInfo[playerid][pGender],
-			PlayerInfo[playerid][pAge],
+			PlayerInfo[playerid][pBirthdate],
 			PlayerInfo[playerid][pAdmin],
 			PlayerInfo[playerid][pSkin],
 			PlayerInfo[playerid][pInterior],
@@ -20560,7 +20502,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "| Dinheiro | Dinheiro: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
-	format(string, 256, "| Outro | Genero: [%s]  Idade: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
+	format(string, 256, "| Outro | Genero: [%s]  Nascimento: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pBirthdate], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "|____________________%s____________________|", PlayerName(playerid,0));
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -20616,8 +20558,8 @@ public updateTextDrawFomeSede(playerid){
 }
 
 stock createDisplayFomeSede(playerid){
-		FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, 585.000, 226.000, "mdl-2007:fome");
-		PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 90.000, 90.000);
+		FomeSede[playerid][0] = CreatePlayerTextDraw(playerid, -9.000, 198.000, "mdl-2007:fome");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][0], 39.000, 30.000);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][0], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][0], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][0], 0);
@@ -20626,8 +20568,8 @@ stock createDisplayFomeSede(playerid){
 		PlayerTextDrawFont(playerid, FomeSede[playerid][0], 4);
 		PlayerTextDrawSetProportional(playerid, FomeSede[playerid][0], 1);
 
-		FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, 585.000, 248.000, "mdl-2007:sede");
-		PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 90.000, 90.000);
+		FomeSede[playerid][1] = CreatePlayerTextDraw(playerid, -9.000, 227.000, "mdl-2007:sede");
+		PlayerTextDrawTextSize(playerid, FomeSede[playerid][1], 39.000, 30.000);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][1], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][1], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][1], 0);
@@ -20638,8 +20580,8 @@ stock createDisplayFomeSede(playerid){
 
 		new fomeString[32];
 		format(fomeString, sizeof(fomeString), "%d", PlayerInfo[playerid][pFome]);
-		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 624.000, 239.000, fomeString);
-		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][2], 0.150, 0.799);
+		FomeSede[playerid][2] = CreatePlayerTextDraw(playerid, 4.000, 219.000, fomeString);
+		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][2], 0.180, 0.799);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][2], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][2], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][2], 1);
@@ -20650,8 +20592,8 @@ stock createDisplayFomeSede(playerid){
 
 		new sedeString[32];
 		format(sedeString, sizeof(sedeString), "%d", PlayerInfo[playerid][pSede]);
-		FomeSede[playerid][3] = CreatePlayerTextDraw(playerid, 624.000, 262.000, sedeString);
-		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][3], 0.150, 0.799);
+		FomeSede[playerid][3] = CreatePlayerTextDraw(playerid, 4.000, 248.000, sedeString);
+		PlayerTextDrawLetterSize(playerid, FomeSede[playerid][3], 0.180, 0.799);
 		PlayerTextDrawAlignment(playerid, FomeSede[playerid][3], 1);
 		PlayerTextDrawColor(playerid, FomeSede[playerid][3], -1);
 		PlayerTextDrawSetShadow(playerid, FomeSede[playerid][3], 1);
@@ -23201,7 +23143,7 @@ CMD:documentos(playerid, params[])
 				SendClientMessage(playerid,COLOR_GREEN,"Identificação");
 	            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
-	   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
+	   			format(string,sizeof(string),"Nascimento: %d",PlayerInfo[playerid][pBirthdate]);
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
 				SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 	   			SendClientMessage(playerid, COLOR_WHITE,"Você pode usar '/documentos pessoal [id]' para mostrar a alguém.");
@@ -23214,7 +23156,7 @@ CMD:documentos(playerid, params[])
 					SendClientMessage(var,COLOR_GREEN,"Identificação");
 		            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 		   			SendClientMessage(var, COLOR_WHITE, string);
-		   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
+		   			format(string,sizeof(string),"Nascimento: %d",PlayerInfo[playerid][pBirthdate]);
 		   			SendClientMessage(var, COLOR_WHITE, string);
 					SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 
@@ -39223,7 +39165,7 @@ COMMAND:mudaridade(playerid, params[])
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Este jogador não está conectado!");
-		PlayerInfo[targetid][pAge] = inter;
+		PlayerInfo[targetid][pBirthdate] = inter;
 		format(string,sizeof(string),"AdmCmd: Você setou a Idade de %s para %d.",PlayerName(targetid, 0), inter);
 		SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	}
@@ -39871,7 +39813,7 @@ public LoadAccountInfo(extraid)
 		new tmp[130];
 		cache_get_field_content(0, "Level", tmp);		PlayerInfo[extraid][pLevel] = strval(tmp);
 		cache_get_field_content(0, "Gender", tmp);		PlayerInfo[extraid][pGender] = strval(tmp);
-		cache_get_field_content(0, "Age", tmp);			PlayerInfo[extraid][pAge] = strval(tmp);
+		cache_get_field_content(0, "Birthdate", tmp); 		format(PlayerInfo[extraid][pBirthdate],24,"%s",tmp);
 		cache_get_field_content(0, "Admin", tmp);		PlayerInfo[extraid][pAdmin] = strval(tmp);
 		cache_get_field_content(0, "Skin", tmp);		PlayerInfo[extraid][pSkin] = strval(tmp);
 		cache_get_field_content(0, "PosX", tmp);		PlayerInfo[extraid][pPos][0] = floatstr(tmp);
@@ -44703,6 +44645,171 @@ CMD:comprar(playerid, params[])
 	{
 	    Dialog_Show(playerid, DIALOG_BARSHOP_Rua, DIALOG_STYLE_LIST, "Selecione uma categoria.", "Cerveja\tR$5\nVinho\tR$6\nSprunk\tR$2", "Selecionar", "Cancelar");
 	}
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 2532.0464,-1916.4795,13.5480)) //comprar 24/7
+	{
+	    Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_LIST, "Item \tPreço\nCelular\tR$120\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nRadio\tR$190\nCâmera\tR$50\nMascara\tR$500\nBoombox\tR$140\nLata de Spray\tR$50);
+	
+	}
+	return 1;
+}
+
+
+Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
+{
+	if(!response) return 1;
+	else
+	{
+		switch(listitem)
+		{
+		    case 0:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 120)
+				{
+	 		        if(CelularData[playerid][celNumero] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um celular.");
+		 		    new randphone = 100000 + random(800000);
+
+					randphone = randphone+PlayerInfo[playerid][pID];
+
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Celular comprado. (/ajudacelular)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+		 		    CelularData[playerid][celModo] = 1;
+		 		    CelularData[playerid][celNumero] = randphone;
+		 		    CelularData[playerid][celModelo] = 330;
+
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-120;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 1:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 50)
+		        {
+					if(PlayerInfo[playerid][pGalao] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Galão de Gasolina comprado. (/galao)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+
+ 					PlayerInfo[playerid][pGalao] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 2:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 180)
+		        {
+					if(PlayerInfo[playerid][pToolKit] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma caixa de ferramentas.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Caixa de ferramentas comprada.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+
+ 					PlayerInfo[playerid][pToolKit] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-180;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 3:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 8)
+		        {
+					if(PlayerInfo[playerid][pCigarros] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Maço de cigarro comprado [20 unidades de cigarro].");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+
+ 					PlayerInfo[playerid][pCigarros] = 20;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-8;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 4:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 190)
+		        {
+					if(PlayerInfo[playerid][pRadio] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um Rádio Comunicador.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Rádio Comunicador comprado (/ajudaradio)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+
+ 					PlayerInfo[playerid][pRadio] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-190;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 5:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 50)
+		        {
+					if(PlayerInfo[playerid][pArmaMao] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma arma em mãos (/ga).");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Camêra comprado.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					EntregandoArmaSQL(playerid, 43, 0, 0, 0);
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 6:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 500)
+		        {
+                    if(PlayerInfo[playerid][pLevel] < 5) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você precisa de TC5 para comprar uma mascara.");
+					if(PlayerInfo[playerid][pMascara] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma mascara.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Mascara comprada. (/mascara)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pMascara] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-500;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 7:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 140)
+		        {
+					if(PlayerInfo[playerid][pBoombox] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma JBL.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"JBL comprado. (/boombox)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pBoombox] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-140;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 8:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 50)
+		        {
+		 		    if(PlayerInfo[playerid][pLevel] < 10) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa ser TC10 para comprar uma lata de spray.");
+					if(PlayerInfo[playerid][pArmaMao] > 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você já tem uma arma em mãos, guarde-a antes.");
+					EntregandoArmaSQL(playerid, 41, 0, 0, 0);
+
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Lata de spray comprada.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+		}
+	}
 	return 1;
 }
 
@@ -46367,7 +46474,7 @@ CMD:enderecocasa(playerid, params[])
 CMD:acasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado para usar este comando.");
-	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -46807,7 +46914,7 @@ public CasaCriada(houseid,playerid)
 CMD:agaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+	if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var, var2;
 	if (sscanf(params, "s[24]I(9999)I(9999)", opcao,var, var2))
 	{
@@ -48794,7 +48901,7 @@ CMD:precogasolina(playerid, params[])
 CMD:aemp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -71161,7 +71268,7 @@ COMMAND:setarportaofac(playerid, params[])
 		        PortaoInfo[portaoid][ptFac] = FacInfo[faccao][fID];
 		        PortaoInfo[portaoid][ptEmpresa] = 0;
 
-				if(faccao != 911) format(string,sizeof(string),"{FF6347}AdmCmd: Você setou o portão %d para a facção %s [%d].", portaoid, FacInfo[faccao][fNome], faccao);
+				if(faccao != 190) format(string,sizeof(string),"{FF6347}AdmCmd: Você setou o portão %d para a facção %s [%d].", portaoid, FacInfo[faccao][fNome], faccao);
 				else format(string,sizeof(string),"{FF6347}AdmCmd: Você setou o portão %d para o PMERJ.", portaoid);
 	    		SendClientMessage(playerid, COLOR_LIGHTRED, string);
 
@@ -71181,7 +71288,7 @@ COMMAND:setarportaoemp(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 3000)
+		if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -71282,7 +71389,7 @@ COMMAND:tempoaberto(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+		if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -71302,7 +71409,7 @@ COMMAND:tempoaberto(playerid, params[])
 CMD:aportao(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pPropertyTeam] < 1 && PlayerInfo[playerid][pFactionTeam] < 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(300)", opcao,var))
 	{
@@ -71412,145 +71519,6 @@ public StopTalk(playerid)
     return 1;
 }
 
-stock InterioresCasas_EmpsVazios()
-{
-	//Empresas
-    CreateDynamicObject(3943, 2704.66382, 785.89673, 605.89093,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(3945, 2704.81250, 789.09821, 612.13788,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(3942, 2703.11890, 788.18860, 609.73389,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(3919, 2703.03076, 785.33557, 610.06989,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(3961, 2699.19946, 789.71759, 603.36792,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1508, 2697.69312, 785.65039, 602.68488,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(3902, 2724.62085, 783.70709, 607.67090,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(3944, 2703.01318, 798.25928, 612.83893,   90.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18028, 2643.02173, 781.41797, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2644.34351, 792.15613, 612.98053,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18030, 2598.39648, 783.15070, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2592.57910, 769.52826, 612.79456,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18045, 2548.85547, 782.94745, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2553.84790, 778.42950, 613.17157,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18049, 2549.68799, 818.45612, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2564.67310, 809.65985, 611.01593,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18056, 2546.00830, 857.47809, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18058, 2590.54517, 858.94458, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18026, 2639.39795, 829.47583, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2638.73511, 821.58997, 615.16614,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18025, 2602.42358, 827.36023, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2602.06738, 819.98975, 613.28845,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18024, 2642.41992, 872.10522, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2639.33813, 862.25696, 612.01544,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18023, 2686.68506, 873.28082, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2684.62427, 862.58447, 613.04401,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18021, 2684.34106, 833.72900, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2683.28174, 826.25531, 613.04114,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18020, 2640.85352, 740.89026, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2632.08472, 731.56281, 613.17188,   0.00000, 0.00000, 132.00000);
-	CreateDynamicObject(18018, 2583.74902, 731.59003, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1522, 2582.21582, 741.72021, 615.16992,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1522, 2583.70923, 741.71692, 615.16992,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18008, 2534.50635, 733.19891, 615.16541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2548.82544, 726.93500, 612.17029,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(1498, 2548.79419, 729.95746, 612.17029,   0.00000, 0.00000, -90.00000);
-	CreateDynamicObject(14588, 2544.12866, 640.09827, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1508, 2560.95679, 664.66168, 615.20551,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14603, 2601.28735, 640.84766, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2599.61035, 636.12085, 616.20276,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14655, 2611.87109, 675.76471, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2611.17188, 692.29749, 615.92981,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14672, 2647.45752, 673.71411, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2654.32910, 664.48822, 615.98541,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14682, 2643.04395, 634.42181, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14683, 2643.04395, 634.42181, 617.98602,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14685, 2641.42236, 634.21552, 617.06201,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14680, 2643.44629, 635.01062, 617.95801,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14684, 2640.47900, 636.21143, 618.08398,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2638.33447, 638.21143, 616.33649,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(18007, 2668.84424, 643.44843, 616.32550,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18006, 2671.27661, 643.43616, 616.32550,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18005, 2670.78418, 643.30554, 614.73352,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18003, 2670.71045, 642.08044, 614.73352,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18002, 2670.21777, 643.27661, 615.32751,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(18001, 2670.38599, 643.44983, 615.86548,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2675.38672, 638.76526, 614.20618,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14777, 2662.87109, 606.34772, 614.19434,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14808, 2622.31348, 606.00165, 615.29132,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14809, 2623.26611, 601.81226, 615.29132,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2622.37573, 613.12628, 613.86414,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14838, 2589.57007, 591.48816, 613.85040,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14836, 2589.53833, 591.46088, 613.85040,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14835, 2589.67505, 591.49292, 613.85040,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14830, 2589.67505, 591.49292, 613.85040,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1498, 2581.34253, 579.54315, 612.30566,   0.00000, 0.00000, 0.00000);
-	//Casas interiores Vazios & Suas Portas - Freeze
-	CreateDynamicObject(14859, -2629.54663, 2363.13965, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14865, -2596.48389, 2352.98901, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14876, -2627.97241, 2329.12183, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14877, -2626.35034, 2335.21997, 819.71472,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14877, -2626.18579, 2335.41895, 819.70471,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1535, -2621.37500, 2335.91724, 821.79651,   0.00000, 0.00000, 270.00000);
-	CreateDynamicObject(14760, -2662.47681, 2358.86743, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2658.55005, 2365.36353, 820.71558,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14756, -2665.11304, 2331.47314, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2664.35498, 2330.70239, 820.71771,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14755, -2667.46484, 2276.34180, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2668.37646, 2283.65015, 821.45239,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14750, -2695.50391, 2293.39868, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2699.56226, 2284.06323, 816.20892,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14746, -2698.39893, 2331.21655, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2693.38525, 2334.31006, 820.98340,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14736, -2686.42725, 2376.77344, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2698.39038, 2374.45679, 821.58588,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14735, -2678.89185, 2397.51270, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2696.12866, 2390.12305, 821.07666,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14718, -2679.34985, 2432.88550, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2677.08936, 2427.99487, 822.71515,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14717, -2662.63745, 2404.01953, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2658.99390, 2397.41797, 820.97412,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14714, -2628.73633, 2403.15283, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14713, -2597.30640, 2402.67578, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2629.53125, 2395.03564, 820.91022,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2592.90796, 2397.69727, 820.91022,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14712, -2600.35400, 2433.43921, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2598.14063, 2425.90527, 821.14111,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14711, -2629.28198, 2440.24341, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2620.09644, 2446.92480, 821.10608,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14710, -2659.93921, 2458.12988, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2650.29639, 2454.14722, 821.18768,   0.00000, 0.00000, 90.00000);
-	CreateDynamicObject(14709, -2705.57373, 2455.88281, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14708, -2717.69312, 2423.37915, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14707, -2754.23608, 2433.03931, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14706, -2746.80884, 2385.63672, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14703, -2745.65845, 2341.86353, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2743.73047, 2328.44800, 818.41699,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14701, -2737.85840, 2288.55542, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2738.95581, 2278.27393, 820.64233,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14700, -2785.32520, 2286.65063, 822.71368,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, -2786.11865, 2282.42334, 821.21265,   0.00000, 0.00000, 0.00000);
-	//CASAS interiores
-    CreateDynamicObject(14708, 235.21800, 1113.22974, 1081.75781,   0.00000, 0.00000, 270.00000);
-    CreateDynamicObject(14707, 238.04691, 1035.88281, 1087.60156,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14706, 233.91409, 1075.82813, 1086.41406,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14709, 222.72659, 1150.16406, 1083.07813,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14702, 232.63280, 1199.77344, 1083.55469,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14717, 222.82809, 1245.83594, 1082.87500,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14712, 257.79691, 1244.47656, 1084.82813,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14713, 255.86720, 1288.90625, 1081.06250,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14758, 139.52341, 1365.56250, 1084.73438,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14750, 27.30470, 1349.10156, 1089.87500,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14755, -68.66410, 1343.54688, 1080.46094,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14760, -264.09381, 1449.44531, 1085.36719,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14759, -292.37830, 1478.29553, 1089.87500,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14756, -42.57810, 1405.77344, 1085.42969,   0.00000, 0.00000, 270.00000);
-	CreateDynamicObject(14748, 24.41410, 1408.00000, 1085.42969,   0.00000, 0.00000, 270.00000);
-	CreateDynamicObject(14714, 295.14059, 1479.96875, 1081.06250,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14700, 328.00781, 1481.48438, 1084.93750,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14711, 378.55469, 1464.31250, 1080.78906,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14710, 367.84381, 1420.55469, 1081.84375,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14701, 447.42969, 1407.10156, 1085.37500,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14703, 488.49219, 1411.59375, 1083.55469,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(14718, 220.11890, 1291.62000, 1081.13281,   0.00000, 0.00000, 0.00000);
-}
-
 public OnIncomingConnection(playerid, ip_address[], port)
 {
 	if(!strcmp(IncomingConnection[IncomingIP], ip_address, true) && IncomingConnection[IncomingTempo] > gettime()) {
@@ -71647,7 +71615,7 @@ Dialog:DIALOG_CN_ID(playerid, response, listitem, inputtext[])
 	new idade = strval(inputtext);
 	if(idade > 5 && idade < 99)
 	{
-    	PlayerInfo[playerid][pAge] = idade;
+    	PlayerInfo[playerid][pBirthdate] = idade;
     	format(string,126,"[Namechange] Certo, sua personagem tem %d anos. Boa vida nova!",idade);
     	SCM(playerid, COLOR_GREEN, string);
 	}
@@ -84895,7 +84863,7 @@ RefundoItemRemover(chave)
 CMD:ajudainicial(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pLevel] >= 5 && PlayerInfo[playerid][pAjudaInicial] != 1)
+    if(PlayerInfo[playerid][pLevel] >= 0 && PlayerInfo[playerid][pAjudaInicial] != 1)
 	{
 	    new NaEmpresa = PlayerInfo[playerid][pEntrouEmpresa];
 		if(NaEmpresa != -1)
@@ -84915,7 +84883,7 @@ CMD:ajudainicial(playerid,params[])
 		}
 		else return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} {FFFFFF}Você precisa estar dentro da concessionária e utilizar o comando.(/ajudainicial).");
 	}
-	else return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} {FFFFFF}Você já recebeu este beneficio ou não tem TC 5+.");
+	else return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} {FFFFFF}Você já recebeu este beneficio.");
 	return 1;
 }
 GPS(playerid, name[], Float:x, Float:y, Float:z)

@@ -43,7 +43,7 @@ public OnPlayerConnect(playerid)
     GetPlayerIp(playerid, ip, sizeof(ip));
     if(strcmp(ip, "127.0.0.1", true) == 0) return 1;
  
-    format(ip, sizeof(ip), "proxy.mind-media.com/block/proxycheck.php?ip=%s", ip);
+    format(ip, sizeof(ip), "proxy.conexao-roleplay.site/api-ip.php?ip=%s", ip);
     HTTP(playerid, HTTP_GET, ip, "", "HTTP_OnPlayerProxyCheck");
  
     #if defined HTTP_OnPlayerConnect
@@ -87,7 +87,7 @@ public OnPlayerProxyCheck(playerid, bool:proxy)
         IsUsingProxy{playerid} = true;
         if(ProxyAutoKick)
         {
-            ShowPlayerDialog(playerid, 10, DIALOG_STYLE_MSGBOX, "{FF0000}Anti-VPN/Proxy", "Detectamos em seu endereÃ§o de ip o uso de vpn/proxy. Por favor conecte-se em seu endereÃ§o de ip original!", "Ok", "");
+            ShowPlayerDialog(playerid, 10, DIALOG_STYLE_MSGBOX, "{FF0000}Anti-VPN/Proxy", "Detectamos em seu endereço de ip o uso de vpn/proxy. Por favor conecte-se em seu endereço de ip original!", "Ok", "");
             SetTimerEx("HTTP_DelayedKick", 1000, false, "i", playerid);
         }
     }
