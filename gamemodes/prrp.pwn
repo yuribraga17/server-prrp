@@ -30753,26 +30753,6 @@ COMMAND:mare(playerid, params[])
 	return 1;
 }
 
-/*COMMAND:central(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-    if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_EB)
- {
-	    if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
-
-	    new other[256];
-		if (sscanf(params, "s[256]",other)) SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} /central [texto]");
-		else
-		{
-		    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-			format(string, sizeof(string), "**[CH: 1335, S: 1] BASE: %s **", other);
-			SendFacMessage(0xFFFF79FF,FacId,string);
-			return 1;
-		}
-	}
-	return 1;
-}*/
-
 COMMAND:central(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
