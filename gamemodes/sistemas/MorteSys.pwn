@@ -367,8 +367,8 @@ CMD:aceitarmorte(playerid,params[])
 			if(PlayerInfo[playerid][pDoador] == 1) tempomorto = 5;
 			else if(PlayerInfo[playerid][pDoador] == 2) tempomorto = 5;
 			else if(PlayerInfo[playerid][pDoador] == 3) tempomorto = 5;
-			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 35;
-			else tempomorto = 65;
+			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 300;
+			else tempomorto = 450;
 
 			PlayerInfo[playerid][pTempoMorto] = gettime()+tempomorto;
 

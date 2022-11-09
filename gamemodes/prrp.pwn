@@ -20,7 +20,6 @@
 #include <dns>
 #include <EVF>
 #include <antivpn>
-//#include <a_actor>
 
 // --------- [ INCLUDES ] ---------
 
@@ -36364,7 +36363,7 @@ COMMAND:setarpremium(playerid, params[])
 				}
 				else if(nivel == 3){
 				    format(string, sizeof(string), "Você recebeu o status de doador Ouro até %s.", tempodoador);
-				    PlayerInfo[targetid][pChangeNames] += 9;
+				    PlayerInfo[targetid][pChangeNames] += 10;
 					doadortxt = "setou o status de doador ouro à";
 				}
                 SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -37929,51 +37928,8 @@ CMD:deixarferido(playerid,params[])
 						SetPlayerCameraLookAt(idpl, 1261.2498, -1422.3973, 28.2017);
 
 			   			new tempomorto;
-						/*if(PlayerInfo[idpl][pTomouTiroPesado] > 0)
-						{
-						    if(PlayerInfo[idpl][pDoador] == 1) tempomorto = 900;
-						    else if(PlayerInfo[idpl][pDoador] == 2) tempomorto = 600;
-						    else if(PlayerInfo[idpl][pDoador] == 3) tempomorto = 300;
-							else tempomorto = 1200;
-						}
-						else
-						{
-						    if(PlayerInfo[idpl][pTomouAlgumTiro] > 0)
-							{
-							    if(PlayerInfo[idpl][pDoador] == 1) tempomorto = 600;
-						    	else if(PlayerInfo[idpl][pDoador] == 2) tempomorto = 300;
-						    	else if(PlayerInfo[idpl][pDoador] == 3) tempomorto = 120;
-								else tempomorto = 900;
-							}
-						    else
-						    {
-			    				if(PlayerInfo[idpl][pTomouTiroBrancas] > 0)
-								{
-									if(PlayerInfo[idpl][pDoador] == 1) tempomorto = 300;
-							    	else if(PlayerInfo[idpl][pDoador] == 2) tempomorto = 180;
-							    	else if(PlayerInfo[idpl][pDoador] == 3) tempomorto = 120;
-									else tempomorto = 600;
-								}
-								else
-								{
-								    if(SocosMorto[idpl] > 0)
-									{
-										if(PlayerInfo[idpl][pDoador] == 1) tempomorto = 180;
-								    	else if(PlayerInfo[idpl][pDoador] == 2) tempomorto = 120;
-								    	else if(PlayerInfo[idpl][pDoador] == 3) tempomorto = 60;
-										else tempomorto = 300;
-									}
-								    else
-									{
-									    if(PlayerInfo[idpl][pDoador] == 1) tempomorto = 180;
-								    	else if(PlayerInfo[idpl][pDoador] == 2) tempomorto = 120;
-								    	else if(PlayerInfo[idpl][pDoador] == 3) tempomorto = 60;
-										else tempomorto = 300;
-									}
-								}
-							}
-						}	*/
-						if(PlayerInfo[idpl][pDoador] > 1) tempomorto = 20;
+
+						if(PlayerInfo[idpl][pDoador] > 1) tempomorto = 5;
                         if(PlayerInfo[idpl][pConvenio] > 1) tempomorto = 300;
 			 			else tempomorto = 450;
 
@@ -44697,7 +44653,6 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
 
-
  					PlayerInfo[playerid][pGalao] = 1;
 					
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
@@ -44712,7 +44667,6 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Caixa de ferramentas comprada.");
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
 
  					PlayerInfo[playerid][pToolKit] = 1;
 					
@@ -44729,7 +44683,6 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
 
-
  					PlayerInfo[playerid][pCigarros] = 20;
 					
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-8;
@@ -44744,7 +44697,6 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Rádio Comunicador comprado (/ajudaradio)");
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
 
  					PlayerInfo[playerid][pRadio] = 1;
 					
@@ -44908,7 +44860,7 @@ Dialog:DIALOG_BARSHOP_Rua(playerid, response, listitem, inputtext[])
 	 		        {
 						if(GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_DRINK_BEER) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma cerveja em sua mão.");
 	     				SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma cerveja.");
-	     				PlayerInfo[playerid][pGrana] -= 3;
+	     				PlayerInfo[playerid][pGrana] -= 5;
 	      				SetPlayerSpecialAction(playerid,SPECIAL_ACTION_DRINK_BEER);
 					}
 				}
