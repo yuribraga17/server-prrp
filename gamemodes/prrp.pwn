@@ -74,13 +74,13 @@ new AvisoTiroOuvido[MAX_PLAYERS][8000];
 new ambiente = 0; // 0  - Localhost 1 - Produção
 
 #define localhost_Connection   "198.50.187.244"
-#define localhost_User         "yurib_6948"
-#define localhost_DB           "yurib_6948"
-#define localhost_Password     "wGfWG501d2"
+#define localhost_User         "yurib_7223"
+#define localhost_DB           "yurib_7223"
+#define localhost_Password     "KWB25hGn7M"
 
 #define sz_Connection   "localhost"
 #define sz_User         "root"
-#define sz_DB           "sprp1"
+#define sz_DB           "prrp"
 #define sz_Password     ""
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
@@ -9415,8 +9415,8 @@ public Timer_Segundos()
 						new Float:health;
 						GetPlayerHealth(i,health);
 						new Float:Perda;
-						if(PlayerInfo[i][pFome] == 0) Perda = 3.0;
-						if(PlayerInfo[i][pSede] == 0) Perda = 3.0;
+						if(PlayerInfo[i][pFome] == 0) Perda = 1.0;
+						if(PlayerInfo[i][pSede] == 0) Perda = 2.0;
 						//else Perda = 0.10;
 
             			PlayerInfo[i][pFomeTime]++;
@@ -9434,7 +9434,7 @@ public Timer_Segundos()
     		    			}
         					else if (PlayerInfo[i][pFome] == 0)
 							{
-    	        				SetPlayerHealth(i, health-Perda -2);
+    	        				SetPlayerHealth(i, health-Perda -5);
         					}
         					PlayerInfo[i][pFomeTime] = 0;
 							updateTextDrawFomeSede(i);
@@ -9449,7 +9449,7 @@ public Timer_Segundos()
 							}
 							else if (PlayerInfo[i][pSede] == 0)
 							{
-		        				SetPlayerHealth(i, health-Perda -2);
+		        				SetPlayerHealth(i, health-Perda -6);
         					}
         					PlayerInfo[i][pSedeTime] = 0;
 							updateTextDrawFomeSede(i);
@@ -20364,7 +20364,6 @@ public SalvarPlayer(playerid)
 		mysql_function_query(Pipeline, query, false, "", "");
 
 
-
 		dd_Drogas(playerid);
 
 		TempoParaSalvar[playerid] = 0;
@@ -25939,8 +25938,8 @@ COMMAND:venderdroga(playerid, params[])
 		new str[126];
 		SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
 		SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
-		SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
-		SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+		SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+		SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
 		SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
 		SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
 		format(str, sizeof(str), "Local: %s",location);
@@ -26083,8 +26082,8 @@ COMMAND:explodircaixa(playerid, params[])
 			new str[126];
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
-			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
-			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
 			format(str, sizeof(str), "Local: %s",location);
@@ -26267,8 +26266,8 @@ COMMAND:explodircofre(playerid, params[])
 
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
-			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
-			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo o cofre da loja, venham rápido.");
 
@@ -26469,10 +26468,10 @@ COMMAND:explodirbanco(playerid, params[])
 
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
-			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo Contato: Orelhão");
-			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo Contato: Orelhão");
-			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão assaltando o banco, venham rápido.");
-			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão assaltando o banco, venham rápido.");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão assaltando o banco, muitos bandidos armados.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão assaltando o banco, muitos bandidos armados.");
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Local: Avenida da Ammu-Nation, caixa federal.");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Local: Avenida da Ammu-Nation, caixa federal.");
 
@@ -27423,20 +27422,6 @@ CMD:ajudaemprego(playerid, params[])
 	}
 	return 1;
 }
-/*CMD:cacaniquel2(playerid, params[])
-{
-    new numerosorteado = RandomEx(0, 30), string[250], numeroapostado, dinheiroapostado;
-    if(sscanf(params, "dd", numeroapostado, dinheiroapostado)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Use: /cacaniquel [número] [quantia a apostar]");
-    if(GetPlayerMoney(playerid) < dinheiroapostado) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro suficiente.");
-    format(string, 250, "{FFFF00}Você apostou R$%d no número %d, aguarde o caca-níquel girar.", dinheiroapostado, numeroapostado);
-    SendClientMessage(playerid, COLOR_WHITE, string);
-    SetTimerEx("Cassino", 5000, false, "i", playerid);
-    SetPVarInt(playerid, "NumeroApostado", numeroapostado);
-    SetPVarInt(playerid, "DinheiroApostado", dinheiroapostado);
-    SetPVarInt(playerid, "NumeroSorteado", numerosorteado);
-    GivePlayerMoney(playerid, -dinheiroapostado);
-    return 1;
-}*/
 
 CMD:removerplaca(playerid,params[])
 {
@@ -27476,22 +27461,6 @@ CMD:removerplaca(playerid,params[])
 	return 1;
 }
 
-/*forward Cassino(playerid);
-public Cassino(playerid)
-{
-    if(GetPVarInt(playerid, "NumeroSorteado") == GetPVarInt(playerid, "NumeroApostado"))
-    {
-    SendClientMessage(playerid, COLOR_LIGHTGREEN, "Seu número foi o sorteado e você ganhou cinco vezes o valor apostado.");
-    GivePlayerMoney(playerid, GetPVarInt(playerid, "DinheiroApostado") * 5);
-    }
-    else
-    {
-    new string[250];
-    format(string, 250, "Não foi dessa vez - Número Sorteado: %d", GetPVarInt(playerid, "NumeroSorteado"));
-    SendClientMessage(playerid, COLOR_LIGHTRED, string);
-    }
-    return 1;
-}*/
 
 forward RemovendoPlacaV(playerid, slot);
 public RemovendoPlacaV(playerid, slot)
@@ -67114,7 +67083,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 20)
 				{
 					PlayerInfo[playerid][pPecasMecanicas][0]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um rádio por 20R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um rádio por R$20.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-20;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
@@ -67124,7 +67093,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 100)
 		        {
 					PlayerInfo[playerid][pPecasMecanicas][1]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um jogo de Neon por 100R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um jogo de Neon por R$100.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-100;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
@@ -67134,7 +67103,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 20)
 		        {
 					PlayerInfo[playerid][pPecasMecanicas][2]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um GPS por 20R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um GPS por R$20.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-20;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
@@ -67144,7 +67113,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 30)
 		        {
 					PlayerInfo[playerid][pPecasMecanicas][3]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Immob por 30R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Immob por R$30.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-30;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
@@ -67154,7 +67123,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pGrana] >= 20)
 		        {
 					PlayerInfo[playerid][pPecasMecanicas][4]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Tranca por 20R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Tranca por R$20.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-20;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
@@ -67165,7 +67134,7 @@ Dialog:Dialog_CPecas(playerid, response, listitem, inputtext[])
 		        /*if(PlayerInfo[playerid][pGrana] >= 20)
                 {
 					PlayerInfo[playerid][pPecasMecanicas][5]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Peça de Reparo por 20R$.");
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou um Peça de Reparo por R$20.");
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-20;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");*/
@@ -75503,7 +75472,7 @@ stock CreatePlayerTextDraws( playerid ) {
         PlayerTextDrawFont(playerid, TuningBuy[ playerid ][ 3 ], 2);
         PlayerTextDrawSetProportional(playerid, TuningBuy[ playerid ][ 3 ], 1);
 
-        TuningBuy[ playerid ][ 4 ] = CreatePlayerTextDraw(playerid, 222.500000, 365.000000, "Preco: ~w~10000R$");
+        TuningBuy[ playerid ][ 4 ] = CreatePlayerTextDraw(playerid, 222.500000, 365.000000, "Preco: ~w~R$10000");
         PlayerTextDrawLetterSize(playerid, TuningBuy[ playerid ][ 4 ], 0.244999, 1.092499);
         PlayerTextDrawAlignment(playerid, TuningBuy[ playerid ][ 4 ], 1);
         PlayerTextDrawColor(playerid, TuningBuy[ playerid ][ 4 ], -1);
@@ -83178,13 +83147,13 @@ public DesmanchandoVeh(playerid, parte)
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 25;
 				PlayerInfo[playerid][pGrana] += 3500;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro e R$3500 por desmanchar este veículo.");
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro e R$3,500 por desmanchar este veículo.");
 			}
 			else if(IsASportCar(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 20;
 				PlayerInfo[playerid][pGrana] += 3000;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro e R$3000 por desmanchar este veículo.");
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro e R$3,000 por desmanchar este veículo.");
 			}
 			else if(IsAVan(vid))
 			{
@@ -83196,7 +83165,7 @@ public DesmanchandoVeh(playerid, parte)
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 18;
 				PlayerInfo[playerid][pGrana] += 2000;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro e R$2000 por desmanchar este veículo.");
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro e R$2,000 por desmanchar este veículo.");
 			}
 			else if(IsAUnique(vid))
 			{
