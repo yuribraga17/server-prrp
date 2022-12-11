@@ -934,7 +934,20 @@ new progress_wait[MAX_PLAYERS];
 new progress_wait_max[MAX_PLAYERS];
 new progress_wait_type[MAX_PLAYERS];
 
-
+//=========[SISTEMA DE LABORATORIO DE DROGAS]===================================
+#define MAX_LABO 200
+enum aLaboDroga
+{
+	ldID,
+	ldSeteda,
+	Float:ldposX,
+	Float:ldposY,
+	Float:ldposZ,
+	Float:ldposR,
+	ldObjeto,
+	ldRrombado
+};
+static LaboDrug[MAX_LABO][aLaboDroga];
 
 //==============================================================================
 #define MAX_COFRE 150
@@ -2145,6 +2158,7 @@ enum e_Account
 	pJobTempo,
 	pJobInPd,
 	pTrafico,
+	pFabricouD,
 	pPecasMecanicas[7],// 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
 	pBomba,
 	pC4,
@@ -2176,6 +2190,7 @@ enum e_Account
 	pMun127,
 	pWaypoint,
 	pSalarios,
+	pCortaRem,
 	pLocation[32],
 	Float:pWaypointPos[3],
 	pSlot1,
@@ -3200,6 +3215,8 @@ new ComplexoInfo[MAX_COMPLEXOS][c_Info];
 
 #define EMP_TIPO_EMP_FVELHO  55
 #define EMP_TIPO_EMP_CELULAR   56
+
+#define EMP_TIPO_FARMACIA    	57 //farmacia de drogas
 
 enum e_Info
 {
@@ -6088,6 +6105,7 @@ public OnGameModeInit()
     mysql_function_query(Pipeline, "SELECT * FROM `rp_atms`", true, "QUERY_LOAD_ATMS", "");
 	mysql_function_query(Pipeline, "SELECT * FROM `rp_cloja`", true, "QUERY_LOAD_COFRELOJAS", "");
 	mysql_function_query(Pipeline, "SELECT * FROM `rp_cofre`", true, "QUERY_LOAD_COFREBANCO", "");
+	mysql_function_query(Pipeline, "SELECT * FROM `rp_laboratorio`", true, "QUERY_LOAD_LABORATORIO", "");
     mysql_function_query(Pipeline, "SELECT * FROM `cartuxo`", true, "LoadAmmos", "");
     mysql_function_query(Pipeline, "SELECT * FROM `rp_drogasplant`", true, "QUERY_LOAD_DRUGPLAN", "");
     mysql_function_query(Pipeline, "SELECT * FROM `drop_drug`", true, "LoadDrugs", "");
@@ -8066,6 +8084,7 @@ public PayDay(playerid) {
 
 			PlayerInfo[playerid][pJobInPd] = 0;
 			PlayerInfo[playerid][pTrafico] = 0;
+			PlayerInfo[playerid][pFabricouD] = 0;
 
 			new salarfac = 0;
 			if(PlayerInfo[playerid][pFac] > 0) {
@@ -10721,6 +10740,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pRaspador] = 0;
 	PlayerInfo[extraid][pJobInPd] = 0;
 	PlayerInfo[extraid][pTrafico] = 0;
+	PlayerInfo[extraid][pFabricouD] = 0;
 	PlayerInfo[extraid][pHabDrug] = 0;
 	PlayerInfo[extraid][pArmasResetadas] = 0;
 	PlayerInfo[extraid][pEntrouGaragem] = -1;
@@ -11004,6 +11024,7 @@ public OnPlayerConnect(playerid)
 	PlayerInfo[playerid][pJobTempo] = 0;
 	PlayerInfo[playerid][pJobInPd] = 0;
 	PlayerInfo[playerid][pTrafico] = 0;
+	PlayerInfo[playerid][pFabricouD] = 0;
 	PlayerInfo[playerid][pTempoPLD] = 0;
 	PlayerInfo[playerid][pToolKit] = 0;
 	PlayerInfo[playerid][pArrombarDNV] = 0;
@@ -11074,6 +11095,7 @@ public OnPlayerConnect(playerid)
 	PlayerInfo[playerid][pChatStyle] = 0;
 	PlayerInfo[playerid][pPontos] = 0;
 	PlayerInfo[playerid][pSalarios] = 0;
+	PlayerInfo[playerid][pCortaRem] = 0;
 	PlayerInfo[playerid][pKickAll] = 0;
 	PlayerInfo[playerid][pBanAll] = 0;
 	PlayerInfo[playerid][pBanido] = 0;
@@ -20295,7 +20317,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d', `trafico`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d', `trafico`='%d', `FabricouDroga` WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pColdreX],
 			PlayerInfo[playerid][pColdreY],
 			PlayerInfo[playerid][pColdreZ],
@@ -20317,6 +20339,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pRaspador],
 			PlayerInfo[playerid][pJobInPd],
 			PlayerInfo[playerid][pTrafico],
+			PlayerInfo[playerid][pFabricouD],
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -20347,7 +20370,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `pAlgemado` = '%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem`, `pAlgemado` = '%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEtnia],
 			PlayerInfo[playerid][pOlhos],
 			PlayerInfo[playerid][pPeso],
@@ -20359,6 +20382,7 @@ public SalvarPlayer(playerid)
             PlayerInfo[playerid][pBanTeam],
             PlayerInfo[playerid][pRefundTeam],
             PlayerInfo[playerid][pPropertyTeam],
+			PlayerInfo[playerid][pCortaRem],
 			OutrasInfos[playerid][oAlgemado],
             PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
@@ -25888,6 +25912,104 @@ public StopTalking(playerid)
     ClearAnimations(playerid, 1);
 	return 1;
 }
+//Sistema de misturar drogas - Yur$
+COMMAND:misturarcoca(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+	if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para misturar a cocaina.");
+    if(PlayerInfo[playerid][pCortaRem] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem um cortador de remédio.");
+	if(PlayerDroga[playerid][CocaE] < 9) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 10g de cocaina Excelente.");
+	if(PlayerInfo[playerid][pFabricouD] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já fabricou droga o bastante neste PayDay, volte após seu payday.");
+	if(PlayerDroga[playerid][Acloridrico] < 9) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 10ml de Acido cloridrico.");
+	if(PlayerDroga[playerid][Efedrina] < 9) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 10gm de Efedrina.");
+	if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
+
+	for(new i = 0; i < MAX_LABO; i++)
+ 	{
+  		if(IsPlayerInRangeOfPoint(playerid,10.5,LaboDrug[i][ldposX], LaboDrug[i][ldposY], LaboDrug[i][ldposZ]))
+    	{
+
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você começou o processo de mistura de cocaina.");	
+			SetTimerEx("MisturandoCoca", 10000, false, "d", playerid);
+
+			PlayerDroga[playerid][CocaE]-= 10;
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima da bancada, pega um triturador de comprimidos e coloca a Efedrina no pote. Começa a tritura-la.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			new strl[126];
+			format(strl, 126, "%s Misturou a cocaina. [/venderdroga]", PlayerName(playerid, 0));
+			LogCMD_venderdroga(strl);
+		}
+
+	}
+	return 1;
+}
+
+forward MisturandoCoca(playerid);
+public MisturandoCoca(playerid)
+{
+
+	PlayerDroga[playerid][Acloridrico]-= 10;
+	PlayerDroga[playerid][Efedrina]-= 10;
+
+	TogglePlayerControllable(playerid, 0);
+	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+
+	SetTimerEx("FinalizandoCoca", 50000, false, "d", playerid);
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"** %s Pega a Efedrina triturada e pega também o litro com o Acido, mistura os dois e acrescenta a cocaina excelente.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+	format(stringvendeu,sizeof(stringvendeu),"** %s mistura todos os ingredientes, passa para a panela.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+    return 1;
+}
+
+forward FinalizandoCoca(playerid);
+public FinalizandoCoca(playerid)
+{
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"** %s deixa a panela alguns segundos no fogo e fica mexendo a mistura. Depois passa tudo para um pano e vai para a prensa, termina de tirar o liquido.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+	format(stringvendeu,sizeof(stringvendeu),"** %s prensa a cocaina com 25kg de força e em seguida, remove-a da prensa.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+	TogglePlayerControllable(playerid, 0);
+	SetTimerEx("PegouCocaRuim", 10000, false, "d", playerid);
+
+
+    return 1;
+}
+
+forward PegouCocaRuim(playerid);
+public PegouCocaRuim(playerid)
+{
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"** %s retira o pano da prensa junto da droga. Começa a esfarelar a droga e embalar em pinos.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+	PlayerDroga[playerid][CocaR]+= 50;
+	PlayerInfo[playerid][pFabricouD]++;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 50 gramas de cocaina ruim.");
+
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
 
 //Sistema de vender drogas npc - Yur$
 COMMAND:venderdroga(playerid, params[])
@@ -25915,10 +26037,10 @@ COMMAND:venderdroga(playerid, params[])
     IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
     IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
     IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
-	IsPlayerInRangeOfPoint(playerid,2.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,2.0,-119.8660,-256.1620,1.310) ||
-	IsPlayerInRangeOfPoint(playerid,2.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,2.0,-119.6245,-240.3442,1.3109) ||
-	IsPlayerInRangeOfPoint(playerid,2.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,2.0,-119.6748,-233.7748,1.3109) ||
-	IsPlayerInRangeOfPoint(playerid,2.0,-104.4682,-232.1702,1.2875))
+	IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
+	IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
+	IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
+	IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
 	{
 		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
 		SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
@@ -39867,6 +39989,8 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "pRaspador", tmp);  PlayerInfo[extraid][pRaspador] = strval(tmp);
 		cache_get_field_content(0, "pJobInPd", tmp);  PlayerInfo[extraid][pJobInPd] = strval(tmp);
 		cache_get_field_content(0, "trafico", tmp);  PlayerInfo[extraid][pTrafico] = strval(tmp);
+		cache_get_field_content(0, "FabricouDroga", tmp); PlayerInfo[extraid][pFabricouD] = strval(tmp);
+		cache_get_field_content(0, "CortaRem", tmp); PlayerInfo[extraid][pCortaRem] = strval(tmp);
 		cache_get_field_content(0, "pHabDrug", tmp);  PlayerInfo[extraid][pHabDrug] = strval(tmp);
 		cache_get_field_content(0, "pArmasResetadas", tmp);  PlayerInfo[extraid][pArmasResetadas] = strval(tmp);
 		cache_get_field_content(0, "pEntrouGaragem", tmp);	PlayerInfo[extraid][pEntrouGaragem] = strval(tmp);
@@ -39886,6 +40010,7 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "pConvenio", tmp);  PlayerInfo[extraid][pConvenio] = strval(tmp);
 		cache_get_field_content(0, "pTempoMorto", tmp);  PlayerInfo[extraid][pTempoMorto] = strval(tmp);
 		cache_get_field_content(0, "pAjudaInicialDim", tmp);  PlayerInfo[extraid][pAjudaInicialDim] = strval(tmp);
+		
 
 		cache_get_field_content(0, "Peso", tmp);  PlayerInfo[extraid][pPeso] = strval(tmp);
 		cache_get_field_content(0, "Altura", tmp);  PlayerInfo[extraid][pAltura] = strval(tmp);
@@ -40783,6 +40908,24 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 				DestroyDynamicObject(cbanco[id][cbObjeto]);
 
 			cbanco[id][cbObjeto] = CreateDynamicObject(2332, x, y, z, 0.000000, 0.000000, rz);
+    		return 1;
+        }
+		else if(GetPVarInt(playerid, "EditFABRICAD") == 1)
+		{
+            SendClientMessage( playerid,COLOR_YELLOW,"Fabrica de drogas criada.");
+            new id = GetPVarInt(playerid, "EditFABRICADID");
+			LaboDrug[id][ldposX] = x;
+			LaboDrug[id][ldposY] = y;
+			LaboDrug[id][ldposZ] = z;
+			LaboDrug[id][ldposR] = rz;
+			SetPVarInt(playerid, "EditFABRICAD", 0);
+    		SetPVarInt(playerid, "EditFABRICADID", 0);
+    		SaveCOFREB(id);
+
+			if(IsValidDynamicObject(LaboDrug[id][ldObjeto]))
+				DestroyDynamicObject(LaboDrug[id][ldObjeto]);
+
+			LaboDrug[id][ldObjeto] = CreateDynamicObject(2332, x, y, z, 0.000000, 0.000000, rz);
     		return 1;
         }
         else if(GetPVarInt(playerid, "EditandoAmmoNoChao") != -1)
@@ -44550,6 +44693,10 @@ CMD:comprar(playerid, params[])
             {
                 ShowPlayerDialog(playerid, EMP_TIPO_EMP_CELULAR, DIALOG_STYLE_PREVMODEL, "CELULARES", "330\nR$50\n18874\nR$100\n18873\nR$100\n18872\nR$100\n18871\nR$100\n18870\nR$100\n18869\nR$100\n18868\nR$100\n18867\nR$100\n18866\nR$100\n19513\nR$100\n18865\nR$150", "COMPRAR", "CANCELAR");
             }
+			case EMP_TIPO_FARMACIA:
+			{
+			    Dialog_Show(playerid, Dialog_Farmacia, DIALOG_STYLE_LIST, "Farmácia Preço Baixo", "Cortador de remédio\tR$50\nEfedrina\tR$250\nAcido cloridrico\tR$800", "Selecionar", "Cancelar");
+			}
         }
     }
 	if(IsPlayerInRangeOfPoint(playerid, 5, 2532.0464,-1916.4795,13.5480))
@@ -44564,6 +44711,60 @@ CMD:comprar(playerid, params[])
 	return 1;
 }
 
+Dialog:Dialog_Farmacia(playerid, response, listitem, inputtext[])
+{
+	if(!response) return 1;
+	else
+	{
+		switch(listitem)
+		{
+			case 0:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 50)
+		        {
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Cortador/triturador de comprimido comprado.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pCortaRem] += 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 1:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 250)
+		        {
+		
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"1 caixa de Efedrina comprado (15 comprimidos).");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerDroga[playerid][Efedrina] += 15;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-250;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 2:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 800)
+		        {
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"20ml de Ácido cloridrico comprado.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerDroga[playerid][Acloridrico] += 20;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-800;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+		}
+	}
+	return 1;
+}
 
 Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 {
@@ -44602,7 +44803,7 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
 
- 					PlayerInfo[playerid][pGalao] = 1;
+ 					PlayerInfo[playerid][pGalao] += 1;
 					
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
 				}
@@ -44632,7 +44833,7 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
 
- 					PlayerInfo[playerid][pCigarros] = 20;
+ 					PlayerInfo[playerid][pCigarros] += 20;
 					
 					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-8;
 				}
@@ -48823,7 +49024,7 @@ CMD:aemp(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "___________Tipos de Empresas___________");
 			SendClientMessage(playerid, COLOR_GREY, "1: Seguros de Veículos | 6: Posto de Gasolina/ 247 | 7: Roupas/Itens | 8: Ammu Nation | 10: Loja de Apostas | 55: Ferro Velho");
 			SendClientMessage(playerid, COLOR_GREY, "20: Banco | 21: Pawn Shop | 22: Burger Shot | 23: Concessionária | 24: Bar | 26: Stacked | 27: Cluckin");
-			SendClientMessage(playerid, COLOR_GREY, "50: Centro de Licenças | 51: Centro de empregos | 25: Loja de Celulares | 9: Transporte de Valores");
+			SendClientMessage(playerid, COLOR_GREY, "50: Centro de Licenças | 51: Centro de empregos | 25: Loja de Celulares | 9: Transporte de Valores | 57 - Farmacia");
 			return 1;
 		}
 		if (!strcmp(opcao, "leasing", true))
@@ -49002,7 +49203,7 @@ CMD:aemp(playerid, params[])
 				}
 			}
 		}
-		else if (!strcmp(opcao, "wid", true))
+		else if (!strcmp(opcao, "ybid", true))
 		{
 		    new empresas = 0;
 			for(new i; i < MAX_EMPRESAS; i++)
@@ -49054,7 +49255,7 @@ CMD:aemp(playerid, params[])
 						EmpInfo[i][eTipo] = var;
 						switch(var)
 						{
-						    case 6, 21: EmpInfo[i][eCompraTipo] = 11;
+						    case 6, 21, 27: EmpInfo[i][eCompraTipo] = 11;
 						    case 22, 26, 17: EmpInfo[i][eCompraTipo] = 1;
 						    case 24: EmpInfo[i][eCompraTipo] = 10;
 						    case 55: EmpInfo[i][eCompraTipo] = 55;
@@ -72188,6 +72389,30 @@ public QUERY_LOAD_COFREBANCO()
 	}
 	return 1;
 }
+
+forward QUERY_LOAD_LABORATORIO();
+public QUERY_LOAD_LABORATORIO()
+{
+	new b[256];
+	new rows,fields;
+	cache_get_data(rows, fields);
+ 	for(new i; i < rows; i++)
+  	{
+        cache_get_field_content(i,"id",b);  				LaboDrug[i][ldID] = strval(b);
+        cache_get_field_content(i,"setada",b);         		LaboDrug[i][ldSeteda] = strval(b);
+        cache_get_field_content(i,"posx",b);         		LaboDrug[i][ldposX] = floatstr(b);
+        cache_get_field_content(i,"posy",b);         		LaboDrug[i][ldposY] = floatstr(b);
+        cache_get_field_content(i,"posz",b);         		LaboDrug[i][ldposZ] = floatstr(b);
+    	cache_get_field_content(i,"posr",b);         		LaboDrug[i][ldposR] = floatstr(b);
+
+
+    	if(LaboDrug[i][ldSeteda] == 1)
+    	{
+    		LaboDrug[i][ldObjeto] = CreateDynamicObject(2332, LaboDrug[i][ldposX], LaboDrug[i][ldposY], LaboDrug[i][ldposZ], 0.000000, 0.000000, LaboDrug[i][ldposR], 0);
+		}
+	}
+	return 1;
+}
 //=========================================================================================================================================================
 //                                                          ARMARIO DINAMICO / Dudut
 //=========================================================================================================================================================
@@ -72292,6 +72517,65 @@ public SaveATM(i)
 	ATMs[i][aposR],
 	ATMs[i][aGrana],
 	ATMs[i][atID]);
+	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
+	return 1;
+}
+//=================[SISTEMA DE LABOLATORIO]======================
+COMMAND:criarlabo(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+    if(PlayerInfo[playerid][pAdmin] >= 5)
+	{
+		CriarFABRICADROGA(playerid);
+		return 1;
+	}
+	return 1;
+}
+stock CriarFABRICADROGA(playerid)
+{
+	new str[256];
+    for(new i = 0; i < MAX_COFREB; i++)
+    {
+        if(LaboDrug[i][ldSeteda] == 0)
+        {
+            LaboDrug[i][ldSeteda] = 1;
+            format(str,sizeof(str),"INSERT INTO rp_laboratorio (setada) VALUES ('%d')", LaboDrug[i][ldSeteda]);
+   			mysql_function_query(Pipeline, str, false, "CriouFABRICAnaDB", "d",playerid);
+   			return 1;
+		}
+	}
+	return 1;
+}
+forward CriouFABRICAnaDB(playerid);
+public CriouFABRICAnaDB(playerid)
+{
+    new Float:sys_pos_dono[3];
+	new i = cache_insert_id();
+    GetPlayerPos(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2]);
+
+    LaboDrug[i][ldID] = i;
+	LaboDrug[i][ldposX] = sys_pos_dono[0];
+	LaboDrug[i][ldposY] = sys_pos_dono[1]+2;
+	LaboDrug[i][ldposZ] = sys_pos_dono[2];
+
+	LaboDrug[i][ldObjeto] = CreateDynamicObject(2332, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
+   	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
+   	Streamer_Update(playerid);
+    EditDynamicObject(playerid, LaboDrug[i][ldObjeto]);
+    SetPVarInt(playerid, "EditFABRICAD", 1);
+    SetPVarInt(playerid, "EditFABRICADID", i);
+    return 1;
+}
+forward SaveFABRICAD(i);
+public SaveFABRICAD(i)
+{
+	new str[254];
+	format(str,sizeof(str),"UPDATE `rp_laboratorio` SET `posx`='%f',`posy`='%f',`posz`='%f',`posr`='%f' WHERE id=%d LIMIT 1",
+ 	LaboDrug[i][ldposX],
+	LaboDrug[i][ldposY],
+	LaboDrug[i][ldposZ],
+	LaboDrug[i][ldposR],
+	LaboDrug[i][ldID]);
 	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
 	return 1;
 }
