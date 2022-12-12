@@ -1722,6 +1722,7 @@ new Pos_Z_Old_AV[MAX_PLAYERS];
 #define JOB_PESCADOR	    8
 #define JOB_MOTOBOY       9
 #define JOB_LIXEIRO         10
+#define JOB_LAVAGEM         11
 
 //HotDog
 new HotDogAccept[MAX_PLAYERS],
@@ -2152,6 +2153,7 @@ enum e_Account
 	pEntrouComplexo,
 	pEntrouGaragem,
 	pGrana,
+	pGranaSuja,
 	pUltimoLogin[50],
 	pMorto,
 	pChaveEmprestada,
@@ -2387,6 +2389,10 @@ enum O_Infos
 	Float:oDesmancheY,
 	Float:oDesmancheZ,
 	Float:oDesmancheR,
+	Float:oLavagemX,
+	Float:oLavagemY,
+	Float:oLavagemZ,
+	Float:oLavagemR,
 	oDesmancheTime
 };
 new OutrasInfos[MAX_PLAYERS][O_Infos];
@@ -10614,6 +10620,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pEntrouCasa] = -1;
 	PlayerInfo[extraid][pEntrouComplexo] = -1;
 	PlayerInfo[extraid][pGrana] = 0;
+	PlayerInfo[extraid][pGranaSuja] = 0;
 	PlayerInfo[extraid][pMorto] = 0;
 	format(PlayerInfo[extraid][pUltimoLogin], 128, " ");
 	PlayerInfo[extraid][pEntrouEmpresa] = -1;
@@ -10776,7 +10783,14 @@ public ResetVarsPlayerInfo(extraid)
 	OutrasInfos[extraid][oDesmancheY] = 0;
 	OutrasInfos[extraid][oDesmancheZ] = 0;
 	OutrasInfos[extraid][oDesmancheR] = 0;
+
 	OutrasInfos[extraid][oDesmancheTime] = 0;
+
+	OutrasInfos[extraid][oLavagemX] = 0;
+	OutrasInfos[extraid][oLavagemY] = 0;
+	OutrasInfos[extraid][oLavagemZ] = 0;
+	OutrasInfos[extraid][oLavagemR] = 0;
+
 
 	LastShoter[extraid] = 0;
 }
@@ -11021,6 +11035,7 @@ public OnPlayerConnect(playerid)
 	PlayerInfo[playerid][pEntrouComplexo] = -1;
 	PlayerInfo[playerid][pEntrouGaragem] = -1;
 	PlayerInfo[playerid][pGrana] = 0;
+	PlayerInfo[playerid][pGranaSuja] = 0;
 	PlayerInfo[playerid][pFac] = 0;
 	PlayerInfo[playerid][pExecComando] = 0;
 	PlayerInfo[playerid][pJob] = 0;
@@ -12274,7 +12289,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1308, 2484.093, -1357.320, 27.992, 0.250);
 	RemoveBuildingForPlayer(playerid, 700, 2481.101, -1360.007, 27.859, 0.250);
 	RemoveBuildingForPlayer(playerid, 3698, 2490.695, -1362.656, 30.812, 0.250);
-        //Shopping
+    //Shopping
 	RemoveBuildingForPlayer(playerid, 6130, 1117.5859, -1490.0078, 32.7188, 0.25);
 	RemoveBuildingForPlayer(playerid, 6255, 1117.5859, -1490.0078, 32.7188, 0.25);
 	RemoveBuildingForPlayer(playerid, 792, 1050.1328, -1566.4375, 12.6406, 0.25);
@@ -12322,6 +12337,9 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 792, 1118.0156, -1434.0703, 15.2109, 0.25);
 	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1458.7344, 12.6641, 0.25);
 	RemoveBuildingForPlayer(playerid, 792, 1190.2578, -1426.3516, 12.6641, 0.25);
+	//Idlewood
+	RemoveBuildingForPlayer(playerid, 5397, 1866.328, -1789.780, 20.944, 0.250);
+	RemoveBuildingForPlayer(playerid, 5536, 1866.328, -1789.780, 20.944, 0.250);
 
 	for(new i = 0; i < 50; i++) //CaminhaoSyst
 	{
@@ -19119,6 +19137,7 @@ public CreateUser(playerid)
     PlayerInfo[playerid][pPayDay] = 60;
     PlayerInfo[playerid][pGrana] = 2500;
 	PlayerInfo[playerid][pBanco] = 5000;
+
     TogSQLstatus(playerid, 1);
 
     StopAudioStreamForPlayer(playerid);
@@ -19173,6 +19192,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
     		PlayerInfo[playerid][pPayDay] = 60;
     		PlayerInfo[playerid][pGrana] = 1200;
     		PlayerInfo[playerid][pBanco] = 5000;
+			PlayerInfo[playerid][pGranaSuja] = 0;
 
 			PlayerInfo[playerid][pOlhos] = 0;
 			PlayerInfo[playerid][pAltura] = 0;
@@ -19343,7 +19363,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 			    PlayerInfo[playerid][pSkin] = modelid;
 			    SetPlayerSkin(playerid, modelid);
 
-				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-25;
+				PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
 			    EmpInfo[EmpresaID][eBank] += 50;
 			    ApplyAnimation(playerid, "CLOTHES", "CLO_Buy", 3.0, 0, 0, 0, 0, 0, 1);
 			}
@@ -20123,9 +20143,10 @@ public SalvarPlayer(playerid)
 		);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `EntrouCasa` = '%d', `Grana` = '%d', `Morto` = '%d', `UltimoLogin` = '%s', `EntrouComplexo` = '%d', `EntrouEmpresa` = '%d', `pEntrouGaragem` = '%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `EntrouCasa` = '%d', `Grana` = '%d', `GranaSuja` = '%d', `Morto` = '%d', `UltimoLogin` = '%s', `EntrouComplexo` = '%d', `EntrouEmpresa` = '%d', `pEntrouGaragem` = '%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEntrouCasa],
 			PlayerInfo[playerid][pGrana],
+			PlayerInfo[playerid][pGranaSuja],
 			PlayerInfo[playerid][pMorto],
 			PlayerInfo[playerid][pUltimoLogin],
 			PlayerInfo[playerid][pEntrouComplexo],
@@ -20459,6 +20480,7 @@ public VerStats(playerid, targetid)
 		case JOB_DESMANCHE: format(str_job, 32, "Mêcanico Ilegal");
 		case JOB_PESCADOR: format(str_job, 32, "Pescador");
 		case JOB_MOTOBOY: format(str_job, 32, "Motoboy");
+		case JOB_LAVAGEM: format(str_job, 32, "Lavador de dinheiro");
 	    default: format(str_job, 32, "Desempregado");
 	}
 
@@ -20511,7 +20533,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
 	format(string, 256, "| Skill | Vida: [%.2f/%.2f] Colete: [%.2f/100] Força: [%d]", Health, PlayerInfo[playerid][pHealthMax], PlayerInfo[playerid][pArmour], PlayerInfo[playerid][pForca]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
-	format(string, 256, "| Dinheiro | Dinheiro: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
+	format(string, 256, "| Financeiro | Dinheiro: [R$%d] Dinheiro Sujo: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pGranaSuja], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
 	format(string, 256, "| Outro | Genero: [%s]  Nascimento: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pBirthdate], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
@@ -25193,6 +25215,76 @@ CMD:entregar(playerid, params[])
 	return 1;
 }
 
+CMD:passargrana(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	new qnt, var;
+	if (sscanf(params, "I(9999)i",var, qnt)) return SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} /pagar [ID/Mascara id] [Valor]");
+	else
+	{
+	    if(var > 1000)
+	    {
+	    	for(new o = 0; o < MAX_PLAYERS; o++)
+	    	{
+	        	if(IsPlayerConnected(o))
+	        	{
+	                if(var == PlayerInfo[o][pMascID])
+	                {
+	                    var = o;
+	                    break;
+	                }
+	        	}
+	    	}
+		}
+ 		if(var == 9999) return SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} /passargrana [ID] [Valor]");
+ 		if(var == playerid) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode pagar algo para sí mesmo.");
+		if(!IsPlayerConnected(var)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} ID inválido.");
+    	if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} ID inválido.");
+    	if(qnt < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar valores negativos.");
+    	if(PlayerInfo[playerid][pGranaSuja] < qnt) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de dinheiro sujo.");
+
+    	new ip1[126], ip2[126], targetid;
+    	format(ip1, sizeof(ip1), "%s", PrintPlayerIP(playerid));
+    	format(ip2, sizeof(ip2), "%s", PrintPlayerIP(var));
+
+    	if(strcmp(ip1,ip2,true) == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode passar para uma conta no mesmo IP.");
+
+        if(GetDistanceBetweenPlayers(playerid,var) < 7.5)
+        {
+            if(GetPVarInt(var, "PlayerSpectate") == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está próximo a este player.");
+            if(PlayerInfo[playerid][pLevel] == 20)
+            {
+                if(qnt > 1500)
+                {
+                    format(string, sizeof(string), "AdmWarn: ANTI-MF SUJO, %s[%d] pode estar fazendo money farm. [TC: %d, Entrgou R$%d, para: %s]", PlayerName(playerid,0), playerid, PlayerInfo[targetid][pLevel], qnt, PlayerName(var,0));
+					SendAdminMessage(COLOR_YELLOW,string);
+
+					new strl[126];
+					format(strl, sizeof(strl), "[ Possivel Money Farm Sujo] %s pagou para %s a quantidade de R$%d.", PlayerName(playerid,0), PlayerName(var,0), qnt);
+	   				LogCMD_PAGAR(strl);
+                }
+            }
+
+            PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-qnt;
+            PlayerInfo[var][pGranaSuja] = PlayerInfo[var][pGranaSuja]+qnt;
+			format(string,sizeof(string)," Você deu para %s, R$%d sujo.",PlayerName(var,1), qnt);
+	 		SendClientMessage(playerid, COLOR_CINZA,string);
+	 		format(string,sizeof(string)," Você recebeu R$%d sujo de %s.", qnt, PlayerName(playerid,1));
+	 		SendClientMessage(var, COLOR_CINZA,string);
+
+	 		if(PlayerInfo[playerid][pMorto] == 0) ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+			new strl[126];
+	   		format(strl, sizeof(strl), "%s pagou para %s a quantidade de dinheiro sujo R$%d.", PlayerName(playerid,0), PlayerName(var,0), qnt);
+	   		LogCMD_PAGAR(strl);
+	   		return 1;
+		}
+		else
+		{	SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está próximo a este player."); }
+	}
+	return 1;
+}
+
 CMD:pagar(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -25221,7 +25313,7 @@ CMD:pagar(playerid, params[])
     	if(qnt < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar valores negativos.");
     	if(PlayerInfo[playerid][pGrana] < qnt) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso.");
 
-    	new ip1[126], ip2[126];
+    	new ip1[126], ip2[126], targetid;
     	format(ip1, sizeof(ip1), "%s", PrintPlayerIP(playerid));
     	format(ip2, sizeof(ip2), "%s", PrintPlayerIP(var));
 
@@ -25234,7 +25326,7 @@ CMD:pagar(playerid, params[])
             {
                 if(qnt > 1500)
                 {
-                    format(string, sizeof(string), "AdmWarn: ANTI-MF, %s[%d] pode estar fazendo money farm. [TC: 20, Entrgou R$%d, para: %s]", PlayerName(playerid,0), playerid, qnt, PlayerName(var,0));
+                    format(string, sizeof(string), "AdmWarn: ANTI-MF, %s[%d] pode estar fazendo money farm. [TC: %d, Entrgou R$%d, para: %s]", PlayerName(playerid,0), playerid, PlayerInfo[targetid][pLevel], qnt, PlayerName(var,0));
 					SendAdminMessage(COLOR_YELLOW,string);
 
 					new strl[126];
@@ -25729,7 +25821,7 @@ COMMAND:upgrade(playerid, params[])
 	    SendClientMessage(playerid, COLOR_WHITE, "*** UPGRADES ***");
         format(string, 256, "SINTAXE: /upgrade [nome do upgrade (Você tem %d pontos de upgrade)]", PlayerInfo[playerid][pPontos]);
      	SendClientMessage(playerid, COLOR_CINZA, string);
-	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Vida Extra: vida - desativado.");
+	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Vida Extra: vida.");
 	    SendClientMessage(playerid, COLOR_WHITE, "{DDDDDD}Força Extra: forca");
 
 	    //Habilidade Criação de Drogas
@@ -25739,7 +25831,7 @@ COMMAND:upgrade(playerid, params[])
 
 		return 1;
 	}
-    if(strcmp(option, "desativadovida123", true) == 0)
+    if(strcmp(option, "vida", true) == 0)
 	{
 	    if(PlayerInfo[playerid][pPontos] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem pontos de Upgrade.");
         if(PlayerInfo[playerid][pUsouDroga] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando sob o efeito de drogas...");
@@ -26750,13 +26842,88 @@ forward PegouGranaTrafico(playerid);
 public PegouGranaTrafico(playerid)
 {
 
-	PlayerInfo[playerid][pGrana] += 100;
-	PlayerInfo[playerid][pTrafico]++;
-	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 100 reais pela cocaina.");
+	PlayerInfo[playerid][pGranaSuja] += 300;
+	//PlayerInfo[playerid][pTrafico]++;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 300 reais sujo pela cocaina.");
 
 	new stringvendeu[256];
 	format(stringvendeu,sizeof(stringvendeu),"%s diz: Fé. Tamo junto!", PlayerName(playerid, 1));
 	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
+//==========[SISTEMA DE LAVAGEM DE DINHEIRO]========================
+COMMAND:lavar(playerid,params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	new idx = 0;
+	new tmp[256];
+	tmp = strtok(params,idx);
+	if(!strlen(tmp))
+	{
+        SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: dinheiro - Utilize o comando para lavar o dinheiro sujo.");
+		SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		return 1;
+	}
+
+	if(!IsPlayerInRangeOfPoint(playerid,OutrasInfos[playerid][oLavagemR], OutrasInfos[playerid][oLavagemX], OutrasInfos[playerid][oLavagemY], OutrasInfos[playerid][oLavagemZ]))
+		return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no seu ponto de lavagem.");
+	{
+		if(strcmp(tmp,"dinheiro",true) == 0)
+		{
+			if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
+			if(PlayerInfo[playerid][pLevel] < 15) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 15 ou mais para lavar o dinheiro..");
+			if(PlayerInfo[playerid][pJob] != JOB_MECANICO) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem o emprego de lavar dinheiro");
+			if(PlayerInfo[playerid][pGranaSuja] < 99999) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 100,000 sujo para limpar.");
+			if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+			if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+			if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+
+
+			PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja] -= 100000;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está limpando 100 mil sujos, ganhará 80 mil reais limpo.");
+
+
+			SetTimerEx("InicioLavagem", 120000, false, "d", playerid);
+		}
+	}
+	return 1;
+}
+
+forward InicioLavagem(playerid);
+public InicioLavagem(playerid)
+{
+	TogglePlayerControllable(playerid, 0);
+	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberá o dinheiro em alguns minutos.");
+	SetTimerEx("PegandoGranaSuja", 10000, false, "d", playerid);
+
+    return 1;
+}
+
+forward PegandoGranaSuja(playerid);
+public PegandoGranaSuja(playerid)
+{
+	PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja] += 80000;
+
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Só mais alguns segundos.");
+
+	TogglePlayerControllable(playerid, 0);
+	SetTimerEx("PegouGranaSuja", 3000, false, "d", playerid);
+
+    return 1;
+}
+
+forward PegouGranaSuja(playerid);
+public PegouGranaSuja(playerid)
+{
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu os 80 mil limpo.");
 
     TogglePlayerControllable(playerid, 1);
     ClearAnimations(playerid, 1);
@@ -27019,7 +27186,7 @@ COMMAND:roubar(playerid,params[])
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]) && cbanco[i][cbRrombado] == 1) 
 			{
-				PlayerInfo[playerid][pGrana] += 25000;
+				PlayerInfo[playerid][pGranaSuja] += 50000;
 				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 25 mil reais.");
 
 				new stringBCofre[256];	
@@ -27050,7 +27217,7 @@ COMMAND:roubar(playerid,params[])
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]) && cLoja[i][clRrombado] == 1) 
 			{
-				PlayerInfo[playerid][pGrana] += 5000;
+				PlayerInfo[playerid][pGranaSuja] += 10000;
 				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
 
 				new location[MAX_ZONE_NAME];
@@ -27088,7 +27255,7 @@ COMMAND:roubar(playerid,params[])
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]) && ATMs[i][aRrombado] == 1) 
 			{
-				PlayerInfo[playerid][pGrana] += 2000;
+				PlayerInfo[playerid][pGranaSuja] += 8000;
 				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 2 mil reais.");
 
 				new stringCaixaF[256];	
@@ -28127,6 +28294,14 @@ CMD:ajudaemprego(playerid, params[])
             SendClientMessage(playerid, COLOR_GREY, " Motoboy");
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarentrega {ffffff}para iniciar uma entrega de fast-food.");
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/pegarlanche {ffffff}para pegar o lanche na bag.");
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+        }
+		case JOB_LAVAGEM:
+        {
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
+            SendClientMessage(playerid, COLOR_GREY, " Lavador de dinheiro");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/lavardinheiro {ffffff}para iniciar a lavagem de dinheiro.");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
         }
 	}
@@ -30064,7 +30239,7 @@ COMMAND:retirar(playerid,params[])
         if(sscanf(params,"ds(32)",other,tmp2))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /retirar [playerid] [opção]");
-			SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Opções:{FFFFFF} licencamotorista, c4, tnt, dinamite, portedearmas, licensavoo, armas, municoes, drogas");
+			SendClientMessage(playerid, COLOR_LIGHTRED, "{FF6347}Opções:{FFFFFF} licencamotorista, granasuja, c4, tnt, dinamite, portedearmas, licensavoo, armas, municoes, drogas");
 			return 1;
 		}
 		else
@@ -30084,6 +30259,17 @@ COMMAND:retirar(playerid,params[])
 							return 1;
 						}
 						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui uma licença de motorista.");
+				    }
+				    if(strcmp(tmp2,"granasuja",true) == 0)
+				    {
+				        if(PlayerInfo[other][pGranaSuja])
+				        {
+							PlayerInfo[other][pGranaSuja] = 0;
+       						format(str,sizeof(str),"* %s retira o dinheiro sujo de de %s.", PlayerName(playerid, 1), PlayerName(other, 1));
+       						ProxDetector(10.0, playerid, str,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+							return 1;
+						}
+						else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Esta pessoa não possui dinheiro sujo.");
 				    }
 				    if(strcmp(tmp2,"c4",true) == 0)
 				    {
@@ -31730,6 +31916,7 @@ COMMAND:aceitar(playerid, params[])
                     format(string, sizeof(string), "_____Itens de %s_______", PlayerName(playerid, 1));
                     SendClientMessage(IdQVaiVer, COLOR_COPDUTY, string);
                     format(string, sizeof(string), "Dinheiro: [%d]", PlayerInfo[playerid][pGrana]);
+					format(string, sizeof(string), "Dinheiro Sujo: [%d]", PlayerInfo[playerid][pGranaSuja]);
                     SendClientMessage(IdQVaiVer, COLOR_YELLOW, string);
                     SendClientMessage(IdQVaiVer, COLOR_COPDUTY, "__________________________");
 				    new Arma1[126],Arma2[126],Arma3[126],Arma4[126],Arma5[126],Armas[856];
@@ -40455,6 +40642,7 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "EntrouCasa", tmp);	PlayerInfo[extraid][pEntrouCasa] = strval(tmp);
 		cache_get_field_content(0, "EntrouComplexo", tmp);PlayerInfo[extraid][pEntrouComplexo] = strval(tmp);
 		cache_get_field_content(0, "Grana", tmp);		PlayerInfo[extraid][pGrana] = strval(tmp);
+		cache_get_field_content(0, "GranaSuja", tmp);		PlayerInfo[extraid][pGranaSuja] = strval(tmp);
 		cache_get_field_content(0, "Morto", tmp);		PlayerInfo[extraid][pMorto] = strval(tmp);
 		cache_get_field_content(0, "UltimoLogin", tmp);	format(PlayerInfo[extraid][pUltimoLogin], 50, "%s", tmp);
 		cache_get_field_content(0, "EntrouEmpresa", tmp);PlayerInfo[extraid][pEntrouEmpresa] = strval(tmp);
@@ -40628,6 +40816,11 @@ public LoadAccountInfo(extraid)
         cache_get_field_content(0, "desmanz", tmp);  OutrasInfos[extraid][oDesmancheZ] = floatstr(tmp);
         cache_get_field_content(0, "desmanr", tmp);  OutrasInfos[extraid][oDesmancheR] = floatstr(tmp);
         cache_get_field_content(0, "tempodesman", tmp);  OutrasInfos[extraid][oDesmancheTime] = strval(tmp);
+
+        cache_get_field_content(0, "lavax", tmp);  OutrasInfos[extraid][oLavagemX] = floatstr(tmp);
+        cache_get_field_content(0, "lavay", tmp);  OutrasInfos[extraid][oLavagemY] = floatstr(tmp);
+        cache_get_field_content(0, "lavaz", tmp);  OutrasInfos[extraid][oLavagemZ] = floatstr(tmp);
+        cache_get_field_content(0, "lavar", tmp);  OutrasInfos[extraid][oLavagemR] = floatstr(tmp);
 
         if(PlayerInfo[extraid][pBanido] == 1)
 		{
@@ -46089,8 +46282,8 @@ Dialog:DIALOG_BURGERSHOT(playerid, response, listitem, inputtext[])
 	 		    {
 	 		        if(PlayerInfo[playerid][pGrana] >= 5)
 	 		        {
-					    PlayerInfo[playerid][pFome] = 100;
-					    PlayerInfo[playerid][pSede] = 100;
+					    PlayerInfo[playerid][pFome] += 100;
+					    PlayerInfo[playerid][pSede] -= 20;
 					    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
 						if(GetPlayerSpecialAction(playerid) == SPECIAL_ACTION_DRINK_SPRUNK) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma cerveja em sua mão.");
 	     				SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma cerveja.");
@@ -67853,31 +68046,31 @@ Dialog:Dialog_Bomba(playerid, response, listitem, inputtext[])
 		{
 		    case 0:
 		    {
-		        if(PlayerInfo[playerid][pGrana] >= 200)
+		        if(PlayerInfo[playerid][pGranaSuja] >= 200)
 				{
 					PlayerInfo[playerid][pBomba]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma dinamite por R$200.");
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-200;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma dinamite por R$200 sujo..");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-200;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
             }
 		    case 1:
 		    {
-		        if(PlayerInfo[playerid][pGrana] >= 400)
+		        if(PlayerInfo[playerid][pGranaSuja] >= 400)
 				{
 					PlayerInfo[playerid][pC4]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma C4 por R$400.");
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-400;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$400 sujo..");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-400;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
             }
 		    case 2:
 		    {
-		        if(PlayerInfo[playerid][pGrana] >= 2000)
+		        if(PlayerInfo[playerid][pGranaSuja] >= 2000)
 				{
 					PlayerInfo[playerid][pTNT]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Peças] Você comprou uma C4 por R$2000.");
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-2000;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$2000 sujo.");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-2000;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
             }
@@ -67895,11 +68088,11 @@ Dialog:Dialog_CPlacas(playerid, response, listitem, inputtext[])
 		{
 		    case 0:
 		    {
-		        if(PlayerInfo[playerid][pGrana] >= 1000)
+		        if(PlayerInfo[playerid][pGranaSuja] >= 1000)
 				{
 					PlayerInfo[playerid][pPlacas]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você comprou uma Placa nova por R$1000.");
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-1000;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você comprou uma Placa nova por R$1000 sujo.");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-1000;
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem R$1000 em sua mão.");
 			}
@@ -68006,7 +68199,6 @@ CMD:minhasbombas(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado!");
-	//if(PlayerInfo[playerid][pJob] != JOB_MECANICO && PlayerInfo[playerid][pJob] != JOB_DESMANCHE) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um mecânico.");
 	format(string,sizeof(string),"_______Peças de %s:_______", PlayerName(playerid, 0));
 	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
 	format(string,sizeof(string),"[Dinamite (%d)], [C4 (%d)], [TNT (%d)] ", PlayerInfo[playerid][pBomba], PlayerInfo[playerid][pC4], PlayerInfo[playerid][pTNT]);
@@ -84031,6 +84223,38 @@ CMD:doar(playerid, params[])
    		return 1;
 	}
 }
+COMMAND:pontolavagem(playerid, params[])
+{
+    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+	new targetid, inter;
+	if(sscanf(params, "ui", targetid, inter)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /pontolavagem [id] [range]");
+	else
+	{
+	    if (PlayerInfo[targetid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} O jogador não está logado.");
+	    if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não está conectado!");
+	    new Float:xls,Float:yls,Float:zls;
+		GetPlayerPos(targetid,xls,yls,zls);
+
+		OutrasInfos[targetid][oLavagemX] = xls;
+		OutrasInfos[targetid][oLavagemY] = yls;
+		OutrasInfos[targetid][oLavagemZ] = zls;
+		OutrasInfos[targetid][oLavagemR] = inter;
+
+		new query[528];
+		format(query,sizeof(query),"UPDATE `accounts` SET `lavax`='%.4f',`lavay`='%.4f',`lavaz`='%.4f',`lavar`='%.4f' WHERE `ID` = '%d'",
+		OutrasInfos[targetid][oLavagemX],
+		OutrasInfos[targetid][oLavagemY],
+		OutrasInfos[targetid][oLavagemZ],
+		OutrasInfos[targetid][oLavagemR],
+		PlayerInfo[targetid][pID]);
+		mysql_function_query(Pipeline, query, true, "OnQueryFinish", "ii", THREAD_NO_RESULT, playerid);
+
+		format(string,sizeof(string),"AdmCmd: Você setou o ponto de lavagem de dinheiro de %s.",PlayerName(targetid, 0));
+		SendClientMessage(playerid, COLOR_LIGHTRED, string);
+	}
+	return 1;
+}
 
 CMD:desmanchar(playerid, params[])
 {
@@ -84123,56 +84347,56 @@ public DesmanchandoVeh(playerid, parte)
 			if(IsATruck(vid))
 			{
 				PlayerInfo[playerid][pPecasMecanicas][5]+= 32;
-				PlayerInfo[playerid][pGrana] += 4500;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 32 peças de carro e R$4,500 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 9000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 32 peças de carro e R$9,000 sujo por desmanchar este veículo.");
 			}
 			else if(IsASUV(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 25;
-				PlayerInfo[playerid][pGrana] += 3500;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro e R$3,500 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 7000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 25 peças de carro e R$7,000 sujo por desmanchar este veículo.");
 			}
 			else if(IsASportCar(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 20;
-				PlayerInfo[playerid][pGrana] += 3000;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro e R$3,000 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 6000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 20 peças de carro e R$6,000 sujo por desmanchar este veículo.");
 			}
 			else if(IsAVan(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 27;
-				PlayerInfo[playerid][pGrana] += 2505;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 27 peças de carro e R$2,505 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 5500;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 27 peças de carro e R$5,500 sujo por desmanchar este veículo.");
 			}
 			else if(IsAPopularCar(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 18;
-				PlayerInfo[playerid][pGrana] += 2000;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro e R$2,000 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 4000;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 18 peças de carro e R$4,000 sujo por desmanchar este veículo.");
 			}
 			else if(IsAUnique(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 17;
-				PlayerInfo[playerid][pGrana] += 1800;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 17 peças de carro e R$1,800 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 3600;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 17 peças de carro e R$3,600 sujo por desmanchar este veículo.");
 			}
 			else if(IsABike(vid))
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 2;
-				PlayerInfo[playerid][pGrana] += 450;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 2 peças de carro e R$450 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 1200;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 2 peças de carro e R$1,200 sujo por desmanchar este veículo.");
 			}
 			else if(IsABicicleta(vid))
 			{
 				PlayerInfo[playerid][pPecasMecanicas][5]+= 1;
-				PlayerInfo[playerid][pGrana] += 300;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 1 peças de carro e R$300 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 900;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 1 peças de carro e R$900 sujo por desmanchar este veículo.");
 			}
 			else
 			{
 			    PlayerInfo[playerid][pPecasMecanicas][5]+= 3;
-				PlayerInfo[playerid][pGrana] += 200;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 3 peças de carro e R$200 por desmanchar este veículo.");
+				PlayerInfo[playerid][pGranaSuja] += 500;
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 3 peças de carro e R$500 sujo por desmanchar este veículo.");
 			}
 			new slot = GetVehicleSlot(vid);
 			if(slot > -1)
