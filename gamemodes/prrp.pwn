@@ -26034,7 +26034,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s criou a cocaina. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s criou a cocaina. [/misturar cocaina]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26062,7 +26062,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s criou o crack. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s criou o crack. [/misturar pasta base]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26090,7 +26090,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a cocaina. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a cocaina. [/misturar cocaina]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26120,7 +26120,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a cocaina boa com ruim. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a cocaina boa com ruim. [/misturar cocaina]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26150,7 +26150,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a cocaina bom. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a cocaina bom. [/misturar crack]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26180,7 +26180,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a cocaina boa com ruim. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a cocaina boa com ruim. [/misturar]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26209,7 +26209,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a Metanfetamina excelente. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a Metanfetamina excelente. [/misturar]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26238,7 +26238,7 @@ COMMAND:misturar(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s Misturou a metanfetamina ruim excelente. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s Misturou a metanfetamina ruim excelente. [/misturar]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
@@ -26728,66 +26728,80 @@ public PegouMetaR(playerid)
     return 1;
 }
 //Sistema de vender drogas npc - Yur$
-COMMAND:venderdroga(playerid, params[])
+COMMAND:traficar(playerid,params[])
 {
-    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
-	if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
-    if(PlayerDroga[playerid][CocaB] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina boa.");
-	if(PlayerInfo[playerid][pTrafico] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já traficou bastante neste PayDay, volte após seu payday.");
-	if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
-    if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
-    if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
-
-	if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
-    IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
-	IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
-	IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
-	IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
-	IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	new idx = 0;
+	new tmp[256];
+	tmp = strtok(params,idx);
+	if(!strlen(tmp))
 	{
-		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
-		SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
+        SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocaina - Para vender cocaína boa para o actor.");
+		SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		return 1;
+	}
 
-		new stringvendeu[256];
-		format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
-		ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	if(strcmp(tmp,"cocaina",true) == 0)
+	{
+		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+		if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
+		if(PlayerDroga[playerid][CocaB] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina boa.");
+		if(PlayerInfo[playerid][pTrafico] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já traficou bastante neste PayDay, volte após seu payday.");
+		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
 
-		format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
-		ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
+			SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
 
-		format(stringvendeu,sizeof(stringvendeu),"Noia diz: Quero um pino para cheirar.");
-		ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-		new location[MAX_ZONE_NAME];
-		GetPlayer2DZone(playerid, location, MAX_ZONE_NAME);
-		new str[126];
-		SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
-		SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
-		SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
-		SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
-		SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
-		SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
-		format(str, sizeof(str), "Local: %s",location);
-		SendFacMessage(COLOR_LIGHTBLUE, 1, str);
-		SendFacMessage(COLOR_LIGHTBLUE, 2, str);
-	
-		new strl[126];
-		format(strl, 126, "%s vendeu droga pro Actor. [/venderdroga]", PlayerName(playerid, 0));
-		LogCMD_venderdroga(strl);
+			format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
+			format(stringvendeu,sizeof(stringvendeu),"Noia diz: Quero um pino para cheirar.");
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			new location[MAX_ZONE_NAME];
+			GetPlayer2DZone(playerid, location, MAX_ZONE_NAME);
+			new str[126];
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
+			format(str, sizeof(str), "Local: %s",location);
+			SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+			SendFacMessage(COLOR_LIGHTBLUE, 2, str);
+		
+			new strl[126];
+			format(strl, 126, "%s vendeu droga pro Actor. [/traficar cocaina]", PlayerName(playerid, 0));
+			LogCMD_venderdroga(strl);
+		}
 	}
 	return 1;
 }
@@ -26973,7 +26987,7 @@ COMMAND:explodir(playerid,params[])
 				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 				new strl[126];
-				format(strl, 126, "%s criou a cocaina. [/venderdroga]", PlayerName(playerid, 0));
+				format(strl, 126, "%s criou a cocaina. [/explodir banco]", PlayerName(playerid, 0));
 				LogCMD_venderdroga(strl);
 			}
 		}
