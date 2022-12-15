@@ -95,6 +95,7 @@ AddCharModel(280, 20418, "pmerjt7.dff", "pmerjt7.txd);
 AddCharModel(280, 20419, "pmerjt8.dff", "pmerjt8.txd);
 AddCharModel(280, 20420, "pmerjgam1.dff", "pmerjgam1.txd);
 AddCharModel(280, 20421, "pmerjgam2.dff", "pmerjgam2.txd);
+AddCharModel(98, 20422, "pmerjf2.dff", "pmerjf2.txd);
 
 //skins PCERJ
 AddCharModel(305, 20200, "delegadocivil.dff", "delegadocivil.txd");

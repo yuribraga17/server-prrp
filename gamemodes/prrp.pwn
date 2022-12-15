@@ -2797,10 +2797,8 @@ static PMERJ_Barreiras[16] = {
 
 };
 
-static TRAF_Barreiras[9] = {
-	935, 3632,
-	1431,
-	2960
+static TRAF_Barreiras[4] = {
+	935, 3632, 1431, 2960
 
 };
 
