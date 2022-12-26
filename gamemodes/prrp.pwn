@@ -12338,6 +12338,9 @@ public OnPlayerConnect(playerid)
 	//Idlewood
 	RemoveBuildingForPlayer(playerid, 5397, 1866.328, -1789.780, 20.944, 0.250);
 	RemoveBuildingForPlayer(playerid, 5536, 1866.328, -1789.780, 20.944, 0.250);
+	//RM
+	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
+	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
 
 	for(new i = 0; i < 50; i++) //CaminhaoSyst
 	{
