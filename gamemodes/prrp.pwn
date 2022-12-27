@@ -12341,6 +12341,8 @@ public OnPlayerConnect(playerid)
 	//RM
 	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
 	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
+	RemoveBuildingForPlayer(playerid, 1522, 2105.919, -1807.250, 12.515, 0.250);
+
 
 	for(new i = 0; i < 50; i++) //CaminhaoSyst
 	{
@@ -13542,8 +13544,8 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 04/12/2022, v1.00, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão alfa e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 27/12/2022, v1.00, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthdate] == 0)
                         SCM(playerid, COLOR_LIGHTRED, "O campo de nascimentonão foi preenchido, use /setarnascimento para preenche-lo.");*/
@@ -20322,7 +20324,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d', `trafico`='%d', `FabricouDroga` WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `pColdreX`='%f', `pColdreY`='%f', `pColdreZ`='%f', `pColdreRX`='%f', `pColdreRY`='%f', `pColdreRZ`='%f',`pColdreBone`='%d',`pDriveLic`='%d',`pWepLic`='%d',`pFlyLic`='%d',`pTruckLic`='%d', `pCigarros`='%d', `pSavingsGerando`='%d', `pLutaStyle`='%d', `pBoombox`='%d', `pCasasDeletadas`='%d', `pJobTempo`='%d', `pPlacas`='%d',`pRaspador`='%d', `pJobInPd`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pColdreX],
 			PlayerInfo[playerid][pColdreY],
 			PlayerInfo[playerid][pColdreZ],
@@ -20343,8 +20345,6 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pPlacas],
 			PlayerInfo[playerid][pRaspador],
 			PlayerInfo[playerid][pJobInPd],
-			PlayerInfo[playerid][pTrafico],
-			PlayerInfo[playerid][pFabricouD],
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -20375,7 +20375,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d', `FabricouDroga`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEtnia],
 			PlayerInfo[playerid][pOlhos],
 			PlayerInfo[playerid][pPeso],
@@ -20389,6 +20389,8 @@ public SalvarPlayer(playerid)
             PlayerInfo[playerid][pPropertyTeam],
 			PlayerInfo[playerid][pCortaRem],
 			OutrasInfos[playerid][oAlgemado],
+			PlayerInfo[playerid][pTrafico],
+			PlayerInfo[playerid][pFabricouD],
             PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -45506,8 +45508,7 @@ CMD:comprar(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1917.8755,-1776.0514,13.6094)) //comprar 24/7
 	{
-	    Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_LIST, "PRODUTOS", "Celular\tR$120\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nRadio\tR$190\nCâmera\tR$50\nMascara\tR$500\nBoombox\tR$140\nLata de Spray\tR$50", "Selecionar", "Voltar");
-	
+		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n{CBCCCEFF}ELETRÔNICOS\nCelular\tR$120\nRadio\tR$190\nCâmera\tR$50\nBoombox\tR$140\n{CBCCCEFF}VARIADOS\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nMascara\tR$500\nLata de Spray\tR$50", "Comprar", "Cancelar");
 	}
 	return 1;
 }
@@ -45618,6 +45619,17 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 		{
 		    case 0:
 		    {
+		        if(PlayerInfo[playerid][pGrana] >= 1200000)
+				{
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-1200000;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+		    case 1:
+		    {
 		        if(PlayerInfo[playerid][pGrana] >= 120)
 				{
 	 		        if(CelularData[playerid][celNumero] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um celular.");
@@ -45637,52 +45649,7 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
 			}
-			case 1:
-		    {
-		        if(PlayerInfo[playerid][pGrana] >= 50)
-		        {
-					if(PlayerInfo[playerid][pGalao] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
-		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Galão de Gasolina comprado. (/galao)");
-		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
-		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
- 					PlayerInfo[playerid][pGalao] += 1;
-					
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
-			}
 			case 2:
-		    {
-		        if(PlayerInfo[playerid][pGrana] >= 180)
-		        {
-					if(PlayerInfo[playerid][pToolKit] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma caixa de ferramentas.");
-		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Caixa de ferramentas comprada.");
-		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
-		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
- 					PlayerInfo[playerid][pToolKit] = 1;
-					
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-180;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
-			}
-			case 3:
-		    {
-		        if(PlayerInfo[playerid][pGrana] >= 8)
-		        {
-					if(PlayerInfo[playerid][pCigarros] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
-		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Maço de cigarro comprado [20 unidades de cigarro].");
-		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
-		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
- 					PlayerInfo[playerid][pCigarros] += 20;
-					
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-8;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
-			}
-			case 4:
 		    {
 		        if(PlayerInfo[playerid][pGrana] >= 190)
 		        {
@@ -45697,7 +45664,7 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
 			}
-			case 5:
+			case 3:
 		    {
 		        if(PlayerInfo[playerid][pGrana] >= 50)
 		        {
@@ -45712,7 +45679,78 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
 			}
+			case 4:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 140)
+		        {
+					if(PlayerInfo[playerid][pBoombox] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma JBL.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"JBL comprado. (/boombox)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pBoombox] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-140;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+		    case 5:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 1200000)
+				{
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-1200000;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
 			case 6:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 50)
+		        {
+					if(PlayerInfo[playerid][pGalao] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Galão de Gasolina comprado. (/galao)");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pGalao] += 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-50;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 7:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 180)
+		        {
+					if(PlayerInfo[playerid][pToolKit] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma caixa de ferramentas.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Caixa de ferramentas comprada.");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pToolKit] = 1;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-180;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 8:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 8)
+		        {
+					if(PlayerInfo[playerid][pCigarros] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um galão.");
+		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"Maço de cigarro comprado [20 unidades de cigarro].");
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+ 					PlayerInfo[playerid][pCigarros] += 20;
+					
+					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-8;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+			case 9:
 		    {
 		        if(PlayerInfo[playerid][pGrana] >= 500)
 		        {
@@ -45728,22 +45766,7 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
 			}
-			case 7:
-		    {
-		        if(PlayerInfo[playerid][pGrana] >= 140)
-		        {
-					if(PlayerInfo[playerid][pBoombox] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem uma JBL.");
-		 		    SendClientMessage(playerid,COLOR_LIGHTGREEN,"JBL comprado. (/boombox)");
-		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
-		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
-
- 					PlayerInfo[playerid][pBoombox] = 1;
-					
-					PlayerInfo[playerid][pGrana] = PlayerInfo[playerid][pGrana]-140;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
-			}
-			case 8:
+			case 10:
 		    {
 		        if(PlayerInfo[playerid][pGrana] >= 50)
 		        {

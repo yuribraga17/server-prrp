@@ -4548,7 +4548,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(1349, 1845.094482, -1787.708007, 13.097207, 0.000000, 0.000000, 59.099990, -1, -1, -1, 200.00, 200.00); 
 	tmpobjid = CreateDynamicObject(3502, 1885.585937, -1787.889770, 9.062778, 90.000000, 0.000000, 360.000000, -1, -1, -1, 200.00, 200.00); 
 	print("[CARREGADO] Mapa: Idlewood");
-	tmpobjid = CreateDynamicObject(-1018, 2112.937500, -1797.093750, 19.336645, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+	tmpobjid = CreateDynamicObject(-1018, 2112.937500, -1797.093750, 19.336645, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00);
 	print("[CARREGADO] Mapa: RM");
 	tmpobjid = CreateObject(-1301, 2502.252929, -1069.716918, 71.724914, 0.000000, 0.000000, -4.399999, 300.00); 
 	SetObjectMaterial(tmpobjid, 2, 19297, "matlights", "invisible", 0x00000000);
