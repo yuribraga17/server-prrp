@@ -45508,7 +45508,7 @@ CMD:comprar(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1917.8755,-1776.0514,13.6094)) //comprar 24/7
 	{
-		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n{CBCCCEFF}ELETRÔNICOS\nCelular\tR$120\nRadio\tR$190\nCâmera\tR$50\nBoombox\tR$140\n{CBCCCEFF}VARIADOS\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nMascara\tR$500\nLata de Spray\tR$50", "Comprar", "Cancelar");
+		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n{878787}ELETRÔNICOS\nCelular\tR$120\nRadio\tR$190\nCâmera\tR$50\nBoombox\tR$140\n{878787}VARIADOS\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nMascara\tR$500\nLata de Spray\tR$50", "Comprar", "Cancelar");
 	}
 	return 1;
 }
