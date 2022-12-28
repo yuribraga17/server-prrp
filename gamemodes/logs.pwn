@@ -47,7 +47,7 @@ public VehicleDeath(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -76,7 +76,7 @@ public Cofres_Publicos(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -105,7 +105,7 @@ public Retirar_PortaLuvas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -134,7 +134,7 @@ public Colocar_PortaLuvas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -163,7 +163,7 @@ public Retirar_PortaMalas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -192,7 +192,7 @@ public Colocar_PortaMalas(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -221,7 +221,7 @@ public LogCMD_Pegar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -250,7 +250,7 @@ public ArrombarLog(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -279,7 +279,7 @@ public LogDevarma_P(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -308,7 +308,7 @@ public LogEquipar_P(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -337,7 +337,7 @@ public RegLog(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -366,7 +366,7 @@ public LogCMD_A(playerid, strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -395,7 +395,7 @@ public LogCMD_AM(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -424,7 +424,7 @@ public LogCMD_FAC(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -453,7 +453,7 @@ public LogCMD_PAGAR(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -481,7 +481,7 @@ public LogCMD_venderdroga(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -510,7 +510,7 @@ public LogCMD_ROJAO(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -539,7 +539,7 @@ public LogCMD_Dropar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -568,7 +568,7 @@ public LogCMD_EntregarA(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -597,7 +597,7 @@ public LogCMD_Mascara(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -626,7 +626,7 @@ public LogCMD_Anuncio(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -655,7 +655,7 @@ public LogCMD_barricada(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -684,7 +684,7 @@ public LogCMD_b(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -713,7 +713,7 @@ public LogCMD_me(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -742,7 +742,7 @@ public LogCMD_do(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -771,7 +771,7 @@ public LogCMD_Savings(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -800,7 +800,7 @@ public LogCMD_sacar(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -829,7 +829,7 @@ public LogCMD_deposito(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -858,7 +858,7 @@ public LogCMD_transf(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -887,7 +887,7 @@ public LogCMD_dargrana(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -916,7 +916,7 @@ public LogCMD_explodircaixa(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -945,7 +945,7 @@ public LogCMD_dararma(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -974,7 +974,7 @@ public LogCMD_CasaInatividade(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -1003,7 +1003,7 @@ public LogCMD_ZerouGrana(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -1032,7 +1032,7 @@ public LogCMD_ZerouBanco(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";
@@ -1061,7 +1061,7 @@ public LogCMD_AnuncioEmp(strl[])
 	{
 		case 1: mtext = "Janeiro";
 		case 2: mtext = "Fevereiro";
-		case 3: mtext = "MarÃ§o";
+		case 3: mtext = "Março";
 		case 4: mtext = "Abril";
 		case 5: mtext = "Maio";
 		case 6: mtext = "Junho";

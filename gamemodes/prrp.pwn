@@ -71,26 +71,31 @@ static stock
 #define MAX_CONNECTIONS_FROM_IP     2 // Máximo de conexões com mesmo IP.
 new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
-new ambiente = 0; // 0  - Localhost 1 - Produção
+new ambiente = 1; // 0  - Localhost 1 - Produção
 
-#define localhost_Connection   "198.50.187.244"
+#define localhost_Connection   "localhost"
+#define localhost_User         "root"
+#define localhost_DB           "prrp"
+#define localhost_Password     ""
+
+#define sz_Connection   "198.50.187.244"
+#define sz_User         "yurib_7223"
+#define sz_DB           "yurib_7223"
+#define sz_Password     "00fmUK0Qh6"
+
+/*#define localhost_Connection   "198.50.187.244"
 #define localhost_User         "yurib_7223"
 #define localhost_DB           "yurib_7223"
-#define localhost_Password     "KWB25hGn7M"
-
-#define sz_Connection   "localhost"
-#define sz_User         "root"
-#define sz_DB           "prrp"
-#define sz_Password     ""
+#define localhost_Password     "00fmUK0Qh6"*/
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "04/12/2022"
-#define CA_VERSAO       "PR:RP v1.00"
+#define ULTIMO_GMX      "28/12/2022"
+#define CA_VERSAO       "PR:RP v1.00b"
 #define CA_LINK         "weburl progressive-roleplay.com"
-#define CA_NOME         "hostname Progressive Roleplay | Retorno da beta"
+#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 //#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
-#define CA_NOME3        "hostname Progressive Roleplay [Manutenção rapida]"
+#define CA_NOME3        "hostname Progressive Roleplay [Manutenção rápida]"
 #define CA_LANGUAGE     "language Português Brasileiro"
 #define MAP_NAME        "mapname Rio de Janeiro"
 //==============================================================================
@@ -5681,7 +5686,7 @@ static g_aFemaleSkins[77] = {
 	298
 };
 
-static g_NewSkins[39] = {
+static g_NewSkins[69] = {
     20001, 20002, 20003, 20004,
     20005, 20006, 20007, 20008,
     20009, 20010, 20011, 20012,
@@ -5691,7 +5696,14 @@ static g_NewSkins[39] = {
     20026, 20027, 20028, 20029,
     20030, 20031, 20032, 20033,
     20034, 20035, 20036, 20037,
-    20038, 20039
+    20038, 20039, 20040, 20041,
+	20042, 20043, 20044, 20045,
+	20046, 20047, 20048, 20049,
+	20050, 20051, 20052, 20053,
+	20054, 20055, 20056, 20057,
+	20058, 20059, 20060, 20061,
+	20062, 20063, 20064, 20065,
+	20066, 20067, 20068, 20069
 };
 
 
@@ -10599,7 +10611,7 @@ public ResetVarsPlayerInfo(extraid)
     PlayerInfo[extraid][pLogado] = 0;
     PlayerInfo[extraid][pID] = 0;
     PlayerInfo[extraid][pucpOwn] = 0;
-	format(PlayerInfo[extraid][pPassword], 129, "YRDVEDdfnekwnvie23oejdfd@!566#iosdfjsdofi");
+	format(PlayerInfo[extraid][pPassword], 129, "YURIDESENVOLVEDORFULLSTACK@!BRASILcomedor");
 	PlayerInfo[extraid][pLevel] = 0;
 	PlayerInfo[extraid][pGender] = 0;
 	PlayerInfo[extraid][pBirthdate] = 0;
@@ -20361,7 +20373,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 	    mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `pHabDrug`='%d',`pArmasResetadas`='%d', `AjudaInicial`='%d', `pTomouAlgumTiro`='%d', `pTomouTiroPesado`='%d', `pTomouTiroBrancas`='%d', `pConvenio`='%d', `pTempoMorto`='%d', `tempodesman`='%d',`pAjudaInicialDim`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `pHabDrug`='%d',`pArmasResetadas`='%d', `AjudaInicial`='%d', `pTomouAlgumTiro`='%d', `pTomouTiroPesado`='%d', `pTomouTiroBrancas`='%d', `pConvenio`='%d', `pTempoMorto`='%d', `tempodesman`='%d',`pAjudaInicialDim`='%d', `FabricouDroga`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pHabDrug],
 			PlayerInfo[playerid][pArmasResetadas],
 			PlayerInfo[playerid][pAjudaInicial],
@@ -20372,10 +20384,11 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pTempoMorto],
 			OutrasInfos[playerid][oDesmancheTime],
 			PlayerInfo[playerid][pAjudaInicialDim],
+			PlayerInfo[playerid][pFabricouD],
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d', `FabricouDroga`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEtnia],
 			PlayerInfo[playerid][pOlhos],
 			PlayerInfo[playerid][pPeso],
@@ -20390,7 +20403,6 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pCortaRem],
 			OutrasInfos[playerid][oAlgemado],
 			PlayerInfo[playerid][pTrafico],
-			PlayerInfo[playerid][pFabricouD],
             PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -26895,7 +26907,7 @@ COMMAND:lavar(playerid,params[])
 		{
 			if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
 			if(PlayerInfo[playerid][pLevel] < 15) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 15 ou mais para lavar o dinheiro..");
-			if(PlayerInfo[playerid][pJob] != JOB_MECANICO) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem o emprego de lavar dinheiro");
+			if(PlayerInfo[playerid][pJob] != JOB_LAVAGEM) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem o emprego de lavar dinheiro");
 			if(PlayerInfo[playerid][pGranaSuja] < 99999) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 100,000 sujo para limpar.");
 			if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
 			if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
@@ -26903,7 +26915,7 @@ COMMAND:lavar(playerid,params[])
 
 
 			PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja] -= 100000;
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está limpando 100 mil sujos, ganhará 80 mil reais limpo.");
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está limpando 100 mil sujo, ganhará 80 mil reais limpo.");
 
 
 			SetTimerEx("InicioLavagem", 120000, false, "d", playerid);
@@ -26967,31 +26979,79 @@ COMMAND:explodir(playerid,params[])
 
 	if(strcmp(tmp,"banco",true) == 0)
 	{
-		if(PlayerInfo[playerid][pCortaRem] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem um cortador de remédio.");
-		if(PlayerDroga[playerid][PBC] < 999) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1000g de pasta base de cocaína.");
-		if(PlayerDroga[playerid][LDC] < 499) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 500g de lidocaína.");
-		if(PlayerDroga[playerid][HDZ] < 199) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 200g de hidroxizina.");
-		if(PlayerDroga[playerid][BZC] < 99) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 100g de benzocaína.");
-		if(PlayerInfo[playerid][pFabricouD] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já fabricou droga o bastante neste PayDay, volte após seu payday.");
+		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você  precisa estar logado.");
+		if(PlayerInfo[playerid][pLevel] < 5) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 5 ou mais para explodir o caixa.");
+		if(PlayerInfo[playerid][pBomba] < 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de 1 dinamite para explodir o caixa.");
 		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
-		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
-
-		for(new i = 0; i < MAX_LABO; i++)
+		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+		if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
 		{
-			if(IsPlayerInRangeOfPoint(playerid,10.5,LaboDrug[i][ldposX], LaboDrug[i][ldposY], LaboDrug[i][ldposZ]))
+			new stringcofreroubo[128];
+			format(stringcofreroubo, sizeof(stringcofreroubo),"Aguarde %d segundos antes de explodir um banco novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
+			SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreroubo);
+			return 1;
+		}
+
+		for(new i = 0; i < MAX_ATM; i++)
+		{
+			if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
 			{
 
-				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você começou o processo de criação da cocaina.");	
-				SetTimerEx("FazendoCoca", 10000, false, "d", playerid);
+				new PolicesOnline = 0;
+				for(new cops = 0; cops < MAX_PLAYERS; cops++)
+				{
+					if(IsPlayerConnected(cops))
+					{
+						if(PlayerInfo[cops][pLogado])
+						{
+							if(FacInfo[GetFactionBySqlId(PlayerInfo[cops][pFac])][fTipo] == FAC_TIPO_PMERJ)
+							{
+								if(PlayerInfo[cops][pEmServico] == 1)
+								{
+									PolicesOnline++;
+								}
+							}
+						}
+					}
+					if(PolicesOnline < 4) return 
+						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} é preciso ter pelo menos 4 policiais em serviço para executar essa ação.");
+				}
 
-				new stringvendeu[256];
-				format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima da bancada, pega um triturador grande de comprimidos e coloca os remédios no pote. Começa a tritura-la.", PlayerName(playerid, 1));
-				ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+				new location[MAX_ZONE_NAME];
+				Get2DZone(location, TOTAL_ZONE_NAME, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]);
 
+				TaNaATM[playerid] = i;
+				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você armou uma dinamite.");
+				
+				TogglePlayerControllable(playerid, 0);
+				ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
+				SetTimerEx("ExplodindoCaixa", 15000, false, "d", playerid);
+
+				new stringCaixaF[256];
+				format(stringCaixaF,sizeof(stringCaixaF),"** %s está armando uma dinamite no caixa eletronico.", PlayerName(playerid, 1));
+				ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+
+				format(stringCaixaF, sizeof(stringCaixaF), "* Barulho de explosão são escutados nas proximidades *");
+				ProxDetector(500.0, playerid, string, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+				new str[126];
+				SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+				SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+				SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+				SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
+				SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
+				SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Socorro, estão explodindo um caixa eletronico, venham rápido.");
+				format(str, sizeof(str), "Local: %s",location);
+				SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+				SendFacMessage(COLOR_LIGHTBLUE, 2, str);
+
+				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
+				
 				new strl[126];
-				format(strl, 126, "%s criou a cocaina. [/explodir banco]", PlayerName(playerid, 0));
-				LogCMD_venderdroga(strl);
+				format(strl, 126, "%s explodiu um caixa eletronico. [/explodircaixa]", PlayerName(playerid, 0));
+				LogCMD_explodircaixa(strl);
 			}
 		}
 	}
@@ -27121,7 +27181,7 @@ COMMAND:explodir(playerid,params[])
 							}
 						}
 					}
-					if(PolicesOnline < 4) return 
+					if(PolicesOnline < 1) return 
 						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 4 policiais em serviço para executar essa ação.");
 				}
 
@@ -45498,7 +45558,7 @@ CMD:comprar(playerid, params[])
             }
 			case EMP_TIPO_FARMACIA:
 			{
-			    Dialog_Show(playerid, Dialog_Farmacia, DIALOG_STYLE_LIST, "FARMÁCIA", "Cortador de remédio\tR$50\nEfedrina\tR$250\nAcido cloridrico\tR$300\nLidocaína\tR$50\nBenzocaína\tR$50\nHidroxizina\tR$50", "Selecionar", "Cancelar");
+			    Dialog_Show(playerid, Dialog_Farmacia, DIALOG_STYLE_TABLIST_HEADERS, "FARMÁCIA", "Produto\tPreço\nPreçoCortador de remédio\tR$50\nEfedrina\tR$250\nAcido cloridrico\tR$300\nLidocaína\tR$50\nBenzocaína\tR$50\nHidroxizina\tR$50", "Selecionar", "Cancelar");
 			}
         }
     }

@@ -5343,7 +5343,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(840, 1802.502929, -1846.263916, 13.898125, 0.000000, 0.000000, -51.199996, -1, -1, -1, 300.00, 300.00); 
 	print("[CARREGADO] Mapa: estação unity");
     CreateDynamicObject(-1026, 1817.270019, -1401.194824, 13.721183, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00);
-    print("[LOAD] Mapa: Oficina Pista de Skate");
+    print("[LOAD] Mapa: Loterica");
 	CreateDynamicObject(8947, 1995.29980, -2044.20020, 15.60000,   0.00000, 0.00000, 270.00000);
 	CreateDynamicObject(8947, 1985.40039, -2019.40039, 15.60000,   0.00000, 0.00000, 90.00000);
 	CreateDynamicObject(11392, 1995.59998, -2044.69995, 12.60000,   0.00000, 0.00000, 318.00000);

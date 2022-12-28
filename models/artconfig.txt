@@ -1,4 +1,4 @@
-//Skins trafico /a 04 e 08
+//Skins
 AddCharModel(299, 20001, "skin.dff", "skin.txd");
 AddCharModel(299, 20002, "skin2.dff", "skin2.txd");
 AddCharModel(299, 20003, "skin3.dff", "skin3.txd");
@@ -39,38 +39,34 @@ AddCharModel(299, 20037, "skin37.dff", "skin37.txd");
 AddCharModel(299, 20038, "skin38.dff", "skin38.txd");
 AddCharModel(299, 20039, "skin39.dff", "skin39.txd");
 AddCharModel(299, 20040, "skin40.dff", "skin40.txd");
-
-//slot personalizado
-AddCharModel(299, 20101, "nescau.dff", "nescau.txd");
-AddCharModel(299, 20102, "pigeon.dff", "pigeon.txd");
-AddCharModel(299, 20103, "stoorm.dff", "stoorm.txd");
-AddCharModel(299, 20104, "antunes.dff", "antunes.txd");
-
-//skins fem
-AddCharModel(211, 20182, "fem.dff", "fem.txd");
-AddCharModel(211, 20183, "fem1.dff", "fem1.txd");
-AddCharModel(211, 20184, "fem2.dff", "fem2.txd");
-AddCharModel(211, 20185, "fem3.dff", "fem3.txd");
-AddCharModel(211, 20186, "fem4.dff", "fem4.txd");
-AddCharModel(211, 20187, "fem5.dff", "fem5.txd");
-AddCharModel(211, 20189, "fem6.dff", "fem6.txd");
-AddCharModel(211, 20190, "fem7.dff", "fem7.txd");
-AddCharModel(211, 20191, "fem8.dff", "fem8.txd");
-AddCharModel(211, 20192, "fem9.dff", "fem9.txd");
-AddCharModel(211, 20193, "fem10.dff", "fem10.txd");
-AddCharModel(211, 20194, "fem11.dff", "fem11.txd");
-AddCharModel(211, 20195, "fem12.dff", "fem12.txd");
-AddCharModel(211, 20196, "fem13.dff", "fem13.txd");
-AddCharModel(211, 20197, "fem14.dff", "fem14.txd");
-AddCharModel(211, 20198, "fem15.dff", "fem15.txd");
-AddCharModel(211, 20199, "fem16.dff", "fem16.txd");
-AddCharModel(211, 20500, "fem17.dff", "fem17.txd");
-AddCharModel(211, 20501, "fem18.dff", "fem18.txd");
-AddCharModel(211, 20502, "fem19.dff", "fem19.txd");
-AddCharModel(211, 20503, "fem20.dff", "fem20.txd");
-AddCharModel(211, 20504, "fem21.dff", "fem21.txd");
-AddCharModel(211, 20505, "fem22.dff", "fem22.txd");
-AddCharModel(211, 20506, "fem23.dff", "fem23.txd");
+AddCharModel(299, 20041, "nescau.dff", "nescau.txd");
+AddCharModel(299, 20042, "pigeon.dff", "pigeon.txd");
+AddCharModel(299, 20043, "stoorm.dff", "stoorm.txd");
+AddCharModel(299, 20044, "antunes.dff", "antunes.txd");
+AddCharModel(211, 20045, "fem.dff", "fem.txd");
+AddCharModel(211, 20046, "fem1.dff", "fem1.txd");
+AddCharModel(211, 20047, "fem2.dff", "fem2.txd");
+AddCharModel(211, 20048, "fem3.dff", "fem3.txd");
+AddCharModel(211, 20049, "fem4.dff", "fem4.txd");
+AddCharModel(211, 20050, "fem5.dff", "fem5.txd");
+AddCharModel(211, 20051, "fem6.dff", "fem6.txd");
+AddCharModel(211, 20052, "fem7.dff", "fem7.txd");
+AddCharModel(211, 20053, "fem8.dff", "fem8.txd");
+AddCharModel(211, 20054, "fem9.dff", "fem9.txd");
+AddCharModel(211, 20055, "fem10.dff", "fem10.txd");
+AddCharModel(211, 20056, "fem11.dff", "fem11.txd");
+AddCharModel(211, 20057, "fem12.dff", "fem12.txd");
+AddCharModel(211, 20058, "fem13.dff", "fem13.txd");
+AddCharModel(211, 20059, "fem14.dff", "fem14.txd");
+AddCharModel(211, 20060, "fem15.dff", "fem15.txd");
+AddCharModel(211, 20061, "fem16.dff", "fem16.txd");
+AddCharModel(211, 20062, "fem17.dff", "fem17.txd");
+AddCharModel(211, 20063, "fem18.dff", "fem18.txd");
+AddCharModel(211, 20064, "fem19.dff", "fem19.txd");
+AddCharModel(211, 20065, "fem20.dff", "fem20.txd");
+AddCharModel(211, 20066, "fem21.dff", "fem21.txd");
+AddCharModel(211, 20067, "fem22.dff", "fem22.txd");
+AddCharModel(211, 20068, "fem23.dff", "fem23.txd");
 
 //skins PMERJ
 AddCharModel(280, 20400, "pmerj.dff", "pmerj.txd);
@@ -288,6 +284,7 @@ AddSimpleModel(-1,19369, -1005, "craco.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1006, "craco2.dff", "craco.txd"); 
 AddSimpleModel(-1,19369, -1025, "postoip.dff", "postoip.txd");
 AddSimpleModel(-1,19425, -1018, "rm.dff", "rm.txd");
+AddSimpleModel(-1,19425, -1027, "oficina.dff", "oficina.txd");
 
 //lombadas
 AddSimpleModel(-1,1375, -1007, "lomb_sign.dff", "lomb.txd"); 
@@ -366,6 +363,7 @@ AddSimpleModel(-1,19141, -1306,"casa01.dff", "casa01.txd");
 AddSimpleModel(-1,19141, -1309,"complexo.dff", "complexo.txd");
 AddSimpleModel(-1,19141, -1310,"casenha.dff", "casenha.txd");
 AddSimpleModel(-1,19141, -1311,"oficina.dff", "oficina.txd");
+AddSimpleModel(-1,19141, -1026,"loterica.dff", "loterica.txd");
 
 
 //muros
