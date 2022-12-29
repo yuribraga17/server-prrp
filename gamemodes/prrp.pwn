@@ -109,6 +109,41 @@ new newfacid = 0;
 
 new ADM_OBJ;
 
+//============================Tolls============================//
+// Main configuration
+#define TollCost (50) 					// How much it costs to pass the tolls
+#define TollDelayCop (4) 				// The timespace in seconds between each /toll command for all cops (To avoid spam)
+#define TollOpenDistance (3.0) 			// The distance in units the player can be from the icon to open the toll
+
+// Other defines
+#define MAX_TOLLS (5) // Amount of tolls
+#define INVALID_TOLL_ID (-1)
+#define RichmanToll (0)
+#define FlintToll (1)
+#define LVToll (2)
+#define BlueberryTollR (3)
+#define BlueberryTollL (4)
+
+#define L_sz_TollStringLocked ("Guarda diz: Desculpe, o pedágio fechou temporariamente. Por favor, volte mais tarde.")
+#define L_sz_TollStringNoMoney ("ERRO: Você não possui dinheiro para passar no pedagio.")
+#define L_sz_TollStringBye ("Guarda diz: Obrigado, dirija com cuidado!.")
+#define L_sz_TollStringHurryUp ("INFO: Você tem 6 segundos para passar. Certifique-se de que Você não ficará preso.")
+
+enum TOLL_INFO
+{
+	E_tLocked,  // 0 & 1 = Richhman, 2 & 3 = Flint, 4 & 5 = LV, 6 & 7 = BlueBerry right
+	E_tOpenTime // 0 & 1 = Richhman, 2 & 3 = Flint, 4 & 5 = LV, 6 & 7 = BlueBerry right
+}
+new aTolls[MAX_TOLLS][TOLL_INFO];
+
+//============================Tolls============================//
+
+//Tolls
+new L_a_RequestAllowedCop, // The same timer for all /toll changes
+    L_a_Pickup[MAX_TOLLS*2],
+	L_a_TollObject[MAX_TOLLS*2]; // 0 & 1 = Richhman, 2 & 3 = Flint, 4 & 5 = LV, 6 & 7 = BlueBerry right
+//Tolls
+
 //====== [GOVERNO] =======================================================
 enum govInfo {
 	gCofres,
@@ -7604,6 +7639,7 @@ public Timer_Minutos()
 					else {
 					    TempoParaSalvar[i] = 0;
 					    SalvarPlayer(i);
+						TollUpdate();
 					}
 				}
 				if(AFKTimer[i] < 1200)
@@ -27214,6 +27250,319 @@ public PegouGranaSuja(playerid)
 
     return 1;
 }
+//=============[SISTEMA DE PEDAGIO]=============//
+forward TollUpdate();
+public TollUpdate() // Needs to be called in the OnPlayerUpdate function
+{
+	for(new i = 0; i != MAX_TOLLS; ++i)
+	{
+		if(aTolls[i][E_tOpenTime] > 0)
+		{
+			aTolls[i][E_tOpenTime]--;
+			if(aTolls[i][E_tOpenTime] == 1)
+			{
+				Toll_CloseToll(i);
+			}
+		}
+	}
+}
+
+Toll_CloseToll(TollID)
+{
+	if(TollID == RichmanToll)
+	{
+		SetDynamicObjectRot(L_a_TollObject[0], 0.000000, -90.000000, 23.81982421875);
+		SetDynamicObjectRot(L_a_TollObject[1], 0.000000, -90.000000, 214.37744140625);
+	}
+	else if(TollID == FlintToll)
+	{
+		SetDynamicObjectRot(L_a_TollObject[2], 0.000000, -90.000000, 270.67565917969);
+		SetDynamicObjectRot(L_a_TollObject[3], 0.000000, -90.000000, 87.337799072266);
+	}
+	else if(TollID == LVToll)
+	{
+		SetDynamicObjectRot(L_a_TollObject[4], 0.000000, -90.000000, 348.10229492188);
+		SetDynamicObjectRot(L_a_TollObject[5], 0.000000, -90.000000, 169.43664550781);
+	}
+	else if(TollID == BlueberryTollR)
+	{
+		SetDynamicObjectRot(L_a_TollObject[6], 0.00000, -90.00000, 35.00000);
+		SetDynamicObjectRot(L_a_TollObject[7], 0.00000, -90.00000, 215.92000);
+	}
+	else if(TollID == BlueberryTollL)
+	{
+		SetDynamicObjectRot(L_a_TollObject[8], 0.00000, -90.00000, -14.94000);
+		SetDynamicObjectRot(L_a_TollObject[9], 0.00000, -90.00000, -195.00000);
+	}
+	return 1;
+}
+
+Toll_OpenToll(TollID)
+{
+	if(TollID == RichmanToll)
+	{
+		aTolls[RichmanToll][E_tOpenTime] = 7;
+		SetDynamicObjectRot(L_a_TollObject[0], 0.000000, 0.000000, 23.81982421875);
+		SetDynamicObjectRot(L_a_TollObject[1], 0.000000, 0.000000, 214.37744140625);
+	}
+	else if(TollID == FlintToll)
+	{
+		aTolls[FlintToll][E_tOpenTime] = 7;
+		SetDynamicObjectRot(L_a_TollObject[2], 0.000000, 0.000000, 270.67565917969);
+		SetDynamicObjectRot(L_a_TollObject[3], 0.000000, 0.000000, 87.337799072266);
+	}
+	else if(TollID == LVToll)
+	{
+		aTolls[LVToll][E_tOpenTime] = 7;
+		SetDynamicObjectRot(L_a_TollObject[4], 0.000000, 0.000000, 348.10229492188);
+		SetDynamicObjectRot(L_a_TollObject[5], 0.000000, 0.000000, 169.43664550781);
+	}
+	else if(TollID == BlueberryTollR)
+	{
+		aTolls[BlueberryTollR][E_tOpenTime] = 7;
+		SetDynamicObjectRot(L_a_TollObject[6], 0.000000, 0.000000, 35.00000);
+		SetDynamicObjectRot(L_a_TollObject[7], 0.000000, 0.000000, 215.92000);
+	}
+	else if(TollID == BlueberryTollL)
+	{
+		aTolls[BlueberryTollL][E_tOpenTime] = 7;
+		SetDynamicObjectRot(L_a_TollObject[8], 0.000000, 0.000000, -14.94000);
+		SetDynamicObjectRot(L_a_TollObject[9], 0.000000, 0.000000, -195.00000);
+	}
+}
+
+Toll_TimePassedCivil(TollID, playerid) // People have to wait <TollDelayCivilian> seconds between every /abrirpedagio on the same toll
+{
+	if(aTolls[TollID][E_tOpenTime] > 0)
+	{
+		SendClientMessage(playerid, COLOR_LIGHTRED, "O pedágio está aberto, passe antes dela fechar!");
+		return 0;
+	}
+	return 1;
+}
+
+Toll_TimePassedCops(playerid) // Cops have to wait for <TollDelayCop> seconds between every /toll (Global)
+{
+	new L_i_tick = gettime();
+	if(L_a_RequestAllowedCop > L_i_tick && L_a_RequestAllowedCop != 0)
+	{
+		new TollString[256];
+		format(TollString, 256, "Você terá que esperar pelo menos %d segundos entre cada pagamento de pedágio.", TollDelayCop);
+		SendClientMessage(playerid, COLOR_LIGHTRED, TollString);
+		return 0;
+	}
+	L_a_RequestAllowedCop = (L_i_tick + TollDelayCop);
+	return 1;
+}
+
+CMD:pedagios(playerid, params[])
+{
+
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+    
+	new StrMsg[256];
+	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+	if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PMERJ)
+ 	{
+	    if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
+
+		new option[11];
+		if(sscanf(params,"s[11]",option))
+		{
+			SendClientMessage(playerid, COLOR_YELLOW, "Controle dos pedágios do Estado do Rio de Janeiro");
+			SendClientMessage(playerid, COLOR_GREY, "Fechar/Liberar - Fechado / Aberto Check all");
+			SendClientMessage(playerid, COLOR_GREY, "flint - Fechado / Aberto checkpoint Flint County");
+			SendClientMessage(playerid, COLOR_GREY, "richman - Fechado / Aberto checkpoint Richman");
+			SendClientMessage(playerid, COLOR_GREY, "lv - Fechado / Aberto checkpoint LS-LV");
+			SendClientMessage(playerid, COLOR_GREY, "blueberryr - Fechado / Aberto checkpoint Blueberry(Direita)");
+			SendClientMessage(playerid, COLOR_GREY, "blueberryl - Fechado / Aberto checkpoint Blueberry(Esquerda)");
+			return 1;
+		}
+		if(!Toll_TimePassedCops(playerid))
+			return 1;
+
+		if(!strcmp(option, "Fechar", true))
+		{
+			aTolls[FlintToll][E_tLocked] = 1;
+			aTolls[RichmanToll][E_tLocked] = 1;
+			aTolls[LVToll][E_tLocked] = 1;
+			aTolls[BlueberryTollR][E_tLocked] = 1;
+			aTolls[BlueberryTollL][E_tLocked] = 1;
+
+			Toll_CloseToll(FlintToll);
+			Toll_CloseToll(RichmanToll);
+			Toll_CloseToll(LVToll);
+			Toll_CloseToll(BlueberryTollR);
+			Toll_CloseToll(BlueberryTollL);
+
+            format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s fechou todos os pedágios!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+	  		SendFacMessage(0x6666CCFF,FacId,StrMsg);
+		}
+		else if(!strcmp(option, "Liberar", true))
+		{
+			aTolls[FlintToll][E_tLocked] = 0;
+			aTolls[RichmanToll][E_tLocked] = 0;
+			aTolls[LVToll][E_tLocked] = 0;
+			aTolls[BlueberryTollR][E_tLocked] = 0;
+			aTolls[BlueberryTollL][E_tLocked] = 0;
+
+            format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou todos os pedágios!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+	  		SendFacMessage(0x6666CCFF,FacId,StrMsg);
+
+		}
+		else if(!strcmp(option, "flint", true))
+		{
+			if(aTolls[FlintToll][E_tLocked] == 0)
+			{
+				aTolls[FlintToll][E_tLocked] = 1;
+				Toll_CloseToll(FlintToll);
+
+            	format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s bloqueou o pedágio de Flint County.**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+	  			SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			
+			}
+			else
+			{
+				aTolls[FlintToll][E_tLocked] = 0;
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou o pedágio de Flint County.**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+		}
+		else if(!strcmp(option, "richman", true))
+		{
+			if(aTolls[RichmanToll][E_tLocked] == 0)
+			{
+				aTolls[RichmanToll][E_tLocked] = 1;
+				Toll_CloseToll(RichmanToll);
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s bloqueou o pedágio de Richman.**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+			else
+			{
+				aTolls[RichmanToll][E_tLocked] = 0;
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou o pedágio de Richman.**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+		}
+		else if(!strcmp(option, "lv", true))
+		{
+			if(aTolls[LVToll][E_tLocked] == 0)
+			{
+				aTolls[LVToll][E_tLocked] = 1;
+				Toll_CloseToll(LVToll);
+
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s fechou o pedágio LS-LV**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+			else
+			{
+				aTolls[LVToll][E_tLocked] = 0;
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou o pedágio de LS-LV.**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+		}
+		else if(!strcmp(option, "blueberryr", true))
+		{
+			if(aTolls[BlueberryTollR][E_tLocked] == 0)
+			{
+				aTolls[BlueberryTollR][E_tLocked] = 1;
+				Toll_CloseToll(BlueberryTollR);
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s fechou o pedágio de Richman (Direita).**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+			else
+			{
+				aTolls[BlueberryTollR][E_tLocked] = 0;
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou o pedágio de Richman (Direita).**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+		}
+		else if(!strcmp(option, "blueberryl", true))
+		{
+			if(aTolls[BlueberryTollL][E_tLocked] == 0)//23914
+			{
+				aTolls[BlueberryTollL][E_tLocked] = 1;
+				Toll_CloseToll(BlueberryTollL);
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s fechou o pedágio de blueberry (esquerda).**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);			
+			}
+			else
+			{
+				aTolls[BlueberryTollL][E_tLocked] = 0;
+				format(StrMsg, sizeof(StrMsg), "** MARE 0: %s %s liberou o pedágio de blueberry (esquerda).**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+				SendFacMessage(0x6666CCFF,FacId,StrMsg);
+			}
+		}
+	}
+	return 1;
+}
+
+
+CMD:abrirpedagio(playerid, params[])
+{
+ 	new L_i_TollID;
+	if(IsPlayerInRangeOfPoint(playerid, TollOpenDistance, 623.9500, -1183.9774, 19.2260) || IsPlayerInRangeOfPoint(playerid, 3.0, 607.9684, -1194.2866, 19.0043)) // Richman tolls
+	{
+		L_i_TollID = RichmanToll;
+	}
+	else if(IsPlayerInRangeOfPoint(playerid, TollOpenDistance, 39.7039, -1522.9891, 5.1995) || IsPlayerInRangeOfPoint(playerid, 3.0, 62.7378, -1539.9891, 5.0639)) // Flint tolls
+	{
+		L_i_TollID = FlintToll;
+	}
+	else if(IsPlayerInRangeOfPoint(playerid, TollOpenDistance, 1795.9447, 704.2550, 15.0006) || IsPlayerInRangeOfPoint(playerid, 3.0, 1778.9886, 702.6728, 15.2574)) // LV tolls
+	{
+		L_i_TollID = LVToll;
+	}
+	else if(IsPlayerInRangeOfPoint(playerid, TollOpenDistance, 612.53070, 346.59592, 17.92614) || IsPlayerInRangeOfPoint(playerid, 3.0, 604.37152, 346.88141, 17.92614)) // BlueberryR tolls
+	{
+		L_i_TollID = BlueberryTollR;
+	}
+	else if(IsPlayerInRangeOfPoint(playerid, TollOpenDistance, -195.2768,252.2416,12.0781) || IsPlayerInRangeOfPoint(playerid, 3.0, -199.5153,260.3405,12.0781)) // BlueberryL tolls
+	{
+		L_i_TollID = BlueberryTollL;
+	}
+	else
+	{
+		SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está perto o suficiente de uma cabine de pedágio!");
+		return 1;
+	}
+	if(!Toll_TimePassedCivil(L_i_TollID, playerid))
+		return 1;
+
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+	{
+		if(aTolls[L_i_TollID][E_tLocked]) // If it's locked
+		{
+			new strlped2[256];
+			format(strlped2, sizeof(strlped2), "%s", L_sz_TollStringLocked);
+			SendClientMessage(playerid, COLOR_WHITE, strlped2);
+			return 1;
+		}
+		if(PlayerInfo[playerid][pGrana] < TollCost)
+		{
+			new strlped22[256];
+			format(strlped22, sizeof(strlped22), "%s", L_sz_TollStringNoMoney);
+			SendClientMessage(playerid, COLOR_RED, strlped22);
+			return 1;
+		}
+		PlayerInfo[playerid][pGrana] -= TollCost;
+		new strl11[126];
+	   	format(strl11, sizeof(strl11), "%s pagou R$%d para o guarda da cabine.", PlayerName(playerid,0), TollCost);
+		SendClientMessage(playerid, COLOR_PURPLE, strl11);
+
+		SetTimerEx("TollUpdate", 1500, false, "d", playerid);
+
+	}
+	new strl[126];
+	format(strl, sizeof(strl), "%s", L_sz_TollStringBye);
+	SendClientMessage(playerid, COLOR_WHITE, strl);
+	new strlped[126];
+	format(strlped, sizeof(strlped), "%s", L_sz_TollStringHurryUp);
+	SendClientMessage(playerid, COLOR_LIGHTRED, strlped);
+
+	Toll_OpenToll(L_i_TollID);
+	return 1;
+}
 //==========[SISTEMA DE ROUBO]========================
 COMMAND:explodir(playerid,params[])
 {
@@ -31924,7 +32273,7 @@ COMMAND:mare(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PMERJ)
- {
+ 	{
 	    if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
 
 	    new other[256];
@@ -31944,7 +32293,7 @@ COMMAND:central(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PCERJ)
- {
+ 	{
         if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
 
         new other[256];
@@ -31964,7 +32313,7 @@ COMMAND:cobom(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_CBERJ)
- {
+ 	{
         if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
 
         new other[256];
@@ -45769,23 +46118,23 @@ CMD:comprar(playerid, params[])
 			}
 			case EMP_TIPO_PAWN:
 			{
-   				Dialog_Show(playerid, DIALOG_PAWNSHOP, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Item\tPreço\nSoco Inglês\tR$300\nBastão\tR$300\nFaca\tR$2500\nPá\tR$400\nCane\tR$400\nTaco de Golfe\tR$350\n1x Raspador\tR$2000\nVender Peças", "Selecionar", "Cancelar");
+   				Dialog_Show(playerid, DIALOG_PAWNSHOP, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Produto\tPreço\nSoco Inglês\tR$300\nBastão\tR$300\nFaca\tR$2500\nPá\tR$400\nCane\tR$400\nTaco de Golfe\tR$350\n1x Raspador\tR$2000\nVender Peças", "Selecionar", "Cancelar");
 			}
 			case EMP_TIPO_BURGERSHOT:
 			{
-   				Dialog_Show(playerid, DIALOG_BURGERSHOT, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Item\tPreço\nX-Burguer\tR$5\nX-Egg\tR$6\nX-Baccon\tR$6\nX-Salada\tR$4\nX-Tudo\tR$10\nSprunk\tR$5", "Selecionar", "Cancelar");
+   				Dialog_Show(playerid, DIALOG_BURGERSHOT, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Produto\tPreço\nX-Burguer\tR$5\nX-Egg\tR$6\nX-Baccon\tR$6\nX-Salada\tR$4\nX-Tudo\tR$10\nSprunk\tR$5", "Selecionar", "Cancelar");
 			}
             case EMP_TIPO_STACKED:
 			{
-   				Dialog_Show(playerid, DIALOG_STACKED, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Item\tPreço\nPizza Pequena\tR$8\nPizza + Refri\tR$12\nCombo Completo\tR$18", "Selecionar", "Cancelar");
+   				Dialog_Show(playerid, DIALOG_STACKED, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Produto\tPreço\nPizza Pequena\tR$8\nPizza + Refri\tR$12\nCombo Completo\tR$18", "Selecionar", "Cancelar");
 			}
 			case EMP_TIPO_CLUCKIN:
 			{
-   				Dialog_Show(playerid, DIALOG_CLUCKIN, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Item\tPreço\nCluckin Little Meal\tR$8\nCluckin Big Meal\tR$12\nCluckin Huge Meal\tR$18", "Selecionar", "Cancelar");
+   				Dialog_Show(playerid, DIALOG_CLUCKIN, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Produto\tPreço\nCluckin Little Meal\tR$8\nCluckin Big Meal\tR$12\nCluckin Huge Meal\tR$18", "Selecionar", "Cancelar");
 			}
 			case EMP_TIPO_BAR:
 			{
-			    Dialog_Show(playerid, DIALOG_BARSHOP, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Item\tPreço\nCerveja\tR$5\nVinho\tR$6\nSprunk\tR$2", "Selecionar", "Cancelar");
+			    Dialog_Show(playerid, DIALOG_BARSHOP, DIALOG_STYLE_TABLIST_HEADERS, empNome, "Produto\tPreço\nCerveja\tR$5\nVinho\tR$6\nSprunk\tR$2", "Selecionar", "Cancelar");
 			}
 			case EMP_TIPO_AMMU:
 			{
@@ -45813,11 +46162,32 @@ CMD:comprar(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1917.8755,-1776.0514,13.6094)) //comprar 24/7
 	{
-		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n{878787}ELETRÔNICOS\nCelular\tR$120\nRadio\tR$190\nCâmera\tR$50\nBoombox\tR$140\n{878787}VARIADOS\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nMascara\tR$500\nLata de Spray\tR$50", "Comprar", "Cancelar");
+		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n\
+		{878787}ELETRÔNICOS\n\
+		Celular\tR$120\n\
+		Radio\tR$190\n\
+		Câmera\tR$50\n\
+		Boombox\tR$140\n\
+		{878787}VARIADOS\n\
+		Galão\tR$50\n\
+		Caixa de Ferramentas\tR$180\n\
+		Cigarro\tR$8\n\
+		Mascara\tR$500\n\
+		Lata de Spray\tR$50\n\
+		{878787}BEBIDAS E COMIDA\n\
+		Lata de Spray\tR$50\n\
+		Pizza Pequena\tR$8\n\
+		Pizza + Refri\tR$12\n\
+		Combo Completo\tR$18 \
+		", "Comprar", "Cancelar");
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5,  1488.6760,-1721.4026,8.2160))
 	{	
 		Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_TABLIST_HEADERS, "Loja de Bombas", "Produto\tPreço\n1x Dinamite [R$200]\n1x C4 [R$400]\n1x TNT [R$800]", "Comprar", "Cancelar");
+	}
+	else if(IsPlayerInRangeOfPoint(playerid, 5, 2532.0464,-1916.4795,13.5480)) //Stacked aberta
+	{
+	    Dialog_Show(playerid, DIALOG_STACKEDRua, DIALOG_STYLE_TABLIST_HEADERS, "STACKED", "Produto\tPreço\nPizza Pequena\tR$8\nPizza + Refri\tR$12\nCombo Completo\tR$18", "Selecionar", "Cancelar");
 	}
 	return 1;
 }
@@ -46131,11 +46501,168 @@ Dialog:Dialog_247Rua(playerid, response, listitem, inputtext[])
 				}
 				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
 			}
+		    case 11:
+		    {
+		        if(PlayerInfo[playerid][pGrana] >= 8)
+				{
+		 		    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    ApplyAnimation(playerid,"DEALER","shop_pay",3.0,0,0,0,0,0,1);
+
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Pizza Pequena.");
+					PlayerInfo[playerid][pGrana] -= 8;
+
+				    PlayerInfo[playerid][pFome] += 20;
+				    PlayerInfo[playerid][pSede] += 20;
+
+	 		        new Float:Vida, Float:VidaFinal;
+	 		        GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+20;
+	 		        if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+	 		        God_VidaAnterior2[playerid] = VidaFinal;
+	 		        God_Aviso2[playerid] = 0;
+
+	 		        SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro o suficiente.");
+			}
+ 		    case 12:
+ 		    {
+ 		        if(PlayerInfo[playerid][pGrana] >= 12)
+ 		        {
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Pizza + Refri.");
+				    PlayerInfo[playerid][pGrana] -= 12;
+
+				    PlayerInfo[playerid][pFome] += 30;
+				    PlayerInfo[playerid][pSede] += 30;
+
+				    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+	 		        new Float:Vida, Float:VidaFinal;
+	 		        GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+35;
+	 		        if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+	 		        God_VidaAnterior2[playerid] = VidaFinal;
+	 		        God_Aviso2[playerid] = 0;
+
+	 		        SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+				    return 1;
+				}
+ 		    }
+ 		    case 13:
+ 		    {
+ 		        if(PlayerInfo[playerid][pGrana] >= 18)
+ 		        {
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou um Combo Completo.");
+					PlayerInfo[playerid][pGrana] -= 18;
+
+					PlayerInfo[playerid][pFome] = 100;
+					PlayerInfo[playerid][pSede] = 100;
+
+					PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    new Float:Vida, Float:VidaFinal;
+		 		    GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+35;
+		 		    if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+		 		    God_VidaAnterior2[playerid] = VidaFinal;
+		 		    God_Aviso2[playerid] = 0;
+
+		 		    SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+					return 1;
+				}
+	 		}
 		}
 	}
 	return 1;
 }
 
+Dialog:DIALOG_STACKEDRua(playerid, response, listitem, inputtext[])
+{
+    if (!response) return 1;
+	else
+	{
+ 		switch(listitem)
+	 	{
+	 		case 0:
+	 		{
+	 		    if(PlayerInfo[playerid][pGrana] >= 8)
+	 		    {
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Pizza Pequena.");
+					PlayerInfo[playerid][pGrana] -= 8;
+
+				    PlayerInfo[playerid][pFome] += 20;
+				    PlayerInfo[playerid][pSede] += 20;
+
+				    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+	 		        new Float:Vida, Float:VidaFinal;
+	 		        GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+20;
+	 		        if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+	 		        God_VidaAnterior2[playerid] = VidaFinal;
+	 		        God_Aviso2[playerid] = 0;
+
+	 		        SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+				    return 1;
+				}
+ 		    }
+ 		    case 1:
+ 		    {
+ 		        if(PlayerInfo[playerid][pGrana] >= 12)
+ 		        {
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou uma Pizza + Refri.");
+				    PlayerInfo[playerid][pGrana] -= 12;
+
+				    PlayerInfo[playerid][pFome] += 30;
+				    PlayerInfo[playerid][pSede] += 30;
+
+				    PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+	 		        new Float:Vida, Float:VidaFinal;
+	 		        GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+35;
+	 		        if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+	 		        God_VidaAnterior2[playerid] = VidaFinal;
+	 		        God_Aviso2[playerid] = 0;
+
+	 		        SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+				    return 1;
+				}
+ 		    }
+ 		    case 2:
+ 		    {
+ 		        if(PlayerInfo[playerid][pGrana] >= 18)
+ 		        {
+					SendClientMessage(playerid,COLOR_LIGHTGREEN,"Você comprou um Combo Completo.");
+					PlayerInfo[playerid][pGrana] -= 18;
+
+					PlayerInfo[playerid][pFome] = 100;
+					PlayerInfo[playerid][pSede] = 100;
+
+					PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
+		 		    new Float:Vida, Float:VidaFinal;
+		 		    GetPlayerHealth(playerid, Vida);
+					VidaFinal = Vida+35;
+		 		    if(VidaFinal > PlayerInfo[playerid][pHealthMax]) VidaFinal = PlayerInfo[playerid][pHealthMax];
+                    P_Health[playerid] = VidaFinal;
+		 		    God_VidaAnterior2[playerid] = VidaFinal;
+		 		    God_Aviso2[playerid] = 0;
+
+		 		    SetPlayerHealth(playerid, VidaFinal);
+					updateTextDrawFomeSede(playerid);
+					return 1;
+				}
+	 		}
+		}	
+	}
+	return 1;
+}
 Dialog:DIALOG_AMMUNATION(playerid, response, listitem, inputtext[])
 {
     if (!response) return 1;
