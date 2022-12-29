@@ -132,13 +132,13 @@ AddSimpleModel(-1,19141, -2117, "cone.dff", "cone.txd");
 AddSimpleModel(-1,19141, -2118, "cavalete.dff", "cavalete.txd");
 AddSimpleModel(-1,19141, -2119, "faixa.dff", "faixa.txd");
 AddSimpleModel(-1,19781, -2120, "PatenteSD1.dff", "PatenteSD1.txd");
-AddSimpleModel(-1,19781, -2299, "PatenteCB2.dff", "PatenteCB2.txd");
+AddSimpleModel(-1,19781, -2121, "PatenteCB2.dff", "PatenteCB2.txd");
 AddSimpleModel(-1,19781, -2122, "PatenteSGT3.dff", "PatenteSGT3.txd");
 AddSimpleModel(-1,19781, -2123, "PatenteSGT2.dff", "PatenteSGT2.txd");
 AddSimpleModel(-1,19781, -2124, "PatenteSGT1.dff", "PatenteSGT1.txd");
 AddSimpleModel(-1,19942, -2125, "RadioMotorola.dff", "RadioMotorola.txd");
 AddSimpleModel(-1,19515, -2126, "coletepmerj2.dff", "coletepmerj2.txd");
-AddSimpleModel(-1,19515, -2126, "coletebope.dff", "coletebope.txd");
+AddSimpleModel(-1,19515, -2127, "coletebope.dff", "coletebope.txd");
 //objetos binco
 AddSimpleModel(-1,19315, -2080, "CachorroUm.dff", "CachorroUm.txd");
 AddSimpleModel(-1,19315, -2086, "CachorroDois.dff", "CachorroDois.txd");
@@ -273,7 +273,7 @@ AddSimpleModel(-1,19480,-2040, "upp.dff", "upp.txd");
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");
 AddSimpleModel(-1,19379, -2200, "login.dff", "tela.txd");
 AddSimpleModel(-1, 19379, -2201, "login.dff", "logo.txd");
-AddSimpleModel(-1, 19379, -7800, "login.dff", "logo32.txd"); //NÔøΩo remover
+AddSimpleModel(-1, 19379, -7800, "login.dff", "logo32.txd"); //Nùo remover
 
 //mapas civis
 AddSimpleModel(-1,12843, -1001, "caixa.dff", "caixa.txd");
@@ -375,3 +375,6 @@ AddSimpleModel(-1,19141, -1500,"campo.dff", "campo.txd");
 AddSimpleModel(-1,19141, -1501,"bar1.dff", "bar1.txd");
 AddSimpleModel(-1,19141, -1503,"churras.dff", "churras.txd");
 AddSimpleModel(-1,19141, -1504,"honda.dff", "honda.txd");
+
+EndereÁo MAC da WAND0:F3:F5:C1:5D:7B
+EndereÁo MAC da LAND0:F3:F5:C1:5D:7A

@@ -2815,10 +2815,10 @@ static LOJA_CHAPEU_PMERJ[1] = {
 	-2104
 };
 
-static LOJA_OUTROS_PMERJ[10] = {
+static LOJA_OUTROS_PMERJ[12] = {
 	-2126, -2101, -2106, -2120,
 	-2121, -2122, -2123, -2124,
-	-2125, -2105
+	-2125, -2105, -2127, -2100
 };
 //======== [PROSEGUR]======//
 static PROSEGUR_Uniformes[1] = {
@@ -2921,7 +2921,7 @@ static LOJA_OUTROS[50] = {
 	2919, 371, 3026, 11745, 19624, 19625, 1210, 19079, 19078, 18975, 19136,
 	19090, 19091, 19092, 19350, 19351, 19421, 19422, 19423, 19424, 19556, 19555,
 	19559, 19904, 11735, 19317, 19318, 19319, 19622, 19631, 19626, 19591, 19586,
-	19307, 19306, -2125, -2180, -2181, -2182, -2055, -2057, -2058, -2059, 
+	19307, 19306, -2125, -2080, -2086, -2082, -2055, -2057, -2058, -2059, 
 	-2060, -2700, -2701, -2702, -2703, -2183, -2610
 	
 };
@@ -23026,7 +23026,7 @@ public ChecandoRefundo(playerid)
 	return 1;
 }
 
-CMD:mudarsenha(playerid, params[])
+CMD:mudar343senha23(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 
@@ -26012,6 +26012,7 @@ COMMAND:misturar(playerid,params[])
 	if(!strlen(tmp))
 	{
         SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: /misturar [ação]");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocaina - Aqui você usuará pasta base de cocaína e irá fazer a cocaína excelente.");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocainaE - Aqui você usuará cocaina excelente e passará para a qualidade boa.");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocainaB - Aqui você usuará cocaina boa e passará para a qualidade ruim.");
@@ -26752,12 +26753,76 @@ COMMAND:traficar(playerid,params[])
 	if(!strlen(tmp))
 	{
         SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
-		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocaina - Para vender cocaína boa para o actor.");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: /traficar [ação]");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocainaE - Para vender cocaína excelente para o actor.");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: cocainaB - Para vender cocaína boa para o actor.");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: maconhaE - Para vender maconha excelente para o actor.");
 		SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
 		return 1;
 	}
 
-	if(strcmp(tmp,"cocaina",true) == 0)
+	if(strcmp(tmp,"cocainaE",true) == 0)
+	{
+		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+		if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
+		if(PlayerDroga[playerid][CocaE] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 1g de cocaina excelente.");
+		if(PlayerInfo[playerid][pTrafico] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já traficou bastante neste PayDay, volte após seu payday.");
+		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
+
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 2g de cocaina excelente para o noiado.");	
+			SetTimerEx("VendendoCocainaE", 5000, false, "d", playerid);
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do Noiado e pronuncia algumas palavras.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Quero aquela que matou o chorão para cheirar.");
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			new location[MAX_ZONE_NAME];
+			GetPlayer2DZone(playerid, location, MAX_ZONE_NAME);
+			new str[126];
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo cocaína, possivelmente armada e drogada.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo cocaína, possivelmente armada e drogada.");
+			format(str, sizeof(str), "Local: %s",location);
+			SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+			SendFacMessage(COLOR_LIGHTBLUE, 2, str);
+		
+			new strl[126];
+			format(strl, 126, "%s vendeu droga pro Actor. [/traficar cocainaE]", PlayerName(playerid, 0));
+			LogCMD_venderdroga(strl);
+		}
+	}
+	if(strcmp(tmp,"cocainaB",true) == 0)
 	{
 		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
 		if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
@@ -26788,16 +26853,16 @@ COMMAND:traficar(playerid,params[])
 		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
-			SetTimerEx("VendendoDroga", 5000, false, "d", playerid);
+			SetTimerEx("VendendoCocainaB", 5000, false, "d", playerid);
 
 			new stringvendeu[256];
-			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do noia e pronuncia algumas palavras.", PlayerName(playerid, 1));
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do Noiado e pronuncia algumas palavras.", PlayerName(playerid, 1));
 			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
 			format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
 			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-			format(stringvendeu,sizeof(stringvendeu),"Noia diz: Quero um pino para cheirar.");
+			format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Quero um pino para cheirar.");
 			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
 			new location[MAX_ZONE_NAME];
@@ -26807,8 +26872,8 @@ COMMAND:traficar(playerid,params[])
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
-			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
-			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo drogas, possivelmente armada e drogada.");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo cocaína, possivelmente armada e drogada.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo cocaína, possivelmente armada e drogada.");
 			format(str, sizeof(str), "Local: %s",location);
 			SendFacMessage(COLOR_LIGHTBLUE, 1, str);
 			SendFacMessage(COLOR_LIGHTBLUE, 2, str);
@@ -26818,22 +26883,82 @@ COMMAND:traficar(playerid,params[])
 			LogCMD_venderdroga(strl);
 		}
 	}
+	if(strcmp(tmp,"MaconhaE",true) == 0)
+	{
+		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
+		if(PlayerInfo[playerid][pLevel] < 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de TC 2 ou mais para vender drogas.");
+		if(PlayerDroga[playerid][MaconhaE] < 24) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa de pelo menos 25g de maconha excelente.");
+		if(PlayerInfo[playerid][pTrafico] > 6) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já traficou bastante neste PayDay, volte após seu payday.");
+		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
+
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
+		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 25g de maconha excelente para o noiado.");	
+			SetTimerEx("VendendoMaconhaE", 5000, false, "d", playerid);
+
+			new stringvendeu[256];
+			format(stringvendeu,sizeof(stringvendeu),"** %s se aproxima do Noiado e pronuncia algumas palavras.", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			format(stringvendeu,sizeof(stringvendeu),"%s diz: Da o papo, tu quer o que hoje?", PlayerName(playerid, 1));
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Quero o boldin do bom.");
+			ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+			new location[MAX_ZONE_NAME];
+			GetPlayer2DZone(playerid, location, MAX_ZONE_NAME);
+			new str[126];
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "|__________EMERGENCIA POLICIAL__________|");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Relator: Anonimo, Contato: Orelhão");
+			SendFacMessage(COLOR_LIGHTBLUE, 1, "Situação: Tem uma pessoa vendendo maconha, possivelmente armada e drogada.");
+			SendFacMessage(COLOR_LIGHTBLUE, 2, "Situação: Tem uma pessoa vendendo maconha, possivelmente armada e drogada.");
+			format(str, sizeof(str), "Local: %s",location);
+			SendFacMessage(COLOR_LIGHTBLUE, 1, str);
+			SendFacMessage(COLOR_LIGHTBLUE, 2, str);
+		
+			new strl[126];
+			format(strl, 126, "%s vendeu droga pro Actor. [/traficar MaconhaE]", PlayerName(playerid, 0));
+			LogCMD_venderdroga(strl);
+		}
+	}
 	return 1;
 }
 
-
-forward VendendoDroga(playerid);
-public VendendoDroga(playerid)
+forward VendendoCocainaE(playerid);
+public VendendoCocainaE(playerid)
 {
 			
-	PlayerDroga[playerid][CocaB]--;
+	PlayerDroga[playerid][CocaE]--;
 
 	TogglePlayerControllable(playerid, 0);
 	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
 
 	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberá o dinheiro em alguns segundos.");
 
-	SetTimerEx("PegandoMoneyTrafico", 10000, false, "d", playerid);
+	SetTimerEx("PegandoGranaCocaETrf", 10000, false, "d", playerid);
 
 	new stringvendeu[256];
 	format(stringvendeu,sizeof(stringvendeu),"> %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
@@ -26841,39 +26966,167 @@ public VendendoDroga(playerid)
 	format(stringvendeu, sizeof(stringvendeu), "* %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
     SetPlayerChatBubble(playerid, stringvendeu, COLOR_PURPLE, 20.0, 10000);
 
-	format(stringvendeu,sizeof(stringvendeu),"Noia diz: Esse tá bem servido, hein? Gostei.");
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Esse tá bem servido, hein? Gostei.");
 	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
-	format(stringvendeu,sizeof(stringvendeu),"** O noia sorri ao ver o pino de cocaína cheio.");
+	format(stringvendeu,sizeof(stringvendeu),"** O Noiado sorri ao ver o pino de cocaína cheio.");
 	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
     return 1;
 }
 
-forward PegandoMoneyTrafico(playerid);
-public PegandoMoneyTrafico(playerid)
+forward PegandoGranaCocaETrf(playerid);
+public PegandoGranaCocaETrf(playerid)
 {
 
 	new stringvendeu[256];
-	format(stringvendeu,sizeof(stringvendeu),"* O noia retira duas notas de cinquenta e oferta a %s.", PlayerName(playerid, 1));
+	format(stringvendeu,sizeof(stringvendeu),"* O Noiado retira algumas notas e oferta a %s.", PlayerName(playerid, 1));
 	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 	
-	format(stringvendeu,sizeof(stringvendeu),"Noia diz: Amanhã eu volto pra entupir meu nariz mais uma vez.");
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Amanhã eu volto pra entupir meu nariz mais uma vez.");
 	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
 	TogglePlayerControllable(playerid, 0);
-	SetTimerEx("PegouGranaTrafico", 3000, false, "d", playerid);
+	SetTimerEx("PegouGranaCocaETrf", 3000, false, "d", playerid);
 
 
     return 1;
 }
 
-forward PegouGranaTrafico(playerid);
-public PegouGranaTrafico(playerid)
+forward PegouGranaCocaETrf(playerid);
+public PegouGranaCocaETrf(playerid)
+{
+
+	PlayerInfo[playerid][pGranaSuja] += 900;
+	//PlayerInfo[playerid][pTrafico]++;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 900 reais sujo pela cocaina excelente.");
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"%s diz: Fé. Tamo junto!", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
+
+forward VendendoCocainaB(playerid);
+public VendendoCocainaB(playerid)
+{
+			
+	PlayerDroga[playerid][CocaB]-= 2;
+
+	TogglePlayerControllable(playerid, 0);
+	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberá o dinheiro em alguns segundos.");
+
+	SetTimerEx("PegandoGranaCocaBTrf", 10000, false, "d", playerid);
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"> %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	format(stringvendeu, sizeof(stringvendeu), "* %s retira um pino de cocaina da bag e entrega ao usuário.", PlayerName(playerid, 1));
+    SetPlayerChatBubble(playerid, stringvendeu, COLOR_PURPLE, 20.0, 10000);
+
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Esse tá bem servido, hein? Gostei.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+	format(stringvendeu,sizeof(stringvendeu),"** O Noiado sorri ao ver o pino de cocaína cheio.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+    return 1;
+}
+
+forward PegandoGranaCocaBTrf(playerid);
+public PegandoGranaCocaBTrf(playerid)
+{
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"* O Noiado retira algumas notas e oferta a %s.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Amanhã eu volto pra entupir meu nariz mais uma vez.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+	TogglePlayerControllable(playerid, 0);
+	SetTimerEx("PegouGranaCocaBTrf", 3000, false, "d", playerid);
+
+
+    return 1;
+}
+
+forward PegouGranaCocaBTrf(playerid);
+public PegouGranaCocaBTrf(playerid)
 {
 
 	PlayerInfo[playerid][pGranaSuja] += 300;
 	//PlayerInfo[playerid][pTrafico]++;
 	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 300 reais sujo pela cocaina.");
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"%s diz: Fé. Tamo junto!", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+    TogglePlayerControllable(playerid, 1);
+    ClearAnimations(playerid, 1);
+    RemovePlayerAttachedObject(playerid, 6);
+
+    return 1;
+}
+
+forward VendendoMaconhaE(playerid);
+public VendendoMaconhaE(playerid)
+{
+			
+	PlayerDroga[playerid][MaconhaE]-= 25;
+
+	TogglePlayerControllable(playerid, 0);
+	ApplyAnimation(playerid,"POOL","POOL_ChalkCue",4.0, 0, 1, 1, 1, -1, 1);
+
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você receberá o dinheiro em alguns segundos.");
+
+	SetTimerEx("PegandoGranaErvaETrf", 10000, false, "d", playerid);
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"> %s retira um ziplock de maconha excelente e entrega ao usuário.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	format(stringvendeu, sizeof(stringvendeu), "* %s retira um ziplock de maconha excelente e entrega ao usuário.", PlayerName(playerid, 1));
+    SetPlayerChatBubble(playerid, stringvendeu, COLOR_PURPLE, 20.0, 10000);
+
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Esse tá bem servido, hein? Gostei.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+	format(stringvendeu,sizeof(stringvendeu),"** O Noiado sorri ao ver o ziplock de 25g de maconha.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+    return 1;
+}
+
+forward PegandoGranaErvaETrf(playerid);
+public PegandoGranaErvaETrf(playerid)
+{
+
+	new stringvendeu[256];
+	format(stringvendeu,sizeof(stringvendeu),"* O Noiado retira algumas notas e oferta a %s.", PlayerName(playerid, 1));
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+	
+	format(stringvendeu,sizeof(stringvendeu),"Noiado diz: Amanhã eu volto para pegar mais.");
+	ProxDetector(20.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
+
+	TogglePlayerControllable(playerid, 0);
+	SetTimerEx("PegouGranaErvaETrf", 3000, false, "d", playerid);
+
+
+    return 1;
+}
+
+forward PegouGranaErvaETrf(playerid);
+public PegouGranaErvaETrf(playerid)
+{
+
+	PlayerInfo[playerid][pGranaSuja] += 900;
+	//PlayerInfo[playerid][pTrafico]++;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 900 reais sujo pela cocaina excelente.");
 
 	new stringvendeu[256];
 	format(stringvendeu,sizeof(stringvendeu),"%s diz: Fé. Tamo junto!", PlayerName(playerid, 1));
@@ -26895,6 +27148,7 @@ COMMAND:lavar(playerid,params[])
 	if(!strlen(tmp))
 	{
         SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: /lavar [ação]");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: dinheiro - Utilize o comando para lavar o dinheiro sujo.");
 		SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
 		return 1;
@@ -26970,6 +27224,7 @@ COMMAND:explodir(playerid,params[])
 	if(!strlen(tmp))
 	{
         SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: /explodir [ação]");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: banco - Para explodir o banco.");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: loja - Para explodir a loja.");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: caixa - Para explodir o caixa eletronico.");
@@ -27014,8 +27269,8 @@ COMMAND:explodir(playerid,params[])
 							}
 						}
 					}
-					if(PolicesOnline < 4) return 
-						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} é preciso ter pelo menos 4 policiais em serviço para executar essa ação.");
+					if(PolicesOnline < 12) return 
+						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} é preciso ter pelo menos 12 policiais em serviço para executar essa ação.");
 				}
 
 				new location[MAX_ZONE_NAME];
@@ -27047,10 +27302,10 @@ COMMAND:explodir(playerid,params[])
 				SendFacMessage(COLOR_LIGHTBLUE, 1, str);
 				SendFacMessage(COLOR_LIGHTBLUE, 2, str);
 
-				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
+				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodir banco.", PlayerName(playerid, 0));
 				
 				new strl[126];
-				format(strl, 126, "%s explodiu um caixa eletronico. [/explodircaixa]", PlayerName(playerid, 0));
+				format(strl, 126, "%s explodiu um caixa eletronico. [//explodir banco]", PlayerName(playerid, 0));
 				LogCMD_explodircaixa(strl);
 			}
 		}
@@ -27092,8 +27347,8 @@ COMMAND:explodir(playerid,params[])
 							}
 						}
 					}
-					if(PolicesOnline < 6) return 
-						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 6 policiais em serviço para executar essa ação.");
+					if(PolicesOnline < 8) return 
+						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 8 policiais em serviço para executar essa ação.");
 				}
 
 
@@ -27134,10 +27389,10 @@ COMMAND:explodir(playerid,params[])
 				format(stringvendeu,sizeof(stringvendeu),"%s GRITA: VAI FILHA DA PUTA, NO CHÃO, OU ESTOURO SUA CABEÇA!", PlayerName(playerid, 1));
 				ProxDetector(40.0, playerid, stringvendeu,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE,COLOR_WHITE);
 
-				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircofre.", PlayerName(playerid, 0));
+				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodir loja.", PlayerName(playerid, 0));
 				
 				new strl[126];
-				format(strl, 126, "%s explodiu um cofre. [/explodircofre]", PlayerName(playerid, 0));
+				format(strl, 126, "%s explodiu um cofre. [/explodir loja]", PlayerName(playerid, 0));
 				LogCMD_explodircaixa(strl);
 
 				return 1;
@@ -27165,7 +27420,7 @@ COMMAND:explodir(playerid,params[])
 			if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]))
 			{
 
-				new PolicesOnline = 0;
+				/*new PolicesOnline = 0;
 				for(new cops = 0; cops < MAX_PLAYERS; cops++)
 				{
 					if(IsPlayerConnected(cops))
@@ -27181,9 +27436,9 @@ COMMAND:explodir(playerid,params[])
 							}
 						}
 					}
-					if(PolicesOnline < 1) return 
-						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 4 policiais em serviço para executar essa ação.");
-				}
+					if(PolicesOnline < 5) return 
+						SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} É preciso ter pelo menos 5 policiais em serviço para executar essa ação.");
+				}*/
 
 				new location[MAX_ZONE_NAME];
 				Get2DZone(location, TOTAL_ZONE_NAME, ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]);
@@ -27214,10 +27469,10 @@ COMMAND:explodir(playerid,params[])
 				SendFacMessage(COLOR_LIGHTBLUE, 1, str);
 				SendFacMessage(COLOR_LIGHTBLUE, 2, str);
 
-				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodircaixa.", PlayerName(playerid, 0));
+				SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodir caixa.", PlayerName(playerid, 0));
 				
 				new strl[126];
-				format(strl, 126, "%s explodiu um caixa eletronico. [/explodircaixa]", PlayerName(playerid, 0));
+				format(strl, 126, "%s explodiu um caixa eletronico. [/explodir caixa]", PlayerName(playerid, 0));
 				LogCMD_explodircaixa(strl);
 
 				return 1;
@@ -27237,6 +27492,7 @@ COMMAND:roubar(playerid,params[])
 	if(!strlen(tmp))
 	{
         SendClientMessage(playerid, COLOR_VEICULO,"____________________________________________________");
+		SendClientMessage(playerid, COLOR_VEICULO,"USE: /roubar [ação]");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: banco - Utilize o comando após explodir o cofre do banco");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: loja - Utilize o comando após explodir o cofre da loja");
 		SendClientMessage(playerid, COLOR_VEICULO,"USE: caixa - Utilize o comando após explodir o caixa eletrônico");
@@ -27252,19 +27508,13 @@ COMMAND:roubar(playerid,params[])
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
 		if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
-		{
-			new stringcofreb[128];
-			format(stringcofreb, sizeof(stringcofreb),"Aguarde %d segundos (24 horas) antes de explodir o banco novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
-			SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreb);
-			return 1;
-		}
 
 		for(new i = 0; i < MAX_COFREB; i++)
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,cbanco[i][cbposX], cbanco[i][cbposY], cbanco[i][cbposZ]) && cbanco[i][cbRrombado] == 1) 
 			{
 				PlayerInfo[playerid][pGranaSuja] += 50000;
-				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 25 mil reais.");
+				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 50 mil reais.");
 
 				new stringBCofre[256];	
 				format(stringBCofre,sizeof(stringBCofre),"** %s se abaixa e começa a recolher o dinheiro do cofre.", PlayerName(playerid, 1));
@@ -27282,20 +27532,13 @@ COMMAND:roubar(playerid,params[])
 		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
-		if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
-		{
-			new stringcofreroubo[128];
-			format(stringcofreroubo, sizeof(stringcofreroubo),"Aguarde %d segundos antes de explodir um cofre de loja novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
-			SendClientMessage(playerid,COLOR_LIGHTRED, stringcofreroubo);
-			return 1;
-		}
 
 		for(new i = 0; i < MAX_COFRE; i++)
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]) && cLoja[i][clRrombado] == 1) 
 			{
 				PlayerInfo[playerid][pGranaSuja] += 10000;
-				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 5 mil reais.");
+				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 10 mil reais.");
 
 				new location[MAX_ZONE_NAME];
 				Get2DZone(location, TOTAL_ZONE_NAME, cLoja[i][clposX], cLoja[i][clposY], cLoja[i][clposZ]);
@@ -27321,19 +27564,13 @@ COMMAND:roubar(playerid,params[])
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
 		if(PlayerInfo[playerid][pArrombarDNV_C] != 0)
-		{
-			new stringroubo2[128];
-			format(stringroubo2, sizeof(stringroubo2),"Aguarde %d segundos antes de explodir um caixa novamente.", PlayerInfo[playerid][pArrombarDNV_C]);
-			SendClientMessage(playerid,COLOR_LIGHTRED, stringroubo2);
-			return 1;
-		}
 
 		for(new i = 0; i < MAX_ATM; i++)
 		{
 			if(IsPlayerInRangeOfPoint(playerid,1.5,ATMs[i][aposX], ATMs[i][aposY], ATMs[i][aposZ]) && ATMs[i][aRrombado] == 1) 
 			{
 				PlayerInfo[playerid][pGranaSuja] += 8000;
-				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 2 mil reais.");
+				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está colhetando 8 mil reais.");
 
 				new stringCaixaF[256];	
 				format(stringCaixaF,sizeof(stringCaixaF),"** %s se abaixa e começa a recolher o dinheiro do chão.", PlayerName(playerid, 1));
@@ -27367,12 +27604,11 @@ public ExplodindoCaixa(playerid)
 			format(stringCaixaF, sizeof(stringCaixaF), "** MARE 0: Um caixa eletronico explodiu em %s.**", location);
    			SendFacMessage(0x6666CCFF,1,stringCaixaF);
    			SendFacMessage(0x6666CCFF,2,stringCaixaF);
-		
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegardinheiro.");
-
 
 			format(stringCaixaF, sizeof(stringCaixaF), "* O caixa eletronico explode e o dinheiro se espalha *");
 			ProxDetector(500.0, playerid, stringCaixaF, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			SetTimerEx("RoubeAgora", 15000, false, "d", playerid);
 
 		}
 	}
@@ -27428,11 +27664,11 @@ public ExplodindoCofreL(playerid)
 			cLoja[i][clRrombado] = 1;
 			PlayerInfo[playerid][pC4]--;
 
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegargrana.");
-
 			new stringCaixaF[256];
 			format(stringCaixaF, sizeof(stringCaixaF), "* Um cofre é explodido na região *");
 			ProxDetector(100.0, playerid, stringCaixaF, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
+			SetTimerEx("RoubeAgora", 15000, false, "d", playerid);
 
 		}
 	}
@@ -27491,14 +27727,23 @@ public ExplodindoBanco(playerid)
 			SendFacMessage(COLOR_LIGHTBLUE, 1, "Maré-0: Uma explosão na Avenida da Ammu-Nation, caixa federal.");
 			SendFacMessage(COLOR_LIGHTBLUE, 2, "Maré-0: Uma explosão na Avenida da Ammu-Nation, caixa federal.");
 
-			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /pegarmoney.");
-
 			new stringBCofre[256];
 			format(stringBCofre, sizeof(stringBCofre), "* Uma grande explosão acontece no banco *");
 			ProxDetector(100.0, playerid, stringBCofre, COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
+			SetTimerEx("RoubeAgora", 15000, false, "d", playerid);
+
 		}
 	}
+    return 1;
+}
+
+forward RoubeAgora(playerid);
+public RoubeAgora(playerid)
+{
+
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Use /roubar.");
+
     return 1;
 }
 
@@ -39981,7 +40226,7 @@ COMMAND:setarfaccao(playerid, params[])
 COMMAND:setaremprego(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 3000) return 1;
 	new targetid, inter;
 	if(sscanf(params, "ui", targetid, inter)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /setarjob [id] [job id]");
 	else
@@ -45570,9 +45815,53 @@ CMD:comprar(playerid, params[])
 	{
 		Dialog_Show(playerid, Dialog_247Rua, DIALOG_STYLE_TABLIST_HEADERS, "24/7", "Produto\tPreço\n{878787}ELETRÔNICOS\nCelular\tR$120\nRadio\tR$190\nCâmera\tR$50\nBoombox\tR$140\n{878787}VARIADOS\nGalão\tR$50\nCaixa de Ferramentas\tR$180\nCigarro\tR$8\nMascara\tR$500\nLata de Spray\tR$50", "Comprar", "Cancelar");
 	}
+	else if(IsPlayerInRangeOfPoint(playerid, 5,  1488.6760,-1721.4026,8.2160))
+	{	
+		Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_TABLIST_HEADERS, "Loja de Bombas", "Produto\tPreço\n1x Dinamite [R$200]\n1x C4 [R$400]\n1x TNT [R$800]", "Comprar", "Cancelar");
+	}
 	return 1;
 }
-
+Dialog:Dialog_Bomba(playerid, response, listitem, inputtext[])
+{
+	if(!response) return 1;
+	else
+	{
+		switch(listitem)
+		{
+		    case 0:
+		    {
+		        if(PlayerInfo[playerid][pGranaSuja] >= 200)
+				{
+					PlayerInfo[playerid][pBomba]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma dinamite por R$200 sujo.");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-200;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro sujo o suficiente.");
+            }
+		    case 1:
+		    {
+		        if(PlayerInfo[playerid][pGranaSuja] >= 400)
+				{
+					PlayerInfo[playerid][pC4]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$400 sujo.");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-400;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro sujo o suficiente.");
+            }
+		    case 2:
+		    {
+		        if(PlayerInfo[playerid][pGranaSuja] >= 800)
+				{
+					PlayerInfo[playerid][pTNT]++;
+					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$800 sujo.");
+					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-800;
+				}
+				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro sujo o suficiente.");
+            }
+        }
+	}
+	return 1;
+}
 Dialog:Dialog_Farmacia(playerid, response, listitem, inputtext[])
 {
 	if(!response) return 1;
@@ -68120,63 +68409,6 @@ CMD:comprarplaca(playerid,params[])
     return 1;
 }
 
-CMD:comprarbomba(playerid,params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pFactionTeam] >= 1) return 1;
-	{
-	   	if (IsPlayerInRangeOfPoint(playerid, 5, 1488.6760,-1721.4026,8.2160))
-			Dialog_Show(playerid, Dialog_Bomba, DIALOG_STYLE_LIST, "Loja de Bombas", "1x Dinamite [R$200]\n1x C4 [R$400]\n1x TNT [R$2000]", "Selecionar", "Voltar");
-		else {
-			SendClientMessage(playerid, COLOR_LIGHTRED, "Você não está no local de venda de bombas.");
-			return 1;
-		}
-	}
-    return 1;
-}
-
-Dialog:Dialog_Bomba(playerid, response, listitem, inputtext[])
-{
-	if(!response) return 1;
-	else
-	{
-		switch(listitem)
-		{
-		    case 0:
-		    {
-		        if(PlayerInfo[playerid][pGranaSuja] >= 200)
-				{
-					PlayerInfo[playerid][pBomba]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma dinamite por R$200 sujo..");
-					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-200;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
-            }
-		    case 1:
-		    {
-		        if(PlayerInfo[playerid][pGranaSuja] >= 400)
-				{
-					PlayerInfo[playerid][pC4]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$400 sujo..");
-					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-400;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
-            }
-		    case 2:
-		    {
-		        if(PlayerInfo[playerid][pGranaSuja] >= 2000)
-				{
-					PlayerInfo[playerid][pTNT]++;
-					SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Bombas] Você comprou uma C4 por R$2000 sujo.");
-					PlayerInfo[playerid][pGranaSuja] = PlayerInfo[playerid][pGranaSuja]-2000;
-				}
-				else SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não tem dinheiro o suficiente.");
-            }
-        }
-	}
-	return 1;
-}
-
 Dialog:Dialog_CPlacas(playerid, response, listitem, inputtext[])
 {
 	if(!response) return 1;
@@ -84482,13 +84714,13 @@ public DesmanchandoVeh(playerid, parte)
 			{
 		 		PlayerInfo[playerid][pPecasMecanicas][5]+= 2;
 				PlayerInfo[playerid][pGranaSuja] += 1200;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 2 peças de carro e R$1,200 sujo por desmanchar este veículo.");
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 6 peças de carro e R$1,200 sujo por desmanchar este veículo.");
 			}
 			else if(IsABicicleta(vid))
 			{
 				PlayerInfo[playerid][pPecasMecanicas][5]+= 1;
 				PlayerInfo[playerid][pGranaSuja] += 900;
-				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 1 peças de carro e R$900 sujo por desmanchar este veículo.");
+				SCM(playerid, COLOR_LIGHTGREEN, "Você recebeu 4 peças de carro e R$900 sujo por desmanchar este veículo.");
 			}
 			else
 			{
@@ -84578,8 +84810,8 @@ public DesmanchandoVeh(playerid, parte)
 				SaveVehicle(slot);
 			}
 
-			if(PlayerInfo[playerid][pDoador] >= 2) OutrasInfos[playerid][oDesmancheTime] = 10;
-			else OutrasInfos[playerid][oDesmancheTime] = 60;
+			if(PlayerInfo[playerid][pDoador] >= 2) OutrasInfos[playerid][oDesmancheTime] = 60;
+			else OutrasInfos[playerid][oDesmancheTime] = 300;
 
 			KillTimer(Desmanchando[playerid]);
 			JaEstaDesmanchando[playerid] = 0;
