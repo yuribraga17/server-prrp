@@ -27364,7 +27364,7 @@ CMD:pedagios(playerid, params[])
 	new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
 	if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PMERJ)
  	{
-	    if(PlayerInfo[playerid][pFacCargo] < 4) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
+	    if(PlayerInfo[playerid][pFacCargo] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
 
 		new option[11];
 		if(sscanf(params,"s[11]",option))
@@ -31482,34 +31482,26 @@ COMMAND:colocarferido(playerid, params[])
 	return 1;
 }
 
+/*COMMAND:tablet(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+	if(FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ || FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
+	{
+   		Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
+   		//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
+	}
+	return 1;
+}*/
 COMMAND:tablet(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-	if(FacInfo[FacId][fTipo] != FAC_TIPO_PMERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
-	new Vehicleid = GetPlayerVehicleID(playerid);
-	new slot = GetVehicleSlot(Vehicleid);
-	if(slot > -1){
-	    if(FacInfo[GetFactionBySqlId(VehicleInfo[slot][vFaction])][fTipo] == FAC_TIPO_PMERJ) {
-   			Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
-   			//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
-	    }
-	}
-	return 1;
-}
-
-COMMAND:tablet2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-    new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-	if(FacInfo[FacId][fTipo] != FAC_TIPO_PCERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
-	new Vehicleid = GetPlayerVehicleID(playerid);
-	new slot = GetVehicleSlot(Vehicleid);
-	if(slot > -1){
-	    if(FacInfo[GetFactionBySqlId(VehicleInfo[slot][vFaction])][fTipo] == FAC_TIPO_PCERJ) {
-   			Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
-   			//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
-	    }
+    
+	new faccao = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+    if(FacInfo[faccao][fTipo] == FAC_TIPO_PMERJ || FacInfo[faccao][fTipo] == FAC_TIPO_PCERJ || FacInfo[faccao][fTipo] == FAC_TIPO_EB)
+	{
+   		Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
+   		//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "TABLET", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
 	}
 	return 1;
 }
@@ -31517,8 +31509,21 @@ COMMAND:tablet2(playerid, params[])
 COMMAND:computador(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+   
+    new faccao = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+    if(FacInfo[faccao][fTipo] == FAC_TIPO_PMERJ || FacInfo[faccao][fTipo] == FAC_TIPO_PCERJ || FacInfo[faccao][fTipo] == FAC_TIPO_EB)
+	{
+   		Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "COMPUTADOR", "Procurar nome\nProcurar placa ((por ID))\nProcurar placa((Placa))\nAdicionar ficha criminal\nChecar numeração (Arma)\nAdicionar placa procurada\nVer placas procuradas", "Selecionar", "Cancelar");
+   		//Dialog_Show(playerid, Dialog_MDC, DIALOG_STYLE_LIST, "COMPUTADOR", "Procurar Nome\nProcurar Placa (( ID ))\nProcurar Placa(( Placa ))\nAplicar Crime\nChecar Numeração (Arma)", "Selecionar", "Cancelar");
+	}
+	return 1;
+}
+
+/*COMMAND:computador2(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     new FacId = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
-	if(FacInfo[FacId][fTipo] != FAC_TIPO_PMERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
+	if(FacInfo[FacId][fTipo] != FAC_TIPO_PCERJ) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem acesso a este comando.");
 	new complexid = PlayerInfo[playerid][pEntrouComplexo];
 	if(complexid == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em um departamento.");
 	new pertopc = 0;
@@ -31541,7 +31546,7 @@ COMMAND:computador(playerid, params[])
 	    Dialog_Show(playerid, Dialog_COMPUTADORDP, DIALOG_STYLE_LIST, "Computador", "Procurar Nome\nAplicar Crime", "Selecionar", "Cancelar");
 	}
 	return 1;
-}
+}*/
 
 
 Dialog:Dialog_COMPUTADORDP(playerid, response, listitem, inputtext[])
@@ -78456,87 +78461,6 @@ SalvarPixe(pid)
  	return 1;
 }
 
-CMD:suporte2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(IsPlayerEditandoAlgo(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Termine de editar o objeto antes.");
-
-	new veiculo = GetPlayerVehicleID(playerid);
-	new vehicleid = GetVehicleSlot(veiculo);
-
- 	if (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_PCERJ)
-  		return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um oficial da lei.");
-
-    if(PlayerInfo[playerid][pEmServico] == 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando fora de serviço.");
-
-	if(GetVehicleModel(veiculo) != 427 && GetVehicleModel(veiculo) != 490
-	&& GetVehicleModel(veiculo) != 528 && GetVehicleModel(veiculo) != 596
-	&& GetVehicleModel(veiculo) != 597 && GetVehicleModel(veiculo) != 470
-	&& GetVehicleModel(veiculo) != 599) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este veículo não tem suporte.");
-
-	new opcao[128];
-    if(sscanf(params, "s[128]", opcao)) {
-        SendClientMessage(playerid, COLOR_WHITE, "/suporte2 [função]");
-        SendClientMessage(playerid, COLOR_GREEN,"[FUNÇÕES]: info, ga, pa");
-        return 1;
-    }
-
-    if (!strcmp(opcao, "info", true))
-    {
-        new _string[128];
-        new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
-
-        format(_string, 128, "suporte: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
-        SendClientMessage(playerid, COLOR_WHITE, _string);
-
-        SendClientMessage(playerid, COLOR_WHITE,"/suporte2 guardararma ou /suporte2 retirararma ");
-    }
-
-    if (!strcmp(opcao, "guardar", true) || !strcmp(opcao, "ga", true))
-    {
-        if(PlayerInfo[playerid][pArmaMao] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem uma arma em mãos.");
-
-        if(VehicleInfo[vehicleid][vGunHack] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED ,"Já existe uma arma no suporte. desta viatura.");
-        VehicleInfo[vehicleid][vGunHack] = PlayerInfo[playerid][pArmaMao];
-        VehicleInfo[vehicleid][vGunHackA] = ArmaData[PlayerInfo[playerid][pArmaMao]][ArmaAmmo];
-
-		new IdPahSalva = PlayerInfo[playerid][pArmaMao];
-
-        DesarmandoPlayer[playerid] = 2;
-		ResetPlayerWeapons(playerid);
-		PlayerInfo[playerid][pArmaMao] = 0;
-		RemovePlayerAttachedObject(playerid, 0);
-
-        SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você guardou com sucesso uma arma no suporte. da viatura.");
-
-   		SalvarArma(IdPahSalva);
-        return 1;
-    }
-
-    if (!strcmp(opcao, "retirar", true) || !strcmp(opcao, "pa", true))
-    {
-        if(!VehicleInfo[vehicleid][vGunHack]) return SendClientMessage(playerid, COLOR_LIGHTRED ,"O suporte. desta vitura está vázio.");
-        if(PlayerInfo[playerid][pLoadCrate] != -1) return SendClientMessage(playerid, COLOR_WHITE, "Você precisa largar a caixa para realizar essa ação.");
-		if(PlayerInfo[playerid][pArmaMao] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma arma em mãos.");
-
-		new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
-		new IdPahSalva = VehicleInfo[vehicleid][vGunHack];
-
-		GivePlayerWeapon(playerid, ArmaModel, ArmaData[IdPahSalva][ArmaAmmo]);
-
-		if(ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra] == 0) SetPlayerAttachedObject(playerid, 0, GunObjects[ArmaModel], 6);
-		else SetPlayerAttachedObject(playerid, 0, ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra], 6);
-
-		PlayerInfo[playerid][pArmaMao] = IdPahSalva;
- 		VehicleInfo[vehicleid][vGunHack] = 0;
- 		VehicleInfo[vehicleid][vGunHackA] = 0;
-   		FloodCMD[playerid] = gettime()+2;
-
-   		SalvarArma(IdPahSalva);
-    }
-    return 1;
-}
-
 CMD:suporte(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -78545,76 +78469,77 @@ CMD:suporte(playerid, params[])
 	new veiculo = GetPlayerVehicleID(playerid);
 	new vehicleid = GetVehicleSlot(veiculo);
 
- 	if (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] != FAC_TIPO_PMERJ)
-  		return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um oficial da lei.");
-
     if(PlayerInfo[playerid][pEmServico] == 0) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando fora de serviço.");
 
 	if(GetVehicleModel(veiculo) != 427 && GetVehicleModel(veiculo) != 490
 	&& GetVehicleModel(veiculo) != 528 && GetVehicleModel(veiculo) != 596
 	&& GetVehicleModel(veiculo) != 597 && GetVehicleModel(veiculo) != 470
-	&& GetVehicleModel(veiculo) != 599) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este veículo não tem suporte.");
+	&& GetVehicleModel(veiculo) != 598 && GetVehicleModel(veiculo) != 599) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este veículo não tem suporte.");
 
-	new opcao[128];
-    if(sscanf(params, "s[128]", opcao)) {
-        SendClientMessage(playerid, COLOR_WHITE, "/suporte [função]");
-        SendClientMessage(playerid, COLOR_GREEN,"[FUNÇÕES]: info, ga, pa");
-        return 1;
-    }
+    new faccao = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+    if(FacInfo[faccao][fTipo] == FAC_TIPO_PMERJ || FacInfo[faccao][fTipo] == FAC_TIPO_PCERJ)
+	{
+		new opcao[128];
+		if(sscanf(params, "s[128]", opcao)) {
+			SendClientMessage(playerid, COLOR_WHITE, "/suporte [função]");
+			SendClientMessage(playerid, COLOR_GREEN,"[FUNÇÕES]: info, ga, pa");
+			return 1;
+		}
 
-    if (!strcmp(opcao, "info", true))
-    {
-        new _string[128];
-        new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
+		if (!strcmp(opcao, "info", true))
+		{
+			new _string[128];
+			new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
 
-        format(_string, 128, "suporte: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
-        SendClientMessage(playerid, COLOR_WHITE, _string);
+			format(_string, 128, "suporte: Arma ID:[%i] | Arma Nome:[%s] | Munição:[%d]", VehicleInfo[vehicleid][vGunHack], GunNames[ArmaModel], VehicleInfo[vehicleid][vGunHackA]);
+			SendClientMessage(playerid, COLOR_WHITE, _string);
 
-        SendClientMessage(playerid, COLOR_WHITE,"/suporte guardararma ou /suporte retirararma ");
-    }
+			SendClientMessage(playerid, COLOR_WHITE,"/suporte guardararma ou /suporte retirararma ");
+		}
 
-    if (!strcmp(opcao, "guardar", true) || !strcmp(opcao, "ga", true))
-    {
-        if(PlayerInfo[playerid][pArmaMao] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem uma arma em mãos.");
+		if (!strcmp(opcao, "guardar", true) || !strcmp(opcao, "ga", true))
+		{
+			if(PlayerInfo[playerid][pArmaMao] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem uma arma em mãos.");
 
-        if(VehicleInfo[vehicleid][vGunHack] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED ,"Já existe uma arma no suporte. desta viatura.");
-        VehicleInfo[vehicleid][vGunHack] = PlayerInfo[playerid][pArmaMao];
-        VehicleInfo[vehicleid][vGunHackA] = ArmaData[PlayerInfo[playerid][pArmaMao]][ArmaAmmo];
+			if(VehicleInfo[vehicleid][vGunHack] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED ,"Já existe uma arma no suporte. desta viatura.");
+			VehicleInfo[vehicleid][vGunHack] = PlayerInfo[playerid][pArmaMao];
+			VehicleInfo[vehicleid][vGunHackA] = ArmaData[PlayerInfo[playerid][pArmaMao]][ArmaAmmo];
 
-		new IdPahSalva = PlayerInfo[playerid][pArmaMao];
+			new IdPahSalva = PlayerInfo[playerid][pArmaMao];
 
-        DesarmandoPlayer[playerid] = 2;
-		ResetPlayerWeapons(playerid);
-		PlayerInfo[playerid][pArmaMao] = 0;
-		RemovePlayerAttachedObject(playerid, 0);
+			DesarmandoPlayer[playerid] = 2;
+			ResetPlayerWeapons(playerid);
+			PlayerInfo[playerid][pArmaMao] = 0;
+			RemovePlayerAttachedObject(playerid, 0);
 
-        SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você guardou com sucesso uma arma no suporte. da viatura.");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você guardou com sucesso uma arma no suporte. da viatura.");
 
-   		SalvarArma(IdPahSalva);
-        return 1;
-    }
+			SalvarArma(IdPahSalva);
+			return 1;
+		}
 
-    if (!strcmp(opcao, "retirar", true) || !strcmp(opcao, "pa", true))
-    {
-        if(!VehicleInfo[vehicleid][vGunHack]) return SendClientMessage(playerid, COLOR_LIGHTRED ,"O suporte. desta vitura está vázio.");
-        if(PlayerInfo[playerid][pLoadCrate] != -1) return SendClientMessage(playerid, COLOR_WHITE, "Você precisa largar a caixa para realizar essa ação.");
-		if(PlayerInfo[playerid][pArmaMao] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma arma em mãos.");
+		if (!strcmp(opcao, "retirar", true) || !strcmp(opcao, "pa", true))
+		{
+			if(!VehicleInfo[vehicleid][vGunHack]) return SendClientMessage(playerid, COLOR_LIGHTRED ,"O suporte. desta vitura está vázio.");
+			if(PlayerInfo[playerid][pLoadCrate] != -1) return SendClientMessage(playerid, COLOR_WHITE, "Você precisa largar a caixa para realizar essa ação.");
+			if(PlayerInfo[playerid][pArmaMao] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem uma arma em mãos.");
 
-		new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
-		new IdPahSalva = VehicleInfo[vehicleid][vGunHack];
+			new ArmaModel = ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaModelo];
+			new IdPahSalva = VehicleInfo[vehicleid][vGunHack];
 
-		GivePlayerWeapon(playerid, ArmaModel, ArmaData[IdPahSalva][ArmaAmmo]);
+			GivePlayerWeapon(playerid, ArmaModel, ArmaData[IdPahSalva][ArmaAmmo]);
 
-		if(ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra] == 0) SetPlayerAttachedObject(playerid, 0, GunObjects[ArmaModel], 6);
-		else SetPlayerAttachedObject(playerid, 0, ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra], 6);
+			if(ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra] == 0) SetPlayerAttachedObject(playerid, 0, GunObjects[ArmaModel], 6);
+			else SetPlayerAttachedObject(playerid, 0, ArmaData[VehicleInfo[vehicleid][vGunHack]][ArmaExtra], 6);
 
-		PlayerInfo[playerid][pArmaMao] = IdPahSalva;
- 		VehicleInfo[vehicleid][vGunHack] = 0;
- 		VehicleInfo[vehicleid][vGunHackA] = 0;
-   		FloodCMD[playerid] = gettime()+2;
+			PlayerInfo[playerid][pArmaMao] = IdPahSalva;
+			VehicleInfo[vehicleid][vGunHack] = 0;
+			VehicleInfo[vehicleid][vGunHackA] = 0;
+			FloodCMD[playerid] = gettime()+2;
 
-   		SalvarArma(IdPahSalva);
-    }
+			SalvarArma(IdPahSalva);
+		}
+	}
     return 1;
 }
 //==============================
