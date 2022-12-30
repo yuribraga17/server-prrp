@@ -120,7 +120,7 @@ AddCharModel(280, 20420, "pmerjgam1.dff", "pmerjgam1.txd);
 AddCharModel(280, 20421, "pmerjgam2.dff", "pmerjgam2.txd);
 AddCharModel(98, 20422, "pmerjf2.dff", "pmerjf2.txd);
 
-//skins PMERJ
+//skins PROSEGUR
 AddCharModel(280, 20501, "prosegur1.dff", "prosegur1.txd);
 AddCharModel(280, 20502, "prosegur2.dff", "prosegur2.txd);
 AddCharModel(280, 20503, "prosegur3.dff", "prosegur3.txd);
@@ -135,6 +135,7 @@ AddSimpleModel(-1,18933, -2103, "bonecore.dff", "bonecore.txd");
 AddSimpleModel(-1,18933, -2104, "bonepmerj.dff", "bonepmerj.txd");
 AddSimpleModel(-1,18933, -2105, "bodycam.dff", "bodycam.txd");
 AddSimpleModel(-1,19142, -2106, "band.dff", "band.txd");
+AddSimpleModel(-1,18637, -2108, "escudo.dff", "escudo.txd");
 AddSimpleModel(-1,19141, -2117, "cone.dff", "cone.txd");
 AddSimpleModel(-1,19141, -2118, "cavalete.dff", "cavalete.txd");
 AddSimpleModel(-1,19141, -2119, "faixa.dff", "faixa.txd");
@@ -200,6 +201,8 @@ AddSimpleModel(-1,3980, -1037, "prefeitura.dff", "prefeitura.txd");
 AddSimpleModel(-1,19379, -1038, "prefeiturabase.dff", "prefeiturabase.txd");
 AddSimpleModel(-1,19379, -2008, "prisao.dff", "prisao.txd");
 AddSimpleModel(-1,19379, -2042, "bope.dff", "bope.txd");
+AddSimpleModel(-1,19369, -1017, "craco.dff", "craco.txd");
+AddSimpleModel(-1,19369, -1016, "craco2.dff", "craco.txd");
 
 //objetos favela
 AddSimpleModel(-1, 19379, -2800, "fav_h1.dff", "fav_h.txd");

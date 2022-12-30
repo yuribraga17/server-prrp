@@ -2850,10 +2850,11 @@ static LOJA_CHAPEU_PMERJ[1] = {
 	-2104
 };
 
-static LOJA_OUTROS_PMERJ[12] = {
+static LOJA_OUTROS_PMERJ[13] = {
 	-2126, -2101, -2106, -2120,
 	-2121, -2122, -2123, -2124,
-	-2125, -2105, -2127, -2100
+	-2125, -2105, -2127, -2100,
+	-2108
 };
 //======== [PROSEGUR]======//
 static PROSEGUR_Uniformes[5] = {
@@ -11380,6 +11381,19 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	// Sprunk machines
+ 	RemoveBuildingForPlayer(playerid, 1302, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1209, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 955, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 956, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1775, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1776, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1977, 0.0, 0.0, 0.0, 6000.0);
+ 	//cracolandia
+    RemoveBuildingForPlayer(playerid, 17944, 2674.020, -1382.550, 52.695, 0.250);
+    RemoveBuildingForPlayer(playerid, 17945, 2674.020, -1382.550, 52.695, 0.250);
+    RemoveBuildingForPlayer(playerid, 17592, 2697.500, -1451.420, 35.492, 0.250);
+    RemoveBuildingForPlayer(playerid, 17955, 2717.4922, -1416.1875, 50.4297, 0.25);
 	//Mecanica
 	RemoveBuildingForPlayer(playerid, 1265, 1441.550, -1323.310, 12.984, 0.250);
 	RemoveBuildingForPlayer(playerid, 1227, 1439.859, -1323.699, 13.382, 0.250);
