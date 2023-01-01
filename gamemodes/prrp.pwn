@@ -89,7 +89,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 #define localhost_Password     "00fmUK0Qh6"*/
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "28/12/2022"
+#define ULTIMO_GMX      "15/01/2023"
 #define CA_VERSAO       "PR:RP v1.00b"
 #define CA_LINK         "weburl progressive-roleplay.com"
 #define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
@@ -13613,7 +13613,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 27/12/2022, v1.00, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/01/2023, v1.00b, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthdate] == 0)
