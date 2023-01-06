@@ -92,8 +92,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 #define ULTIMO_GMX      "15/01/2023"
 #define CA_VERSAO       "PR:RP v1.00b"
 #define CA_LINK         "weburl progressive-roleplay.com"
-#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
-//#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
+//#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
+#define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
 #define CA_NOME2        "hostname Progressive Roleplay [2x Paycheck]"
 #define CA_NOME3        "hostname Progressive Roleplay [Manutenção rápida]"
 #define CA_LANGUAGE     "language Português Brasileiro"
@@ -2604,6 +2604,8 @@ new VendoItemList[MAX_PLAYERS][50];
 #define MODEL_SELECTION_DIVERSOS 	10
 #define MODEL_SELECTION_ESPECIAL    11
 #define MODEL_SELECTION_PORTAS	    12
+#define MODEL_SELECTION_TVS	        13
+#define MODEL_SELECTION_COMP        14
 
 //PMERJ
 #define MODEL_EB_SKINS           30
@@ -2773,7 +2775,7 @@ static Catalogo_Diversos[246] = {
   2825, 2826, 2827
 };
 
-static Catalogo_Especial[167] = {
+static Catalogo_Especial[171] = {
    1599, 1600, 1601, 1603, 1604, 1605, 1606, 1609, 1613, 19079,
    1515, 1830, 1831, 1832, 1833, 1834, 1835, 1838, 1836, 1837,
    1929, 1895, 1978, 18659, 18660, 18661, 18662, 18663, 18664, 18665,
@@ -2790,7 +2792,7 @@ static Catalogo_Especial[167] = {
    19126, 18666, 19454, 19373, 19455, 19456, 19457, 19458, 19459, 19460,
    19461, 19462, 19527, 19528, 11732, 19325, 2068, 3034, 3032, 3058, 3085,
    3087, 3088, 3111, 925, 931, 19158, 19157, 970, 11090, 19869, 19868, 19866,
-   19865, 19641, 11474, 8674
+   19865, 19641, 11474, 8674, -2047, -2048, -2049, -2050
 };
 
 #define MAX_PORTAS 59
@@ -2813,11 +2815,12 @@ static OBJ_COMPUTERS[MAX_COMPUTS] = {
 	2008, 2009, 2165, 2172, 2181, 2185, 2190, 2193, 2198
 };
 
-#define MAX_TVS 27
+#define MAX_TVS 31
 static OBJ_TELEVISOES[MAX_TVS] = {
 	1518, 1717, 1747, 1748, 1749, 1750, 1751, 1752, 2312, 2316,
 	2317, 2318, 2320, 1781, 1786, 1791, 1792, 2322, 2297, 2296,
-	2224, 2595, 2596, 2775, 2606, 2648, 2700
+	2224, 2595, 2596, 2775, 2606, 2648, 2700, -2043, -2044, -2045,
+	-2046
 };
 
 //===== [ PMERJ ] =====//
@@ -2850,11 +2853,11 @@ static LOJA_CHAPEU_PMERJ[1] = {
 	-2104
 };
 
-static LOJA_OUTROS_PMERJ[13] = {
+static LOJA_OUTROS_PMERJ[15] = {
 	-2126, -2101, -2106, -2120,
 	-2121, -2122, -2123, -2124,
 	-2125, -2105, -2127, -2100,
-	-2108
+	-2108, -2128, -2129
 };
 //======== [PROSEGUR]======//
 static PROSEGUR_Uniformes[5] = {
@@ -7119,6 +7122,22 @@ public ArmaEntregueComSucesso(playerid,armaid,ammo,extra,equipar,raspada)
     }
 	return 1;
 }
+//SLOTS PERSONALIZADOS
+CMD:luizh(playerid, params[])
+{
+    new skinid, String[32];
+
+    if(sscanf(params, "d", skinid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /luiz [SkinID] (20100)."); 
+
+    if(skinid < 20100 || skinid > 20100) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Skin invalida! Você possui apenas o ID 20100.");
+
+    SetPlayerSkin(playerid, skinid);
+
+    format(String, sizeof(String), "INFO: Você escolheu escolheu sua skin: %d", skinid); //FOrmatando a mensagem
+    SendClientMessage(playerid, COLOR_LIGHTGREEN, String); //Enviando a mensagem
+    return 1; 
+} 
+
 CMD:morto(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -10144,6 +10163,11 @@ stock CriarTraficantes(playerid, tipo)
 				    Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA, DIALOG_STYLE_TABLIST_HEADERS, string, "Produto\tPreço\n \
 					Maconha\t R$2 grama\n \
 			  		Cocaina\tR$3 grama\n \
+			  		LSD\tR$5 unidade\n \
+     				Crack\tR$4 grama\n \
+					Metanfetamina\tR$8 grama\n \
+					Pasta base de Cocaina\tR$8 grama\n \
+					Lança Perfume\tR$5 tubo\n \
 					", "Pedir", "Cancelar");
 				}
 				else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == 12)
@@ -10230,6 +10254,16 @@ Dialog:DIALOG_TRAFICANTEDROGA(playerid, response, listitem, inputtext[])
 				format(strDrug, 126, "Negociante -> Drogas -> Metanfetamina");
 				OutrasInfos[playerid][oComprandoDrug] = 4;
 			}
+			case 5:
+			{
+				format(strDrug, 126, "Negociante -> Drogas -> Pasta Base de Cocaina");
+				OutrasInfos[playerid][oComprandoDrug] = 5;
+			}
+			case 6:
+			{
+				format(strDrug, 126, "Negociante -> Drogas -> Lança Perfume");
+				OutrasInfos[playerid][oComprandoDrug] = 6;
+			}
 		}
 
 		Dialog_Show(playerid, DIALOG_TRAFICANTEDROGA2, DIALOG_STYLE_INPUT, strDrug, "Digite a quantidade a ser comprada.", "Comprar", "Cancelar");
@@ -10293,6 +10327,20 @@ Dialog:DIALOG_TRAFICANTEDROGA2(playerid, response, listitem, inputtext[])
 			    OutrasInfos[playerid][oComprandoDrugQ] = valor;
 			    TraficInfo[trafid][traPedPrec] += valorfinal;
 			    SendClientMessage(playerid, COLOR_LIGHTRED, "Você fez o pedido de Metanfetamina.");
+			}
+			case 5:
+			{
+			    valorfinal = valor*6;
+			    OutrasInfos[playerid][oComprandoDrugQ] = valor;
+			    TraficInfo[trafid][traPedPrec] += valorfinal;
+			    SendClientMessage(playerid, COLOR_LIGHTRED, "Você fez o pedido de Pasta base de cocaina.");
+			}
+			case 6:
+			{
+			    valorfinal = valor*6;
+			    OutrasInfos[playerid][oComprandoDrugQ] = valor;
+			    TraficInfo[trafid][traPedPrec] += valorfinal;
+			    SendClientMessage(playerid, COLOR_LIGHTRED, "Você fez o pedido de Lança Perfume.");
 			}
 		}
 
@@ -19384,6 +19432,8 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 		if(extraid == MODEL_SELECTION_DIVERSOS) ComprandoMovel(playerid, modelid, 0, 9);
 		if(extraid == MODEL_SELECTION_ESPECIAL) ComprandoMovel(playerid, modelid, 0, 10);
 		if(extraid == MODEL_SELECTION_PORTAS) ComprandoMovel(playerid, modelid, 0, 11);
+		if(extraid == MODEL_SELECTION_TVS) ComprandoMovel(playerid, modelid, 0, 12);
+		if(extraid == MODEL_SELECTION_COMP) ComprandoMovel(playerid, modelid, 0, 13);
 
 
 
@@ -45780,6 +45830,8 @@ Dialog:DIALOG_F_CATEGORIAS(playerid, response, listitem, inputtext[])
 		case 8: ShowModelSelectionMenu(playerid, "Catalogo > Diversos", MODEL_SELECTION_DIVERSOS, Catalogo_Diversos, sizeof(Catalogo_Diversos), -16.0, 0.0, -55.0);
 		case 9: ShowModelSelectionMenu(playerid, "Catalogo > Especial", MODEL_SELECTION_ESPECIAL, Catalogo_Especial, sizeof(Catalogo_Especial), -16.0, 0.0, -55.0);
 		case 10: ShowModelSelectionMenu(playerid, "Catalogo > Portas", MODEL_SELECTION_PORTAS, Catalogo_Portas, sizeof(Catalogo_Portas), -16.0, 0.0, -55.0);
+		case 11: ShowModelSelectionMenu(playerid, "Catalogo > Televisões", MODEL_SELECTION_TVS, Catalogo_Portas, sizeof(OBJ_TELEVISOES), -16.0, 0.0, -55.0);
+		case 12: ShowModelSelectionMenu(playerid, "Catalogo > Computadores", MODEL_SELECTION_COMP, Catalogo_Portas, sizeof(OBJ_COMPUTERS), -16.0, 0.0, -55.0);
 	}
 	return 1;
 }
@@ -77380,6 +77432,16 @@ CMD:encomenda(playerid, params[])
 							    format(string, sizeof(string), "Você pegou %d cartelas de Metanfetamina (boa).", drug_q);
 							    PlayerDroga[playerid][MetB] += drug_q;
 							}
+							case 5:
+							{
+							    format(string, sizeof(string), "Você pegou %d Pasta base de cocaina.", drug_q);
+							    PlayerDroga[playerid][PBC] += drug_q;
+							}
+							case 6:
+							{
+								format(string, sizeof(string), "Você pegou %d Lança perfume.", drug_q);
+								PlayerDroga[playerid][LancaPer] += drug_q;
+							}
 							default: format(string, sizeof(string), "ERRO #301 - Poste na área de Bug Report.");
 						}
 						OutrasInfos[playerid][oComprandoDrugQ] = 0;
@@ -77429,6 +77491,16 @@ CMD:encomenda(playerid, params[])
 						{
 						    format(string, sizeof(string), "Você pegou %d cartelas de Metanfetamina (boa).", drug_q);
 						    PlayerDroga[playerid][MetB] += drug_q;
+						}
+						case 5:
+						{
+						    format(string, sizeof(string), "Você pegou %d Pasta base de cocaina.", drug_q);
+						    PlayerDroga[playerid][MetB] += drug_q;
+						}
+						case 6:
+						{
+						    format(string, sizeof(string), "Você pegou %d Lança perfume.", drug_q);
+						    PlayerDroga[playerid][LancaPer] += drug_q;
 						}
 						default: format(string, sizeof(string), "ERRO #301 - Poste na área de Bug Report.");
 					}
@@ -85845,7 +85917,7 @@ Dialog:DIALOG_FURNITURE_N(playerid, response, listitem, inputtext[])
 			    new Moveis = GetInteriorMoveis(playerid);
        			if(Moveis < MaxMoveis) {
           			format(strCasa,sizeof(strCasa),"%s | Moveis [%d/%d]",strCasa, Moveis, MaxMoveis);
-					Dialog_Show(playerid, DIALOG_F_CATEGORIAS, DIALOG_STYLE_LIST, strCasa, "Conforto\nDecorações\nEntreterimento\nEletrodomésticos\nBanheiro\nIluminacao\nArmazenamento\nSuperfícies\nDiversos\nEspecial\nPorta", "Selecionar C", "Cancelar");
+					Dialog_Show(playerid, DIALOG_F_CATEGORIAS, DIALOG_STYLE_LIST, strCasa, "Conforto\nDecorações\nEntreterimento\nEletrodomésticos\nBanheiro\nIluminacao\nArmazenamento\nSuperfícies\nDiversos\nEspecial\nPorta\nTVS\nComputadores", "Selecionar C", "Cancelar");
 				}
 				else return SCM(playerid, COLOR_LIGHTRED, "Limite de móveis atingido.");
 			}

@@ -68,6 +68,9 @@ AddCharModel(211, 20066, "fem21.dff", "fem21.txd");
 AddCharModel(211, 20067, "fem22.dff", "fem22.txd");
 AddCharModel(211, 20068, "fem23.dff", "fem23.txd");
 
+//SLOTS PERSONALIZADO
+AddCharModel(211, 20100, "luizh.dff", "luizh.txd");
+
 //skins PCERJ
 AddCharModel(305, 20200, "delegadocivil.dff", "delegadocivil.txd");
 AddCharModel(305, 20201, "delegadocivil2.dff", "delegadocivil2.txd");
@@ -147,6 +150,8 @@ AddSimpleModel(-1,19781, -2124, "PatenteSGT1.dff", "PatenteSGT1.txd");
 AddSimpleModel(-1,19942, -2125, "RadioMotorola.dff", "RadioMotorola.txd");
 AddSimpleModel(-1,19515, -2126, "coletepmerj2.dff", "coletepmerj2.txd");
 AddSimpleModel(-1,19515, -2127, "coletebope.dff", "coletebope.txd");
+AddSimpleModel(-1,19515, -2128, "coletebope.dff", "coletebope2.txd");
+AddSimpleModel(-1,18933, -2129, "chapeubope.dff", "chapeubope.txd");
 //objetos binco
 AddSimpleModel(-1,19315, -2080, "CachorroUm.dff", "CachorroUm.txd");
 AddSimpleModel(-1,19315, -2086, "CachorroDois.dff", "CachorroDois.txd");
@@ -201,8 +206,18 @@ AddSimpleModel(-1,3980, -1037, "prefeitura.dff", "prefeitura.txd");
 AddSimpleModel(-1,19379, -1038, "prefeiturabase.dff", "prefeiturabase.txd");
 AddSimpleModel(-1,19379, -2008, "prisao.dff", "prisao.txd");
 AddSimpleModel(-1,19379, -2042, "bope.dff", "bope.txd");
-AddSimpleModel(-1,19369, -1017, "craco.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1016, "craco2.dff", "craco.txd");
+AddSimpleModel(-1,19369, -1017, "craco.dff", "craco.txd");
+
+//mobilia prixy e objetos mecanica
+AddSimpleModel(-1,19787, -2043, "TV1BRANCA-BYPRIXY.dff", "TV1BRANCA-BYPRIXY.txd");
+AddSimpleModel(-1,19787, -2044, "TV1PRETA-BYPRIXY.dff", "TV1PRETA-BYPRIXY.txd");
+AddSimpleModel(-1,19787, -2045, "TV2BRANCA-BYPRIXY.dff", "TV2BRANCA-BYPRIXY.txd");
+AddSimpleModel(-1,19787, -2046, "TV2PRETA-BYPRIXY.dff", "TV2PRETA-BYPRIXY.txd");
+AddSimpleModel(-1,19817, -2047, "plataforma.dff", "plataforma.txd");
+AddSimpleModel(-1,19787, -2048, "elevador.dff", "elevador.txd");
+AddSimpleModel(-1,19787, -2049, "macaco.dff", "macaco.txd");
+AddSimpleModel(-1,19787, -2050, "guincho.dff", "guincho.txd");
 
 //objetos favela
 AddSimpleModel(-1, 19379, -2800, "fav_h1.dff", "fav_h.txd");
