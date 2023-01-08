@@ -8347,29 +8347,29 @@ public PayDay(playerid) {
 			new stringpd[1024];
 
    			SendClientMessage(playerid,COLOR_WHITE,"|__ Extrato de Conta __|");
-   			format(stringpd, sizeof(stringpd), " Balanço: R$%d", SaldoAnt); 					SendClientMessage(playerid, COLOR_PD1, stringpd);
-   			format(stringpd, sizeof(stringpd), " Salário Base: +R$%d", GovInfo[gSalarioMin]); 	SendClientMessage(playerid, COLOR_PD1, stringpd);
-   			format(stringpd, sizeof(stringpd), " Salário emprego: +R$%d", SalarioJob); 		SendClientMessage(playerid, COLOR_PD1, stringpd);
+   			format(stringpd, sizeof(stringpd), "Balanço: R$%d", SaldoAnt); 					SendClientMessage(playerid, COLOR_PD1, stringpd);
+   			format(stringpd, sizeof(stringpd), "Salário Base: +R$%d", GovInfo[gSalarioMin]); 	SendClientMessage(playerid, COLOR_PD1, stringpd);
+   			format(stringpd, sizeof(stringpd), "Salário emprego: +R$%d", SalarioJob); 		SendClientMessage(playerid, COLOR_PD1, stringpd);
    			if(salarfac > 0){
-			    format(stringpd, sizeof(stringpd), " Salário da Facção: +R$%d", salarfac);	SendClientMessage(playerid,COLOR_CINZA,stringpd);
+			    format(stringpd, sizeof(stringpd), "Salário da Facção: +R$%d", salarfac);	SendClientMessage(playerid,COLOR_CINZA,stringpd);
 			}
 			if(Casas > 0){
-				format(stringpd, sizeof(stringpd), " Eletricidade: -R$%d", TaxaEnergia);
+				format(stringpd, sizeof(stringpd), "Eletricidade: -R$%d", TaxaEnergia);
 				SendClientMessage(playerid,COLOR_CINZA,stringpd);
 				if(TaxaAlarme > 0){
-					format(stringpd, sizeof(stringpd), " Alarmes em Residências: -R$%d", TaxaAlarme); SendClientMessage(playerid,COLOR_CINZA,stringpd);
+					format(stringpd, sizeof(stringpd), "Alarmes em Residências: -R$%d", TaxaAlarme); SendClientMessage(playerid,COLOR_CINZA,stringpd);
 				}
 			}
 			if(gastocomcel > 0) {
-			    format(stringpd, sizeof(stringpd), " Celular: -R$%d", gastocomcel); SendClientMessage(playerid,COLOR_CINZA,stringpd);
+			    format(stringpd, sizeof(stringpd), "Celular: -R$%d", gastocomcel); SendClientMessage(playerid,COLOR_CINZA,stringpd);
 			}
 			if(insuranceValue > 0) {
-			    format(stringpd, sizeof(stringpd), " Seguro Veicular: -R$%d", insuranceValue); SendClientMessage(playerid,COLOR_CINZA,stringpd);
+			    format(stringpd, sizeof(stringpd), "Seguro Veicular: -R$%d", insuranceValue); SendClientMessage(playerid,COLOR_CINZA,stringpd);
 			}
 			if(TaxaCarros > 0) {
-			    format(stringpd, sizeof(stringpd), " IPVA Veículos: -R$%d", TaxaCarros); SendClientMessage(playerid,COLOR_CINZA,stringpd);
+			    format(stringpd, sizeof(stringpd), "IPVA Veículos: -R$%d", TaxaCarros); SendClientMessage(playerid,COLOR_CINZA,stringpd);
 			}
-			format(stringpd, sizeof(stringpd), " Taxa do Governo: -R$%d", GovInfo[gTaxa]); 	SendClientMessage(playerid,COLOR_CINZA,stringpd);
+			format(stringpd, sizeof(stringpd), "Imposto do Governo: -R$%d", GovInfo[gTaxa]); 	SendClientMessage(playerid,COLOR_CINZA,stringpd);
    			if(PlayerInfo[playerid][pSavings] > 0) {
 				format(stringpd, sizeof(stringpd), " Rendimento dos Savings: R$%d", Invest); 	SendClientMessage(playerid,COLOR_PD2,stringpd);
 				format(stringpd, sizeof(stringpd), " Novo balanço dos Savings: R$%d", PlayerInfo[playerid][pSavings]); 	SendClientMessage(playerid,COLOR_PD2,stringpd);
@@ -24403,9 +24403,8 @@ Dialog:DIALOG_Radio_S(playerid, response, listitem, inputtext[])
 
 COMMAND:derrubar(playerid, params[])
 {
-	    if(!PlayerInfo[playerid][pLogado]) return 1;
+	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você deve estar logado para utilizar este comando.");
 		new Float:X, Float:Y, Float:Z;
-		if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar logado para utilizar este comando.");
 	    new other;
 		if (sscanf(params, "i(999)", other))
 		{
@@ -24413,11 +24412,11 @@ COMMAND:derrubar(playerid, params[])
 		 	{
 				if(i != playerid && !IsPlayerInAnyVehicle(i) && IsPlayerAimings(playerid,i) && GetPVarInt(i, "PlayerSpectate") == 0)
 				{
-				    if(GetDistanceBetweenPlayers(playerid,i) < 10.0)
+				    if(GetDistanceBetweenPlayers(playerid,i) < 5.0)
 					{
-						if(PlayerInfo[i][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar pessoas mortas.");
-						if(GetPlayerWeapon(i) >= 25 && GetPlayerWeapon(i) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar alguém com uma arma longa na mão.");
-						if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando na água!");
+						if(PlayerInfo[i][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar pessoas mortas.");
+						if(GetPlayerWeapon(i) >= 25 && GetPlayerWeapon(i) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar alguém com uma arma longa na mão.");
+						if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não pode utilizar este comando na água!");
 						GetPlayerPos(i, X, Y, Z);
 					  	new rand = random(4);
 					  	switch(rand)
@@ -24476,9 +24475,9 @@ COMMAND:derrubar(playerid, params[])
 			{
    				if(GetDistanceBetweenPlayers(playerid,other) < 5.0)
 				{
-					if(PlayerInfo[other][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar pessoas mortas.");
-					if(GetPlayerWeapon(other) >= 25 && GetPlayerWeapon(other) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar alguém com uma arma longa na mão.");
-					if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando na água!");
+					if(PlayerInfo[other][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar pessoas mortas.");
+					if(GetPlayerWeapon(other) >= 25 && GetPlayerWeapon(other) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar alguém com uma arma longa na mão.");
+					if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não pode utilizar este comando na água!");
 					GetPlayerPos(other, X, Y, Z);
 		  			new rand = random(4);
 		  			switch(rand)
