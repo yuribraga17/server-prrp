@@ -37323,7 +37323,7 @@ CMD:ajudaadmin(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /aj /rj /aduty /kick /ban /ooc /ir /trazer /irls /mandarls /listaspec /setarvw /spec");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /irveiculo /trazerveiculo /curar /setarvida /tirartmorte /enviarjogador /tapa");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /setarint /setarskin /ajail /ajailoff /daraviso /verip /checaravisos /removeraviso");
-			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /apagarpeixe /congelar /descongelar /unbugc /desbugarskill /mascarados");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /apagarpixe /congelar /descongelar /unbugc /desbugarskill /mascarados");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Game Admin 1]{FFFFFF} /ajudateam");
 		}
 		if(PlayerInfo[playerid][pAdmin] >= 2){
