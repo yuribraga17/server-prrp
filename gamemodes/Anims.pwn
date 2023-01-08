@@ -1265,6 +1265,18 @@ COMMAND:alongar(playerid, params[])
     return 1;
 }
 
+COMMAND:testeprixy(playerid, params[])
+{
+    if(PlayerInfo[playerid][pLogado] == 0) return 1;
+	if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode utilizar este comando enquanto estiver morto!");
+	if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode utilizar este comando enquanto estiver na água!");
+	if(TomouTazer[playerid] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode utilizar este comando enquanto estiver sob efeito do tazer!");
+	ApplyAnimation(playerid,"PED","flee_lkaround_01", 4.0, 1, 0, 0, 0, 0, 1);
+
+	ComAnim[playerid] = 1;
+    return 1;
+}
+
 COMMAND:bracojanela(playerid, params[])
 {
     if(PlayerInfo[playerid][pLogado] == 0) return 1;

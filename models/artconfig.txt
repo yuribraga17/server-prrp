@@ -68,8 +68,9 @@ AddCharModel(211, 20066, "fem21.dff", "fem21.txd");
 AddCharModel(211, 20067, "fem22.dff", "fem22.txd");
 AddCharModel(211, 20068, "fem23.dff", "fem23.txd");
 
-//SLOTS PERSONALIZADO
+//SLOTS PERSONALIZADO PRIVADO AMIGOS
 AddCharModel(211, 20100, "luizh.dff", "luizh.txd");
+AddCharModel(91, 20101, "prixy.dff", "prixy.txd");
 
 //skins PCERJ
 AddCharModel(305, 20200, "delegadocivil.dff", "delegadocivil.txd");
@@ -122,6 +123,12 @@ AddCharModel(280, 20419, "pmerjt8.dff", "pmerjt8.txd);
 AddCharModel(280, 20420, "pmerjgam1.dff", "pmerjgam1.txd);
 AddCharModel(280, 20421, "pmerjgam2.dff", "pmerjgam2.txd);
 AddCharModel(98, 20422, "pmerjf2.dff", "pmerjf2.txd);
+AddCharModel(280, 20423, "pmerjbope1.dff", "pmerjbope1.txd);
+AddCharModel(280, 20424, "pmerjbope2.dff", "pmerjbope2.txd);
+AddCharModel(280, 20425, "pmerjbope3.dff", "pmerjbope3.txd);
+AddCharModel(280, 20426, "pmerjbope4.dff", "pmerjbope4.txd);
+AddCharModel(280, 20427, "pmerjbope5.dff", "pmerjbope5.txd);
+AddCharModel(280, 20428, "pmerjbope6.dff", "pmerjbope6.txd);
 
 //skins PROSEGUR
 AddCharModel(280, 20501, "prosegur1.dff", "prosegur1.txd);
@@ -193,6 +200,7 @@ AddSimpleModel(-1,19141, -2303, "crackr.dff", "crackr.txd");
 AddSimpleModel(-1,19141, -2304, "crackb.dff", "crackb.txd");
 AddSimpleModel(-1,19141, -2305, "lsd.dff", "lsd.txd");
 AddSimpleModel(-1,19141, -2306, "lancaperfume.dff", "lancaperfume.txd");
+AddSimpleModel(-1,19141, -2307, "MesaDeDrogas.dff", "MesaDeDrogas.txd");
 
 //objetos servidor
 AddSimpleModel(-1,19324, -2900, "atmbb.dff", "atmbb.txd");
