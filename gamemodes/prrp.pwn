@@ -25249,8 +25249,8 @@ CMD:entregar(playerid, params[])
 
 						if(PlayerInfo[playerid][pMun9mm] < ammo) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de munição calibre 9mm.");
 
-			   			format(string,sizeof(string),"[Munições]Você entregou à %s %d balas de calibre 9mm.",PlayerName(playa,1), ammo); SendClientMessage(playerid, COLOR_LIGHTGREEN,string);
-			   			format(string,sizeof(string),"[Munições]%s entregou à você %d balas de calibre 9mm.",PlayerName(playerid,1), ammo); SendClientMessage(playa, COLOR_LIGHTGREEN,string);
+			   			format(string,sizeof(string),"[Munições] Você entregou à %s %d balas de calibre 9mm.",PlayerName(playa,1), ammo); SendClientMessage(playerid, COLOR_LIGHTGREEN,string);
+			   			format(string,sizeof(string),"[Munições] %s entregou à você %d balas de calibre 9mm.",PlayerName(playerid,1), ammo); SendClientMessage(playa, COLOR_LIGHTGREEN,string);
 			   			PlayerInfo[playerid][pMun9mm] = PlayerInfo[playerid][pMun9mm]-ammo;
 			   			PlayerInfo[playa][pMun9mm] += ammo;
 
@@ -25431,11 +25431,11 @@ CMD:passargrana(playerid, params[])
             {
                 if(qnt > 1500)
                 {
-                    format(string, sizeof(string), "AdmWarn: ANTI-MF SUJO, %s[%d] pode estar fazendo money farm. [TC: %d, Entrgou R$%d, para: %s]", PlayerName(playerid,0), playerid, PlayerInfo[targetid][pLevel], qnt, PlayerName(var,0));
+                    format(string, sizeof(string), "AdmWarn: ANTI-MF, %s[%d] pode estar fazendo money farm. [TC: %d, Entrgou R$%d, para: %s]", PlayerName(playerid,0), playerid, PlayerInfo[targetid][pLevel], qnt, PlayerName(var,0));
 					SendAdminMessage(COLOR_YELLOW,string);
 
 					new strl[126];
-					format(strl, sizeof(strl), "[ Possivel Money Farm Sujo] %s pagou para %s a quantidade de R$%d.", PlayerName(playerid,0), PlayerName(var,0), qnt);
+					format(strl, sizeof(strl), "[ Possivel Money Farm] %s pagou para %s a quantidade de R$%d.", PlayerName(playerid,0), PlayerName(var,0), qnt);
 	   				LogCMD_PAGAR(strl);
                 }
             }
@@ -25858,7 +25858,6 @@ COMMAND:depositar(playerid, params[])
 COMMAND:pix(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa estar logado.");
-    if(EmpInfo[PlayerInfo[playerid][pEntrouEmpresa]][eTipo] == EMP_TIPO_BANCO)
 	{
 		new chatstr[256], qnt, playa;
 		if(sscanf(params, "dd", playa, qnt)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /pix [id] [quantia]");
@@ -26122,17 +26121,17 @@ COMMAND:telapreta(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você precisa estar logado.");
 
-    switch(GetPVarInt(playerid, "TelinhaPretaa"))
+    switch(GetPVarInt(playerid, "ScreenTelinha"))
     {
 		case 0:
 		{
 			TextDrawShowForPlayer(playerid,TelinhaPreta);
-			SetPVarInt(playerid, "TelinhaPretaa", 1);
+			SetPVarInt(playerid, "ScreenTelinha", 1);
 		}
 		case 1:
 		{
 		    TextDrawHideForPlayer(playerid,TelinhaPreta);
-			SetPVarInt(playerid, "TelinhaPretaa", 0);
+			SetPVarInt(playerid, "ScreenTelinha", 0);
 		}
 	}
 	return 1;
