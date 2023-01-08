@@ -36610,11 +36610,11 @@ CMD:admins(playerid, params[])
 					{
 					    switch(PlayerInfo[i][pAdmin])
 						{
-	                        case 1: format(AdmSTR,sizeof(AdmSTR),"[TOG] Game Game Admin 2: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
+	                        case 1: format(AdmSTR,sizeof(AdmSTR),"[TOG] Game Game Admin 1: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
 							case 2: format(AdmSTR,sizeof(AdmSTR),"[TOG] Game Admin 2: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
 							case 3: format(AdmSTR,sizeof(AdmSTR),"[TOG] Game Admin 3: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
-							case 4: format(AdmSTR,sizeof(AdmSTR),"[TOG] Game Admin 4: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
-							case 5: format(AdmSTR,sizeof(AdmSTR),"[TOG] Lead Admin: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
+							case 4: format(AdmSTR,sizeof(AdmSTR),"[TOG] Lead Admin: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
+							case 5: format(AdmSTR,sizeof(AdmSTR),"[TOG] Head Admin: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
 							case 3000: format(AdmSTR,sizeof(AdmSTR),"[TOG] Head Admin: %s (ID: %d)(%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
                             case 3001: format(AdmSTR,sizeof(AdmSTR),"[TOG] Developer: %s (ID: %d) (%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
 							case 3002: format(AdmSTR,sizeof(AdmSTR),"[TOG] Manager: %s (ID: %d) (%s)",PlayerName(i, 0),i,PlayerInfo[i][pNomeOOC]);
