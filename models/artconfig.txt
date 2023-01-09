@@ -159,6 +159,7 @@ AddSimpleModel(-1,19515, -2126, "coletepmerj2.dff", "coletepmerj2.txd");
 AddSimpleModel(-1,19515, -2127, "coletebope.dff", "coletebope.txd");
 AddSimpleModel(-1,19515, -2128, "coletebope.dff", "coletebope2.txd");
 AddSimpleModel(-1,18933, -2129, "chapeubope.dff", "chapeubope.txd");
+AddSimpleModel(-1,18933, -2130, "cappmerj.dff", "cappmerj.txd");
 //objetos binco
 AddSimpleModel(-1,19315, -2080, "CachorroUm.dff", "CachorroUm.txd");
 AddSimpleModel(-1,19315, -2086, "CachorroDois.dff", "CachorroDois.txd");

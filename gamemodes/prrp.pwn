@@ -160,7 +160,8 @@ enum govInfo {
 	gSalarioFD[12],
 	gSalarioPC[12],
 	gSalarioEB[12],
-	gSalarioTJRP[12]
+	gSalarioTJRP[12],
+	gSalarioFacCivil[12]
 };
 new GovInfo[govInfo];
 //====== [SISTEMA DE MULTAS] =======================================================
@@ -2647,7 +2648,7 @@ new ComprandoCarro[MAX_PLAYERS][5];
 #define MODEL_SELECTION_CHAPEU_EB    64
 #define MODEL_SELECTION_OUTROS_EB    65
 
-#define MODEL_SELECTION_OUTROS_PROSEGUR    66
+#define MODEL_SELECTION_OUTROS_PROTEGE    66
 
 #define MODEL_SELECTION_BINCO       80
 
@@ -2850,8 +2851,8 @@ static LOJA_OCULOS_PMERJ[3] = {
 	19138, 19139, 19140
 };
 
-static LOJA_CHAPEU_PMERJ[2] = {
-	-2104, -2129
+static LOJA_CHAPEU_PMERJ[3] = {
+	-2104, -2129, -2130
 };
 
 static LOJA_OUTROS_PMERJ[13] = {
@@ -2860,8 +2861,8 @@ static LOJA_OUTROS_PMERJ[13] = {
 	-2125, -2105, -2127, -2108, 
 	-2128
 };
-//======== [PROSEGUR]======//
-static PROSEGUR_Uniformes[4] = {
+//======== [PROTEGE]======//
+static PROTEGE_Uniformes[4] = {
     20501, 20503, 20504, 20505
 };
 static LOJA_OUTROS_BANK[3] = {
@@ -3129,6 +3130,7 @@ new FacInfo[MAX_FACCOES][fac_Info];
 #define FAC_TIPO_EB 5
 #define FAC_TIPO_BANK 6
 #define FAC_TIPO_TJRP 7
+#define FAC_TIPO_PRIXY 8
 new convidado[MAX_PLAYERS];
 //============================================================================== [ Phone System ]
 #define DIALOG_PHONE_TEXT_NUMBER    8000
@@ -6080,7 +6082,7 @@ public OnGameModeInit()
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 2501.8635,-1564.3923,24.0324, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 2501.8635,-1564.3923,24.0324, 0);
-	//PROSEGUR
+	//PROTEGE
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 1772.9445,-1543.1234,13.6688, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
 	CreatePickup(1239, 1, 1772.9445,-1543.1234,13.6688, 0);
 
@@ -7040,7 +7042,7 @@ public EntregandoArmaSQL(playerid, armaid, extra, equipar, raspada)
                     else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_CBERJ) format(strl1, sizeof(strl1), "CBERJ");
 				    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_GOV) format(strl1, sizeof(strl1), "GOVRJ");
 				    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_TJRP) format(strl1, sizeof(strl1), "TJRJ");
-					else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK) format(strl1, sizeof(strl1), "PROSEGUR");
+					else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK) format(strl1, sizeof(strl1), "PROTEGE");
 					else format(strl1, sizeof(strl1), "Nenhum");
 
 	                new strl[326];
@@ -7121,7 +7123,7 @@ public ArmaEntregueComSucesso(playerid,armaid,ammo,extra,equipar,raspada)
             else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_CBERJ) format(strl1, sizeof(strl1), "CBERJ");
 		    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_GOV) format(strl1, sizeof(strl1), "GOVRJ");
 		    else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_TJRP) format(strl1, sizeof(strl1), "TJRP");
-			else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK) format(strl1, sizeof(strl1), "PROSEGUR");
+			else if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_BANK) format(strl1, sizeof(strl1), "PROTEGE");
 			else format(strl1, sizeof(strl1), "Nenhum");
 
 			new strl[326];
@@ -8109,9 +8111,9 @@ public PayDay(playerid) {
 
 
 				    switch(HouseInfo[h][hAlarme]) {
-				        case 1: TaxaAlarme += 50;
-				        case 2: TaxaAlarme += 100;
-				        case 3: TaxaAlarme += 150;
+				        case 1: TaxaAlarme += 30;
+				        case 2: TaxaAlarme += 60;
+				        case 3: TaxaAlarme += 90;
 				    }
 					Casas++;
                     TaxaEnergia+= HouseInfo[h][hGasto]/100;
@@ -8128,9 +8130,9 @@ public PayDay(playerid) {
 
 
 					    switch(GaragemInfo[h][hAlarme]) {
-					        case 1: TaxaAlarme += 50;
-					        case 2: TaxaAlarme += 100;
-					        case 3: TaxaAlarme += 150;
+							case 1: TaxaAlarme += 30;
+							case 2: TaxaAlarme += 60;
+							case 3: TaxaAlarme += 90;
 					    }
 						Casas++;
 	                    TaxaEnergia+= GaragemInfo[h][hGasto]/100;
@@ -8147,9 +8149,9 @@ public PayDay(playerid) {
 
 
 					    switch(GaragemInfo[h][hAlarme]) {
-					        case 1: TaxaAlarme += 50;
-					        case 2: TaxaAlarme += 100;
-					        case 3: TaxaAlarme += 150;
+							case 1: TaxaAlarme += 30;
+							case 2: TaxaAlarme += 60;
+							case 3: TaxaAlarme += 90;
 					    }
 						Casas++;
 	                    TaxaEnergia+= GaragemInfo[h][hGasto]/100;
@@ -8310,6 +8312,22 @@ public PayDay(playerid) {
 					    case 10: salarfac = GovInfo[gSalarioTJRP][9];
 					    case 11: salarfac = GovInfo[gSalarioTJRP][10];
 					    case 12: salarfac = GovInfo[gSalarioTJRP][11];
+					}
+				}
+				if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PRIXY) {
+					switch(PlayerInfo[playerid][pFacCargo]) {
+					    case 1: salarfac = GovInfo[gSalarioFacCivil][0];
+					    case 2: salarfac = GovInfo[gSalarioFacCivil][1];
+					    case 3: salarfac = GovInfo[gSalarioFacCivil][2];
+					    case 4: salarfac = GovInfo[gSalarioFacCivil][3];
+					    case 5: salarfac = GovInfo[gSalarioFacCivil][4];
+					    case 6: salarfac = GovInfo[gSalarioFacCivil][5];
+					    case 7: salarfac = GovInfo[gSalarioFacCivil][6];
+					    case 8: salarfac = GovInfo[gSalarioFacCivil][7];
+					    case 9: salarfac = GovInfo[gSalarioFacCivil][8];
+					    case 10: salarfac = GovInfo[gSalarioFacCivil][9];
+					    case 11: salarfac = GovInfo[gSalarioFacCivil][10];
+					    case 12: salarfac = GovInfo[gSalarioFacCivil][11];
 					}
 				}
 			}
@@ -11984,7 +12002,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1368, 2543.366, -1063.890, 69.225, 0.250);
 	RemoveBuildingForPlayer(playerid, 673, 2548.647, -1064.834, 68.194, 0.250);
 	RemoveBuildingForPlayer(playerid, 759, 2548.608, -1062.750, 68.273, 0.250);
-	//Prosegur
+	//PROTEGE
 	RemoveBuildingForPlayer(playerid, 647, 1808.869, -1591.050, 14.460, 0.250);
 	RemoveBuildingForPlayer(playerid, 700, 1807.469, -1590.479, 13.445, 0.250);
 	RemoveBuildingForPlayer(playerid, 647, 1805.630, -1589.969, 14.546, 0.250);
@@ -19523,7 +19541,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
         if(extraid == MODEL_SELECTION_CHAPEU_PCERJ) OutrasInfos[playerid][oTipoCItem] = 2, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
         if(extraid == MODEL_SELECTION_OUTROS_PCERJ) OutrasInfos[playerid][oTipoCItem] = 4, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
 
-		if(extraid == MODEL_SELECTION_OUTROS_PROSEGUR)  OutrasInfos[playerid][oTipoCItem] = 1, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
+		if(extraid == MODEL_SELECTION_OUTROS_PROTEGE)  OutrasInfos[playerid][oTipoCItem] = 1, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
 		
         if(extraid == MODEL_SELECTION_OCULOS_EB) OutrasInfos[playerid][oTipoCItem] = 1, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
         if(extraid == MODEL_SELECTION_CHAPEU_EB) OutrasInfos[playerid][oTipoCItem] = 2, OutrasInfos[playerid][oModelidCItem] = modelid, BoneItemComprado(playerid);
@@ -30929,6 +30947,16 @@ CMD:ajudafaccao(playerid, params[])
             SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /cargo /nomecargo /convidar /demitir");
         }
     }
+
+    if(FacInfo[faccao][fTipo] == FAC_TIPO_PRIXY) // PRIXY
+    {
+        SendClientMessage(playerid, COLOR_WHITE, "*** AJUDA FACCAO ***");
+        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r)adio /rbaixo (radio baixo) /membros /f");
+        if(PlayerInfo[playerid][pFacCargo] >= 4)
+        {
+            SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /cargo /nomecargo /convidar /demitir");
+        }
+    }
     if(FacInfo[faccao][fTipo] == FAC_TIPO_PCERJ) // PCERJ
     {
         SendClientMessage(playerid, COLOR_WHITE, "*** AJUDA FACCAO ***");
@@ -32540,6 +32568,14 @@ COMMAND:demitir(playerid, params[])
         	return 1;
         }
 	}
+	else if(FacInfo[FacId][fTipo] == FAC_TIPO_PRIXY)
+	{
+		if(PlayerInfo[playerid][pFacCargo] < 4)
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem permissão para demitir.");
+			return 1;
+		}
+	}
 	else if(10 < FacInfo[FacId][fTipo] < 18)
  	{
   		if(PlayerInfo[playerid][pFacCargo] < 5)
@@ -32581,6 +32617,14 @@ COMMAND:convidar(playerid, params[])
       		SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem permissão para convidar.");
         	return 1;
         }
+	}
+	else if(FacInfo[FacId][fTipo] == FAC_TIPO_PRIXY)
+	{
+		if(PlayerInfo[playerid][pFacCargo] < 4)
+		{
+			SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem permissão para convidar");
+			return 1;
+		}
 	}
 	else if(10 < FacInfo[FacId][fTipo] < 18)
  	{
@@ -33974,11 +34018,11 @@ CMD:uniforme(playerid, params[])
         {
             if(PlayerInfo[playerid][pEmServico] == 1)
             {
-                ShowModelSelectionMenu(playerid, "[PROSEGUR] Uniformes", MODEL_PMERJ_SKINS, PROSEGUR_Uniformes, sizeof(PROSEGUR_Uniformes), -16.0, 0.0, -55.0);
+                ShowModelSelectionMenu(playerid, "[PROTEGE] Uniformes", MODEL_PMERJ_SKINS, PROTEGE_Uniformes, sizeof(PROTEGE_Uniformes), -16.0, 0.0, -55.0);
             }
             else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
         }
-        else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no vestiário da prosegur.");
+        else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está no vestiário da PROTEGE.");
     }
     if(FacInfo[FacId][fTipo] == FAC_TIPO_EB)
     {
@@ -34518,7 +34562,7 @@ CMD:trabalho(playerid, params[])
 
 					    if(PlayerInfo[playerid][pMun9mm] > 0 || PlayerInfo[playerid][pMunCart] > 0 || PlayerInfo[playerid][pMun556] > 0 || PlayerInfo[playerid][pMun127] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve guardar suas munições particulares no armário antes de entrar em serviço.");
 
-                        format(StrMsg, sizeof(StrMsg), "** PROSEGUR: %s %s entrou em serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+                        format(StrMsg, sizeof(StrMsg), "** PROTEGE: %s %s entrou em serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
 	  					SendFacMessage(0x6666CCFF,FacId,StrMsg);
 	  					PlayerInfo[playerid][pEmServico] = 1;
 	  					SetPlayerSkin(playerid, PlayerInfo[playerid][pDutySkin]);
@@ -34529,7 +34573,7 @@ CMD:trabalho(playerid, params[])
 					    //if(PlayerInfo[playerid][pArmaMao] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa devolver suas armas ou guarda-las no armário para sair de serviço.");
 						//if(PlayerInfo[playerid][pColde] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você precisa devolver a arma do corpo para sair de serviço.");
 
-					    format(StrMsg, sizeof(StrMsg), "** PROSEGUR: %s %s saiu de serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
+					    format(StrMsg, sizeof(StrMsg), "** PROTEGE: %s %s saiu de serviço!**", GetPlayerCargo(playerid), PlayerName(playerid, 0));
 		   				SendFacMessage(0x6666CCFF,FacId,StrMsg);
 		   				PlayerInfo[playerid][pEmServico] = 0;
 		   				SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
@@ -34640,7 +34684,7 @@ CMD:trabalho(playerid, params[])
 							RemovePlayerAttachedObject(playerid, 0);
 							ArmasInv++;
 						}
-						if(ArmasInv > 0) SendClientMessage(playerid,COLOR_LIGHTRED,"[PROSEGUR] As suas armas do inventário foram retiradas.");
+						if(ArmasInv > 0) SendClientMessage(playerid,COLOR_LIGHTRED,"[PROTEGE] As suas armas do inventário foram retiradas.");
 
 					    if(PlayerInfo[playerid][pMun9mm] > 0 || PlayerInfo[playerid][pMunCart] > 0 || PlayerInfo[playerid][pMun556] > 0 || PlayerInfo[playerid][pMun127] > 0)
 				        {
@@ -34648,7 +34692,7 @@ CMD:trabalho(playerid, params[])
 							PlayerInfo[playerid][pMunCart] = 0;
 							PlayerInfo[playerid][pMun556] = 0;
 							PlayerInfo[playerid][pMun127] = 0;
-							SendClientMessage(playerid,COLOR_LIGHTRED,"[PROSEGUR] As suas munições do inventário foram retiradas.");
+							SendClientMessage(playerid,COLOR_LIGHTRED,"[PROTEGE] As suas munições do inventário foram retiradas.");
 				        }
 					}
 				}
@@ -35095,7 +35139,7 @@ CMD:equipar(playerid, params[])
 	{
 	    if(PlayerInfo[playerid][pEmServico] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em serviço.");
 	    if(IsPlayerInRangeOfPoint(playerid, 15, FacInfo[i][fArmarioPosX], FacInfo[i][fArmarioPosY], FacInfo[i][fArmarioPosZ]) && GetPlayerVirtualWorld(playerid) == FacInfo[i][fArmarioVw])
-		  	Dialog_Show(playerid, Equipar_BANK, DIALOG_STYLE_LIST, "[PROSEGUR] Equipamentos", "Armas\nMunições\nColete\nRetirar Colete\nDevolver Armas\nAcessórios", "Selecionar", "Fechar");
+		  	Dialog_Show(playerid, Equipar_BANK, DIALOG_STYLE_LIST, "[PROTEGE] Equipamentos", "Armas\nMunições\nColete\nRetirar Colete\nDevolver Armas\nAcessórios", "Selecionar", "Fechar");
 	    else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está na sala de equipamentos.");
 	}
 	return 1;
@@ -35474,9 +35518,9 @@ Dialog:Equipar_BANK(playerid, response, listitem, inputtext[])
         {
             case 0:
 			{
-				Dialog_Show(playerid, Equipar_BANK1, DIALOG_STYLE_TABLIST_HEADERS, "[PROSEGUR] Equipamentos", "Arma:\tCargo nescessário:\nColt 45\t1\nShotgun\t1", "Pegar", "Fechar");
+				Dialog_Show(playerid, Equipar_BANK1, DIALOG_STYLE_TABLIST_HEADERS, "[PROTEGE] Equipamentos", "Arma:\tCargo nescessário:\nColt 45\t1\nShotgun\t1", "Pegar", "Fechar");
 			}
-			case 1: Dialog_Show(playerid, Equipar_BANK2, DIALOG_STYLE_TABLIST_HEADERS, "[PROSEGUR] Equipamentos", "Tipo de Munição:\tQuantidade:\n9mm\t60\nCartuchos", "Pegar", "Fechar");
+			case 1: Dialog_Show(playerid, Equipar_BANK2, DIALOG_STYLE_TABLIST_HEADERS, "[PROTEGE] Equipamentos", "Tipo de Munição:\tQuantidade:\n9mm\t60\nCartuchos", "Pegar", "Fechar");
             case 2: { P_Armour[playerid] = 100; SetPlayerArmour_CA(playerid, 100); }
             case 3: { P_Armour[playerid] = 0; SetPlayerArmour_CA(playerid, 0); }
             case 4:
@@ -35503,7 +35547,7 @@ Dialog:Equipar_BANK(playerid, response, listitem, inputtext[])
             }
             case 5:
 	  		{
-	  		    Dialog_Show(playerid, DIALOGLJROUPAS_PROSEGUR, DIALOG_STYLE_LIST, "Selecione uma categoria.", "Outros Itens", "Selecionar", "Cancelar");
+	  		    Dialog_Show(playerid, DIALOGLJROUPAS_PROTEGE, DIALOG_STYLE_LIST, "Selecione uma categoria.", "Outros Itens", "Selecionar", "Cancelar");
 	    	}
 		}
 	}
@@ -43279,6 +43323,9 @@ public CarregandoGoverno()
 			sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioFD][0], GovInfo[gSalarioFD][1], GovInfo[gSalarioFD][2], GovInfo[gSalarioFD][3], GovInfo[gSalarioFD][4], GovInfo[gSalarioFD][5], GovInfo[gSalarioFD][6], GovInfo[gSalarioFD][7], GovInfo[gSalarioFD][8], GovInfo[gSalarioFD][9], GovInfo[gSalarioFD][10], GovInfo[gSalarioFD][11]);
 		    cache_get_field_content(i, "salariosTJRP", tmp);
 			sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioTJRP][0], GovInfo[gSalarioTJRP][1], GovInfo[gSalarioTJRP][2], GovInfo[gSalarioTJRP][3], GovInfo[gSalarioTJRP][4], GovInfo[gSalarioTJRP][5], GovInfo[gSalarioTJRP][6], GovInfo[gSalarioTJRP][7], GovInfo[gSalarioTJRP][8], GovInfo[gSalarioTJRP][9], GovInfo[gSalarioTJRP][10], GovInfo[gSalarioTJRP][11]);	
+		    cache_get_field_content(i, "salariosFacCivil", tmp);
+			sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioFacCivil][0], GovInfo[gSalarioFacCivil][1], GovInfo[gSalarioFacCivil][2], GovInfo[gSalarioFacCivil][3], GovInfo[gSalarioFacCivil][4], GovInfo[gSalarioFacCivil][5], GovInfo[gSalarioFacCivil][6], GovInfo[gSalarioFacCivil][7], GovInfo[gSalarioFacCivil][8], GovInfo[gSalarioFacCivil][9], GovInfo[gSalarioFacCivil][10], GovInfo[gSalarioFacCivil][11]);	
+
 		}
 	}
 	printf("[CARREGADO] Cofre do governo: R$%d", GovInfo[gCofres]);
@@ -47861,14 +47908,14 @@ Dialog:DIALOGLJROUPAS_PCERJ(playerid, response, listitem, inputtext[])
     return 1;
 }
 
-Dialog:DIALOGLJROUPAS_PROSEGUR(playerid, response, listitem, inputtext[])
+Dialog:DIALOGLJROUPAS_PROTEGE(playerid, response, listitem, inputtext[])
 {
     if(!response) return 1;
     else
     {
         switch(listitem)
         {
-            case 0: ShowModelSelectionMenu(playerid, "Outros Itens", MODEL_SELECTION_OUTROS_PROSEGUR, LOJA_OUTROS_BANK, sizeof(LOJA_OUTROS_BANK), -16.0, 0.0, 55.0);
+            case 0: ShowModelSelectionMenu(playerid, "Outros Itens", MODEL_SELECTION_OUTROS_PROTEGE, LOJA_OUTROS_BANK, sizeof(LOJA_OUTROS_BANK), -16.0, 0.0, 55.0);
         }
     }
     return 1;
@@ -52434,7 +52481,7 @@ CMD:entrar(playerid, params[])
 
 		}
 	}
-	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 1772.9445,-1543.1234,13.6688)) // PROSEGUR GARAGEM
+	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 1772.9445,-1543.1234,13.6688)) // PROTEGE GARAGEM
 	{
 		new PlayerNoCarro[4];
 		new PlayerNoCarroL[4];
@@ -52491,7 +52538,7 @@ CMD:entrar(playerid, params[])
 			SetPlayerVirtualWorld(playerid, 0);
 			SetPlayerPos(playerid, 2481.5627,2513.5317,10.8203);
 			SetPlayerFacingAngle(playerid, 0);
-			GameTextForPlayer(playerid, "~w~Bem-vindo a garagem da PROSEGUR.", 5000, 1);
+			GameTextForPlayer(playerid, "~w~Bem-vindo a garagem da PROTEGE.", 5000, 1);
 			PlayerInfo[playerid][pInterior] = 0;
 			PlayerInfo[playerid][pWorld] = 0;
 
@@ -60880,7 +60927,7 @@ COMMAND:gov(playerid, params[])
 		}
         else if(FacInfo[facID][fTipo] == FAC_TIPO_BANK)
         {
-            SendClientMessageToAll(0x005BB7FF, "{6495ed}PROSEGUR:");
+            SendClientMessageToAll(0x005BB7FF, "{6495ed}PROTEGE:");
             format(string, sizeof(string), "{6495ed}%s", text);
             SendClientMessageToAll(0x005BB7FF, string);
 		}		
@@ -63681,10 +63728,10 @@ public FetchVehicleInsurancePrice(model)
 {
 	new precoTotal = GetVehiclePrice(model);
 	new PrecoFinal = 0;
-	if(precoTotal > 120)
+	if(precoTotal > 100)
 		PrecoFinal = precoTotal/4;
 	else
-	    PrecoFinal = 60;
+	    PrecoFinal = 40;
 	return PrecoFinal;
 }
 /*forward FetchVehicleInsurancePrice(model);
@@ -72581,7 +72628,7 @@ COMMAND:canalradio(playerid, params[])
 			    temperm = 1;
 			}
 			if(aimid == 185) {
-			    if(FacInfo[FacId][fTipo] != 6) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PROSEGUR.");
+			    if(FacInfo[FacId][fTipo] != 6) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PROTEGE.");
 			    temperm = 1;
 			}
 			if(aimid == 444) {
@@ -72652,7 +72699,7 @@ COMMAND:canalradio2(playerid, params[])
 			    temperm = 1;
 			}
 			if(aimid == 185) {
-			    if(FacInfo[FacId][fTipo] != 6) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PROSEGUR.");
+			    if(FacInfo[FacId][fTipo] != 6) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PROTEGE.");
 			    temperm = 1;
 			}
             if(aimid == 444) {
@@ -72849,7 +72896,7 @@ CMD:departamento(playerid, params[])
             else if(FacId == 3) format(StrFac, sizeof(StrFac), "CBERJ");
 		   	else if(FacId == 4) format(StrFac, sizeof(StrFac), "GOVRJ");
 			else if(FacId == 6) format(StrFac, sizeof(StrFac), "EB");
-			else if(FacId == 5) format(StrFac, sizeof(StrFac), "PROSEGUR");
+			else if(FacId == 5) format(StrFac, sizeof(StrFac), "PROTEGE");
 		    format(StrMsg, sizeof(StrMsg), "** [%s] %s: %s", StrFac, PlayerName(playerid, 0), opcao);
             SendFacMessage(0xff8282FF, PlayerInfo[playerid][pFac],StrMsg);
           
@@ -72887,7 +72934,7 @@ CMD:departamentobaixo(playerid, params[])
             else if(FacId == 3) format(StrFac, sizeof(StrFac), "CBERJ");
 		   	else if(FacId == 4) format(StrFac, sizeof(StrFac), "GOVRJ");
 			else if(FacId == 6) format(StrFac, sizeof(StrFac), "EB");
-			else if(FacId == 5) format(StrFac, sizeof(StrFac), "PROSEGUR");
+			else if(FacId == 5) format(StrFac, sizeof(StrFac), "PROTEGE");
 		    format(StrMsg, sizeof(StrMsg), "** [%s] %s: %s", StrFac, PlayerName(playerid, 0), opcao);
            	SendFacMessage(0xff8282FF, PlayerInfo[playerid][pFac],StrMsg);
 
@@ -72937,6 +72984,41 @@ CMD:nomecargo(playerid, params[])
 	    if(FacInfo[FacId][fTipo] == FAC_TIPO_PMERJ || FacInfo[FacId][fTipo] == FAC_TIPO_CBERJ || FacInfo[FacId][fTipo] == FAC_TIPO_EB || FacInfo[FacId][fTipo] == FAC_TIPO_GOV || FacInfo[FacId][fTipo] == FAC_TIPO_TJRP || FacInfo[FacId][fTipo] == FAC_TIPO_PCERJ || FacInfo[FacId][fTipo] == FAC_TIPO_BANK)
 	    {
 	        if(PlayerInfo[playerid][pFacCargo] < 9)
+	        {
+	            SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem permissão para alterar os cargos.");
+	            return 1;
+	        }
+			new cargo,opcao[24];
+			if (sscanf(params, "is[24]", cargo, opcao))
+			{
+				SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} /nomecargo [Cargo (1-12)] [Nome]");
+				return 1;
+			}
+			else
+			{
+			    if(cargo == 1) strmid(FacInfo[FacId][fRank1], opcao, 0, strlen(opcao), 255);
+			    else if(cargo == 2) strmid(FacInfo[FacId][fRank2], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 3) strmid(FacInfo[FacId][fRank3], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 4) strmid(FacInfo[FacId][fRank4], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 5) strmid(FacInfo[FacId][fRank5], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 6) strmid(FacInfo[FacId][fRank6], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 7) strmid(FacInfo[FacId][fRank7], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 8) strmid(FacInfo[FacId][fRank8], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 9) strmid(FacInfo[FacId][fRank9], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 10) strmid(FacInfo[FacId][fRank10], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 11) strmid(FacInfo[FacId][fRank11], opcao, 0, strlen(opcao), 255);
+                else if(cargo == 12) strmid(FacInfo[FacId][fRank12], opcao, 0, strlen(opcao), 255);
+                else return SendClientMessage(playerid, COLOR_LIGHTRED, "Cargo Inválido. (Apenas de 1 à 12)");
+
+			    format(string, sizeof(string), "Você alterou o cargo %d para %s.", cargo, opcao);
+	        	SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
+	        	SalvarFaccao(FacId);
+	        	return 1;
+			}
+		}
+	    else if(FacInfo[FacId][fTipo] == FAC_TIPO_PRIXY)
+	    {
+	        if(PlayerInfo[playerid][pFacCargo] < 4)
 	        {
 	            SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem permissão para alterar os cargos.");
 	            return 1;
@@ -84791,7 +84873,7 @@ Dialog:DIALOG_GOV_EDIT(playerid, response, listitem, inputtext[])
 				{
 					OutrasInfos[playerid][oGovEditor][0] = 4;
 					OutrasInfos[playerid][oGovEditor][1] = 0;
-                    Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_LIST, "Governo", "PMERJ\nCBERJ\nGOVRJ\nPCERJ\nEB\nTJRJ", "Selecionar", "Fechar");
+                    Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_LIST, "Governo", "PMERJ\nCBERJ\nGOV-RJ\nPCERJ\nEB\nTJRJ\nFacção Civil", "Selecionar", "Fechar");
 				}
 				case 4:
 				{
@@ -85017,6 +85099,26 @@ Dialog:DIALOG_GOV_EDIT(playerid, response, listitem, inputtext[])
 						Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_TABLIST_HEADERS, "Governo", govdialog, "Selecionar", "Fechar");
 
 					}
+					case 6:
+					{
+					    OutrasInfos[playerid][oGovEditor][1] = 3;
+					    new govdialog[586];
+				    	format(govdialog, 255, "Cargo\tSalário\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d",
+							FacInfo[5][fRank1], GovInfo[gSalarioFacCivil][0],
+							FacInfo[5][fRank2], GovInfo[gSalarioFacCivil][1],
+							FacInfo[5][fRank3], GovInfo[gSalarioFacCivil][2],
+							FacInfo[5][fRank4], GovInfo[gSalarioFacCivil][3],
+							FacInfo[5][fRank5], GovInfo[gSalarioFacCivil][4],
+							FacInfo[5][fRank6], GovInfo[gSalarioFacCivil][5],
+							FacInfo[5][fRank7], GovInfo[gSalarioFacCivil][6],
+							FacInfo[5][fRank8], GovInfo[gSalarioFacCivil][7],
+							FacInfo[5][fRank9], GovInfo[gSalarioFacCivil][8],
+							FacInfo[5][fRank10], GovInfo[gSalarioFacCivil][9],
+							FacInfo[5][fRank11], GovInfo[gSalarioFacCivil][10],
+							FacInfo[5][fRank12], GovInfo[gSalarioFacCivil][11]);
+						Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_TABLIST_HEADERS, "Governo", govdialog, "Selecionar", "Fechar");
+
+					}
 				}
 			}
 			else if(OutrasInfos[playerid][oGovEditor][1] == 1)
@@ -85163,6 +85265,30 @@ Dialog:DIALOG_GOV_EDIT(playerid, response, listitem, inputtext[])
 					SalvarGoverno();
 			    }
 			}
+			else if(OutrasInfos[playerid][oGovEditor][1] == 7)
+			{
+			    if(OutrasInfos[playerid][oGovEditor][2] == 0)
+			    {
+				    OutrasInfos[playerid][oGovEditor][2] = listitem+1;
+ 			    	Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_INPUT, "Governo", "Entre com o novo valor do salário:", "Selecionar", "Fechar");
+				}
+				else
+			    {
+			        new govc = OutrasInfos[playerid][oGovEditor][2]-1;
+			        new valor = strval(inputtext);
+			        if(0 > valor) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} O salário não pode ser menor que 0.");
+         	        GovInfo[gSalarioFacCivil][govc] = valor;
+
+		            format(string, sizeof(string), "[GOV] Você alterou o salário das facções civil para R$%d.", valor);
+					SendClientMessage(playerid, COLOR_GREEN, string);
+
+			        new strl[126];
+					format(strl, sizeof(strl), "%s alterou o salário do cargo %d da facs civis para R$%d. | Total no cofre: R$%d", PlayerName(playerid,0), (listitem+1),valor, GovInfo[gCofres]);
+					Cofres_Publicos(strl);
+
+					SalvarGoverno();
+			    }
+			}
 		}
 	    else if(OutrasInfos[playerid][oGovEditor][0] == 5)
 	    {
@@ -85235,6 +85361,9 @@ public SalvarGoverno()
 	new salariosTJRP[522];
     format(salariosTJRP, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioTJRP][0], GovInfo[gSalarioTJRP][1], GovInfo[gSalarioTJRP][2], GovInfo[gSalarioTJRP][3], GovInfo[gSalarioTJRP][4], GovInfo[gSalarioTJRP][5], GovInfo[gSalarioTJRP][6], GovInfo[gSalarioTJRP][7], GovInfo[gSalarioTJRP][8], GovInfo[gSalarioTJRP][9], GovInfo[gSalarioTJRP][10], GovInfo[gSalarioTJRP][11]);
 
+	new salariosFacCivil[522];
+    format(salariosFacCivil, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioFacCivil][0], GovInfo[gSalarioFacCivil][1], GovInfo[gSalarioFacCivil][2], GovInfo[gSalarioFacCivil][3], GovInfo[gSalarioFacCivil][4], GovInfo[gSalarioFacCivil][5], GovInfo[gSalarioFacCivil][6], GovInfo[gSalarioFacCivil][7], GovInfo[gSalarioFacCivil][8], GovInfo[gSalarioFacCivil][9], GovInfo[gSalarioFacCivil][10], GovInfo[gSalarioFacCivil][11]);
+
 
     new query[2054];
 	format(query, sizeof(query),"UPDATE `governo` SET `salariospd`='%s' WHERE `id`= 1",salariospd);
@@ -85255,6 +85384,9 @@ public SalvarGoverno()
 	format(query, sizeof(query),"UPDATE `governo` SET `salariosTJRP`='%s' WHERE `id`= 1",salariosTJRP);
 	mysql_function_query(Pipeline, query, false, "", "");
 
+	format(query, sizeof(query),"UPDATE `governo` SET `salariosFacCivil`='%s' WHERE `id`= 1",salariosFacCivil);
+	mysql_function_query(Pipeline, query, false, "", "");
+
 	format(query, sizeof(query),"UPDATE `governo` SET `cofres`='%d',`taxa`='%d',`taxaluz`='%d',`taxahp`='%d',`convenio`='%d',`prefeito`='%s',`salariomin`='%d' WHERE `id`= 1", GovInfo[gCofres],GovInfo[gTaxa], GovInfo[gTaxaLuz],GovInfo[gTaxaHP],GovInfo[gConvenio],GovInfo[gPrefeito],GovInfo[gSalarioMin]);
 	mysql_function_query(Pipeline, query, false, "", "");
 	return 1;
@@ -85270,7 +85402,7 @@ CMD:convenio(playerid,params[])
 		format(ConvDial, 255, "\t\t\t- Convênio Médico -\t\t\t\n\n \
 		- Tenha um tratamento de qualidade no melhor Hospital do Rio de Janeiro e saia curado em menos tempo!\n \
 		- Reduzimos sua estadia em nosso Hospital em 50% do tempo.\n\n \
-		Valor do serviço: Apenas R$150 por PayDay!\n \
+		Valor do serviço: Apenas R$80 por PayDay!\n \
 		- Assine já conosco!! \n\n\n \
 		ATENÇÃO: O contrato só poderá ser cancelado após 3 PD's.");
 		Dialog_Show(playerid, DIALOG_CONVENIO, DIALOG_STYLE_MSGBOX, "Convenio Médico", ConvDial, "Assinar", "Cancelar");
@@ -86769,12 +86901,14 @@ public OnVerLastLogin(extraid)
 
 	static
 		nome2[32],
-		nome[32];
+		nome[32],
+		nome3[32];
 
  	cache_get_field_content(0, "UltimoLogin", nome, Pipeline);
  	cache_get_field_content(0, "Username", nome2, Pipeline);
+	cache_get_field_content(0, "pNomeOOC", nome3, Pipeline);
 
-    format(string,sizeof(string),"O último login de %s foi em %s .",nome2,nome);
+    format(string,sizeof(string),"O último login de %s foi em %s e seu usuário é %s.",nome2,nome,nome3);
     SendClientMessage(extraid,COLOR_LIGHTGREEN,string);
 	return 1;
 }
