@@ -30,7 +30,7 @@ public SetPlayerMorto(playerid, status) {
 	       	if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
 			TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este player está ferido /ferimentos para mais informações))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid));
 					
-			TempoDesistir[playerid] = 180;
+			TempoDesistir[playerid] = 600;
 
 			SetarAnimMorto(playerid);
 		    SetarItensDoPlayer(playerid);
@@ -51,7 +51,7 @@ public SetPlayerMorto(playerid, status) {
 			SetarAnimMorto(playerid);
 
 			SendClientMessage(playerid, COLOR_YELLOW, "-> Agora você está morto. você poderá utilizar /aceitarmorte daqui a 5 minutos, para respawnar.");
-			TempoDesistir[playerid] = 300;
+			TempoDesistir[playerid] = 600;
 
 			TogglePlayerControllable(playerid, 0);
 			TextDrawShowForPlayer(playerid,Telinha);
@@ -364,11 +364,11 @@ CMD:aceitarmorte(playerid,params[])
 
    			new tempomorto;
 
-			if(PlayerInfo[playerid][pDoador] == 1) tempomorto = 5;
-			else if(PlayerInfo[playerid][pDoador] == 2) tempomorto = 5;
-			else if(PlayerInfo[playerid][pDoador] == 3) tempomorto = 5;
-			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 300;
-			else tempomorto = 450;
+			if(PlayerInfo[playerid][pDoador] == 1) tempomorto = 60;
+			else if(PlayerInfo[playerid][pDoador] == 2) tempomorto = 60;
+			else if(PlayerInfo[playerid][pDoador] == 3) tempomorto = 60;
+			else if(PlayerInfo[playerid][pConvenio] == 1) tempomorto = 400;
+			else tempomorto = 800;
 
 			PlayerInfo[playerid][pTempoMorto] = gettime()+tempomorto;
 

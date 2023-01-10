@@ -10578,7 +10578,7 @@ public OnVehicleDamageStatusUpdate(vehicleid, playerid)
                                     if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
 									TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este player está ferido /ferimentos para mais informações))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid, INVALID_VEHICLE_ID, 0, GetPlayerVirtualWorld(playerid));
 					
-									TempoDesistir[playerid] = 180;
+									TempoDesistir[playerid] = 600;
 
 									SetarAnimMorto(playerid);
 
@@ -13601,7 +13601,7 @@ public OnPlayerSpawn(playerid){
 
 
 				PlayerInfo[playerid][pMancando] = 0;
-				TempoDesistir[playerid] = 180;
+				TempoDesistir[playerid] = 600;
 
 				ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
 				ComAnim[playerid] = 0;
@@ -13993,7 +13993,7 @@ public SetPlayerLocalSpawn(playerid) {
 		PlayerInfo[playerid][pMancando] = 0;
 
 		TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este jogador está brutalmente ferido\n/ferimentos para mais informações\n))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid);
-		TempoDesistir[playerid] = 180;
+		TempoDesistir[playerid] = 600;
 
 		SetPlayerPosLogin(playerid, PlayerInfo[playerid][pPos][0], PlayerInfo[playerid][pPos][1], PlayerInfo[playerid][pPos][2], 1);
 
@@ -14025,7 +14025,7 @@ public SetPlayerLocalSpawn(playerid) {
 		PlayerInfo[playerid][pMancando] = 0;
 
 		TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este jogador está brutalmente ferido\n/ferimentos para mais informações\n))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid);
-		TempoDesistir[playerid] = 180;
+		TempoDesistir[playerid] = 600;
 		
 		SetPlayerPosLogin(playerid, PlayerInfo[playerid][pPos][0], PlayerInfo[playerid][pPos][1], PlayerInfo[playerid][pPos][2], 1);
 
@@ -14056,7 +14056,7 @@ public SetPlayerLocalSpawn(playerid) {
 		PlayerInfo[playerid][pMancando] = 0;
 
 		TextMorto[playerid] = CreateDynamic3DTextLabel("(( Este jogador está brutalmente ferido\n/ferimentos para mais informações\n))", 0xFF4B00FF, 0.0, 0.0, 0.7, DISTANCIA_FERIMENTOS, playerid);
-		TempoDesistir[playerid] = 180;
+		TempoDesistir[playerid] = 600;
 		
 		SetPlayerPosLogin(playerid, PlayerInfo[playerid][pPos][0], PlayerInfo[playerid][pPos][1], PlayerInfo[playerid][pPos][2], 1);
 
@@ -30999,8 +30999,8 @@ CMD:ajudafaccao(playerid, params[])
     {
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACÇÃO *** Canal de rádio: 193");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r)adio /rbaixo (radio baixo) /f /membros /cocb /nickgb /nickbranco /distintivo");
-        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r2)adio /rbaixo2 (radio baixo 2) /equipargb /trabalho");
-        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACÇÃO *** /uniforme /bandagem /desfibrilador /cbarreira /rbarreira");
+        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r2)adio /rbaixo2 (radio baixo 2) /equipargb /trabalho /finalizartratamento");
+        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACÇÃO *** /uniforme /desfibrilador /cbarreira /rbarreira /iniciartratamento");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACÇÃO *** /colocarferido /localizarfogo /deixarferido /prefixo /rprefixo");
         if(PlayerInfo[playerid][pFacCargo] >= 9)
         {
@@ -39655,9 +39655,9 @@ CMD:deixarferido(playerid,params[])
 
 			   			new tempomorto;
 
-						if(PlayerInfo[idpl][pDoador] > 1) tempomorto = 5;
-                        if(PlayerInfo[idpl][pConvenio] > 1) tempomorto = 300;
-			 			else tempomorto = 450;
+						if(PlayerInfo[idpl][pDoador] > 1) tempomorto = 60;
+                        if(PlayerInfo[idpl][pConvenio] > 1) tempomorto = 400;
+			 			else tempomorto = 800;
 
 						PlayerInfo[idpl][pTempoMorto] = gettime()+tempomorto;
 
@@ -40267,7 +40267,7 @@ COMMAND:setaradmin(playerid, params[])
 	return 1;
 }
 
-COMMAND:setarjunioradmin(playerid, params[])
+COMMAND:setartester(playerid, params[])
 {
     if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	if (PlayerInfo[playerid][pAdmin] < 5) return 1;
@@ -40430,49 +40430,62 @@ COMMAND:liberaracesso(playerid, params[])
 	return 1;
 }
 
-COMMAND:bandagem(playerid, params[])
+COMMAND:iniciartratamento(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	new targetid;
-	if(sscanf(params, "u", targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /bandagem [ID do jogador]");
+	if(sscanf(params, "u", targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /iniciartratamento [ID do jogador]");
 	else
 	{
         if(PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar logado para utilizar este comando.");
         if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não está conectado!");
-        if(PlayerInfo[targetid][pMorto] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não necessita de cuidados médicos.");
-        if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+        if(PlayerInfo[targetid][pMorto] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não necessita de cuidados médicos.");
+		if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
         if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
         if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
         new faccao = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
         if(FacInfo[faccao][fTipo] == FAC_TIPO_CBERJ)
 		{
-  			if(GetDistanceBetweenPlayers(playerid,targetid) <= 5.0)
+  			if(GetDistanceBetweenPlayers(playerid,targetid) <= 15.0)
 	    	{
-		    	format(string, sizeof(string), "* %s utiliza uma bandagem em %s.", PlayerName(playerid,1), PlayerName(targetid,1));
+		    	format(string, sizeof(string), "* %s inicia os procedimentos médicos em %s.", PlayerName(playerid,1), PlayerName(targetid,1));
        			ProxDetector(20.0, playerid, string,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
 
-				if(PlayerInfo[targetid][pTomouAlgumTiro] > 0)
-				{
-       				SendClientMessage(playerid, COLOR_LIGHTRED, "INFO: Este jogador levou algum tiro e precisa ser internado, caso contrário ele morrerá sangrando.");
-       				SendClientMessage(targetid, COLOR_LIGHTRED, "((Um médico lhe reviveu, porém você precisa ser internado para curar seus ferimentos a bala, caso contrário você morrerá sangrando.))");
-				}
-				else
-				{
-				    ZerarDamages(targetid);
-				}
 
-    		    PlayerInfo[targetid][pMorto] = 0;
-				TogglePlayerControllable(targetid,true);
-    			SetPlayerHealth(targetid, 150);
-				P_Health[targetid] = 150;
-				God_Aviso2[targetid] = 0;
-				God_VidaAnterior2[targetid] = 50;
- 		    	PlayerPlaySound(targetid,1150, 0.0, 0.0, 0.0);
-  		    	ApplyAnimation(targetid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
-         		SetPlayerChatBubble(targetid, "", 0xe8827600, 100.0, 1);
+				TempoDesistir[targetid] = 9999;
+   				PodeAceitarMorte[targetid] = 0;
+     		}
+     		else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não está próximo suficiente deste jogador.");
+		}
+		else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não tem acesso a esse comando.");
+	}
+	return 1;
+}
+
+COMMAND:finalizartratamento(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	new targetid;
+	if(sscanf(params, "u", targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /finalizartratamento [ID do jogador]");
+	else
+	{
+        if(PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar logado para utilizar este comando.");
+        if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não está conectado!");
+        if(PlayerInfo[playerid][pMorto] > 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode usar este comando enquanto estiver morto!");
+        if(PlayerInfo[targetid][pMorto] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este jogador não necessita de cuidados médicos.");
+		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
+        if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver amarrado.");
+        new faccao = GetFactionBySqlId(PlayerInfo[playerid][pFac]);
+        if(FacInfo[faccao][fTipo] == FAC_TIPO_CBERJ)
+		{
+  			if(GetDistanceBetweenPlayers(playerid,targetid) <= 15.0)
+	    	{
+		    	format(string, sizeof(string), "* %s finaliza os procedimentos médicos em %s.", PlayerName(playerid,1), PlayerName(targetid,1));
+       			ProxDetector(20.0, playerid, string,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
+
 
 				TempoDesistir[targetid] = 0;
-   				PodeAceitarMorte[targetid] = 0;
+   				PodeAceitarMorte[targetid] = 1;
      		}
      		else return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não está próximo suficiente deste jogador.");
 		}
@@ -62762,9 +62775,9 @@ forward GetMaxCarrosGarargem(playerid);
 public GetMaxCarrosGarargem(playerid)
 {
 	new maxcars;
-	if(PlayerInfo[playerid][pDoador] == 1) maxcars = 10;
-	else if(PlayerInfo[playerid][pDoador] == 2) maxcars = 12;
-	else if(PlayerInfo[playerid][pDoador] == 3) maxcars = 15;
+	if(PlayerInfo[playerid][pDoador] == 1) maxcars = 5;
+	else if(PlayerInfo[playerid][pDoador] == 2) maxcars = 7;
+	else if(PlayerInfo[playerid][pDoador] == 3) maxcars = 10;
 	else maxcars = 4;
 	return maxcars;
 }
@@ -86014,10 +86027,10 @@ CMD:furniture(playerid, params[])
 
 stock PlayerMaxMoveis(playerid){
 	new MaxMoveis;
-    if(PlayerInfo[playerid][pDoador] == 1) MaxMoveis = 200;
-    else if(PlayerInfo[playerid][pDoador] == 2) MaxMoveis = 300;
-    else if(PlayerInfo[playerid][pDoador] == 3) MaxMoveis = 600;
-    else MaxMoveis = 100;
+    if(PlayerInfo[playerid][pDoador] == 1) MaxMoveis = 350;
+    else if(PlayerInfo[playerid][pDoador] == 2) MaxMoveis = 600;
+    else if(PlayerInfo[playerid][pDoador] == 3) MaxMoveis = 800;
+    else MaxMoveis = 250;
 
     return MaxMoveis;
 }
