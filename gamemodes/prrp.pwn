@@ -3257,7 +3257,7 @@ new ComplexoInfo[MAX_COMPLEXOS][c_Info];
 #define EMP_TIPO_CONCE    	23
 #define EMP_TIPO_BAR    	24
 
-#define EMP_TIPO_CEL   		25
+#define EMP_TIPO_OUTROS   	25
 
 #define EMP_TIPO_STACKED 26
 #define EMP_TIPO_CLUCKIN 27
@@ -50987,7 +50987,7 @@ CMD:aemp(playerid, params[])
 	    if (!strcmp(opcao, "tipos", true)) {
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "___________Tipos de Empresas___________");
 			SendClientMessage(playerid, COLOR_GREY, "1: Seguros de Veículos | 6: Posto de Gasolina/ 247 | 7: Roupas/Itens | 8: Ammu Nation | 10: Loja de Apostas | 55: Ferro Velho");
-			SendClientMessage(playerid, COLOR_GREY, "20: Banco | 21: Pawn Shop | 22: Burger Shot | 23: Concessionária | 24: Bar | 26: Stacked | 27: Cluckin");
+			SendClientMessage(playerid, COLOR_GREY, "20: Banco | 21: Pawn Shop | 22: Burger Shot | 23: Concessionária | 25: escritorio | 24: Bar | 26: Stacked | 27: Cluckin");
 			SendClientMessage(playerid, COLOR_GREY, "50: Centro de Licenças | 51: Centro de empregos | 25: Loja de Celulares | 9: Transporte de Valores | 57 - Farmacia");
 			return 1;
 		}
@@ -51220,7 +51220,7 @@ CMD:aemp(playerid, params[])
 						switch(var)
 						{
 						    case 6, 21, 27: EmpInfo[i][eCompraTipo] = 11;
-						    case 22, 26, 17: EmpInfo[i][eCompraTipo] = 1;
+						    case 22, 25, 26, 17: EmpInfo[i][eCompraTipo] = 1;
 						    case 24: EmpInfo[i][eCompraTipo] = 10;
 						    case 55: EmpInfo[i][eCompraTipo] = 55;
 						}
@@ -53468,7 +53468,7 @@ stock SetVehicleDamage(vehicleid)
 CMD:resetararmasserv(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if (PlayerInfo[playerid][pAdmin] < 3000) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 3001) return 1;
 
 	for(new i; i < MAX_VEHICLES; i++)
 	{
