@@ -37378,14 +37378,14 @@ CMD:ajudaadmin(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Head Admin]{FFFFFF} /checarsos /setaradmin /setarjunioradmin /SetWeather /setardinheiro /desbugarvc /pontodesmanche /mudarsexo");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Head Admin]{FFFFFF} /amotor /atrancar /entrarveiculo /pnomeooc /verveiculos /ulogin /mudarsexo /setaremprego /savevehicles");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Head Admin]{FFFFFF} /abrirelevador /abrirelevador1 /irpos /unbanip /limpargrana /limparbanco /mudarclima /mudaridade");
-			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Equipes]{FFFFFF} /refundteam /banappeal /factionteam /propertyteam /medicteam");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Equipes]{FFFFFF} /refundteam /banappeal /factionteam /propertyteam");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Geral]{FFFFFF} /acasa /acomplexo /aemp /aveiculo /salvarcontas");
 		}
     	if(PlayerInfo[playerid][pAdmin] >= 3000){
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /setarammo /setararma /setarpremium /editarpe /palcopref /casinogames /liberaracesso");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /jetpack /facname /ircarrosql /a(tivar)ooc /timerindustrias /drogaaa /up /front /down /back");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /complexosint /empint, /empintv, /casasint, /atualizarcasa /casasint1 /casasint2 /empint1 /emptint2");
-			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /criarfaccao /factipo /setarfaccao /aportao /setarportaofac /setarrange /tempoaberto /fpd");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /criarfaccao /factipo /setarfaccao /aportao /setarportaofac /setarrange /tempoaberto");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /criartunador /deletartunador /attgrafico /paycheckon /paycheckoff /gmx /darnamechange /setarportaoemp");
 		}
 	}
@@ -37954,10 +37954,10 @@ COMMAND:afk(playerid, params[])
 	return 1;
 }
 
-COMMAND:fpd(playerid, params[])
+COMMAND:fpd2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 3000) return 1;
+    if(PlayerInfo[playerid][pAdmin] < 3002) return 1;
 	PayDay(playerid);
 	return 1;
 }
@@ -38048,7 +38048,7 @@ COMMAND:setarpremium(playerid, params[])
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Este jogador não está conectado!");
 	    if(IsPlayerNPC(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "NPC's não podem receber status de Doador.");
-		if(PlayerInfo[playerid][pAdmin] >= 3000)
+		if(PlayerInfo[playerid][pAdmin] >= 3002)
 		{
 		    if(nivel >= 0 || nivel < 4)
 		    {
@@ -38106,7 +38106,7 @@ CMD:tempopremium(playerid,params[]){
 COMMAND:darnamechange(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não possui acesso a este comando.");
+	if(PlayerInfo[playerid][pAdmin] < 3002) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não possui acesso a este comando.");
 	new targetid;
 	if(sscanf(params, "u", targetid)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /darnamechange [id]");
 	else
@@ -38136,7 +38136,7 @@ COMMAND:ajail(playerid, params[])
 	{
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if(!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Este jogador não está conectado.");
-	    if(PlayerInfo[targetid][pAdmin] >= 5 && PlayerInfo[targetid][pAdmin] <= 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não pode dar ajail em um Head Staff.");
+	    if(PlayerInfo[targetid][pAdmin] >= 5 && PlayerInfo[targetid][pAdmin] <= 3002) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não pode dar ajail em um Head Staff.");
 	    if(IsPlayerNPC(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} NPC's não podem ser presos.");
 		if(PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pTester] >= 1)
 		
@@ -38219,7 +38219,7 @@ COMMAND:unbanip(playerid, params[])
 	else
 	{
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[playerid][pBanTeam] >= 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pBanTeam] < 1) return 1;
 		{
 		    format(string, sizeof(string),"unbanip %s", type);
 			SendRconCommand(string);
@@ -38239,7 +38239,7 @@ COMMAND:banip(playerid, params[])
 	else
 	{
 	    if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 2 || PlayerInfo[playerid][pBanTeam] >= 1) return 1;
+		if(PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pBanTeam] < 1) return 1;
 		{
 		    format(string, sizeof(string),"banip %s", type);
 			SendRconCommand(string);
@@ -38274,8 +38274,7 @@ COMMAND:verip(playerid, params[])
 COMMAND:desbanir(playerid, params[])
 {
 	if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-	if(PlayerInfo[playerid][pAdmin] >= 3 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
-
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pBanTeam] < 1) return 1;
 	new text[24];
 	if(sscanf(params, "s[24]", text)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /desbanir [Nome_Sobrenome].");
 	else
@@ -38300,8 +38299,7 @@ COMMAND:desbanir(playerid, params[])
 COMMAND:banoff(playerid, params[])
 {
 	if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-	if(PlayerInfo[playerid][pAdmin] >= 1 && PlayerInfo[playerid][pBanTeam] >= 1) return 1;
-
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pBanTeam] < 1) return 1;
 	new text[128],motivo[126];
 	if(sscanf(params, "s[128]s[126]", text,motivo)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /banoff [Nome_Sobrenome] [motivo]");
 	else
@@ -40747,7 +40745,7 @@ stock setarPlayerFaccao(targetid, facid, cargo){
 
 COMMAND:setarfaccao(playerid, params[])
 {
-    if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pFactionTeam] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	new targetid, faccao, cargo, maxcargo;
 	if(sscanf(params, "uii", targetid, faccao, cargo)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /setarfaccao [Playerid] [Faction ID] [Cargo]");
@@ -41354,7 +41352,7 @@ COMMAND:gmx(playerid, params[])
 COMMAND:complexosint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
 	ShowInterioresDialog(playerid);
 	return 1;
@@ -41363,7 +41361,7 @@ COMMAND:complexosint(playerid, params[])
 CMD:empint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog(playerid);
     return 1;
@@ -41372,7 +41370,7 @@ CMD:empint(playerid, params[])
 CMD:empint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog1(playerid);
     return 1;
@@ -41381,7 +41379,7 @@ CMD:empint1(playerid, params[])
 CMD:empint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpInterioresDialog2(playerid);
     return 1;
@@ -41390,7 +41388,7 @@ CMD:empint2(playerid, params[])
 CMD:empintv(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowEmpVInterioresDialog(playerid);
     return 1;
@@ -41399,7 +41397,7 @@ CMD:empintv(playerid, params[])
 CMD:casasint(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowHouseInterioresDialog(playerid);
     return 1;
@@ -41408,7 +41406,7 @@ CMD:casasint(playerid, params[])
 CMD:casasint1(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog(playerid);
     return 1;
@@ -41417,7 +41415,7 @@ CMD:casasint1(playerid, params[])
 CMD:casasint2(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
     if(!OutrasInfos[playerid][oAdminOnDuty] && PlayerInfo[playerid][pAdmin] < 3000) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve estar em modo de trabalho para utilizar este comando. '/aduty'.");
     ShowCasasInterioresDialog1(playerid);
     return 1;
@@ -48542,7 +48540,7 @@ CMD:enderecocasa(playerid, params[])
 CMD:acasa(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está logado para usar este comando.");
-	if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -48982,7 +48980,7 @@ public CasaCriada(houseid,playerid)
 CMD:agaragem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var, var2;
 	if (sscanf(params, "s[24]I(9999)I(9999)", opcao,var, var2))
 	{
@@ -50969,7 +50967,7 @@ CMD:precogasolina(playerid, params[])
 CMD:aemp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 	new opcao[24], var;
 	if (sscanf(params, "s[24]I(9999)", opcao,var))
 	{
@@ -73096,7 +73094,7 @@ CMD:nomecargo(playerid, params[])
 CMD:factipo(playerid, params[])
 {
 	if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pFactionTeam] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
 	new id, var2;
 	if (sscanf(params, "ii", id, var2))
 	{
@@ -73121,7 +73119,7 @@ CMD:factipo(playerid, params[])
 CMD:criarfaccao(playerid, params[])
 {
 	if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pFactionTeam] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
 	new opcao[34];
 	if (sscanf(params, "s[34]", opcao)) return SendClientMessage(playerid, COLOR_LIGHTRED,"USE: /criarfaccao [Nome]");
 	else
@@ -73430,7 +73428,7 @@ COMMAND:setarportaofac(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1) return 1;
+		if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -73457,7 +73455,7 @@ COMMAND:setarportaoemp(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 5 && PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+		if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -73475,36 +73473,10 @@ COMMAND:setarportaoemp(playerid, params[])
 	return 1;
 }
 
-COMMAND:setarportaoemp2(playerid, params[])
-{
-    if(!PlayerInfo[playerid][pLogado]) return 1;
-    new portaoid, faccao;
-    if(sscanf(params, "dd", portaoid, faccao)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /setarportaoemp2 [PortaoID] [Empresa ID]");
-    else
-    {
-        if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-        if(PlayerInfo[playerid][pPropertyTeam] < 1)
-        {
-            if(PortaoInfo[portaoid][ptCriado])
-            {
-                PortaoInfo[portaoid][ptFac] = 0;
-                PortaoInfo[portaoid][ptEmpresa] = faccao;
-
-                format(string,sizeof(string),"{FF6347}AdmCmd: Você setou o portão %d para a empresa %s [%d].", portaoid, EmpInfo[faccao][eNome], faccao);
-                SendClientMessage(playerid, COLOR_LIGHTRED, string);
-
-                SalvarPortao(portaoid);
-            }
-            else return SendClientMessage(playerid, COLOR_LIGHTRED, "* Portão inválido.");
-        }
-    }
-    return 1;
-}
-
 CMD:facname(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pFactionTeam] >= 1) return 1;
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pFactionTeam] < 1) return 1;
     new type[255],id;
 	if(sscanf(params, "ds[255]", id, type)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /facname [Facid] [Nome da Facção]");
 	else
@@ -73533,7 +73505,7 @@ COMMAND:setarrange(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] < 5) return 1;
+		if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -73558,7 +73530,7 @@ COMMAND:tempoaberto(playerid, params[])
 	else
 	{
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
-		if(PlayerInfo[playerid][pAdmin] >= 5 || PlayerInfo[playerid][pPropertyTeam] >= 1) return 1;
+		if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pPropertyTeam] < 1) return 1;
 		{
 		    if(PortaoInfo[portaoid][ptCriado])
 		    {
@@ -87067,7 +87039,7 @@ public OnVerRefudoGrana(extraid, id)
 CMD:refundararma(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pAdmin] < 3 || PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
+	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pRefundTeam] < 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
 	{
@@ -87085,7 +87057,7 @@ CMD:refundararma(playerid, params[])
 CMD:refundargrana(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-   	if(PlayerInfo[playerid][pAdmin] < 3 || PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
+   	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pRefundTeam] < 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
 	if(PlayerInfo[playerid][pAdmin] >= 4)
@@ -87104,7 +87076,7 @@ CMD:refundargrana(playerid, params[])
 CMD:refundaritem(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-   	if(PlayerInfo[playerid][pAdmin] < 3 || PlayerInfo[playerid][pRefundTeam] >= 1 && !OutrasInfos[playerid][oAdminOnDuty])
+   	if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pRefundTeam] < 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	    return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você deve usar o comando /aduty antes.");
 
 	if(PlayerInfo[playerid][pAdmin] >= 4)
