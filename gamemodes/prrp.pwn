@@ -86,7 +86,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
 #define ULTIMO_GMX      "15/01/2023"
-#define CA_VERSAO       "PR:RP v1.00b"
+#define CA_VERSAO       "PR:RP v1.05b"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -2821,14 +2821,15 @@ static OBJ_TELEVISOES[MAX_TVS] = {
 };
 
 //===== [ PMERJ ] =====//
-static PMERJ_Uniformes[28] = {
+static PMERJ_Uniformes[32] = {
 	20400, 20401, 20402, 20403,
 	20404, 20405, 20406, 20407,
 	20408, 20409, 20410, 20411,
 	20412, 20413, 20414, 20415,
 	20416, 20417, 20418, 20419,
 	20420, 20421, 20422, 20423,
-	20424, 20426, 20427, 20428
+	20424, 20426, 20427, 20428,
+	20429, 20430, 20431, 20432
 };
 
 static PMERJ_Barreiras[16] = {
@@ -3874,7 +3875,7 @@ new Float:TrocaDeInt_Coordenadas[26][9] = {
 //==============================================================================
 //                              POKER SYSTEM
 //==============================================================================
-#define STR_VERSION "PR:RP v1.5 Version"
+#define STR_VERSION "PR:RP v1.7 Version"
 
 #define COLOR_GOLD										0xFFCC00AA
 
@@ -6075,7 +6076,10 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 1720.7937,-1578.8098,13.5547, 0);
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 1742.7393,-1551.3011,7.9609, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
-    CreatePickup(1239, 1, 1742.7393,-1551.3011,7.9609, 0);
+    CreatePickup(1239, 1, 1742.7393,-1551.3011,7.9609, 0); 
+
+	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 954.6230,-1467.4749,13.5547, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, 954.6230,-1467.4749,13.5547, 0);
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 2501.8635,-1564.3923,24.0324, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 2501.8635,-1564.3923,24.0324, 0);
@@ -7597,6 +7601,9 @@ CMD:rasparnumeracao(playerid, params[])
     if(ArmaData[id][ArmaRaspada] == 1) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} A numeração desta arma já está raspada.");
     SCM(playerid, COLOR_LIGHTGREEN, "Você raspou a numeração da arma.");
     ArmaData[id][ArmaRaspada] = 1;
+
+	PlayerInfo[playerid][pGranaSuja] += 1800;
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 1800 reais sujo pela remoção da placa.");
 
     SalvarArma(id);
 	return 1;
@@ -9851,7 +9858,7 @@ public Timer_Segundos()
  		    	else if(DrogaPlantada[i][ddEstado] == 2)
 			    {
 			        DrogaPlantada[i][ddEstado] = 1;
-			        DrogaPlantada[i][ddTempo] = 10;
+			        DrogaPlantada[i][ddTempo] = 3600;
 			        if(IsValidDynamicObject(DrogaPlantada[i][ddObjeto])) DestroyDynamicObject(DrogaPlantada[i][ddObjeto]);
 		 			DrogaPlantada[i][ddObjeto] = CreateDynamicObject(19473, DrogaPlantada[i][ddX], DrogaPlantada[i][ddY], DrogaPlantada[i][ddZ], 0.000000, 0.000000, DrogaPlantada[i][ddR], DrogaPlantada[i][ddWorld]);
                     SaveDroga(i);
@@ -13706,7 +13713,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/01/2023, v1.00b, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/01/2023, v1.05b, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     /*if(PlayerInfo[playerid][pBirthdate] == 0)
@@ -21477,6 +21484,8 @@ COMMAND:dropar(playerid, params[])
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(bom): %d",StrArm,PlayerDroga[playerid][MetB]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(excelente): %d",StrArm,PlayerDroga[playerid][MetE]);
 		format(StrArm, sizeof(StrArm), "%s\nLança Perfume: %d",StrArm,PlayerDroga[playerid][LancaPer]);
+		format(StrArm, sizeof(StrArm), "%s\nPasta base: %d",StrArm,PlayerDroga[playerid][PBC]);
+		format(StrArm, sizeof(StrArm), "%s\nSementes: %d",StrArm,PlayerDroga[playerid][Sementes]);
 		Dialog_Show(playerid, Dialog_DropDrug, DIALOG_STYLE_LIST, "Dropar Droga", StrArm, "Selecionar", "Cancelar");
 	}
 	return 1;
@@ -21577,6 +21586,9 @@ COMMAND:dropare(playerid, params[])
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(ruim): %d",StrArm,PlayerDroga[playerid][MetR]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(bom): %d",StrArm,PlayerDroga[playerid][MetB]);
 		format(StrArm, sizeof(StrArm), "%s\nMetanfetamina(excelente): %d",StrArm,PlayerDroga[playerid][MetE]);
+		format(StrArm, sizeof(StrArm), "%s\nLança Perfume: %d",StrArm,PlayerDroga[playerid][LancaPer]);
+		format(StrArm, sizeof(StrArm), "%s\nPasta base: %d",StrArm,PlayerDroga[playerid][PBC]);
+		format(StrArm, sizeof(StrArm), "%s\nSementes: %d",StrArm,PlayerDroga[playerid][Sementes]);
 		Dialog_Show(playerid, Dialog_DropDrug, DIALOG_STYLE_LIST, "Dropar Droga", StrArm, "Selecionar", "Cancelar");
 	}
 	return 1;
@@ -21737,7 +21749,7 @@ Dialog:Dialog_DropDrug2(playerid, response, listitem, inputtext[])
 				}
 				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de metanfetamina (excelente).");
 			}
-				case 15:
+			case 15:
 		    {
 				if(PlayerDroga[playerid][LancaPer] >= Quant)
 				{
@@ -21745,6 +21757,24 @@ Dialog:Dialog_DropDrug2(playerid, response, listitem, inputtext[])
 					mysql_function_query(Pipeline, str2, true, "DropandoDroga", "iii",playerid,Quant,Tipp);
 				}
 				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de Lança Perfume.");
+			}
+			case 16:
+		    {
+				if(PlayerDroga[playerid][PBC] >= Quant)
+				{
+					format(str2,sizeof(str2),"INSERT INTO drop_drug (dType) VALUES ('%d')", Tipp);
+					mysql_function_query(Pipeline, str2, true, "DropandoDroga", "iii",playerid,Quant,Tipp);
+				}
+				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de Pasta base.");
+			}
+			case 17:
+		    {
+				if(PlayerDroga[playerid][Sementes] >= Quant)
+				{
+					format(str2,sizeof(str2),"INSERT INTO drop_drug (dType) VALUES ('%d')", Tipp);
+					mysql_function_query(Pipeline, str2, true, "DropandoDroga", "iii",playerid,Quant,Tipp);
+				}
+				else return SCM(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de Sementes.");
 			}
 		}
 	}
@@ -21875,11 +21905,24 @@ public DropandoDroga(playerid,Ammo,Tipp)
     		format(NomeAmmo, sizeof(NomeAmmo), "Metanfetamina (excelente)");
     		PlayerDroga[playerid][MetE] -= Ammo;
 		}
+		//======================================================================
     	case 16:
 		{
 		    DropInfo[i][dObject] = CreateDynamicObject(-2306, DropInfo[i][dX], DropInfo[i][dY], DropInfo[i][dZ]-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
     		format(NomeAmmo, sizeof(NomeAmmo), "Lança Perfume");
     		PlayerDroga[playerid][LancaPer] -= Ammo;
+		}
+    	case 17:
+		{
+		    DropInfo[i][dObject] = CreateDynamicObject(-2302, DropInfo[i][dX], DropInfo[i][dY], DropInfo[i][dZ]-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+    		format(NomeAmmo, sizeof(NomeAmmo), "Pasta base");
+    		PlayerDroga[playerid][PBC] -= Ammo;
+		}
+    	case 18:
+		{
+		    DropInfo[i][dObject] = CreateDynamicObject(-2301, DropInfo[i][dX], DropInfo[i][dY], DropInfo[i][dZ]-1, 0.0, 0.0, 0.0, GetPlayerVirtualWorld(playerid));
+    		format(NomeAmmo, sizeof(NomeAmmo), "Sementes");
+    		PlayerDroga[playerid][Sementes] -= Ammo;
 		}
     }
     //==========================================================================
@@ -22421,7 +22464,10 @@ CMD:pegar(playerid, params[])
 			case 13: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (ruim) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetR] += DropInfo[d][dAmmo];
    			case 14: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (boa) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetB] += DropInfo[d][dAmmo];
    			case 15: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (excelente) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetE] += DropInfo[d][dAmmo];
+			
 			case 16: format(NomeDrug,sizeof(NomeDrug),"Tubo de lança perfume com %dml.", DropInfo[d][dAmmo]), PlayerDroga[playerid][LancaPer] += DropInfo[d][dAmmo];
+			case 17: format(NomeDrug,sizeof(NomeDrug),"Pasta base de cocaina %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][PBC] += DropInfo[d][dAmmo];
+			case 18: format(NomeDrug,sizeof(NomeDrug),"Sementes de maconha %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][Sementes] += DropInfo[d][dAmmo];
 		}
 
 		format(string, sizeof(string), "[DROGAS] Você pegou um %s do chão.", NomeDrug);
@@ -22607,7 +22653,10 @@ Dialog:Dialog_PegarItem(playerid, response, listitem, inputtext[])
 				case 13: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (ruim) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetR] += DropInfo[d][dAmmo];
 	   			case 14: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (boa) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetB] += DropInfo[d][dAmmo];
 	   			case 15: format(NomeDrug,sizeof(NomeDrug),"Pacote de Metanfetamina (excelente) com %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][MetE] += DropInfo[d][dAmmo];
+				
 				case 16: format(NomeDrug,sizeof(NomeDrug),"Tubo de lança perfume com %dml.", DropInfo[d][dAmmo]), PlayerDroga[playerid][LancaPer] += DropInfo[d][dAmmo];
+				case 17: format(NomeDrug,sizeof(NomeDrug),"Pasta base de cocaina %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][PBC] += DropInfo[d][dAmmo];
+				case 18: format(NomeDrug,sizeof(NomeDrug),"Sementes de maconha %dg.", DropInfo[d][dAmmo]), PlayerDroga[playerid][Sementes] += DropInfo[d][dAmmo];
 			}
 
 			format(string, sizeof(string), "{FF6347}[DROGAS]{FFFFFF} Você pegou um %s do chão.", NomeDrug);
@@ -25020,6 +25069,9 @@ public PlayerDeslogouEditandoAlgo(playerid) {
    			case 14: PlayerDroga[playerid][MetB] += DropInfo[id][dAmmo];
    			case 15: PlayerDroga[playerid][MetE] += DropInfo[id][dAmmo];
 			case 16: PlayerDroga[playerid][LancaPer] += DropInfo[id][dAmmo];
+			case 17: PlayerDroga[playerid][PBC] += DropInfo[id][dAmmo];
+			case 18: PlayerDroga[playerid][Sementes] += DropInfo[id][dAmmo];
+
     	}
 
 		DropInfo[id][dX] = 0.0;
@@ -26697,7 +26749,7 @@ public PegouCocainaRuim(playerid)
 
 	PlayerDroga[playerid][CocaR]+= 80;
 	PlayerInfo[playerid][pFabricouD]++;
-	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 50 gramas de cocaina boa.");
+	SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 80 gramas de cocaina boa.");
 
 
     TogglePlayerControllable(playerid, 1);
@@ -29205,6 +29257,10 @@ public RemovendoPlacaV(playerid, slot)
 
 	    OutrasInfos[playerid][oFalsis] = 0;
 	    SendClientMessage(playerid, 0xFF7B30FF, "A placa do veículo foi removida.");
+
+		PlayerInfo[playerid][pGranaSuja] += 900;
+		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 900 reais sujo pela remoção da placa.");
+
 	}
     return 1;
 }
@@ -29262,6 +29318,9 @@ public TrocandoPlacaV(playerid, slot)
 	    VehicleInfo[slot][vPlacaProcurada] = 0;
 	    PlayerInfo[playerid][pPlacas]--;
 	    FetchVehiclePlate(slot,VehicleInfo[slot][vPlate]);
+
+		PlayerInfo[playerid][pGranaSuja] += 900;
+		SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você recebeu 900 reais sujo pela troca da placa.");
 
 	    SetVehicleNumberPlate(veh,VehicleInfo[slot][vPlate]);
 	    SendClientMessage(playerid, 0xFF7B30FF, "A placa do veículo foi trocada. (Veículo removido de procurado)");
@@ -32054,6 +32113,8 @@ Dialog:RefundoItem(playerid, response, listitem, inputtext[])
 			case 18: { etnia = "Cartucho"; PlayerInfo[playerid][pMunCart] += Refundo[playerid][2];}
 			case 19: { etnia = "Munição 12.7x106mm"; PlayerInfo[playerid][pMun127] += Refundo[playerid][2];}
 			case 20: { etnia = "Lança Perfume"; PlayerDroga[playerid][LancaPer] += Refundo[playerid][2];}
+			case 21: { etnia = "Pasta base"; PlayerDroga[playerid][PBC] += Refundo[playerid][2];}
+			case 22: { etnia = "Sementes"; PlayerDroga[playerid][Sementes] += Refundo[playerid][2];}
  		}
  		format(string, sizeof(string),"SERVER: Você recebeu o refundo de um de %s [%d unidades].", etnia,Refundo[playerid][2]);
 		SendClientMessage(playerid, COLOR_LIGHTGREEN, string);
@@ -37396,7 +37457,7 @@ CMD:ajudateam(playerid, params[])
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     {
         SendClientMessage(playerid, COLOR_LIGHTGREEN, "___________Comandos de Times___________");
-        SendClientMessage(playerid, COLOR_LIGHTGREEN, "OBSERVAÇÃO:{0xFF6347AA} SEMPRE UTILIZE OS COMANDOS EM /ADUTY");
+        SendClientMessage(playerid, COLOR_LIGHTGREEN, "OBSERVAÇÃO:{FF6347AA} SEMPRE UTILIZE OS COMANDOS EM /ADUTY");
 
         if(PlayerInfo[playerid][pFactionTeam] >= 1){
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Faction Management]{FFFFFF} /facname /factipo /setarfaccao /criarfaccao2 /setaportaofac");
@@ -42935,6 +42996,9 @@ public OnPlayerEditDynamicObject(playerid, objectid, response, Float:x, Float:y,
 		    	case 14: PlayerDroga[playerid][MetB] += DropInfo[id][dAmmo];
 		    	case 15: PlayerDroga[playerid][MetE] += DropInfo[id][dAmmo];
 				case 16: PlayerDroga[playerid][LancaPer] += DropInfo[id][dAmmo];
+				case 17: PlayerDroga[playerid][PBC] += DropInfo[id][dAmmo];
+				case 18: PlayerDroga[playerid][Sementes] += DropInfo[id][dAmmo];
+
 		    }
 
 		    DropInfo[id][dX] = 0.0;
@@ -52425,7 +52489,7 @@ CMD:entrar(playerid, params[])
 
 	    SetPlayerPosFreeze(playerid, 1513.2678,-1623.1249,774.0040, 1);
 	}
-	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 954.6230,-1467.4749,13.5547)) // CBERJ GARAGEM
+	else if (IsPlayerInRangeOfPoint(playerid, 5.0, 954.6230,-1467.4749,13.5547)) // CBMERJ GARAGEM
 	{
 		new PlayerNoCarro[4];
 		new PlayerNoCarroL[4];
@@ -73213,7 +73277,7 @@ stock ViewFactions(playerid)
 	{
 	    new i = ordem;
 	    if(FacInfo[i][fCriada] == 1 && FacInfo[i][fID] > 0){
-			printf("%i\t%s\t{008C00}%i{FFFFFF}/%d\n", i, FacInfo[i][fNome], counter, FacInfo[i][fMembros]);
+			//printf("%i\t%s\t{008C00}%i{FFFFFF}/%d\n", i, FacInfo[i][fNome], counter, FacInfo[i][fMembros]);
 		    VendoTPDA[playerid][count_list] = i;
 		    counter = 0;
 		    counter2 = 0;
@@ -74557,7 +74621,7 @@ public SaveATM(i)
 COMMAND:criarlabo(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pAdmin] >= 5)
+    if (PlayerInfo[playerid][pAdmin] < 1 && PlayerInfo[playerid][pFactionTeam] < 1 && !OutrasInfos[playerid][oAdminOnDuty])
 	{
 		CriarFABRICADROGA(playerid);
 		return 1;
@@ -74592,7 +74656,6 @@ public CriouFABRICAnaDB(playerid)
 	LaboDrug[i][ldposZ] = sys_pos_dono[2];
 
 	LaboDrug[i][ldObjeto] = CreateDynamicObject(-2307, sys_pos_dono[0], sys_pos_dono[1]+2, sys_pos_dono[2]-1, 0.000000, 0.000000, 0.0, 0);
-   	//Streamer_UpdateEx(playerid, sys_pos_dono[0], sys_pos_dono[1], sys_pos_dono[2], GetPlayerVirtualWorld(playerid), GetPlayerInterior(playerid));
    	Streamer_Update(playerid);
     EditDynamicObject(playerid, LaboDrug[i][ldObjeto]);
     SetPVarInt(playerid, "EditFABRICAD", 1);
@@ -75297,8 +75360,6 @@ public _checkDrogas2(extraid)
 		PlayerDroga[extraid][LDC],
 		PlayerDroga[extraid][BZC],
 		PlayerDroga[extraid][HDZ],
-
-
 		PlayerInfo[extraid][pID]);
 		mysql_function_query(Pipeline, string, false, "noReturnQuery", "d", 17);
     }
@@ -76345,6 +76406,7 @@ CMD:drogas(playerid, params[])
 	{
 		if(PlayerDroga[playerid][Sementes] <= 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem nenhuma semente de cannabis.");
         PlayerDroga[playerid][Sementes]--;
+		SendClientMessage(playerid, COLOR_LIGHTRED, "AVISO: O processo total demora 1h30.");
 		ApplyAnimation(playerid, "BOMBER", "BOM_Plant", 4.0, 0, 0, 0, 0, 0);
         SaveDrogas(playerid);
 		PlantandoDroga(playerid);
@@ -76365,7 +76427,7 @@ CMD:drogas(playerid, params[])
 	    				DrogaPlantada[i][ddEstado] = 5;
 	    				DrogaPlantada[i][ddTempo] = 0;
 	    				DrogaPlantada[i][ddSeteda] = 0;
-	    				new qnttt = randomEx(1, 4);
+	    				new qnttt = randomEx(5, 80);
 	    				new qnttta = 0,
 							achouSemente = random(5);
 
@@ -86980,6 +87042,8 @@ public OnVerRefudoItem(extraid, id)
 		case 18: { etnia = "Cartucho";}
 		case 19: { etnia = "Munição 12.7x106mm";}
 		case 20: { etnia = "Tubo de lança perfume";}
+		case 21: { etnia = "Pasta base";}
+		case 22: { etnia = "Sementes";}
  	}
 
 	if(strcmp(ReturnName(extraid), nome) == 0)
@@ -87081,7 +87145,7 @@ CMD:refundaritem(playerid, params[])
 
 	if(PlayerInfo[playerid][pAdmin] >= 4)
 	{
-	    new userid[24], level, etnia[64], quantidade;
+	    new userid[24], level, etnia[128], quantidade;
 		if(sscanf(params, "s[24]dd",userid, level, quantidade))
 		{
 		    new str[128];
@@ -87092,10 +87156,10 @@ CMD:refundaritem(playerid, params[])
 			format(str,sizeof(str),"10. LSD Ruim | 11. LSD Bom | 12. LSD Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"13. Metanfetamina Ruim | 14. Metanfetamina Boa | 15. Metanfetamina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"16. Ammo 9mm | 17. Ammo 5x56mm | 18. Cartucho | 19. Ammo 12.7x106mm"); SendClientMessage(playerid,COLOR_WHITE,str);
-			format(str, sizeof(str), "20. Lança Perfume"); SendClientMessage(playerid,COLOR_WHITE,str);
+			format(str, sizeof(str), "20. Lança Perfume | 21. Pasta Base | 22. Sementes"); SendClientMessage(playerid,COLOR_WHITE,str);
 			return 1;
 		}
-		if (level < 1 || level > 20)
+		if (level < 1 || level > 22)
 	    	return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Item inválido.");
 
 		switch (level)
@@ -87120,6 +87184,8 @@ CMD:refundaritem(playerid, params[])
 			case 18: { etnia = "Cartucho";}
 			case 19: { etnia = "Munição 12.7x106mm";}
 			case 20: { etnia = "Lança perfume";}
+			case 21: { etnia = "Pasta base";}
+			case 22: { etnia = "Sementes";}
  		}
 
 		new key = randomEx(1000, 99999999);

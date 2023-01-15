@@ -129,6 +129,10 @@ AddCharModel(280, 20425, "pmerjbope3.dff", "pmerjbope3.txd);
 AddCharModel(280, 20426, "pmerjbope4.dff", "pmerjbope4.txd);
 AddCharModel(280, 20427, "pmerjbope5.dff", "pmerjbope5.txd);
 AddCharModel(280, 20428, "pmerjbope6.dff", "pmerjbope6.txd);
+AddCharModel(280, 20429, "pmerjbope7.dff", "pmerjbope7.txd);
+AddCharModel(280, 20430, "pmerjbope8.dff", "pmerjbope8.txd);
+AddCharModel(280, 20431, "pmerjbope9.dff", "pmerjbope9.txd);
+AddCharModel(280, 20432, "pmerjbope10.dff", "pmerjbope10.txd);
 
 //skins PROSEGUR
 AddCharModel(280, 20501, "prosegur1.dff", "prosegur1.txd);
