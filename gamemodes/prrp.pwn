@@ -2911,9 +2911,19 @@ static LOJA_OUTROS_EB[8] = {
 };
 
 //======== [CBERJ]======//
-static CBERJ_Uniformes[8] = {
-	20300, 20301, 20302, 20303,
-	20304, 20305, 20306, 20307
+static CBERJ_Uniformes[42] = {
+	20301, 20302, 20303, 20304,
+	20305, 20306, 20307, 20308,
+	20309, 20310, 20311, 20312,
+	20313, 20314, 20315, 20316,
+	20317, 20318, 20319, 20320,
+	20321, 20322, 20323, 20324,
+	20325, 20326, 20327, 20328,
+	20329, 20330, 20331, 20332,
+	20333, 20334, 20335, 20336,
+	20337, 20338, 20339, 20340,
+	20341, 20342
+	
 };
 static LOJA_OCULOS_CBERJ[3] = {
     19138, 19139, 19140
@@ -2923,8 +2933,8 @@ static LOJA_CHAPEU_CBERJ[1] = {
     -2400
 };
 
-static LOJA_OUTROS_CBERJ[2] = {
-    -2120, -2121
+static LOJA_OUTROS_CBERJ[3] = {
+    -2120, -2121, -2125
 };
 
 //===== [ ITENS ] ====
@@ -55387,7 +55397,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 1. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 					    	case 2: format(_string, 128, "[ 1. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 				 			case 3: format(_string, 128, "[ 1. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo1]);
-							case 4: format(_string, 128, "[ 1. Cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo1]);
+							case 4: format(_string, 128, "[ 1. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 							case 5: format(_string, 128, "[ 1. Cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 							case 6: format(_string, 128, "[ 1. Cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo1]);
 							case 7: format(_string, 128, "[ 1. Crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo1]);
@@ -55445,7 +55455,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 2. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 					    	case 2: format(_string, 128, "[ 2. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 				 			case 3: format(_string, 128, "[ 2. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo2]);
-							case 4: format(_string, 128, "[ 2. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo2]);
+							case 4: format(_string, 128, "[ 2. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 							case 5: format(_string, 128, "[ 2. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 							case 6: format(_string, 128, "[ 2. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo2]);
 							case 7: format(_string, 128, "[ 2. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo2]);
@@ -55503,7 +55513,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 3. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 					    	case 2: format(_string, 128, "[ 3. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 				 			case 3: format(_string, 128, "[ 3. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo3]);
-							case 4: format(_string, 128, "[ 3. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo3]);
+							case 4: format(_string, 128, "[ 3. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 							case 5: format(_string, 128, "[ 3. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 							case 6: format(_string, 128, "[ 3. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo3]);
 							case 7: format(_string, 128, "[ 3. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo3]);
@@ -55561,7 +55571,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 4. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 					    	case 2: format(_string, 128, "[ 4. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 				 			case 3: format(_string, 128, "[ 4. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo4]);
-							case 4: format(_string, 128, "[ 4. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo4]);
+							case 4: format(_string, 128, "[ 4. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 							case 5: format(_string, 128, "[ 4. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 							case 6: format(_string, 128, "[ 4. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo4]);
 							case 7: format(_string, 128, "[ 4. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo4]);
@@ -55618,7 +55628,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 5. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 					    	case 2: format(_string, 128, "[ 5. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 				 			case 3: format(_string, 128, "[ 5. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo5]);
-							case 4: format(_string, 128, "[ 5. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo5]);
+							case 4: format(_string, 128, "[ 5. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 							case 5: format(_string, 128, "[ 5. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 							case 6: format(_string, 128, "[ 5. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo5]);
 							case 7: format(_string, 128, "[ 5. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo5]);
@@ -55675,7 +55685,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 6. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 					    	case 2: format(_string, 128, "[ 6. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 				 			case 3: format(_string, 128, "[ 6. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo6]);
-							case 4: format(_string, 128, "[ 6. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo6]);
+							case 4: format(_string, 128, "[ 6. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 							case 5: format(_string, 128, "[ 6. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 							case 6: format(_string, 128, "[ 6. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo6]);
 							case 7: format(_string, 128, "[ 6. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo6]);
@@ -55733,7 +55743,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 7. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 					    	case 2: format(_string, 128, "[ 7. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 				 			case 3: format(_string, 128, "[ 7. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo7]);
-							case 4: format(_string, 128, "[ 7. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo7]);
+							case 4: format(_string, 128, "[ 7. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 							case 5: format(_string, 128, "[ 7. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 							case 6: format(_string, 128, "[ 7. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo7]);
 							case 7: format(_string, 128, "[ 7. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo7]);
@@ -55790,7 +55800,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 8. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 					    	case 2: format(_string, 128, "[ 8. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 				 			case 3: format(_string, 128, "[ 8. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo8]);
-							case 4: format(_string, 128, "[ 8. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo8]);
+							case 4: format(_string, 128, "[ 8. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 							case 5: format(_string, 128, "[ 8. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 							case 6: format(_string, 128, "[ 8. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo8]);
 							case 7: format(_string, 128, "[ 8. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo8]);
@@ -55847,7 +55857,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 9. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 					    	case 2: format(_string, 128, "[ 9. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 				 			case 3: format(_string, 128, "[ 9. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo9]);
-							case 4: format(_string, 128, "[ 9. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo9]);
+							case 4: format(_string, 128, "[ 9. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 							case 5: format(_string, 128, "[ 9. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 							case 6: format(_string, 128, "[ 9. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo9]);
 							case 7: format(_string, 128, "[ 9. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo9]);
@@ -55904,7 +55914,7 @@ COMMAND:portamalas(playerid,params[])
 					    	case 1: format(_string, 128, "[ 10. Maconha ruim (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 					    	case 2: format(_string, 128, "[ 10. Maconha boa (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 				 			case 3: format(_string, 128, "[ 10. Maconha exelente (%d/100) ]", VehicleInfo[slot][vAmmo10]);
-							case 4: format(_string, 128, "[ 10. cocaina ruim (%d/100) ]", VehicleInfo[slot][vAmmo10]);
+							case 4: format(_string, 128, "[ 10. Cocaína Ruim (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 							case 5: format(_string, 128, "[ 10. cocaina boa (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 							case 6: format(_string, 128, "[ 10. cocaina exelente (%d/100) ]", VehicleInfo[slot][vAmmo10]);
 							case 7: format(_string, 128, "[ 10. crack ruim (%d/100) ]", VehicleInfo[slot][vAmmo10]);
@@ -57259,9 +57269,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 1.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 1.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -57440,9 +57450,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 2.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 2.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -57621,9 +57631,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 3.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 3.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -57802,9 +57812,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 4.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 4.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -57983,9 +57993,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 5.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 5.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -58165,9 +58175,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 6.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 6.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -58346,9 +58356,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 7.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 7.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -58527,9 +58537,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 8.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 8.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -58708,9 +58718,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 9.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 9.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -58889,9 +58899,9 @@ COMMAND:portamalas(playerid,params[])
 									if(PlayerDroga[playerid][CocaR] >= qnt)
 									{
 									    PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]-qnt;
-									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de cocaina ruim no Slot 10.", qnt);
+									    format(drug_name, 128, "[Porta-Malas] Você guardou %dg de Cocaína Ruim no Slot 10.", qnt);
 									}
-									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de cocaina ruim.");
+									else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem tudo isso de Cocaína Ruim.");
 								}
 						    	case 5:
 						    	{
@@ -59165,7 +59175,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 1.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 1.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -59354,7 +59364,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no slot 2.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no slot 2.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -59541,7 +59551,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 3.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 3.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -59731,7 +59741,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 4.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 4.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -59920,7 +59930,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 5.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 5.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -60109,7 +60119,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 6.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 6.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -60298,7 +60308,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 7.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 7.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -60487,7 +60497,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 8.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 8.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -60676,7 +60686,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 9.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 9.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -60866,7 +60876,7 @@ COMMAND:portamalas(playerid,params[])
 						    	case 4:
 						    	{
 									PlayerDroga[playerid][CocaR] = PlayerDroga[playerid][CocaR]+qnt;
-					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de cocaina ruim no Slot 10.", qnt);
+					    			format(drug_name, 128, "[Porta-Malas] Você retirou %dg de Cocaína Ruim no Slot 10.", qnt);
 								}
 						    	case 5:
 						    	{
@@ -75184,7 +75194,7 @@ public ShowDrugs(playerid, ownerid)
     new str[256];
     format(str,sizeof(str),"___________Drogas de %s___________",PlayerName(ownerid, 0)); SendClientMessage(playerid, COLOR_LIGHTGREEN,str);
     format(str,sizeof(str),"[ 1. Maconha Ruim(%d) ][ 2. Maconha Boa(%d) ][ 3. Maconha Excelente(%d) ]",PlayerDroga[ownerid][MaconhaR],PlayerDroga[ownerid][MaconhaB],PlayerDroga[ownerid][MaconhaE]); SendClientMessage(playerid,COLOR_WHITE,str);
-	format(str,sizeof(str),"[ 4. Cocaina Ruim(%d) ][ 5. Cocaina Boa(%d) ][ 6. Cocaina Excelente(%d) ]",PlayerDroga[ownerid][CocaR],PlayerDroga[ownerid][CocaB],PlayerDroga[ownerid][CocaE]); SendClientMessage(playerid,COLOR_WHITE,str);
+	format(str,sizeof(str),"[ 4. Cocaína Ruim(%d) ][ 5. Cocaina Boa(%d) ][ 6. Cocaina Excelente(%d) ]",PlayerDroga[ownerid][CocaR],PlayerDroga[ownerid][CocaB],PlayerDroga[ownerid][CocaE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 7. Crack Ruim(%d) ][ 8. Crack Boa(%d)] [ 9. Crack Excelente(%d) ]",PlayerDroga[ownerid][CrackR],PlayerDroga[ownerid][CrackB],PlayerDroga[ownerid][CrackE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 10. LSD Ruim(%d) ][ 11. LSD Bom(%d)] [ 12. LSD Excelente(%d) ]",PlayerDroga[ownerid][LSDR],PlayerDroga[ownerid][LSDB],PlayerDroga[ownerid][LSDE]); SendClientMessage(playerid,COLOR_WHITE,str);
 	format(str,sizeof(str),"[ 13. Metanfetamina Ruim(%d) ][ 14. Metanfetamina Boa(%d) ][ 15. Metanfetamina Excelente(%d) ]",PlayerDroga[ownerid][MetR],PlayerDroga[ownerid][MetB],PlayerDroga[ownerid][MetE]); SendClientMessage(playerid,COLOR_WHITE,str);
@@ -75688,7 +75698,7 @@ public UsarDrogaLogando(playerid)
 		//SetPlayerTime( playerid, 10, 0);
 		PlayerInfo[playerid][pTremorAtirar] = PlayerInfo[playerid][pSkillTiro]-500;
 		if(PlayerInfo[playerid][pTremorAtirar] < 0) PlayerInfo[playerid][pTremorAtirar] = 0;
-		SendClientMessage(playerid,-1,"Cheirou cocaina ruim");
+		SendClientMessage(playerid,-1,"Cheirou Cocaína Ruim");
 	}
 	else if(DrogaID == 22)
  	{
@@ -77068,7 +77078,7 @@ stock MenuCompraArma(playerid, pag)
 {
 	if(pag == 1)
 	{
-		print("Chegou 2");
+		print("Chegou arma");
 	    new traficid = OutrasInfos[playerid][oTraficanteID];
 
 	    new stringw[526], _string[126];
@@ -77089,7 +77099,7 @@ stock MenuCompraArma(playerid, pag)
 			}
 		    strcat(stringw, _string);
 	    }
-		print("Chegou 3");
+		print("Chegou droga");
 	    format(_string, sizeof(_string), "\nCancelar Pedido\n\n---------------------\nValor: R$%d", TraficInfo[traficid][traPedPrec]);
 	    strcat(stringw, _string);
 	    Dialog_Show(playerid, DIALOG_VPEDIDO, DIALOG_STYLE_TABLIST_HEADERS, "Seu Pedido", stringw, "Selecionar", "Finalizar Pedido");
@@ -87010,7 +87020,7 @@ public OnVerRefudoItem(extraid, id)
 	    arma,
 		chave,
 		quantidade,
-		etnia[64],
+		etnia[128],
 		admin[32],
 		nome[32];
 
@@ -87151,7 +87161,7 @@ CMD:refundaritem(playerid, params[])
 		    new str[128];
 			SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /refundaritem [Nome_Sobrenone] [Item ID] [quantidade].");
     		format(str,sizeof(str),"1. Maconha Ruim | 2. Maconha Boa | 3. Maconha Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
-			format(str,sizeof(str),"4. Cocaina Ruim | 5. Cocaina Boa | 6. Cocaina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
+			format(str,sizeof(str),"4. Cocaína Ruim | 5. Cocaina Boa | 6. Cocaina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"7. Crack Ruim| 8. Crack Boa | 9. Crack Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"10. LSD Ruim | 11. LSD Bom | 12. LSD Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
 			format(str,sizeof(str),"13. Metanfetamina Ruim | 14. Metanfetamina Boa | 15. Metanfetamina Excelente"); SendClientMessage(playerid,COLOR_WHITE,str);
@@ -87159,7 +87169,7 @@ CMD:refundaritem(playerid, params[])
 			format(str, sizeof(str), "20. Lança Perfume | 21. Pasta Base | 22. Sementes"); SendClientMessage(playerid,COLOR_WHITE,str);
 			return 1;
 		}
-		if (level < 1 || level > 22)
+		if (level < 1 || level > 23)
 	    	return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Item inválido.");
 
 		switch (level)

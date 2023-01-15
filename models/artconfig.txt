@@ -91,13 +91,49 @@ AddCharModel(211, 20214, "skinfpcerj4.dff", "skinfpcerj4.txd");
 AddCharModel(211, 20215, "skinfpcerj5.dff", "skinfpcerj5.txd");
 
 //skins CBMERJ
-AddCharModel(211, 20300, "cbmloira.dff", "cbmloira.txd");
-AddCharModel(211, 20301, "cbmmorena.dff", "cbmmorena.txd");
-AddCharModel(211, 20302, "cbmnegra.dff", "cbmnegra.txd");
-AddCharModel(277, 20303, "cbmmoreno.dff", "cbmmoreno.txd");
-AddCharModel(277, 20304, "cbmloiro.dff", "cbmloiro.txd");
-AddCharModel(277, 20305, "cbmnegrojovem.dff", "cbmnegrojovem.txd");
-AddCharModel(277, 20306, "cbmnegroidoso.dff", "cbmnegroidoso.txd");
+AddCharModel(277, 20301, "cbmerj.dff", "cbmerj.txd");
+AddCharModel(277, 20302, "cbmerj2.dff", "cbmerj2.txd");
+AddCharModel(277, 20303, "cbmerj3.dff", "cbmerj3.txd");
+AddCharModel(277, 20304, "cbmerj4.dff", "cbmerj4.txd");
+AddCharModel(277, 20305, "cbmerj5.dff", "cbmerj5.txd");
+AddCharModel(277, 20306, "cbmerj6.dff", "cbmerj6.txd");
+AddCharModel(277, 20307, "cbmerj7.dff", "cbmerj7.txd");
+AddCharModel(277, 20308, "cbmerj8.dff", "cbmerj8.txd");
+AddCharModel(277, 20309, "cbmerj9.dff", "cbmerj9.txd");
+AddCharModel(277, 20310, "cbmerj10.dff", "cbmerj10.txd");
+AddCharModel(277, 20311, "cbmerj11.dff", "cbmerj11.txd");
+AddCharModel(277, 20312, "cbmerj12.dff", "cbmerj12.txd");
+AddCharModel(277, 20313, "cbmerj13.dff", "cbmerj13.txd");
+AddCharModel(277, 20314, "cbmerj14.dff", "cbmerj14.txd");
+AddCharModel(277, 20315, "cbmerj15.dff", "cbmerj15.txd");
+AddCharModel(277, 20316, "cbmerj16.dff", "cbmerj16.txd");
+AddCharModel(277, 20317, "cbmerj17.dff", "cbmerj17.txd");
+AddCharModel(277, 20318, "cbmerj18.dff", "cbmerj18.txd");
+AddCharModel(277, 20319, "cbmerj19.dff", "cbmerj19.txd");
+AddCharModel(277, 20320, "cbmerj20.dff", "cbmerj20.txd");
+AddCharModel(277, 20321, "cbmerj21.dff", "cbmerj21.txd");
+AddCharModel(211, 20322, "cbmerjf.dff", "cbmerjf.txd");
+AddCharModel(211, 20323, "cbmerjf2.dff", "cbmerjf2.txd");
+AddCharModel(211, 20324, "cbmerjf3.dff", "cbmerjf3.txd");
+AddCharModel(211, 20325, "cbmerjf4.dff", "cbmerjf4.txd");
+AddCharModel(211, 20326, "cbmerjf5.dff", "cbmerjf5.txd");
+AddCharModel(211, 20327, "cbmerjf6.dff", "cbmerjf6.txd");
+AddCharModel(211, 20328, "cbmerjf7.dff", "cbmerjf7.txd");
+AddCharModel(211, 20329, "cbmerjf8.dff", "cbmerjf8.txd");
+AddCharModel(211, 20330, "cbmerjf9.dff", "cbmerjf9.txd");
+AddCharModel(211, 20331, "cbmerjf10.dff", "cbmerjf10.txd");
+AddCharModel(211, 20332, "cbmerjf11.dff", "cbmerjf11.txd");
+AddCharModel(211, 20333, "cbmerjf12.dff", "cbmerjf12.txd");
+AddCharModel(211, 20334, "cbmerjf13.dff", "cbmerjf13.txd");
+AddCharModel(211, 20335, "cbmerjf14.dff", "cbmerjf14.txd");
+AddCharModel(211, 20336, "cbmerjf15.dff", "cbmerjf15.txd");
+AddCharModel(211, 20337, "cbmerjf16.dff", "cbmerjf16.txd");
+AddCharModel(211, 20338, "cbmerjf17.dff", "cbmerjf17.txd");
+AddCharModel(211, 20339, "cbmerjf18.dff", "cbmerjf18.txd");
+AddCharModel(211, 20340, "cbmerjf19.dff", "cbmerjf19.txd");
+AddCharModel(211, 20341, "cbmerjf20.dff", "cbmerjf20.txd");
+AddCharModel(211, 20342, "cbmerjf21.dff", "cbmerjf21.txd");
+
 
 //skins PMERJ
 AddCharModel(280, 20400, "pmerj.dff", "pmerj.txd);
