@@ -60,11 +60,11 @@ CMD:abasquete(playerid, params[])
     
     if(sscanf(params, "s[11]", option)) {
 		SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /abasquete [quadra nome]");
-  		SendClientMessage(playerid, COLOR_LIGHTRED, "Quadras: idle, eb");
+  		SendClientMessage(playerid, COLOR_LIGHTRED, "Quadras: idle, seville");
 		return 1;
 	}
 	else {
-		if(strcmp(option, "eb", true) == 0) {
+		if(strcmp(option, "seville", true) == 0) {
 			DestroyDynamicObject(Ball_sv);
 			Ball_sv = CreateDynamicObject(2114, 362.0806,1958.4937,17.6500, 0, 0, 96);
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "Você restaurou a bola de basquete do exército.");

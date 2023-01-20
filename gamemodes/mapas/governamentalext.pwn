@@ -1,12 +1,6 @@
 stock governamental(){
 	new texture_object;
 	new tmpobjid;
-	/*tmpobjid = CreateDynamicObject(-1038, 1479.427368, -1802.242309, 12.536873, 0.000000, 0.000000, 0.099999, -1, -1, -1, 300.00, 300.00); 
-	tmpobjid = CreateDynamicObject(-1037, 1482.227050, -1796.098754, 13.506863, 0.000000, 0.000000, -90.099975, -1, -1, -1, 300.00, 300.00); 
-	tmpobjid = CreateDynamicObject(5837, 1553.405761, -1785.411254, 14.196865, 0.000000, 0.000000, -91.000061, -1, -1, -1, 300.00, 300.00); 
-	tmpobjid = CreateDynamicObject(5837, 1553.214233, -1796.359985, 14.196865, 0.000000, 0.000000, -91.000061, -1, -1, -1, 300.00, 300.00); 
-	tmpobjid = CreateDynamicObject(1892, 1553.618041, -1790.383178, 12.536873, 0.000000, 0.000000, -93.600006, -1, -1, -1, 300.00, 300.00); 
-	print("[CARREGADO] Mapa: Prefeitura exterior");*/
 	tmpobjid = CreateDynamicObject(19377, 1407.182739, -11.940411, 999.923828, 0.000000, 90.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
 	SetDynamicObjectMaterial(tmpobjid, 0, 16640, "a51", "ws_stationfloor", 0x00000000);
 	tmpobjid = CreateDynamicObject(19354, 1409.324584, -15.153392, 1001.674743, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 

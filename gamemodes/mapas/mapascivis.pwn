@@ -7664,4 +7664,28 @@ stock Hospital_Int()
 	CreateDynamicObject(970, 1880.16577, -1350.86719, 13.06940,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(970, 1960.57251, -1450.84180, 13.06820,   0.00000, 0.00000, 0.00000);
     print("[CARREGADO] Mapa: Entrada pista de skate");
+	 //Pay N' Spray & Mod Shops : Créditos Forum SAMP
+    CreateDynamicObject(971, 1026, -1029.48, 31.7, 0, 0, 0);
+	CreateDynamicObject(971, 1043, -1026, 31.8, 0, 0, 0);
+	CreateDynamicObject(971, 2071.6001, -1831.8, 13, 0, 0, 90);
+	CreateDynamicObject(971, -100.1, 1111.46, 21.1, 0, 0, 0);
+	CreateDynamicObject(971, -361, 1194.2, 18.245, 0, 90, 0);
+	CreateDynamicObject(971, 2386.1001, 1043.4, 10, 0, 0, 0);
+	CreateDynamicObject(971, -1904.6, 277.70001, 43, 0, 0, 0);
+	CreateDynamicObject(971, -1935.5, 239.2, 33.7, 0, 0, 0);
+	CreateDynamicObject(971, -2716.1001, 216.8, 3.8, 0, 0, 90);
+	CreateDynamicObject(971, 1843.27319, -1854.58679, 12.12470,   0.00000, 0.00000, 90.00000);//Bomba LS
+	print("[CARREGADO] Mapa: Portões do Pay N' Spray & Mod Shops");
+
+	//Novo int casa 2
+    CreateDynamicObject(15054, 2268.36816, -1243.61975, 1050.02344,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1506, 2281.15405, -1234.08215, 1046.55469,   0.00000, 0.00000, -90.00000);
+
+	//Novo int casa 1
+	CreateDynamicObject(15041, 2164.03955, -1222.07361, 1049.81213,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1506, 2154.59570, -1216.97510, 1047.77563,   0.00000, 0.00000, 0.00000);
+
+	//Obj na ponte que pula / PC
+	CreateDynamicObject(983, 2103.35278, 100.32740, 31.06640,   0.00000, 0.00000, -20.00000);
+	CreateDynamicObject(983, 2102.31812, 97.59386, 31.06640,   0.00000, 0.00000, -20.00000);
 }

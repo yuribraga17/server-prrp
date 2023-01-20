@@ -1,2 +1,0 @@
-EmuName = samp-server.exe
-StartWithWindows = false
