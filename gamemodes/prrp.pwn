@@ -19,12 +19,13 @@
 #include <dialogs>
 #include <dns>
 #include <EVF>
+//#include <nex-ac>
 
 
 // --------- [ INCLUDES ] ---------
 
 //Streamer
-#define VISIBLE_ITEMS 4000
+#define VISIBLE_ITEMS 3000
 
 //Tunning
 #include <YSI\y_ini>
@@ -47,6 +48,11 @@ new PayDayDuplo = 0;
 
 //#define HOLDOBJECT_UMBRELLA (0)
 
+// Vehicle Rental
+new CarRent[10];
+new RentCarKey[MAX_PLAYERS];
+//new gLastCar[MAX_PLAYERS];
+
 //Sistema de ROJÃO
 new Foguete[MAX_PLAYERS];
 new Float:FogueteX[MAX_PLAYERS], Float:FogueteY[MAX_PLAYERS], Float:FogueteZ[MAX_PLAYERS];
@@ -64,6 +70,59 @@ new PlayerText:RadioComunicador[MAX_PLAYERS][2];
 #define DIALOG_PAINELSENHA		1445
 
 
+//Jogo do Bicho
+#define DIALOG_JOGODoBichoMenu			900
+#define DIALOG_JOGODoBichoTabela			901
+#define DIALOG_JOGODoBichoTipoAposta		902
+#define DIALOG_JOGODoBichoApostar		903
+#define DIALOG_JOGODoBichoApostarValor	904
+ 
+enum eBichos {
+	Bicho[64],
+	Dezenas[4]
+}
+ 
+new TabelaBichos[][eBichos] = {
+	{"Vazio", {0, 0, 0, 0}},
+	{"AVESTRUZ", {1, 2, 3, 4}},
+	{"ÁGUIA", {5, 6, 7, 8}},
+	{"BURRO", {09, 10, 11, 12}},
+	{"BORBOLETA", {13, 14, 15, 16}},
+	{"CACHORRO", {17, 18, 19, 20}},
+	{"CABRA", {21, 22, 23, 24}},
+	{"CARNEIRO", {25, 26, 27, 28}},
+	{"CAMELO", {29, 30, 31, 32}},
+	{"COBRA", {33, 34, 35, 36}},
+	{"COELHO", {37, 38, 39, 40}},
+	{"CAVALO", {41, 42, 43, 44}},
+	{"ELEFANTE", {45, 46, 47, 48}},
+	{"GALO", {49, 50, 51, 52}},
+	{"GATO", {53, 54, 55, 56}},
+	{"JACARÉ", {57, 58, 59, 60}},
+	{"LEÃO", {61, 62, 63, 64}},
+	{"MACACO", {65, 66, 67, 68}},
+	{"PORCO", {69, 70, 71, 72}},
+	{"PAVÃO", {73, 74, 75, 76}},
+	{"PERU", {77, 78, 79, 80}},
+	{"TOURO", {81, 82, 83, 84}},
+	{"TIGRE", {85, 86, 87, 88}},
+	{"URSO", {89, 90, 91, 92}},
+	{"VEADO", {93, 94, 95, 96}},
+	{"VACA", {97, 98, 99, 100}}
+};
+ 
+enum eApostador {
+	Animal,
+	TipoAposta,
+	Aposta,
+	bool:Apostando
+}
+ 
+new Apostadores[MAX_PLAYERS][eApostador];
+//new UltimoResultado;
+new bool:PodeApostarBicho = true;
+
+//=============================
 new PlayersOnline = 0,
     RecordDia = 0,
     MaxPlayersHora = 0;
@@ -71,7 +130,7 @@ new PlayersOnline = 0,
 static stock
 	BitArray:g_VehicleDriveBy<MAX_PLAYERS>;
 
-#define MAX_CONNECTIONS_FROM_IP     10 // Máximo de conexões com mesmo IP.
+#define MAX_CONNECTIONS_FROM_IP     3 // Máximo de conexões com mesmo IP.
 new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
 new ambiente = 1; // 0  - Localhost 1 - Produção
@@ -88,8 +147,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "20/01/2023"
-#define CA_VERSAO       "PR:RP v1.07b"
+#define ULTIMO_GMX      "21/01/2023"
+#define CA_VERSAO       "PR:RP v1.10"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -655,6 +714,16 @@ enum tpi {
 new TPInfo[ MAX_PLAYERS ][ tpi ];
 
 new globalstring[ 128 ];
+//====== [EMPREGOS] =======================================================
+//Emprego hacker
+new HackerJob[MAX_PLAYERS];
+new HJLimitTimer;
+
+//Emprego moto busao
+#define TEMPO 1500
+new BusJob[256];
+new TimerBus[MAX_PLAYERS];
+new RotaBusJob[MAX_PLAYERS] = 0;
 
 //====== [SISTEMA DE TRAFICANTE] =======================================================
 #define MAX_TRAFICANTES 100
@@ -1763,6 +1832,8 @@ new Pos_Z_Old_AV[MAX_PLAYERS];
 #define JOB_MOTOBOY       9
 #define JOB_LIXEIRO         10
 #define JOB_LAVAGEM         11
+#define JOB_HACK 			12
+#define JOB_MOTORISTA       13
 
 //HotDog
 new HotDogAccept[MAX_PLAYERS],
@@ -5949,6 +6020,17 @@ public OnGameModeInit()
     garbage_vehicles[2] = AddStaticVehicle(408,2186.2073,-1991.3400,14.1957,358.8047,1,1);  // Lixeiro 1
     garbage_vehicles[3] = AddStaticVehicle(408,2190.6982,-1991.1963,14.1343,359.5683,1,1); // Lixeiro 1
 
+    CarRent[0] = AddStaticVehicle(492,1664.2168,-2248.0488,-2.9842,90.2306,1,1); // Green 1
+    CarRent[1] = AddStaticVehicle(492,1653.5485,-2313.4810,-2.9741,269.5144,1,1); // Green 2
+	CarRent[2] = AddStaticVehicle(492,1560.7415,-2308.8511,13.3286,269.5454,1,1); // 1
+	CarRent[3] = AddStaticVehicle(492,1560.7153,-2312.1589,13.3285,269.5454,1,1); // 2
+	CarRent[4] = AddStaticVehicle(492,1560.6952,-2315.5034,13.3498,269.5466,1,1); // 3
+	CarRent[5] = AddStaticVehicle(422,1560.6693,-2318.7683,13.3567,269.5466,1,1); // 4
+	CarRent[6] = AddStaticVehicle(422,1560.6440,-2321.9934,13.3636,269.5466,1,1); // 5
+	CarRent[7] = AddStaticVehicle(422,1560.6185,-2325.2891,13.3706,269.5466,1,1); // 6
+	CarRent[8] = AddStaticVehicle(492,1560.5928,-2328.5264,13.3775,269.5466,1,1); // 7
+	CarRent[9] = AddStaticVehicle(492,1560.5668,-2331.8062,13.3845,269.5466,1,1); // 8
+
     Noia_1 = CreateActor(20001,2574.0564,-1124.1001,65.4064,52.3413); 
     SetActorInvulnerable(Noia_1, true);
     SetActorVirtualWorld(Noia_1, 0);
@@ -6071,6 +6153,8 @@ public OnGameModeInit()
     SetActorInvulnerable(Noia_38, true);
     SetActorVirtualWorld(Noia_38, 0); 
 	ApplyActorAnimation(Noia_38, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);  
+
+
     //Basket
     basket_OnGameModeInit();
     Iniciar_HorseBetSys();
@@ -7130,6 +7214,108 @@ public ArmaEntregueComSucesso(playerid,armaid,ammo,extra,equipar,raspada)
 	return 1;
 }
 
+CMD:bichos(playerid, params[]) 
+{
+	if(!PlayerInfo[playerid][pLogado]) return 1;
+	MostrarMenuTabela(playerid);
+	return 1;
+}
+ 
+CMD:jogodobicho(playerid, params[]) 
+{
+	if(!PlayerInfo[playerid][pLogado]) return 1;
+	MostrarMenuBicho(playerid);
+	return 1;
+}
+
+forward FecharBicho(playerid);
+public FecharBicho(playerid) 
+{
+	PodeApostarBicho = false;
+	new Msg[512];
+	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {ffffff}O resultado irá sair daqui 10 segundos! As apostas estão fechadas.");
+	SendClientMessage(playerid, 0xffffffff, Msg);
+	SetTimerEx("ResultadoBicho", 10000, false, "d");
+	return 1;
+}
+
+forward ResultadoBicho(playerid);
+public ResultadoBicho(playerid) 
+{
+	new resultado_mil = randomEx(10,99),
+	resultado_dez = randomEx(10,99),
+	animal = PegarBicho(resultado_dez),
+	ganhadores,
+	stringB[256],
+	Msg[256];
+	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {a9c4e4}O número sorteado foi: {ffffff}%d%d{a9c4e4}!", resultado_mil, resultado_dez);
+	SendAdminMessage( COLOR_WHITE, Msg);
+	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {a9c4e4}Animal: {ffffff}%s{a9c4e4}(Grupo {ffffff}%d{a9c4e4}) - Dezena {ffffff}%d{a9c4e4}!", TabelaBichos[animal][Bicho], animal, resultado_dez);
+	SendAdminMessage(COLOR_WHITE, Msg);
+	printf("Número: %d%d | Animal: %s (dezena %d)", resultado_mil, resultado_dez, TabelaBichos[animal][Bicho], resultado_dez);
+	for(new i;i < sizeof(Apostadores);i++) 
+	{
+		if(Apostadores[i][Animal] == animal) 
+		{
+			ganhadores++;
+			GivePlayerMoney(i, (Apostadores[i][Aposta] * 14));
+			PlayerInfo[playerid][pGrana] += (Apostadores[i][Aposta] * 14);
+			format(stringB, sizeof(stringB), "{FCB876}[Jogo Do Bicho] Parabens! Você apostou no animal %s e ganhou 14x sua aposta de R$%d!", TabelaBichos[animal][Bicho], Apostadores[i][Aposta]);
+			SendClientMessage(playerid, COLOR_WHITE, stringB);
+		}
+		Apostadores[i][Animal] = 0;
+		Apostadores[i][TipoAposta] = 0;
+		Apostadores[i][Aposta] = 0;
+		Apostadores[i][Apostando] = false;
+		if(i == sizeof(Apostadores)-1) 
+		{
+			format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {ffffff}Tivemos um total de %d vencedores!", ganhadores);
+			SendAdminMessage(COLOR_WHITE, Msg);
+			break;
+		}
+	}
+	//UltimoResultado = gettime();
+	PodeApostarBicho = true;
+	return 1;
+}
+ 
+MostrarMenuBicho(playerid) 
+{
+	new lista[1024];
+	format(lista, sizeof(lista), "{a9c4e4}Apostar\r\n{a9c4e4}Lista de bichos");
+	return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoMenu, DIALOG_STYLE_LIST, "{FCB876}#{ffffff}Bicho | Menu", lista, "OK", "");
+}
+ 
+MostrarMenuTipoAposta(playerid) {
+	if(!PodeApostarBicho) return SendClientMessage(playerid, -1, "{FCB876}[Jogo Do Bicho] {a9c4e4}Falta pouco para sair o resultado do jogo do bicho, então as apostas estão fechadas.");
+	if(Apostadores[playerid][Apostando]) return SendClientMessage(playerid, -1, "{FCB876}[Jogo Do Bicho] {a9c4e4}Você já fez uma aposta, aguarde o resultado.");
+	new lista[1024];
+	format(lista, sizeof(lista), "{a9c4e4}Aposta de Grupos\r\n");
+	return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoTipoAposta, DIALOG_STYLE_LIST, "{FCB876}#{ffffff}Bicho | Apostar", lista, "OK", "Voltar");
+}
+ 
+MostrarMenuTabela(playerid) {
+	new lista[2048];
+	format(lista, sizeof(lista), "Grupo\tAnimal\tDezenas\n");
+	for(new i = 1; i < sizeof(TabelaBichos);i++) {
+		format(lista, sizeof(lista), "%s{FCB876}%d\t{a9c4e4}%s\t%d-%d-%d-%d\n", lista, i, TabelaBichos[i][Bicho], TabelaBichos[i][Dezenas][0], TabelaBichos[i][Dezenas][1], TabelaBichos[i][Dezenas][2], TabelaBichos[i][Dezenas][3]);
+	}
+	return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoTabela, DIALOG_STYLE_TABLIST_HEADERS, "{ffff00}#{ffffff}Bicho | Lista de bichos", lista, "OK", "Voltar");
+}
+ 
+PegarBicho(numero) {
+	new animal;
+	for(new i = 1; i < sizeof(TabelaBichos);i++) {
+		for(new b; b < 4;b++) {
+			if(TabelaBichos[i][Dezenas][b] == numero) {
+				animal = i;
+				break;
+			}
+		}
+	}
+	return animal;
+}
+
 CMD:morto(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -7692,6 +7878,15 @@ public Timer_Minutos()
 					    SendClientMessage(i, COLOR_LIGHTRED, "SERVER: Seus dias de doador chegaram ao fim.");
 					}
 				}
+
+				/*new bool:done;
+				for(new c=0;c<sizeof(CarRent);c++) 
+				{
+					done = false;
+					foreach (new i : Player) if(gLastCar[i] == CarRent[c] || RentCarKey[i] == CarRent[c]) done = true;
+					if(!done) SetVehicleToRespawn(CarRent[c]);
+				}*/
+
 				if(PlayerInfo[i][pTomouAlgumTiro] > 0)
 				{
 				    if(OutrasInfos[i][oPerdVida] < 5) OutrasInfos[i][oPerdVida]++;
@@ -8293,6 +8488,9 @@ public PayDay(playerid) {
             format(stringpd, sizeof(stringpd), " Novo balanço: R$%d", PlayerInfo[playerid][pBanco]); 	SendClientMessage(playerid, COLOR_LIGHTWHITE, stringpd);
    			format(stringpd, sizeof(stringpd),"~y~PayDay~n~ ~w~Salario ~n~~g~R$%d",total);
 			GameTextForPlayer(playerid,stringpd,10000,1);
+
+			SetTimerEx("FecharBicho", 6000, false, "d");
+
 
             PlayerInfo[playerid][pLevel]++;
 			if(PlayerInfo[playerid][pLevel] >= 2 && PlayerInfo[playerid][pAjudaInicial] != 1)
@@ -10873,6 +11071,9 @@ public OnPlayerConnect(playerid)
 	PlayerTextDrawSetSelectable(playerid, PlayerInfo[playerid][pTextdraws], 0);
 
 
+	HackerJob[playerid] = 0;
+	RotaBusJob[playerid] = 0;
+
     LastShoter[playerid] = 0;
     SalvandoConta[playerid] = 0;
 	TempoParaSalvar[playerid] = 0;
@@ -11338,6 +11539,7 @@ public OnPlayerConnect(playerid)
 
     SetPVarInt(playerid, "PermissaoNomeOOC", 0);
 	SetPVarInt(playerid, "TogHa", 0);
+	SetPVarInt(playerid, "TogBicho", 0);
 	SetPVarInt(playerid, "TogChatADM", 0);
 	SetPVarInt(playerid, "TogBairros", 0);
 	SetPVarInt(playerid, "TogAdmin", 0);
@@ -12487,6 +12689,7 @@ public CheckingAccount(playerid)
 	
 	new rows, fields;
 	cache_get_data(rows, fields, Pipeline);
+	
 	if(rows)
 	{
 		LoginSeconds[playerid] = 60000;
@@ -13226,6 +13429,9 @@ public OnPlayerDisconnect(playerid, reason)
  	KillTimer(UpdateTimerAr[playerid]);
  	KillTimer(FishTimer[playerid]);
 
+ 	KillTimer(HJLimitTimer);
+	HackerJob[playerid] = 0;
+
  	if(GetPVarInt(playerid, "PlayerSpectate") != 0)
  		SetPVarInt(playerid, "PlayerSpectate", 0);
 
@@ -13597,7 +13803,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 20/01/2023, v1.07b, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 21/01/2023, v1.10, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -15439,6 +15645,32 @@ CMD:loadgetway(playerid, params[]) {
 	return 1;
 }
 
+stock IsVehicleRental(vehicleid)
+{
+	for(new c=0;c<sizeof(CarRent);c++) if(vehicleid == CarRent[c]) return 1;
+	return 0;
+}
+
+stock GetVehicleRentalPrice(model)
+{
+	switch(model)
+	{
+	    case 492: return 100;
+	    case 422: return 300;
+	}
+	return 0;
+}
+
+stock IsVehicleRented(vehicleid)
+{
+	foreach (new i : Player)
+	{
+		if(RentCarKey[i] == vehicleid) return 1;
+	}
+	return 0;
+}
+
+
 stock IsSeatTaken(vehicleid, seatid)
 {
 	for(new i = 0; i < MAX_PLAYERS; i++)
@@ -15447,6 +15679,155 @@ stock IsSeatTaken(vehicleid, seatid)
 	}
 	return 0;
 }
+CMD:iniciarrota(playerid)
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	if(!IsPlayerInAnyVehicle(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em um veículo.");
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTORISTA)  return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um motorista de onibus."); 
+    if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 437)
+    {
+        SendClientMessage(playerid, COLOR_WHITE,"Serviço iniciado com sucesso! Siga o ícone vermelho no mapa para chegar ao primeiro ponto de ônibus!");
+        if(BusJob[playerid] == 0)
+        {
+            BusJob[playerid] = 1;
+            SetPlayerCheckpoint(playerid,2183.8916,-2252.5754,14.7710, 3.0);
+            TimerBus[playerid] = SetTimerEx("RotaBus", TEMPO, false, "i",playerid);
+        }
+    }
+    SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO: Você tem que estar em uma ônibus para começar a rota!");
+    return 1;
+}
+ 
+forward RotaBus(playerid);
+public RotaBus(playerid)
+{
+    TimerBus[playerid] = SetTimerEx("MsgBus", 100, false, "i",playerid);
+    TogglePlayerControllable(playerid,1);
+    return 1;
+}
+ 
+forward MsgBus(playerid);
+public MsgBus(playerid)
+{
+    new quantia = 80;
+    new msg[256];
+    format(msg, sizeof(msg),"INFO: Você recebeu R$%d! Siga o checkpoint no mapa para chegar ao próximo ponto de ônibus [ %d / 23]", quantia, BusJob[playerid]);
+    SendClientMessage(playerid, COLOR_WHITE, msg);
+    return 1;
+}
+
+CMD:hacker(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_HACK) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um hacker.");
+	new complexid = PlayerInfo[playerid][pEntrouComplexo];
+	if(complexid == -1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em um complexo.");
+	{
+		HackerJob[playerid] = 1;
+    	SendClientMessage(playerid,COLOR_WHITE,"Você iniciou um trabalho de hacker.");
+        HJLimitTimer = SetTimerEx("HJTimeLimit", 300000, 0, "d", playerid);
+        HackerSetup(playerid);
+   	}
+	return 1;
+}
+
+forward HJTimeLimit(playerid);
+public HJTimeLimit(playerid)
+{
+    
+	ShowPlayerDialog(playerid,-1,0,"","","","");
+	HackerJob[playerid] = 0;
+	PlayerInfo[playerid][pArrombarDNV_C] = 2400;
+	SendClientMessage(playerid,COLOR_WHITE,"O tempo de trabalho acabou e você não terminou.");
+	return 1;
+}
+forward HackerSetup(playerid);
+public HackerSetup(playerid)
+{
+    SetPlayerVirtualWorld(playerid, playerid+1);
+    SetPlayerInterior(playerid,1);
+    SetPlayerPos(playerid, 2164.7,1601.9,999.9);
+	SetPlayerFacingAngle(playerid, 263.0);
+	SetPlayerCameraPos(playerid, 2163.5,1601.9,1000.8);
+	SetPlayerCameraLookAt(playerid, 2172.7,1601.9,999.9);
+    ApplyAnimation(playerid,"INT_OFFICE","OFF_Sit_Type_Loop", 4.0, 1, 0, 0, 0, 0);
+	SetTimerEx("HackerOne", 3000, 0, "d", playerid);
+}
+ 
+forward HackerOne(playerid);
+public HackerOne(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    SetPlayerCameraLookAt(playerid, 2172.1,1601.7,999.9);
+	ShowPlayerDialog(playerid, 1998, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nDigite 'BEGAN' para lançar ataques", "Enviar", "Cancelar");
+}
+ 
+forward HackerTwo(playerid);
+public HackerTwo(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    ApplyAnimation(playerid, "CARRY", "crry_prtial", 2.0, 0, 0, 0, 0, 0);
+    GameTextForPlayer(playerid,"~p~SUCESSO",1000,6);
+	ShowPlayerDialog(playerid, 1999, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nDigite 'KEYGEN' para lançar ataques", "Enviar", "Cancelar");
+}
+ 
+forward HackerThree(playerid);
+public HackerThree(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    GameTextForPlayer(playerid,"~p~SUCESSO",1000,6);
+	ShowPlayerDialog(playerid, 2000, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nDigite 'CRACKED' para lançar ataques", "Enviar", "Cancelar");
+}
+forward HackerFour(playerid);
+public HackerFour(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    GameTextForPlayer(playerid,"~p~SUCESSO",1000,6);
+	ShowPlayerDialog(playerid, 2001, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nDigite 'WORN' para lançar ataques", "Enviar", "Cancelar");
+}
+forward HackerFive(playerid);
+public HackerFive(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    GameTextForPlayer(playerid,"~p~SUCESSO",1000,6);
+	ShowPlayerDialog(playerid, 2002, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nTDigite 'VIRUS' para lançar ataques", "Enviar", "Cancelar");
+}
+ 
+forward HackerSix(playerid);
+public HackerSix(playerid)
+{
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    GameTextForPlayer(playerid,"~p~SUCESSO",1000,6);
+	ShowPlayerDialog(playerid, 2003, DIALOG_STYLE_INPUT, "root@localhost:~", "Login as: root\nO sistema está pronto para invadir um centro importante\nDigite 'TROJAN' para lançar ataques", "Enviar", "Cancelar");
+}
+ 
+forward HackerSeven(playerid);
+public HackerSeven(playerid)
+{
+    KillTimer(HJLimitTimer);
+    PlayerPlaySound( playerid, 1058, 0, 0, 0 );
+    SetPlayerVirtualWorld(playerid, playerid+1);
+    SetPlayerInterior(playerid,1);
+    SetPlayerPos(playerid, 2164.7,1601.9,999.9);
+	SetPlayerFacingAngle(playerid, 263.0);
+	SetPlayerCameraPos(playerid, 2163.5,1601.9,1000.8);
+	SetPlayerCameraLookAt(playerid, 2172.7,1601.9,999.9);
+	ApplyAnimation(playerid,"CASINO","Roulette_win", 4.0, 1, 0, 0, 0, 0);
+    GameTextForPlayer(playerid,"~p~SUCESSO",2000,6);
+	SendClientMessage(playerid,COLOR_WHITE,"Você ganhou 760 reais pelo serviço.");
+    PlayerInfo[playerid][pGrana] += 760;
+    SetTimerEx("HackerSuccesed", 3000, 0, "d", playerid);
+ 
+}
+ 
+forward HackerSuccesed(playerid);
+public HackerSuccesed(playerid)
+{
+    TogglePlayerControllable(playerid,true);
+	HackerJob[playerid] = 0;
+    return 1;
+}
+
 
 CMD:taxi(playerid, params[])
 {
@@ -15541,6 +15922,215 @@ public placeVehicle(playerid, iVehicleID, iSeatID, iWeaponID)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
+    if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 437)
+    {
+        if(BusJob[playerid] == 1)
+        {
+            BusJob[playerid] = 2;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2029.1879,-2106.7595,13.0503,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 2)
+        {
+            BusJob[playerid] = 3;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1965.0934,-1879.8435,13.0460,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 3)
+        {
+            BusJob[playerid] = 4;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1825.0763,-1641.5555,13.0406,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 4)
+        {
+            BusJob[playerid] = 5;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1661.4106,-1513.8069,13.0394,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 5)
+        {
+            BusJob[playerid] = 6;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1718.1519,-1355.8612,13.0379,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 6)
+        {
+            BusJob[playerid] = 7;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1515.8977,-1157.4445,23.5693,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 7)
+        {
+            BusJob[playerid] = 8;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1007.3337,-1137.6353,23.3041,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 8)
+        {
+            BusJob[playerid] = 9;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,913.9140,-1512.6134,13.0294,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 9)
+        {
+            BusJob[playerid] = 10;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,668.9059,-1735.8870,13.1442,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 10)
+        {
+            BusJob[playerid] = 11;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,716.0936,-1323.2404,13.0542,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 11)
+        {
+            BusJob[playerid] = 12;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1105.4869,-1284.3621,13.0984,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 12)
+        {
+            BusJob[playerid] = 13;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1248.8213,-1152.4312,23.2720,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 13)
+        {
+            BusJob[playerid] = 14;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1598.3813,-1164.2426,23.5697,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 14)
+        {
+            BusJob[playerid] = 15;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,1931.6448,-1139.5239,24.7676,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 15)
+        {
+            BusJob[playerid] = 16;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2113.3770,-1304.4203,23.5052,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 16)
+        {
+            BusJob[playerid] = 17;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2349.2502,-1304.5952,23.6209,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 17)
+        {
+            BusJob[playerid] = 18;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2598.7876,-1260.2065,46.9628,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 18)
+        {
+            BusJob[playerid] = 19;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2677.5920,-1051.4144,69.0702,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 19)
+        {
+            BusJob[playerid] = 20;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2834.8110,-1140.3776,24.4193,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 20)
+        {
+            BusJob[playerid] = 21;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2830.0747,-1602.7433,10.5848,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 21)
+        {
+            BusJob[playerid] = 22;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2819.3320,-1923.2450,10.5925,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 22)
+        {
+            BusJob[playerid] = 23;
+            TogglePlayerControllable(playerid,0);
+            SetPlayerCheckpoint(playerid,2646.7800,-2151.7402,10.5687,10);
+            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
+            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
+            return 1;
+        }
+        if(BusJob[playerid] == 23)
+        {
+            BusJob[playerid] = 0;
+            DisablePlayerCheckpoint(playerid);
+            SendClientMessage(playerid, COLOR_WHITE,"Serviço finalizado! Você recebeu R$300 por ter completado todo o percurso!");
+            SendClientMessage(playerid, COLOR_WHITE,"Volte ao spawn da profissão e inicie o serviço para fazer o percurso novamente!");
+            GivePlayerMoney(playerid,300);
+        }
+    }
     if (PlayerInfo[playerid][pWaypoint])
 	{
  		PlayerInfo[playerid][pWaypoint] = 0;
@@ -17645,8 +18235,200 @@ public OnVehicleStreamOut(vehicleid, forplayerid)
 public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 {
     new stringTipo[256];
+	if(HackerJob[playerid] == 1)
+	{
+	    if(!response)
+   		{
+   		    KillTimer(HJLimitTimer);
+   		    ShowPlayerDialog(playerid,-1,0,"","","","");
+      		
+			HackerJob[playerid] = 0;
+			SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+			return 1;
+		}
+	    if(dialogid == 1998)
+		{
+       		if(strfind(inputtext,"began") != -1)
+       		{
+
+		   			TogglePlayerControllable(playerid,false);
+				 	GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+				 	return SetTimerEx("HackerTwo", 6000, 0, "d", playerid);
+   			}
+			else
+			{
+		   		    KillTimer(HJLimitTimer);
+					HackerJob[playerid] = 0;
+					ShowPlayerDialog(playerid,-1,0,"","","","");
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+			}
+		}
+	    if(dialogid == 1999)
+		{
+			if(strfind(inputtext,"keygen") != -1)
+       		{
+		 			GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+				 	return SetTimerEx("HackerThree", 6000, 0, "d", playerid);
+  	 		}
+			else
+			{
+		   		    KillTimer(HJLimitTimer);
+					HackerJob[playerid] = 0;
+					ShowPlayerDialog(playerid,-1,0,"","","","");
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+			}
+		}
+	    if(dialogid == 2000)
+		{
+			if(strfind(inputtext,"cracked") != -1)
+       		{
+				   	GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+				 	return SetTimerEx("HackerFour", 6000, 0, "d", playerid);
+   			}
+			else
+			{
+		   		    KillTimer(HJLimitTimer);
+					HackerJob[playerid] = 0;
+					ShowPlayerDialog(playerid,-1,0,"","","","");
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+			}
+		}
+	    if(dialogid == 2001)
+		{
+			if(strfind(inputtext,"worm") != -1)
+			{
+	  				GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+				 	return SetTimerEx("HackerFive", 6000, 0, "d", playerid);
+     		}
+			else
+			{
+		   		    KillTimer(HJLimitTimer);
+					HackerJob[playerid] = 0;
+					ShowPlayerDialog(playerid,-1,0,"","","","");
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+			}
+		}
+		if(dialogid == 2002)
+		{
+ 			if(strfind(inputtext,"virus") != -1)
+  			{
+				 	GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+	 				return SetTimerEx("HackerSix", 6000, 0, "d", playerid);
+   			}
+ 			else
+ 			{
+		   		    KillTimer(HJLimitTimer);
+		   		    ShowPlayerDialog(playerid,-1,0,"","","","");
+					HackerJob[playerid] = 0;
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+			}
+		}
+		if(dialogid == 2003)
+		{
+	  		for(new i = 0; i < strlen(inputtext); i++)
+	        {
+	        	if(strfind(inputtext,"trojan") != -1)
+	       		{
+				 	GameTextForPlayer(playerid,"~p~Enviando...",6000,6);
+	 				return SetTimerEx("HackerSeven", 6000, 0, "d", playerid);
+	     		}
+    	 		else
+	  			{
+
+		   		    KillTimer(HJLimitTimer);
+		   		    ShowPlayerDialog(playerid,-1,0,"","","","");
+					HackerJob[playerid] = 0;
+					SendClientMessage(playerid, COLOR_LIGHTRED, "Você falhou como hacker.");
+					return 1;
+				}
+	      	}
+		}
+		return 1;
+	}
 	switch(dialogid)
 	{
+		case DIALOG_JOGODoBichoMenu: 
+		{
+			if(!response) return 1;
+			switch(listitem) 
+			{
+				case 0: MostrarMenuTipoAposta(playerid);
+				case 1: MostrarMenuTabela(playerid);
+			}
+		}
+		case DIALOG_JOGODoBichoTabela: 
+		{
+			if(!response) return MostrarMenuBicho(playerid);
+		}
+		case DIALOG_JOGODoBichoTipoAposta: 
+		{
+			if(!response) return MostrarMenuBicho(playerid);
+			new lista[2048];
+			format(lista, sizeof(lista), "Grupo\tAnimal\tDezenas\n");
+			for(new i = 1; i < sizeof(TabelaBichos);i++) 
+			{
+				format(lista, sizeof(lista), "%s{FCB876}%d\t{a9c4e4}%s\t%d-%d-%d-%d\n", lista, i, TabelaBichos[i][Bicho], TabelaBichos[i][Dezenas][0], TabelaBichos[i][Dezenas][1], TabelaBichos[i][Dezenas][2], TabelaBichos[i][Dezenas][3]);
+			}
+			return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoApostar, DIALOG_STYLE_TABLIST_HEADERS, "{ffff00}#{ffffff}Bicho | Selecione um animal", lista, "OK", "Voltar");
+		}
+		case DIALOG_JOGODoBichoApostar: 
+		{
+			if(!response) return MostrarMenuTipoAposta(playerid);
+			new animal = (listitem+1), stringBB[1024];
+			SetPVarInt(playerid, "apostando_bicho", animal);
+			format(stringBB, sizeof(stringBB), "Você está apostando em:\n\n\
+				Animal: %s\n\
+				Grupo: %d\n\
+				Dezenas: %d-%d-%d-%d\n\nDigite o valor que deseja apostar:\
+				", TabelaBichos[animal][Bicho], animal, TabelaBichos[animal][Dezenas][0], TabelaBichos[animal][Dezenas][1], TabelaBichos[animal][Dezenas][2], TabelaBichos[animal][Dezenas][3]);
+			ShowPlayerDialog(playerid, DIALOG_JOGODoBichoApostarValor, DIALOG_STYLE_INPUT, "{ffff00}#{ffffff}Bicho | Valor da aposta", stringBB, "OK", "Voltar");
+			return 1;
+		}
+		case DIALOG_JOGODoBichoApostarValor: 
+		{
+			if(!response) {
+				new lista[2048];
+				format(lista, sizeof(lista), "Grupo\tAnimal\tDezenas\n");
+				for(new i = 1; i < sizeof(TabelaBichos);i++) {
+					format(lista, sizeof(lista), "%s{FCB876}%d\t{a9c4e4}%s\t%d-%d-%d-%d\n", lista, i, TabelaBichos[i][Bicho], TabelaBichos[i][Dezenas][0], TabelaBichos[i][Dezenas][1], TabelaBichos[i][Dezenas][2], TabelaBichos[i][Dezenas][3]);
+				}
+				return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoApostar, DIALOG_STYLE_TABLIST_HEADERS, "{ffff00}#{ffffff}Bicho | Selecione um animal", lista, "OK", "Voltar");
+			} 
+			else 
+			{
+				new valor = strval(inputtext), animal = GetPVarInt(playerid, "apostando_bicho"), stringB2[128];
+				if(valor <= 0 || valor < 100) 
+				{
+					if((PlayerInfo[playerid][pGrana] -= valor) > 0) 
+					//if(PlayerInfo[playerid][pGrana] <= 100)
+					{
+						SendClientMessage(playerid, -1, "{FCB876}[Jogo Do Bicho] {a9c4e4}Você precisa apostar no mínimo R$100.");
+					} 
+					else 
+					{
+						SendClientMessage(playerid, -1, "{FCB876}[Jogo Do Bicho] {a9c4e4}Você não tem dinheiro suficiente para essa aposta, coloque um valor menor.");
+					}
+					format(stringB2, sizeof(stringB2), "Você está apostando em:\n\n\
+						Animal: %s\n\
+						Grupo: %d\n\
+						Dezenas: %d-%d-%d-%d\n\nDigite o valor que deseja apostar:\
+						", TabelaBichos[animal][Bicho], animal, TabelaBichos[animal][Dezenas][0], TabelaBichos[animal][Dezenas][1], TabelaBichos[animal][Dezenas][2], TabelaBichos[animal][Dezenas][3]);
+					return ShowPlayerDialog(playerid, DIALOG_JOGODoBichoApostarValor, DIALOG_STYLE_INPUT, "{ffff00}#{ffffff}Bicho | Valor da aposta", stringB2, "OK", "Voltar");
+				}
+				Apostadores[playerid][Animal] = animal;
+				Apostadores[playerid][TipoAposta] = 0;
+				Apostadores[playerid][Aposta] = valor;
+				PlayerInfo[playerid][pGrana] -= valor;
+				Apostadores[playerid][Apostando] = true;
+				format(stringB2, sizeof(stringB2), "{FCB876}[Jogo Do Bicho] {a9c4e4}Você apostou R$%d no animal %s(Grupo %d)", valor, TabelaBichos[animal][Bicho], animal);
+				return SendClientMessage(playerid, -1, stringB2);
+			}
+		}
 		case DIALOG_PAINELSENHA:
 		{
 			new str[144];
@@ -20603,6 +21385,8 @@ public VerStats(playerid, targetid)
 		case JOB_PESCADOR: format(str_job, 32, "Pescador");
 		case JOB_MOTOBOY: format(str_job, 32, "Motoboy");
 		case JOB_LAVAGEM: format(str_job, 32, "Lavador de dinheiro");
+		case JOB_HACK: format(str_job, 32, "Hacker");
+		case JOB_MOTORISTA: format(str_job, 32, "Motorista e onibus");
 	    default: format(str_job, 32, "Desempregado");
 	}
 
@@ -29120,6 +29904,22 @@ CMD:ajudaemprego(playerid, params[])
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/lavar dinheiro {ffffff}para iniciar a lavagem de dinheiro.");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
         }
+		case JOB_HACK:
+		{
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
+            SendClientMessage(playerid, COLOR_GREY, " Hacker");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/hacker.");
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");			
+		}
+		case JOB_MOTORISTA:
+		{
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
+            SendClientMessage(playerid, COLOR_GREY, " Motorista de Onibus");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarrota.");
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");			
+		}
 	}
 	return 1;
 }
@@ -29319,9 +30119,9 @@ COMMAND:portao(playerid, params[])
 		   		        SendClientMessage(playerid, COLOR_LIGHTRED, "AVISO: Portão aberto.");
 		   		        if(PortaoInfo[i][ptTempo] != 0)
 		   		        {
-		   		        	new TEMPO = (PortaoInfo[i][ptTempo]*1000);
-		   		        	if(TEMPO == 0) TEMPO = 2000;
-		   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", TEMPO, 0, "i", i);
+		   		        	new tempo = (PortaoInfo[i][ptTempo]*1000);
+		   		        	if(tempo == 0) tempo = 2000;
+		   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", tempo, 0, "i", i);
 						}
 		   		        pport++;
 		   		    }
@@ -29346,9 +30146,9 @@ COMMAND:portao(playerid, params[])
 		   		        SendClientMessage(playerid, COLOR_LIGHTRED, "AVISO: Portão aberto [1].");
 		   		        if(PortaoInfo[i][ptTempo] != 0)
 		   		        {
-		   		        	new TEMPO = (PortaoInfo[i][ptTempo]*1000);
-		   		        	if(TEMPO == 0) TEMPO = 2000;
-		   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", TEMPO, 0, "i", i);
+		   		        	new tempo = (PortaoInfo[i][ptTempo]*1000);
+		   		        	if(tempo == 0) tempo = 2000;
+		   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", tempo, 0, "i", i);
 						}
 		   		        pport++;
 		   		    }
@@ -29380,9 +30180,9 @@ COMMAND:portao(playerid, params[])
 			   		        SendClientMessage(playerid, COLOR_LIGHTRED, "AVISO: Portão aberto.");
 			   		        if(PortaoInfo[i][ptTempo] != 0)
 			   		        {
-			   		        	new TEMPO = (PortaoInfo[i][ptTempo]*1000);
-			   		        	if(TEMPO == 0) TEMPO = 2000;
-			   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", TEMPO, 0, "i", i);
+			   		        	new tempo = (PortaoInfo[i][ptTempo]*1000);
+			   		        	if(tempo == 0) tempo = 2000;
+			   		        	PortaoInfo[i][ptTimer] = SetTimerEx("FecharPortao", tempo, 0, "i", i);
 							}
 			   		        pport++;
 			   		    }
@@ -37959,14 +38759,34 @@ COMMAND:tog(playerid, params[])
 	new option[32];
 	if(sscanf(params,"s[32]",option))
 	{
-	    SendClientMessage(playerid, COLOR_LIGHTRED, "USE:{FFFFFF} /tog [ pm / faccao / hud / anuncios / bairros / qmmatou / radio ]");
+	    SendClientMessage(playerid, COLOR_LIGHTRED, "USE:{FFFFFF} /tog [ pm / faccao / hud / anuncios / bicho / bairros / qmmatou / radio ]");
 	    if(PlayerInfo[playerid][pTester] >= 1 || PlayerInfo[playerid][pAdmin] >= 1)
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "Administração: {FFFFFF}sos, achat");
 		}
 		return 1;
 	}
-    if(strcmp(option, "sos", true) == 0)
+    if(strcmp(option, "bicho", true) == 0)
+	{
+	    if(PlayerInfo[playerid][pAdmin] >= 0 || PlayerInfo[playerid][pTester] >= 0)
+		{
+			switch(GetPVarInt(playerid, "TogBicho"))
+	  		{
+				case 0:
+				{
+					SetPVarInt(playerid, "TogBicho", 1);
+					SendClientMessage(playerid, COLOR_WHITE, "Você não irá receber mais avisos do jogo do bicho.");
+				}
+				case 1:
+				{
+	   				SetPVarInt(playerid, "TogBicho", 0);
+	   				SendClientMessage(playerid, COLOR_WHITE, "Você irá receber mais avisos do jogo do bicho.");
+				}
+			}
+		}
+		else return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a este comando.");
+	}
+    else if(strcmp(option, "sos", true) == 0)
 	{
 	    if(PlayerInfo[playerid][pAdmin] >= 1 || PlayerInfo[playerid][pTester] >= 1)
 		{
@@ -43363,6 +44183,7 @@ public AtualizarTutorial(playerid)
 	}
 	return 1;
 }
+
 
 forward LimparChat(playerid);
 public LimparChat(playerid)
@@ -63279,6 +64100,48 @@ COMMAND:portaluvas(playerid,params[])
 	}
 	return 1;
 }
+CMD:alugarveiculo(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+    if(IsVehicleRental(vehicleid))
+    {
+        if(RentCarKey[playerid] != vehicleid && !IsVehicleRented(vehicleid))
+        {
+			new cost = GetVehicleRentalPrice(GetVehicleModel(vehicleid));
+			if(PlayerInfo[playerid][pGrana] >= cost)
+			{
+		        /*if(RentCarKey[playerid] != 9999)
+		        {
+					SetVehicleToRespawn(RentCarKey[playerid]);
+		            RentCarKey[playerid] = 9999;
+		        }
+				*/
+			    RentCarKey[playerid] = GetPlayerVehicleID(playerid);
+			    PlayerInfo[playerid][pGrana] -= cost;
+				SendClientMessage(playerid,COLOR_GREEN,"Você alugou um veículo, para desalugar, digite: /desalugarveiculo");
+                SendClientMessage(playerid,COLOR_WHITE,"DICA: Para trancar o veículo, digite: /trancar");
+                SendClientMessage(playerid,COLOR_WHITE,"/motor para ligar o veículo.");
+				return 1;
+			}
+			else return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro suficiente!");
+        }
+        else return SendClientMessage(playerid, COLOR_LIGHTRED,"Este veículo já foi alugado!");
+    }
+    else return GameTextForPlayer(playerid, "~r~Você deve estar em um veículo.", 5000, 1);
+}
+
+CMD:desalugarveiculo(playerid)
+{
+	if(RentCarKey[playerid] != 9999)
+ 	{
+ 	    SetVehicleToRespawn(RentCarKey[playerid]);
+        RentCarKey[playerid] = 9999;
+
+        return SendClientMessage(playerid,COLOR_GREEN,"Você desalugou o veículo.");
+ 	}
+ 	else return GameTextForPlayer(playerid, "~r~Você deve estar em um veículo.", 5000, 1);
+}
+
 
 COMMAND:veiculo(playerid,params[])
 {
@@ -70295,7 +71158,7 @@ CMD:pegaremprego(playerid,params[])
 			if(biz != -1)
 			{
 				if( EmpInfo[biz][eTipo] == EMP_TIPO_EMP_CENTER)
-	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador\nMotoboy [Em desenvolvimento]", "Selecionar", "Voltar");
+	    			return Dialog_Show(playerid, Dialog_Empregos, DIALOG_STYLE_LIST, "Empregos disponiveis", "Mecânico\nCaminhoneiro [Requisito: Veículo Próprio]\nTaxista [Requisito: Veículo Próprio]\nLixeiro\nVendedor de HotDog [Requisito: Veículo Próprio]\nPescador\nTreinador\nMotoboy [Em desenvolvimento]\nHACKER", "Selecionar", "Voltar");
 			}
 
 			if (IsPlayerInRangeOfPoint(playerid, 5, 1414.8279,-1577.5049,20.0859))
@@ -70378,6 +71241,20 @@ Dialog:Dialog_Empregos(playerid, response, listitem, inputtext[])
 		    {
 		        PlayerInfo[playerid][pJob] = JOB_MOTOBOY;
 		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um motoboy, utilize /ajudaemprego para mais informações.");
+		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
+				else PlayerInfo[playerid][pJobTempo] = 5;
+		    }
+		    case 8:
+		    {
+		        PlayerInfo[playerid][pJob] = JOB_HACK;
+		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um hack, utilize /ajudaemprego para mais informações.");
+		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
+				else PlayerInfo[playerid][pJobTempo] = 5;
+		    }
+		    case 9:
+		    {
+		        PlayerInfo[playerid][pJob] = JOB_MOTORISTA;
+		        SendClientMessage(playerid,COLOR_YELLOW," Agora você é um Motorista de Onibus, utilize /ajudaemprego para mais informações.");
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
 		    }
@@ -74839,7 +75716,7 @@ public OnPlayerCheckIP(playerid, response_code, data[])
         printf("IP %s conectando de %s", pip, data);
         if (strcmp(data, "Brazil", true)) {
 
-            format(stringvpn, sizeof(stringvpn), "AdmCmd: Um jogador (ID: %d) conectou do pais %s IP %s", playerid, data, pip);
+            format(stringvpn, sizeof(stringvpn), "AdmCmd: Um jogador (ID: %d) conectou do pais %s, IP: %s", playerid, data, pip);
             SendAdminMessage(COLOR_LIGHTRED, stringvpn);
 
 		    /*format(string, sizeof(string),"banip %s", type);
@@ -77719,7 +78596,7 @@ public OnPlayerSuspectedForAimbot(playerid,hitid,weaponid,warnings)
 	{
 	    TogglePlayerControllable(playerid, false);
 	    format(str,256,"O ANTI-CHEAT[%d]%s(%d) está usando PROAIM (Teleport Detectado)",ids[playerid],nme,playerid);
-		SendClientMessageToAll(-1,str);
+		SendAdminMessage(-1,str);
 		BustAim::GetTeleportStats(playerid,Wstats);
 		format(str,256,"Bullet to Victim Distance(SA Units): 1)%f 2)%f 3)%f",Wstats[0],Wstats[1],Wstats[2]);
 		SendAdminMessage(-1,str);
@@ -77728,7 +78605,7 @@ public OnPlayerSuspectedForAimbot(playerid,hitid,weaponid,warnings)
 	{
 	    TogglePlayerControllable(playerid, false);
 	    format(str,256,"O ANTI-CHEAT[%d]%s(%d) é suspeito de estar usando aimbot (Hit com a Random Aim com %s)",ids[playerid],nme,playerid,wname);
-		SendClientMessageToAll(-1,str);
+		SendAdminMessage(-1,str);
 		BustAim::GetRandomAimStats(playerid,Wstats);
 		format(str,256,"Random Aim Offsets: 1)%f 2)%f 3)%f",Wstats[0],Wstats[1],Wstats[2]);
 		SendAdminMessage(-1,str);
@@ -85373,8 +86250,8 @@ public TelPubCriado(playerid)
 
     new Float:X, Float:Y, Float:Z;
     GetPlayerPos(playerid, X, Y, Z);
-    //TelPublico[id][orObj] = CreateDynamicObject(19141, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
-	TelPublico[id][orObj] = CreateDynamicObject(19141, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
+    //TelPublico[id][orObj] = CreateDynamicObject(1216, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
+	TelPublico[id][orObj] = CreateDynamicObject(1216, X+2, Y+2, Z, 0.0, 0.0, 0.0, 0, 0, -1, 100.0);
     EditDynamicObject(playerid, TelPublico[id][orObj]);
     return 1;
 }
@@ -85383,8 +86260,8 @@ public AtualizarTelPub(id)
 {
     if (IsValidDynamicObject(TelPublico[id][orObj])) DestroyDynamicObject(TelPublico[id][orObj]);
 
-    //TelPublico[id][orObj] = CreateDynamicObject(19141, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
-    TelPublico[id][orObj] = CreateDynamicObject(19141, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
+    //TelPublico[id][orObj] = CreateDynamicObject(1216, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
+    TelPublico[id][orObj] = CreateDynamicObject(1216, TelPublico[id][orX], TelPublico[id][orY], TelPublico[id][orZ], 0.0, 0.0, TelPublico[id][orR], 0, 0, -1, 500.0);
 	return 1;
 }
 

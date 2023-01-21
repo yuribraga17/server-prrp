@@ -75,7 +75,10 @@ public OnPlayerDeath(playerid, killerid, reason) {
     PlayerInfo[playerid][pPos][0] = X;
     PlayerInfo[playerid][pPos][1] = Y;
     PlayerInfo[playerid][pPos][2] = Z;
-    
+
+    KillTimer(HJLimitTimer);
+	HackerJob[playerid] = 0;
+
 	PlayerInfo[playerid][pInterior] = GetPlayerInterior(playerid);
 	PlayerInfo[playerid][pWorld] = GetPlayerVirtualWorld(playerid);
 
