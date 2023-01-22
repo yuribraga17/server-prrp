@@ -754,7 +754,7 @@ enum Rests
     LocalRes[64]
 }
  
-new Restaurantes[][Rests] = //ADICIONE QUANTOS RESTAURANTES QUISER :D ESQUEMA -> (X,Y,Z,"NOME")
+new Restaurantes[][Rests] =
 {
     {953.6340,-1379.8330,13.3438, "Cluckin' Bell"},// Cluckin Bells
     {1045.5018,-1269.2733,13.6790, "China's Food"},//Chinese Food
@@ -763,12 +763,42 @@ new Restaurantes[][Rests] = //ADICIONE QUANTOS RESTAURANTES QUISER :D ESQUEMA ->
     {1300.6167,-1156.1165,23.8281, "Disk Bebidas"},// Conveniencia 24hrs
     {421.7389,-1758.9269,8.1689, "Pizzaria da Praia"}// Pizzaria Praia
 };
-new Float:Entregas_ifood[][3] =
+new Float:Entregas_ifood[][34] =
 {
-    {1247.3604,-1101.0178,26.6719},
-    {1243.1884,-1076.3695,31.5547},
-    {856.1241,-1687.5447,13.5550},
-    {840.9093,-1477.0052,13.5930}    //ADICIONE QUANTAS CASAS QUISER, SEGUINDO O ESQUEMA: {X,Y,Z},
+    {1847.9941,-1925.0844,13.2740},
+    {1870.7611,-1924.3984,13.2740},
+    {1919.5276,-2041.9980,13.5469},
+    {1908.3558,-2044.1115,13.5469},
+    {1902.1631,-2036.6743,13.5469},
+    {1851.6858,-2030.9282,13.5469},
+    {1810.7422,-2120.6484,13.1544},
+    {1805.0891,-2110.3826,13.2813},
+    {1729.3451,-2126.4932,12.7964},
+    {1719.7161,-2120.9922,12.7893},
+    {2256.5859,-1474.2635,23.1126},
+    {2266.2900,-1476.6475,22.8564},
+    {2259.5786,-1492.3561,22.9214},
+    {2270.6577,-1510.5359,21.3949},
+    {2514.3264,-1522.6776,24.0324},
+    {2373.1550,-1136.2782,29.9781},
+    {2348.4780,-1105.7855,31.1011},
+    {2363.7617,-1109.5048,32.8823},
+    {2389.4980,-1088.1390,37.1934},
+    {2413.3333,-1083.9698,40.2521},
+    {2439.0474,-1110.2521,42.5670},
+    {2518.9053,-1086.0088,55.2062},
+    {2561.3955,-1035.5872,69.5758},
+    {2557.0015,-1036.7731,69.5806},
+    {2599.3867,-1072.6698,69.5827},
+    {2596.7668,-1077.6559,69.5852},
+    {2596.7209,-1081.9963,69.5858},
+    {2596.6416,-1085.2957,69.5418},
+    {2577.7646,-992.5721,79.7550},
+    {2595.1680,-994.9631,78.1295},
+    {2587.5305,-976.9901,81.3566},
+    {2589.8787,-968.5181,81.3919},
+    {2573.1863,-965.2643,81.9168},
+    {2535.1787,-974.5581,81.8190}
 };
 //====== [SISTEMA DE TRAFICANTE] =======================================================
 #define MAX_TRAFICANTES 100
@@ -6220,6 +6250,9 @@ public OnGameModeInit()
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 1742.7393,-1551.3011,7.9609, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 1742.7393,-1551.3011,7.9609, 0); 
+
+	CreateDynamic3DTextLabel("[P. ONIBUS]\n/iniciarviagem", 0xffffffff, 1737.5643,-1859.1648,13.4141, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, 1737.5643,-1859.1648,13.4141, 0); 
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 954.6230,-1467.4749,13.5547, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
 	CreatePickup(1239, 1, 954.6230,-1467.4749,13.5547, 0);
@@ -15736,22 +15769,21 @@ stock IsSeatTaken(vehicleid, seatid)
 	}
 	return 0;
 }
-CMD:iniciarrota(playerid)
+CMD:iniciarviagem(playerid)
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(!IsPlayerInAnyVehicle(playerid)) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está em um veículo.");
- 	if(PlayerInfo[playerid][pJob] != JOB_MOTORISTA)  return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um motorista de onibus."); 
-    if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 437)
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTORISTA) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um motorista de onibus."); 
+    if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 437) return SCM(playerid, COLOR_LIGHTRED,"ERRO:{FFFFFF} Você tem que estar em um ônibus (Coach) para começar a rota!");
+	if(IsPlayerInRangeOfPoint(playerid, 5, 1737.5643,-1859.1648,13.4141))
     {
         SendClientMessage(playerid, COLOR_WHITE,"Serviço iniciado com sucesso! Siga o ícone vermelho no mapa para chegar ao primeiro ponto de ônibus!");
         if(BusJob[playerid] == 0)
         {
             BusJob[playerid] = 1;
-            SetPlayerCheckpoint(playerid,2183.8916,-2252.5754,14.7710, 3.0);
+            SetPlayerCheckpoint(playerid,1807.4921,-1859.1929,13.4141, 3.0);
             TimerBus[playerid] = SetTimerEx("RotaBus", TEMPO, false, "i",playerid);
         }
     }
-    SendClientMessage(playerid, COLOR_LIGHTRED,"ERRO: Você tem que estar em uma ônibus para começar a rota!");
     return 1;
 }
  
@@ -15786,7 +15818,7 @@ CMD:ligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
-
+    if(IsPlayerInAnyVehicle(playerid))
     if(AppLigado[playerid] == 1)
         return SendClientMessage(playerid, COLOR_WHITE ,"[iFood] Você já está conectado");
     else
@@ -15805,7 +15837,7 @@ CMD:ligarapp(playerid, params[])
         }
         else
         {
-            SendClientMessage(playerid, COLOR_WHITE,"[iFood] Falha na autenticação");
+            SendClientMessage(playerid, COLOR_WHITE,"[iFood] Falha na autenticação.");
         }
     }
     return 1;
@@ -15816,7 +15848,7 @@ CMD:desligarapp(playerid, params[])
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
 
     if(AppLigado[playerid] != 1)
-        return SendClientMessage(playerid, COLOR_WHITE,"[iFood] Você já está desconectado");
+        return SendClientMessage(playerid, COLOR_WHITE,"[iFood] Você já está desconectado.");
     else
     {
         AppLigado[playerid] = 0;
@@ -15876,7 +15908,7 @@ public ChamarEntrega(playerid)
     {
         SendClientMessage(playerid, -1, "");
     }
-    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Nova entrega recebida, você possui 10s para aceitar");
+    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Nova entrega recebida, você possui 10s para aceitar.");
     SendClientMessage(playerid,COLOR_WHITE, "[iFood] Digite /aceitarentrega.");
     return 1;
 }
@@ -16123,7 +16155,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 2;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2029.1879,-2106.7595,13.0503,10);
+            SetPlayerCheckpoint(playerid,1807.4921,-1859.1929,13.4141,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16132,7 +16164,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 3;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1965.0934,-1879.8435,13.0460,10);
+            SetPlayerCheckpoint(playerid,1906.4702,-1935.8694,13.1099,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16141,7 +16173,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 4;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1825.0763,-1641.5555,13.0406,10);
+            SetPlayerCheckpoint(playerid,2058.6682,-1939.0070,13.0451,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16150,7 +16182,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 5;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1661.4106,-1513.8069,13.0394,10);
+            SetPlayerCheckpoint(playerid,2156.0032,-1898.0280,13.0985,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16159,7 +16191,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 6;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1718.1519,-1355.8612,13.0379,10);
+            SetPlayerCheckpoint(playerid,2219.6997,-1779.6831,12.9757,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16168,7 +16200,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 7;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1515.8977,-1157.4445,23.5693,10);
+            SetPlayerCheckpoint(playerid,2283.7405,-1752.4850,13.1099,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16177,7 +16209,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 8;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1007.3337,-1137.6353,23.3041,10);
+            SetPlayerCheckpoint(playerid,2434.5039,-1568.2855,23.5553,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16186,7 +16218,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 9;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,913.9140,-1512.6134,13.0294,10);
+            SetPlayerCheckpoint(playerid,2366.5237,-1520.7024,23.5552,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16195,7 +16227,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 10;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,668.9059,-1735.8870,13.1442,10);
+            SetPlayerCheckpoint(playerid,2345.7146,-1426.2017,23.5552,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16204,7 +16236,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 11;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,716.0936,-1323.2404,13.0542,10);
+            SetPlayerCheckpoint(playerid,2305.9175,-1261.5817,23.5697,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16213,7 +16245,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 12;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1105.4869,-1284.3621,13.0984,10);
+            SetPlayerCheckpoint(playerid,2187.7815,-1118.8282,24.4024,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16222,7 +16254,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 13;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1248.8213,-1152.4312,23.2720,10);
+            SetPlayerCheckpoint(playerid,1863.4495,-1086.9812,23.3889,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16231,7 +16263,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 14;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1598.3813,-1164.2426,23.5697,10);
+            SetPlayerCheckpoint(playerid,1843.0739,-1345.6334,13.1194,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16240,7 +16272,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 15;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,1931.6448,-1139.5239,24.7676,10);
+            SetPlayerCheckpoint(playerid,1828.5979,-1546.1628,13.1060,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16249,7 +16281,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 16;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2113.3770,-1304.4203,23.5052,10);
+            SetPlayerCheckpoint(playerid,1621.3351,-1589.4988,13.2760,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16258,7 +16290,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 17;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2349.2502,-1304.5952,23.6209,10);
+            SetPlayerCheckpoint(playerid,1526.1556,-1679.4670,13.1099,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16267,7 +16299,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 18;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2598.7876,-1260.2065,46.9628,10);
+            SetPlayerCheckpoint(playerid,1565.6974,-1817.3195,13.1099,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16276,7 +16308,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 19;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2677.5920,-1051.4144,69.0702,10);
+            SetPlayerCheckpoint(playerid,1620.3062,-1876.3380,13.1100,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16285,7 +16317,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 20;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2834.8110,-1140.3776,24.4193,10);
+            SetPlayerCheckpoint(playerid,1684.6907,-1863.2953,13.1157,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16294,7 +16326,7 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 21;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2830.0747,-1602.7433,10.5848,10);
+            SetPlayerCheckpoint(playerid,1693.3604,-1836.2633,13.1099,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
@@ -16303,21 +16335,12 @@ public OnPlayerEnterCheckpoint(playerid)
         {
             BusJob[playerid] = 22;
             TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2819.3320,-1923.2450,10.5925,10);
+            SetPlayerCheckpoint(playerid,1776.3927,-1894.6635,13.1145,10);
             SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
             TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
             return 1;
         }
         if(BusJob[playerid] == 22)
-        {
-            BusJob[playerid] = 23;
-            TogglePlayerControllable(playerid,0);
-            SetPlayerCheckpoint(playerid,2646.7800,-2151.7402,10.5687,10);
-            SendClientMessage(playerid, COLOR_WHITE,"Os passageiros estão saindo e/ou entrando no ônibus! Aguarde...");
-            TimerBus[playerid] = SetTimerEx("RotaBus", 1000, false, "i",playerid);
-            return 1;
-        }
-        if(BusJob[playerid] == 23)
         {
             BusJob[playerid] = 0;
             DisablePlayerCheckpoint(playerid);
@@ -25388,8 +25411,8 @@ COMMAND:derrubar(playerid, params[])
 				{
 				    if(GetDistanceBetweenPlayers(playerid,i) < 5.0)
 					{
-						if(PlayerInfo[i][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar pessoas mortas.");
-						if(GetPlayerWeapon(i) >= 25 && GetPlayerWeapon(i) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar alguém com uma arma longa na mão.");
+						if(PlayerInfo[i][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar pessoas mortas.");
+						if(GetPlayerWeapon(i) >= 25 && GetPlayerWeapon(i) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar alguém com uma arma longa na mão.");
 						if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não pode utilizar este comando na água!");
 						GetPlayerPos(i, X, Y, Z);
 					  	new rand = random(4);
@@ -25449,8 +25472,8 @@ COMMAND:derrubar(playerid, params[])
 			{
    				if(GetDistanceBetweenPlayers(playerid,other) < 5.0)
 				{
-					if(PlayerInfo[other][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar pessoas mortas.");
-					if(GetPlayerWeapon(other) >= 25 && GetPlayerWeapon(other) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO: Você não pode derrubar alguém com uma arma longa na mão.");
+					if(PlayerInfo[other][pMorto] > 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar pessoas mortas.");
+					if(GetPlayerWeapon(other) >= 25 && GetPlayerWeapon(other) <= 38) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você não pode derrubar alguém com uma arma longa na mão.");
 					if(IsPlayerInWater(playerid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO: Você não pode utilizar este comando na água!");
 					GetPlayerPos(other, X, Y, Z);
 		  			new rand = random(4);
@@ -30108,7 +30131,7 @@ CMD:ajudaemprego(playerid, params[])
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
             SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
             SendClientMessage(playerid, COLOR_GREY, " Motorista de Onibus");
-            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarrota.");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarviagem.");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");			
 		}
 		case JOB_MOTOBOY:
