@@ -147,7 +147,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "21/01/2023"
+#define ULTIMO_GMX      "22/01/2023"
 #define CA_VERSAO       "PR:RP v1.10"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
@@ -725,6 +725,51 @@ new BusJob[256];
 new TimerBus[MAX_PLAYERS];
 new RotaBusJob[MAX_PLAYERS] = 0;
 
+//Emprego ifood
+#define GANHO_MIN   16 //GANHO MINIMO POR ENTREGA
+#define GANHO_MAX   87 //GANHO MAXIMO POR ENTREGA
+ 
+new AppLigado[MAX_PLAYERS];
+new iFood[MAX_PLAYERS];
+new Entregando[MAX_PLAYERS];
+new Retiroupedido[MAX_PLAYERS];
+new buscandocorridas[MAX_PLAYERS];
+new TempoDeResposta[MAX_PLAYERS];
+new TemCorrida[MAX_PLAYERS];
+ 
+ new Temporizador[][1] = //TEMPO DE ESPERA ENTRE CADA ENTREGA
+{
+    {5000},
+    {8000},
+    {10000},
+    {12000},
+    {16000}
+};
+ 
+enum Rests
+{
+    Float:BrX,
+    Float:BrY,
+    Float:BrZ,
+    LocalRes[64]
+}
+ 
+new Restaurantes[][Rests] = //ADICIONE QUANTOS RESTAURANTES QUISER :D ESQUEMA -> (X,Y,Z,"NOME")
+{
+    {953.6340,-1379.8330,13.3438, "Cluckin' Bell"},// Cluckin Bells
+    {1045.5018,-1269.2733,13.6790, "China's Food"},//Chinese Food
+    {1126.0450,-1372.2838,13.9844, "Loja de bebidas"},// Loja de bebidas
+    {1196.8871,-921.3952,43.0530, "Burguer Shot"},//Burguer Shot
+    {1300.6167,-1156.1165,23.8281, "Disk Bebidas"},// Conveniencia 24hrs
+    {421.7389,-1758.9269,8.1689, "Pizzaria da Praia"}// Pizzaria Praia
+};
+new Float:Entregas_ifood[][3] =
+{
+    {1247.3604,-1101.0178,26.6719},
+    {1243.1884,-1076.3695,31.5547},
+    {856.1241,-1687.5447,13.5550},
+    {840.9093,-1477.0052,13.5930}    //ADICIONE QUANTAS CASAS QUISER, SEGUINDO O ESQUEMA: {X,Y,Z},
+};
 //====== [SISTEMA DE TRAFICANTE] =======================================================
 #define MAX_TRAFICANTES 100
 enum aTraficantesInfo{
@@ -1308,9 +1353,6 @@ forward UpdateKeyArrombar(playerid);
 
 #define PRESSED(%0) \
         (((newkeys & (%0)) == (%0)) && ((oldkeys & (%0)) != (%0)))
-
-#define RELEASED(%0) \
-        (((newkeys & (%0)) != (%0)) && ((oldkeys & (%0)) == (%0)))
 
 
 forward CreateGraffiti(playerid);
@@ -7258,7 +7300,7 @@ public ResultadoBicho(playerid)
 		if(Apostadores[i][Animal] == animal) 
 		{
 			ganhadores++;
-			GivePlayerMoney(i, (Apostadores[i][Aposta] * 14));
+			//GivePlayerMoney(i, (Apostadores[i][Aposta] * 14));
 			PlayerInfo[playerid][pGrana] += (Apostadores[i][Aposta] * 14);
 			format(stringB, sizeof(stringB), "{FCB876}[Jogo Do Bicho] Parabens! Você apostou no animal %s e ganhou 14x sua aposta de R$%d!", TabelaBichos[animal][Bicho], Apostadores[i][Aposta]);
 			SendClientMessage(playerid, COLOR_WHITE, stringB);
@@ -11074,6 +11116,11 @@ public OnPlayerConnect(playerid)
 	HackerJob[playerid] = 0;
 	RotaBusJob[playerid] = 0;
 
+    AppLigado[playerid] = 0;
+    Retiroupedido[playerid] = 0;
+    Entregando[playerid] = 0;
+    TemCorrida[playerid] = 0;
+
     LastShoter[playerid] = 0;
     SalvandoConta[playerid] = 0;
 	TempoParaSalvar[playerid] = 0;
@@ -13432,6 +13479,11 @@ public OnPlayerDisconnect(playerid, reason)
  	KillTimer(HJLimitTimer);
 	HackerJob[playerid] = 0;
 
+    AppLigado[playerid] = 0;
+    Retiroupedido[playerid] = 0;
+    Entregando[playerid] = 0;
+    TemCorrida[playerid] = 0;
+
  	if(GetPVarInt(playerid, "PlayerSpectate") != 0)
  		SetPVarInt(playerid, "PlayerSpectate", 0);
 
@@ -13803,7 +13855,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 21/01/2023, v1.10, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 22/01/2023, v1.10, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -13843,6 +13895,11 @@ public OnPlayerSpawn(playerid){
                     PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
                     PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
                     PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
+					
+					AppLigado[playerid] = 0;
+					Retiroupedido[playerid] = 0;
+					Entregando[playerid] = 0;
+					TemCorrida[playerid] = 0;
 
 
                     if(PlayerInfo[playerid][pDoador] > 0)
@@ -15713,7 +15770,133 @@ public MsgBus(playerid)
     new msg[256];
     format(msg, sizeof(msg),"INFO: Você recebeu R$%d! Siga o checkpoint no mapa para chegar ao próximo ponto de ônibus [ %d / 23]", quantia, BusJob[playerid]);
     SendClientMessage(playerid, COLOR_WHITE, msg);
+	PlayerInfo[playerid][pGrana] += 80;
     return 1;
+}
+CMD:ifood(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+    AppLigado[playerid] = 0;
+    iFood[playerid] = 1;
+    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Comandos: /ifood - /ligarapp - /desligarapp");
+    return 1;
+}
+CMD:ligarapp(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+
+    if(AppLigado[playerid] == 1)
+        return SendClientMessage(playerid, COLOR_WHITE ,"[iFood] Você já está conectado");
+    else
+    {
+        if(iFood[playerid] == 1)
+        {
+			if(IsPlayerInAnyVehicle(playerid))
+            {
+                SendClientMessage(playerid, COLOR_WHITE, "[iFood] Aplicativo habilitado para receber entregas!");
+                AppLigado[playerid] = 1;
+            }
+            else
+            {
+                SendClientMessage(playerid,COLOR_WHITE,"[iFood] Desculpe, você não está em um veículo.");
+            }
+        }
+        else
+        {
+            SendClientMessage(playerid, COLOR_WHITE,"[iFood] Falha na autenticação");
+        }
+    }
+    return 1;
+}
+CMD:desligarapp(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+
+    if(AppLigado[playerid] != 1)
+        return SendClientMessage(playerid, COLOR_WHITE,"[iFood] Você já está desconectado");
+    else
+    {
+        AppLigado[playerid] = 0;
+        Entregando[playerid] = 0;
+        Retiroupedido[playerid] = 0;
+        KillTimer(buscandocorridas[playerid]);
+        DisablePlayerCheckpoint(playerid);
+        SendClientMessage(playerid, COLOR_WHITE, "[iFood] Obrigado pelas entregas, até breve!");
+    }
+    return 1;
+}
+CMD:aceitarentrega(playerid, params[])
+{
+	if(Entregando[playerid] == 1 && AppLigado[playerid] == 1 && TemCorrida[playerid] == 1)
+	{
+	    KillTimer(TempoDeResposta[playerid]);
+		KillTimer(buscandocorridas[playerid]);
+		TemCorrida[playerid] = 0;
+		StopAudioStreamForPlayer(playerid);
+		SendClientMessage(playerid,COLOR_WHITE, "[iFood] Pedido aceito, vá até o local retirar o pedido.");
+		new rand = random(sizeof(Restaurantes));
+		SetPlayerCheckpoint(playerid,Restaurantes[rand][BrX],Restaurantes[rand][BrY],Restaurantes[rand][BrZ], 5);
+	}
+    return 1;
+}
+forward SigaEntrega(playerid);
+public SigaEntrega(playerid)
+{
+    new rand = random(sizeof(Entregas_ifood));
+    Retiroupedido[playerid] = 1;
+    SetPlayerCheckpoint(playerid,Entregas_ifood[rand][0],Entregas_ifood[rand][1],Entregas_ifood[rand][2], 5);
+    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Siga para a entrega.");
+    TogglePlayerControllable(playerid, true);
+    return 1;
+}
+forward FinalizandoEntrega(playerid);
+public FinalizandoEntrega(playerid)
+{
+    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Entrega realizada com sucesso.");
+	PlayerInfo[playerid][pGrana] += randomEspecial(GANHO_MIN, GANHO_MAX);
+
+    Entregando[playerid] = 0;
+    Retiroupedido[playerid] = 0;
+    TemCorrida[playerid] = 0;
+    AppLigado[playerid] = 1;
+    TogglePlayerControllable(playerid, true);
+    return 1;
+}
+
+forward ChamarEntrega(playerid);
+public ChamarEntrega(playerid)
+{
+    TempoDeResposta[playerid] = SetTimerEx("PerdeuEntrega", 10000,false,"i",playerid);
+    TemCorrida[playerid] = 1;
+    PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/ifood.mp3");
+    for(new t=0; t < 15; t++)
+    {
+        SendClientMessage(playerid, -1, "");
+    }
+    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Nova entrega recebida, você possui 10s para aceitar");
+    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Digite /aceitarentrega.");
+    return 1;
+}
+ 
+forward PerdeuEntrega(playerid);
+public PerdeuEntrega(playerid)
+{
+    DisablePlayerCheckpoint(playerid);
+    Entregando[playerid] = 0;
+    TemCorrida[playerid] = 0;
+    StopAudioStreamForPlayer(playerid);
+    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Você perdeu a entrega.");
+    KillTimer(TempoDeResposta[playerid]);
+    return 1;
+}
+ 
+stock randomEspecial(minimo,maximo)
+{
+    new valor = random(maximo-minimo)+minimo;
+    return valor;
 }
 
 CMD:hacker(playerid, params[])
@@ -15922,6 +16105,18 @@ public placeVehicle(playerid, iVehicleID, iSeatID, iWeaponID)
 
 public OnPlayerEnterCheckpoint(playerid)
 {
+    if(Entregando[playerid] == 1 && Retiroupedido[playerid] != 1)
+    {
+        DisablePlayerCheckpoint(playerid);
+        SetTimerEx("SigaEntrega",2000,false,"i",playerid);
+        TogglePlayerControllable(playerid,false);
+    }
+    if(Entregando[playerid] == 1 && Retiroupedido[playerid] == 1)
+    {
+        DisablePlayerCheckpoint(playerid);
+        SetTimerEx("FinalizandoEntrega",2000,false,"i",playerid);
+        TogglePlayerControllable(playerid,false);
+    }
     if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 437)
     {
         if(BusJob[playerid] == 1)
@@ -16128,7 +16323,7 @@ public OnPlayerEnterCheckpoint(playerid)
             DisablePlayerCheckpoint(playerid);
             SendClientMessage(playerid, COLOR_WHITE,"Serviço finalizado! Você recebeu R$300 por ter completado todo o percurso!");
             SendClientMessage(playerid, COLOR_WHITE,"Volte ao spawn da profissão e inicie o serviço para fazer o percurso novamente!");
-            GivePlayerMoney(playerid,300);
+			PlayerInfo[playerid][pGrana] += 300;
         }
     }
     if (PlayerInfo[playerid][pWaypoint])
@@ -17546,7 +17741,6 @@ stock GetVehicleSpeed_HACK(vehicleid)
 
 public OnPlayerUpdate(playerid)
 {
-
 	return 1;
 }
 
@@ -17636,6 +17830,12 @@ public OnPlayerUpdate_Timer()
 				  	        }
 				  	    }
 				  	}
+					if(AppLigado[playerid] == 1 && Entregando[playerid] != 1 && TemCorrida[playerid] == 0)
+					{
+						Entregando[playerid] = 1;
+						new pseudorand = random(sizeof(Temporizador));
+						buscandocorridas[playerid] = SetTimerEx("ChamarEntrega", Temporizador[pseudorand][0], false,"i", playerid);
+					}
 	  				/***********END SPIKES************/
 				  	if(GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
 	      			{
@@ -21387,6 +21587,7 @@ public VerStats(playerid, targetid)
 		case JOB_LAVAGEM: format(str_job, 32, "Lavador de dinheiro");
 		case JOB_HACK: format(str_job, 32, "Hacker");
 		case JOB_MOTORISTA: format(str_job, 32, "Motorista e onibus");
+
 	    default: format(str_job, 32, "Desempregado");
 	}
 
@@ -29886,16 +30087,6 @@ CMD:ajudaemprego(playerid, params[])
 	        SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/meuspeixes {ffffff}para checar seus peixes.");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
 		}
-
-		case JOB_MOTOBOY:
-        {
-            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
-            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
-            SendClientMessage(playerid, COLOR_GREY, " Motoboy");
-            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarentrega {ffffff}para iniciar uma entrega de fast-food.");
-            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/pegarlanche {ffffff}para pegar o lanche na bag.");
-            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
-        }
 		case JOB_LAVAGEM:
         {
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
@@ -29918,6 +30109,14 @@ CMD:ajudaemprego(playerid, params[])
             SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
             SendClientMessage(playerid, COLOR_GREY, " Motorista de Onibus");
             SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}Utilize {FFFF00}/iniciarrota.");
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");			
+		}
+		case JOB_MOTOBOY:
+		{
+            SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
+            SendClientMessage(playerid, COLOR_WHITE, "Seu atual emprego é:");
+            SendClientMessage(playerid, COLOR_GREY, " Entregador do Ifood");
+            SendClientMessage(playerid, COLOR_YELLOW, "Comandos: {ffffff}/ifood - /ligarapp - /desligarapp - /aceitarentrega.");
             SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");			
 		}
 	}
@@ -38094,8 +38293,8 @@ CMD:ajudaempresa(playerid, params[])
     if(!PlayerInfo[playerid][pLogado]) return 1;
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /comprar /vender /entrar /sair /empresa");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /nomeemp /precogasolina");
-    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /empresa /trancar /sacar /depositar /darpermissao /permitidos");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /nomeemp /precogasolina /sacar /depositar");
+    SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA EMPRESA *** /empresa /trancar /darpermissao /permitidos");
 	SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** /mobilia");
     SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FURNITURE *** Caso suma algum móvel da casa, use: /reloadint");
 	return 1;
@@ -71258,6 +71457,7 @@ Dialog:Dialog_Empregos(playerid, response, listitem, inputtext[])
 		        if(PlayerInfo[playerid][pDoador] >= 2) PlayerInfo[playerid][pJobTempo] = 1;
 				else PlayerInfo[playerid][pJobTempo] = 5;
 		    }
+
 		}
 	}
 	return 1;
