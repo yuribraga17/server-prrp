@@ -6102,6 +6102,10 @@ public OnGameModeInit()
 	CarRent[7] = AddStaticVehicle(422,1560.6185,-2325.2891,13.3706,269.5466,1,1); // 6
 	CarRent[8] = AddStaticVehicle(492,1560.5928,-2328.5264,13.3775,269.5466,1,1); // 7
 	CarRent[9] = AddStaticVehicle(492,1560.5668,-2331.8062,13.3845,269.5466,1,1); // 8
+    for(new c=0;c<sizeof(CarRent);c++)
+    {
+		SetVehicleNumberPlate(CarRent[c], "ALUGADO");
+    }
 
     Noia_1 = CreateActor(20001,2574.0564,-1124.1001,65.4064,52.3413); 
     SetActorInvulnerable(Noia_1, true);
@@ -7308,8 +7312,8 @@ public FecharBicho(playerid)
 {
 	PodeApostarBicho = false;
 	new Msg[512];
-	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {ffffff}O resultado irá sair daqui 10 segundos! As apostas estão fechadas.");
-	SendClientMessage(playerid, 0xffffffff, Msg);
+	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}O resultado irá sair daqui 10 segundos! As apostas estão fechadas.");
+	SendClientMessage(playerid, COLOR_LIGHTRED, Msg);
 	SetTimerEx("ResultadoBicho", 10000, false, "d");
 	return 1;
 }
@@ -7323,10 +7327,10 @@ public ResultadoBicho(playerid)
 	ganhadores,
 	stringB[256],
 	Msg[256];
-	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {a9c4e4}O número sorteado foi: {ffffff}%d%d{a9c4e4}!", resultado_mil, resultado_dez);
-	SendAdminMessage( COLOR_WHITE, Msg);
-	format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {a9c4e4}Animal: {ffffff}%s{a9c4e4}(Grupo {ffffff}%d{a9c4e4}) - Dezena {ffffff}%d{a9c4e4}!", TabelaBichos[animal][Bicho], animal, resultado_dez);
-	SendAdminMessage(COLOR_WHITE, Msg);
+	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}O número sorteado foi: %d%d!", resultado_mil, resultado_dez);
+	SendClientMessageToAll(COLOR_LIGHTRED, Msg);
+	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}Animal: %s (Grupo %d) - Dezena %d!", TabelaBichos[animal][Bicho], animal, resultado_dez);
+	SendClientMessageToAll(COLOR_LIGHTRED, Msg);
 	printf("Número: %d%d | Animal: %s (dezena %d)", resultado_mil, resultado_dez, TabelaBichos[animal][Bicho], resultado_dez);
 	for(new i;i < sizeof(Apostadores);i++) 
 	{
@@ -7335,8 +7339,8 @@ public ResultadoBicho(playerid)
 			ganhadores++;
 			//GivePlayerMoney(i, (Apostadores[i][Aposta] * 14));
 			PlayerInfo[playerid][pGrana] += (Apostadores[i][Aposta] * 14);
-			format(stringB, sizeof(stringB), "{FCB876}[Jogo Do Bicho] Parabens! Você apostou no animal %s e ganhou 14x sua aposta de R$%d!", TabelaBichos[animal][Bicho], Apostadores[i][Aposta]);
-			SendClientMessage(playerid, COLOR_WHITE, stringB);
+			format(stringB, sizeof(stringB), "[Jogo Do Bicho] {ffffff}Parabens! Você apostou no animal %s e ganhou 14x sua aposta de R$%d!", TabelaBichos[animal][Bicho], Apostadores[i][Aposta]);
+			SendClientMessage(playerid, COLOR_LIGHTRED, stringB);
 		}
 		Apostadores[i][Animal] = 0;
 		Apostadores[i][TipoAposta] = 0;
@@ -7344,8 +7348,8 @@ public ResultadoBicho(playerid)
 		Apostadores[i][Apostando] = false;
 		if(i == sizeof(Apostadores)-1) 
 		{
-			format(Msg, sizeof(Msg), "{FCB876}[Jogo Do Bicho] {ffffff}Tivemos um total de %d vencedores!", ganhadores);
-			SendAdminMessage(COLOR_WHITE, Msg);
+			format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}Tivemos um total de %d vencedores!", ganhadores);
+			SendClientMessageToAll(COLOR_LIGHTRED, Msg);
 			break;
 		}
 	}
@@ -10233,6 +10237,17 @@ CMD:ajudaradio(playerid, params[])
 	SCM(playerid, COLOR_YELLOW,"[!] Você pode comprar um rádio em uma 24/7");
 	SCM(playerid, COLOR_WHITE,"/canalradio {FFFFFF}- Define qual o canal que você quer em qual slot.");
 	SCM(playerid, COLOR_WHITE,"/r(adio) {FFFFFF}- Fala no rádio, no canal que você definiu.");
+	SCM(playerid, COLOR_LIGHTGREEN,"|_____________________________________________________|");
+	return 1;
+}
+
+CMD:ajudajogo(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+	SCM(playerid, COLOR_LIGHTGREEN,"|_____________________Ajuda jogo do Bicho______________________|");
+	SCM(playerid, COLOR_YELLOW,"[!] Comandos para jogar no jogo do bicho");
+	SCM(playerid, COLOR_WHITE,"/jogodobicho {FFFFFF}- Abre o dialog para apostas e ver os bichos e informações.");
+	SCM(playerid, COLOR_WHITE,"/bicho {FFFFFF}- Informações dos bichos, grupos e dezenas.");
 	SCM(playerid, COLOR_LIGHTGREEN,"|_____________________________________________________|");
 	return 1;
 }
@@ -15709,7 +15724,6 @@ public OnPlayerStateChange(playerid, newstate, oldstate)
 			ouvindoxmradioID[playerid] = 0;
 		}
 	}
-
    	if(oldstate == PLAYER_STATE_PASSENGER || oldstate == PLAYER_STATE_DRIVER)
    	{
    	    PlayerTextDrawHide(playerid, Speedo[playerid]);
@@ -24039,7 +24053,7 @@ CMD:ajuda(playerid, params[])
     SendClientMessage(playerid, COLOR_ESPECIAL2, "[CHAT] (/s)ussurar (/g)ritar (/l)ocal /me /b(OOC) /do /baixo /pm(OOC) (/r)adio /cw");
     SendClientMessage(playerid, COLOR_ESPECIAL1, "[BANCO] /sacar /depositar /transferir /savings /caixa");
     SendClientMessage(playerid, COLOR_ESPECIAL2, "[AJUDA] /ajudacelular /ajudacasa (/v)eiculo /ajudaempresa /ajudaemprego /ajudafaccao /ajudapesca");
-    SendClientMessage(playerid, COLOR_ESPECIAL1, "[AJUDA] /ajudaradio /ajudadrogas /ajudaarma /levantar /documentos /itensp /multas");
+    SendClientMessage(playerid, COLOR_ESPECIAL1, "[AJUDA] /ajudaradio /ajudadrogas /ajudaarma /ajudajogo /levantar /documentos /itensp /multas");
     SendClientMessage(playerid, COLOR_ESPECIAL2, "[TOG/ESTILOS/OUTROS] /tog /estilochat /estilocaminhada /afk /passarcigarro /passarbeck");
     if(PlayerInfo[playerid][pAdmin] > 0 || PlayerInfo[playerid][pTester] > 0) SendClientMessage(playerid, COLOR_ESPECIAL1, "[ADMIN] /ajudaadmin(/aa) /ajudateam");
     SendClientMessage(playerid, COLOR_LIGHTGREEN, "____________________________________________");
@@ -49910,7 +49924,7 @@ Dialog:DIALOG_247(playerid, response, listitem, inputtext[])
 	 		        if(PlayerInfo[playerid][pGrana] >= EmpInfo[NaEmpresa][eRadioPreco])
 	 		        {
 	 		            if(PlayerInfo[playerid][pRadio] != 0) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} Você já tem um rádio comunicador.");
-		 		        SendClientMessage(playerid,COLOR_LIGHTGREEN,"Rádio comprado(/ajudaradio).");
+		 		        SendClientMessage(playerid,COLOR_LIGHTGREEN,"Rádio comunicador comprado (/ajudaradio).");
 		 		        PlayerInfo[playerid][pGrana] -= EmpInfo[NaEmpresa][eRadioPreco];
 		 		        EmpInfo[NaEmpresa][eBank] += EmpInfo[NaEmpresa][eRadioPreco];
 		 		        PlayerPlaySound(playerid,1054, 0.0, 0.0, 0.0);
@@ -64656,6 +64670,23 @@ COMMAND:veiculo(playerid,params[])
 					    return 1;
 					}
 				}
+				else if(IsPlayerInAnyVehicle(playerid) && !IsVehicleRental(playerid))
+			    {
+					if(!VehicleInfo[slot][vLocked])
+					{
+	    				GameTextForPlayer(playerid,"~r~Veiculo Trancado",3000,4);
+					    PlayerPlaySound(playerid,1145,0.0,0.0,0.0);
+					    LockVehicle(veh);
+					    return 1;
+					}
+					else
+					{
+					    GameTextForPlayer(playerid,"~g~Veiculo Destrancado",3000,4);
+					    PlayerPlaySound(playerid,1145,0.0,0.0,0.0);
+					    UnlockVehicle(veh);
+					    return 1;
+					}
+				}
 				else if(PlayerInfo[playerid][pFac] > 0)
 			    {
 			        if(PlayerInfo[playerid][pFac] == VehicleInfo[slot][vFaction])
@@ -65042,7 +65073,7 @@ COMMAND:motor(playerid,params[])
 		SetVehicleParamsEx(GetPlayerVehicleID(playerid),1,paramsa[1],paramsa[2],paramsa[3],paramsa[4],paramsa[5],paramsa[6]);
 		return 1;
 	}
-    if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+    if(IsPlayerInAnyVehicle(playerid) && IsVehicleRental(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
     {
         new veh = GetPlayerVehicleID(playerid);
 		new slot = GetVehicleSlot(veh);
