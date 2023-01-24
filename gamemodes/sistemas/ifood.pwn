@@ -209,6 +209,13 @@ CMD:ligarapp(playerid, params[])
         if(iFood[playerid] == 1)
         {
             if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA)
+            else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA2)
+			else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA3)
+            else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA4)
+			else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA5)
+            else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA6)
+			else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA7)
+            else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA8)
             {
                 SendClientMessage(playerid, COLOR_WHITE, "[iFood] Aplicativo habilitado para receber entregas!");
                 AppLigado[playerid] = 1;

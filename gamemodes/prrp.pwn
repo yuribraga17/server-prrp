@@ -147,8 +147,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "22/01/2023"
-#define CA_VERSAO       "PR:RP v1.10"
+#define ULTIMO_GMX      "25/01/2023"
+#define CA_VERSAO       "PR:RP v1.11"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -727,8 +727,10 @@ new RotaBusJob[MAX_PLAYERS] = 0;
 
 //Emprego ifood
 #define GANHO_MIN   16 //GANHO MINIMO POR ENTREGA
-#define GANHO_MAX   87 //GANHO MAXIMO POR ENTREGA
- 
+#define GANHO_MAX   290 //GANHO MAXIMO POR ENTREGA
+//#define ID_MOTOCA   448
+
+
 new AppLigado[MAX_PLAYERS];
 new iFood[MAX_PLAYERS];
 new Entregando[MAX_PLAYERS];
@@ -736,6 +738,7 @@ new Retiroupedido[MAX_PLAYERS];
 new buscandocorridas[MAX_PLAYERS];
 new TempoDeResposta[MAX_PLAYERS];
 new TemCorrida[MAX_PLAYERS];
+
  
  new Temporizador[][1] = //TEMPO DE ESPERA ENTRE CADA ENTREGA
 {
@@ -2366,8 +2369,8 @@ enum e_Account
 	pJobInPd,
 	pTrafico,
 	pFabricouD,
-	pPecasMecanicas[7],
-	pBateria,// 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
+	pPecasMecanicas[7], // 0 - Radio | 1 - Neon | 2 - GPS | 3 - Imob | 4 - Neon | 5 - Peças | 6 - Rodas
+	pBateria,
 	pBomba,
 	pC4,
 	pTNT,
@@ -2528,6 +2531,7 @@ enum e_Account
 	pAltura,
 	pFome,
 	pSede,
+	pApostouBicho,
 	pFomeTime,
 	pSedeTime,
     pFactionTeam,
@@ -3517,7 +3521,7 @@ new EmpInfo[MAX_EMPRESAS][e_Info];
 //==============================================================================
 //                      VEHICLE SYSTEM - BY: FREEZE
 //==============================================================================
-#define MAX_CA_VEHICLES 5000
+#define MAX_CA_VEHICLES 50000
 new purchasing_vehicle[MAX_PLAYERS],
 	sync_attribs[MAX_VEHICLES],
 	sync_engine_off[MAX_VEHICLES],
@@ -6126,6 +6130,10 @@ public OnGameModeInit()
     for(new c=0;c<sizeof(CarRent);c++)
     {
 		SetVehicleNumberPlate(CarRent[c], "ALUGADO");
+		new playerid;
+		new veh = GetPlayerVehicleID(playerid);
+		new slot = GetVehicleSlot(veh);
+		VehicleInfo[slot][vBateria] = 10000.0;
     }
 
     Noia_1 = CreateActor(20001,2574.0564,-1124.1001,65.4064,52.3413); 
@@ -7334,9 +7342,9 @@ public FecharBicho(playerid)
 {
 	PodeApostarBicho = false;
 	new Msg[512];
-	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}O resultado irá sair daqui 10 segundos! As apostas estão fechadas.");
+	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}O resultado irá sair daqui 15 segundos! As apostas estão fechadas.");
 	SendClientMessage(playerid, COLOR_LIGHTRED, Msg);
-	SetTimerEx("ResultadoBicho", 10000, false, "d");
+	SetTimerEx("ResultadoBicho", 5000, false, "d");
 	return 1;
 }
 
@@ -7350,9 +7358,9 @@ public ResultadoBicho(playerid)
 	stringB[256],
 	Msg[256];
 	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}O número sorteado foi: %d%d!", resultado_mil, resultado_dez);
-	SendClientMessageToAll(COLOR_LIGHTRED, Msg);
+	SendClientMessage(playerid, COLOR_LIGHTRED, Msg);
 	format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}Animal: %s (Grupo %d) - Dezena %d!", TabelaBichos[animal][Bicho], animal, resultado_dez);
-	SendClientMessageToAll(COLOR_LIGHTRED, Msg);
+	SendClientMessage(playerid, COLOR_LIGHTRED, Msg);
 	printf("Número: %d%d | Animal: %s (dezena %d)", resultado_mil, resultado_dez, TabelaBichos[animal][Bicho], resultado_dez);
 	for(new i;i < sizeof(Apostadores);i++) 
 	{
@@ -7360,6 +7368,7 @@ public ResultadoBicho(playerid)
 		{
 			ganhadores++;
 			//GivePlayerMoney(i, (Apostadores[i][Aposta] * 14));
+			PlayerInfo[playerid][pApostouBicho] = 0;
 			PlayerInfo[playerid][pGrana] += (Apostadores[i][Aposta] * 14);
 			format(stringB, sizeof(stringB), "[Jogo Do Bicho] {ffffff}Parabens! Você apostou no animal %s e ganhou 14x sua aposta de R$%d!", TabelaBichos[animal][Bicho], Apostadores[i][Aposta]);
 			SendClientMessage(playerid, COLOR_LIGHTRED, stringB);
@@ -7371,7 +7380,7 @@ public ResultadoBicho(playerid)
 		if(i == sizeof(Apostadores)-1) 
 		{
 			format(Msg, sizeof(Msg), "[Jogo Do Bicho] {ffffff}Tivemos um total de %d vencedores!", ganhadores);
-			SendClientMessageToAll(COLOR_LIGHTRED, Msg);
+			SendClientMessage(playerid, COLOR_LIGHTRED, Msg);
 			break;
 		}
 	}
@@ -8589,12 +8598,15 @@ public PayDay(playerid) {
             format(stringpd, sizeof(stringpd), " Novo balanço: R$%d", PlayerInfo[playerid][pBanco]); 	SendClientMessage(playerid, COLOR_LIGHTWHITE, stringpd);
    			format(stringpd, sizeof(stringpd),"~y~PayDay~n~ ~w~Salario ~n~~g~R$%d",total);
 			GameTextForPlayer(playerid,stringpd,10000,1);
-
-			SetTimerEx("FecharBicho", 6000, false, "d");
+			if(PlayerInfo[playerid][pApostouBicho] == 1)
+			{
+				SetTimerEx("FecharBicho", 100, false, "d");
+				SetTimerEx("ResultadoBicho", 10000, false, "d");
+			}
 
 
             PlayerInfo[playerid][pLevel]++;
-			if(PlayerInfo[playerid][pLevel] >= 2 && PlayerInfo[playerid][pAjudaInicial] != 1)
+			if(PlayerInfo[playerid][pLevel] >= 2 && PlayerInfo[playerid][pAjudaInicial] != 2)
 			    SendClientMessage(playerid,COLOR_LIGHTGREEN,"- Utilize '/ajudainicial' para pegar o seu veículo da ajuda inicial.");
 
 			if(PlayerInfo[playerid][pLevel] >= 4 && PlayerInfo[playerid][pAjudaInicialDim] != 1) {
@@ -10243,6 +10255,7 @@ public Timer_Segundos()
      		VehicleInfo[slot][vInsurance] = 0;
        		VehicleInfo[slot][vDestroyed] = 0;
 	        VehicleInfo[slot][vModel] = 0;
+	        VehicleInfo[slot][vBateria] = 100.0;
 	        VehicleInfo[slot][vSpawnX] = 0.0;
 	        VehicleInfo[slot][vSpawnY] = 0.0;
 	        VehicleInfo[slot][vSpawnZ] = 0.0;
@@ -11093,6 +11106,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pDrogaTime] = 0;
 	PlayerInfo[extraid][pFome] = 0;
 	PlayerInfo[extraid][pSede] = 0;
+	PlayerInfo[extraid][pApostouBicho] = 0;
 	PlayerInfo[extraid][pTremorAtirar] = 0;
 	PlayerInfo[extraid][pUsouDroga] = 0;
 	PlayerInfo[extraid][pSkillTiro] = 0;
@@ -11145,6 +11159,7 @@ public ResetVarsPlayerInfo(extraid)
 	PlayerInfo[extraid][pSede] = 100;
 	PlayerInfo[extraid][pFomeTime] = 0;
 	PlayerInfo[extraid][pSedeTime] = 0;
+	PlayerInfo[extraid][pApostouBicho] = 0;
 
 	OutrasInfos[extraid][oDesmancheX] = 0;
 	OutrasInfos[extraid][oDesmancheY] = 0;
@@ -11580,6 +11595,8 @@ public OnPlayerConnect(playerid)
 	PlayerInfo[playerid][pSede] = 100;
 	PlayerInfo[playerid][pFomeTime] = 0;
 	PlayerInfo[playerid][pSedeTime] = 0;
+
+	PlayerInfo[playerid][pApostouBicho] = 0;
 
 	PlayerDroga[playerid][MaconhaR] = 0;
 	PlayerDroga[playerid][MaconhaB] = 0;
@@ -13934,7 +13951,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 22/01/2023, v1.10, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 25/01/2023, v1.11, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -14498,8 +14515,8 @@ public OnVehicleDeath(vehicleid, killerid)
 			{
 			    if(VehicleInfo[slot][vLastDriver] == vehowner)
 			    {
-					new price_of_car = GetVehiclePrice(VehicleInfo[slot][vModel]);
-					new price_to_keep_car = floatround((price_of_car / 4) + (price_of_car * 0.01) + 10);
+					//new price_of_car = GetVehiclePrice(VehicleInfo[slot][vModel]);
+					new price_to_keep_car = 2500;
 					
 			        new vname[256];
 					new str[256];
@@ -15856,44 +15873,55 @@ CMD:ifood(playerid, params[])
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
     AppLigado[playerid] = 0;
     iFood[playerid] = 1;
-    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Comandos: /ifood - /ligarapp - /desligarapp");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Comandos: /ifood - /ligarapp - /desligarapp");
     return 1;
 }
 CMD:ligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+    if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Você já está conectado");
+    
+	SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Aplicativo habilitado para receber entregas!");
+    AppLigado[playerid] = 1;
+
+    return 1;
+}
+/*CMD:ligarapp(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
     if(IsPlayerInAnyVehicle(playerid))
     if(AppLigado[playerid] == 1)
-        return SendClientMessage(playerid, COLOR_WHITE ,"[iFood] Você já está conectado");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Você já está conectado");
     else
     {
         if(iFood[playerid] == 1)
         {
-			if(IsPlayerInAnyVehicle(playerid))
+            if(GetVehicleModel(GetPlayerVehicleID(playerid)) == ID_MOTOCA)
             {
-                SendClientMessage(playerid, COLOR_WHITE, "[iFood] Aplicativo habilitado para receber entregas!");
+                SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Aplicativo habilitado para receber entregas!");
                 AppLigado[playerid] = 1;
             }
             else
             {
-                SendClientMessage(playerid,COLOR_WHITE,"[iFood] Desculpe, você não está em um veículo.");
+                SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Desculpe, você não está em um veículo.");
             }
         }
         else
         {
-            SendClientMessage(playerid, COLOR_WHITE,"[iFood] Falha na autenticação.");
+            SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Falha na autenticação.");
         }
     }
     return 1;
-}
+}*/
 CMD:desligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
 
     if(AppLigado[playerid] != 1)
-        return SendClientMessage(playerid, COLOR_WHITE,"[iFood] Você já está desconectado.");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Você já está offline.");
     else
     {
         AppLigado[playerid] = 0;
@@ -15901,7 +15929,7 @@ CMD:desligarapp(playerid, params[])
         Retiroupedido[playerid] = 0;
         KillTimer(buscandocorridas[playerid]);
         DisablePlayerCheckpoint(playerid);
-        SendClientMessage(playerid, COLOR_WHITE, "[iFood] Obrigado pelas entregas, até breve!");
+        SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Obrigado pelas entregas, até breve!");
     }
     return 1;
 }
@@ -15913,7 +15941,7 @@ CMD:aceitarentrega(playerid, params[])
 		KillTimer(buscandocorridas[playerid]);
 		TemCorrida[playerid] = 0;
 		StopAudioStreamForPlayer(playerid);
-		SendClientMessage(playerid,COLOR_WHITE, "[iFood] Pedido aceito, vá até o local retirar o pedido.");
+		SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Pedido aceito, vá até o local retirar o pedido.");
 		new rand = random(sizeof(Restaurantes));
 		SetPlayerCheckpoint(playerid,Restaurantes[rand][BrX],Restaurantes[rand][BrY],Restaurantes[rand][BrZ], 5);
 	}
@@ -15925,15 +15953,16 @@ public SigaEntrega(playerid)
     new rand = random(sizeof(Entregas_ifood));
     Retiroupedido[playerid] = 1;
     SetPlayerCheckpoint(playerid,Entregas_ifood[rand][0],Entregas_ifood[rand][1],Entregas_ifood[rand][2], 5);
-    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Siga para a entrega.");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Siga para a entrega.");
     TogglePlayerControllable(playerid, true);
     return 1;
 }
 forward FinalizandoEntrega(playerid);
 public FinalizandoEntrega(playerid)
 {
-    SendClientMessage(playerid, COLOR_WHITE, "[iFood] Entrega realizada com sucesso.");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Entrega realizada com sucesso.");
 	PlayerInfo[playerid][pGrana] += randomEspecial(GANHO_MIN, GANHO_MAX);
+	//SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você recebeu R$%d pela entrega.", randomEspecial);
 
     Entregando[playerid] = 0;
     Retiroupedido[playerid] = 0;
@@ -15946,15 +15975,12 @@ public FinalizandoEntrega(playerid)
 forward ChamarEntrega(playerid);
 public ChamarEntrega(playerid)
 {
-    TempoDeResposta[playerid] = SetTimerEx("PerdeuEntrega", 10000,false,"i",playerid);
+    TempoDeResposta[playerid] = SetTimerEx("PerdeuEntrega", 15000,false,"i",playerid);
     TemCorrida[playerid] = 1;
     PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/ifood.mp3");
-    for(new t=0; t < 15; t++)
-    {
-        SendClientMessage(playerid, -1, "");
-    }
-    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Nova entrega recebida, você possui 10s para aceitar.");
-    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Digite /aceitarentrega.");
+ 
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Nova entrega recebida, você possui 15 segundos para aceitar.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Digite /aceitarentrega.");
     return 1;
 }
  
@@ -15965,7 +15991,7 @@ public PerdeuEntrega(playerid)
     Entregando[playerid] = 0;
     TemCorrida[playerid] = 0;
     StopAudioStreamForPlayer(playerid);
-    SendClientMessage(playerid,COLOR_WHITE, "[iFood] Você perdeu a entrega.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você perdeu a entrega.");
     KillTimer(TempoDeResposta[playerid]);
     return 1;
 }
@@ -18692,6 +18718,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 				Apostadores[playerid][TipoAposta] = 0;
 				Apostadores[playerid][Aposta] = valor;
 				PlayerInfo[playerid][pGrana] -= valor;
+				PlayerInfo[playerid][pApostouBicho] = 1;
 				Apostadores[playerid][Apostando] = true;
 				format(stringB2, sizeof(stringB2), "{FCB876}[Jogo Do Bicho] {a9c4e4}Você apostou R$%d no animal %s(Grupo %d)", valor, TabelaBichos[animal][Bicho], animal);
 				return SendClientMessage(playerid, -1, stringB2);
@@ -19291,7 +19318,7 @@ public OnDialogResponse(playerid, dialogid, response, listitem, inputtext[])
 		        {
 		            if(VehicleInfo[slot][vOwner] == PlayerInfo[playerid][pID])
 		            {
-		            	new price = floatround(GetVehiclePrice(VehicleInfo[slot][vModel]) * 0.20);
+		            	new price = floatround(GetVehiclePrice(VehicleInfo[slot][vModel]) * 0.30);
 
 						if(VehicleInfo[slot][vAjudaIni] != 1)
 						{
@@ -20366,6 +20393,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 
 			PlayerInfo[playerid][pFome] = 100;
 			PlayerInfo[playerid][pSede] = 100;
+			PlayerInfo[playerid][pApostouBicho] = 0;
 
             PlayerInfo[playerid][pFactionTeam] = 0;
             PlayerInfo[playerid][pBanTeam] = 0;
@@ -20665,7 +20693,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
   				{
   				    if(ComprandoCarro[playerid][4] == 1)
 					{
-					            PlayerInfo[playerid][pAjudaInicial] = 1;
+					            PlayerInfo[playerid][pAjudaInicial] = 2;
 					    		vehicle_creating = 1;
 								VehicleInfo[slot][vOwner] = PlayerInfo[playerid][pID];
 								VehicleInfo[slot][vModel] = vehicle_model;
@@ -20690,7 +20718,6 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vInsurance] = 0;
 								VehicleInfo[slot][vDestroyed] = 0;
 								VehicleInfo[slot][vLock] = 0;
-								VehicleInfo[slot][vBateria] = 100;
 
 								VehicleInfo[slot][vMileage] = 0;
 								VehicleInfo[slot][vFaction] = 0;
@@ -20704,6 +20731,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vWorld] = 0;
 								VehicleInfo[slot][vInterior] = 0;
 								VehicleInfo[slot][vAjudaIni] = 1;
+								VehicleInfo[slot][vBateria] = 100.0;
 								cp_target[playerid] = 1;
 								SetPlayerCheckpoint(playerid,VehicleInfo[slot][vSpawnX],VehicleInfo[slot][vSpawnY],VehicleInfo[slot][vSpawnZ],5.0);
 								cp_target[playerid] = 1;
@@ -20711,7 +20739,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								SetVehicleNumberPlate(VehicleInfo[slot][vVehicle],VehicleInfo[slot][vPlate]);
 								SetVehicleParamsEx(VehicleInfo[slot][vVehicle], false, false, false, false, false, false, false);
 								strdel(VehicleInfo[slot][vMods],0,strlen(VehicleInfo[slot][vMods]));
-								SendClientMessage(playerid,COLOR_LIGHTRED,"[!] O seu veículo esta spawnando na concessionária.");
+								SendClientMessage(playerid,COLOR_LIGHTRED,"[!] O seu veículo está spawnando na concessionária.");
   								SendClientMessage(playerid,COLOR_LIGHTRED,"Não se esqueça de instalar um GPS no mesmo para utilizar '/v encontrar' caso você não saiba onde ele está.");
 								vehicle_creating = 0;
 			     				LockVehicle(VehicleInfo[slot][vVehicle]);
@@ -20719,7 +20747,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								StopEngine(VehicleInfo[slot][vVehicle]);
 								new str[256];
 								purchasing_vehicle[playerid] = slot;
-								format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,hp,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f','%d','%f','%s')",
+								format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,bateria,hp,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f', '%d','%d','%f','%s')",
 								VehicleInfo[slot][vModel],
 								VehicleInfo[slot][vOwner],
 								VehicleInfo[slot][vColor1],
@@ -20729,6 +20757,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vSpawnZ],
 								VehicleInfo[slot][vSpawnR],
 								VehicleInfo[slot][vInsurance],
+								VehicleInfo[slot][vBateria],
 								VehicleInfo[slot][vHealth],
 								VehicleInfo[slot][vPlate]);
 								mysql_function_query(Pipeline, str, true, "QUERY_PURCHASE_VEHICLE", "d", playerid);
@@ -20747,6 +20776,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vColor1] = ComprandoCarro[playerid][2];
 								VehicleInfo[slot][vColor2] = ComprandoCarro[playerid][2];
 								VehicleInfo[slot][vFuel] = 100;
+								VehicleInfo[slot][vBateria] = 100.0;
 								if(IsABoatModel(vehicle_model))
 								{
 								    VehicleInfo[slot][vSpawnX] = BarcoX;
@@ -20765,7 +20795,6 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vInsurance] = 0;
 								VehicleInfo[slot][vDestroyed] = 0;
 								VehicleInfo[slot][vLock] = 0;
-								VehicleInfo[slot][vBateria] = 100;
 								VehicleInfo[slot][vMileage] = 0;
 								VehicleInfo[slot][vFaction] = 0;
 								VehicleInfo[slot][vGps] = 0;
@@ -20773,6 +20802,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 			     				VehicleInfo[slot][vSelling] = -1;
 								VehicleInfo[slot][vHealth] = 1000.0;
 								VehicleInfo[slot][vSemUso] = 3600;
+								VehicleInfo[slot][vBateria] = 100.0;
 								VehicleInfo[slot][vVehicle] = CreateVehicle(VehicleInfo[slot][vModel],VehicleInfo[slot][vSpawnX],VehicleInfo[slot][vSpawnY],VehicleInfo[slot][vSpawnZ],VehicleInfo[slot][vSpawnR],VehicleInfo[slot][vColor1],VehicleInfo[slot][vColor2],-1);
 								VehicleInfo[slot][vDeathTime] = 0;
 								VehicleInfo[slot][vWorld] = 0;
@@ -20793,7 +20823,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								StopEngine(VehicleInfo[slot][vVehicle]);
 								new str[256];
 								purchasing_vehicle[playerid] = slot;
-								format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,hp,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f','%d','%f','%s')",
+								format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,bateria,hp,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f','%d','%d','%f','%s')",
 								VehicleInfo[slot][vModel],
 								VehicleInfo[slot][vOwner],
 								VehicleInfo[slot][vColor1],
@@ -20803,6 +20833,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 								VehicleInfo[slot][vSpawnZ],
 								VehicleInfo[slot][vSpawnR],
 								VehicleInfo[slot][vInsurance],
+								VehicleInfo[slot][vBateria],
 								VehicleInfo[slot][vHealth],
 								VehicleInfo[slot][vPlate]);
 								mysql_function_query(Pipeline, str, true, "QUERY_PURCHASE_VEHICLE", "d", playerid);
@@ -20810,7 +20841,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 						}
 						else if(parafac == 1)
 						{
-							printf("Chegou no parafac");
+							printf("Chegou no parafac 1");
 							vehicle_creating = 1;
 							PlayerInfo[playerid][pGrana] -= price;
 							EmpInfo[biz][eBank] += price; // Conce ganhar o dim
@@ -20826,7 +20857,6 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 							VehicleInfo[slot][vMileage] = 0;
 							VehicleInfo[slot][vInsurance] = 0;
 							VehicleInfo[slot][vLock] = 0;
-							VehicleInfo[slot][vBateria] = 100;
 							VehicleInfo[slot][vGps] = 0;
 							VehicleInfo[slot][vSelling] = -1;
 							VehicleInfo[slot][vCompany] = 0;
@@ -20835,6 +20865,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 							VehicleInfo[slot][vWorld] = 0;
 							VehicleInfo[slot][vInterior] = 0;
 							VehicleInfo[slot][vAjudaIni] = 0;
+							VehicleInfo[slot][vBateria] = 100.0;
 							FetchVehiclePlate(slot,VehicleInfo[slot][vPlate]);
 							strdel(VehicleInfo[slot][vMods],0,strlen(VehicleInfo[slot][vMods]));
 							VehicleInfo[slot][vSemUso] = 3600;
@@ -20847,7 +20878,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 							SetVehicleParamsEx(VehicleInfo[slot][vVehicle], false, false, false, false, false, false, false);
 							strdel(VehicleInfo[slot][vMods],0,strlen(VehicleInfo[slot][vMods]));
 							GameTextForPlayer(playerid,"~g~Você comprou este veiculo",5000,5);
-							SendClientMessage(playerid,COLOR_LIGHTRED,"[!] O seu veículo esta spawnando na concessionária.");
+							SendClientMessage(playerid,COLOR_LIGHTRED,"[!] O seu veículo está spawnando na concessionária.");
   							SendClientMessage(playerid,COLOR_LIGHTRED,"Não se esqueça de instalar um GPS no mesmo para utilizar '/v encontrar' caso você não saiba onde ele está.");
 							vehicle_creating = 0;
 							LockVehicle(VehicleInfo[slot][vVehicle]);
@@ -20855,7 +20886,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 							format(VehicleInfo[slot][vOwnerName],MAX_PLAYER_NAME,"Faction Vehicle");
 							new str[256];
 							purchasing_vehicle[playerid] = slot;
-							format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,hp,faction,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f','%d','%f','%d','%s')",
+							format(str,sizeof(str),"INSERT INTO rp_vehicles (model,owning_character,color1,color2,spawn_x,spawn_y,spawn_z,spawn_r,insurance,hp,faction,plate) VALUES ('%d','%d','%d','%d','%f','%f','%f','%f','%d','%d','%f','%d','%s')",
 							VehicleInfo[slot][vModel],
 							VehicleInfo[slot][vOwner],
 							VehicleInfo[slot][vColor1],
@@ -20865,6 +20896,7 @@ Terminar_Compra(playerid,vehicle_model, price, parafac)
 							VehicleInfo[slot][vSpawnZ],
 							VehicleInfo[slot][vSpawnR],
 							VehicleInfo[slot][vInsurance],
+							VehicleInfo[slot][vBateria],
 							VehicleInfo[slot][vHealth],
 							VehicleInfo[slot][vFaction],
 							VehicleInfo[slot][vPlate]);
@@ -26933,6 +26965,7 @@ COMMAND:pix(playerid, params[])
 
 	    		format(chatstr, sizeof(chatstr), "SMS: Você recebeu um PIX de %s no valor: R$%d, Ag: 3557 C:579847-2", PlayerName(playerid, 0), qnt);
 				SCM(playa, COLOR_YELLOW, chatstr);
+				PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/pix.mp3");
 
 				new strl[126];
 				format(strl, sizeof(strl), "%s fez um pix R$%d para %s.", PlayerName(playerid,0), qnt, PlayerName(playa,0));
@@ -27992,13 +28025,21 @@ public PegouMetaR(playerid)
 
     return 1;
 }
-forward BateriaCarro(playerid);
+/*forward BateriaCarro(playerid);
 public BateriaCarro(playerid)
+{
+	new veh = GetPlayerVehicleID(playerid);
+	VehicleInfo[veh][vBateria] -= 0.70;
+
+    return 1;
+}*/
+/*forward BateriaCarro2(playerid);
+public BateriaCarro2(playerid)
 {
 	PlayerInfo[playerid][pBateria] -= 1;
 
     return 1;
-}
+}*/
 //Sistema de vender drogas npc - Yur$
 COMMAND:traficar(playerid,params[])
 {
@@ -40977,10 +41018,11 @@ COMMAND:aveiculo(playerid, params[])
 					VehicleInfo[slot][vInsurance] = 0;
 					VehicleInfo[slot][vSelling] = -1;
 					VehicleInfo[slot][vHealth] = 1000.0;
+					VehicleInfo[slot][vBateria] = 100.0;
 					VehicleInfo[slot][vFaction] = 0;
 					StopEngine(VehicleInfo[slot][vVehicle]);
 
-					format(VehicleInfo[slot][vOwnerName], 24,"Governo de LS");
+					format(VehicleInfo[slot][vOwnerName], 24,"Governo do RJ");
 
 					format(string, sizeof(string), "AdmCmd: Você mudou o veículo para o emprego %d.", variavel);
 					SendClientMessage(playerid, COLOR_LIGHTRED, string);
@@ -41022,6 +41064,7 @@ COMMAND:aveiculo(playerid, params[])
 					VehicleInfo[slot][vSelling] = -1;
 					VehicleInfo[slot][vCompany] = 0;
 					VehicleInfo[slot][vHealth] = 1000.0;
+					VehicleInfo[slot][vBateria] = 100.0;
 					VehicleInfo[slot][vFaction] = GetFactionBySqlId(variavel);
 					LockVehicle(VehicleInfo[slot][vVehicle]);
 					StopEngine(VehicleInfo[slot][vVehicle]);
@@ -44081,7 +44124,7 @@ public LoadAccountInfo(extraid)
 		cache_get_field_content(0, "PecasMecanicas4", tmp);PlayerInfo[extraid][pPecasMecanicas][4] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas5", tmp);PlayerInfo[extraid][pPecasMecanicas][5] = strval(tmp);
 		cache_get_field_content(0, "PecasMecanicas6", tmp);PlayerInfo[extraid][pPecasMecanicas][6] = strval(tmp);
-		cache_get_field_content(0, "baterias", tmp);    PlayerInfo[extraid][pBateria] = strval(tmp);
+		cache_get_field_content(0, "bateria", tmp);    PlayerInfo[extraid][pBateria] = strval(tmp);
 		cache_get_field_content(0, "TempoPLD", tmp);	PlayerInfo[extraid][pTempoPLD] = strval(tmp);
 		cache_get_field_content(0, "ToolKit", tmp);		PlayerInfo[extraid][pToolKit] = strval(tmp);
 		cache_get_field_content(0, "ArrombarDNV", tmp);	PlayerInfo[extraid][pArrombarDNV] = strval(tmp);
@@ -55972,7 +56015,6 @@ public CarregandoCarros()
 		cache_get_field_content(i,"owning_character",b);	VehicleInfo[i][vOwner] = strval(b);
 		cache_get_field_content(i,"mileage",b);				VehicleInfo[i][vMileage] = strval(b);
 		cache_get_field_content(i,"lock",b);				VehicleInfo[i][vLock] = strval(b);
-		cache_get_field_content(i,"baterias",b);				VehicleInfo[i][vBateria] = strval(b);
 		cache_get_field_content(i,"locked",b);				VehicleInfo[i][vLocked] = strval(b);
 		cache_get_field_content(i,"times_destroyed",b);		VehicleInfo[i][vDestroyed] = strval(b);
 		cache_get_field_content(i,"fuel",b);				VehicleInfo[i][vFuel] = strval(b);
@@ -56033,6 +56075,7 @@ public CarregandoCarros()
 		cache_get_field_content(i,"ammo9",b);				VehicleInfo[i][vAmmo9] = strval(b);
 		cache_get_field_content(i,"ammo10",b);				VehicleInfo[i][vAmmo10] = strval(b);
 		cache_get_field_content(i,"motor",b);				VehicleInfo[i][vMotor] = floatstr(b);
+		cache_get_field_content(i,"bateria",b);				VehicleInfo[i][vBateria] = floatstr(b);
 		cache_get_field_content(i,"pluva1",b);				VehicleInfo[i][vpluva1] = strval(b);
 		cache_get_field_content(i,"pluva2",b);				VehicleInfo[i][vpluva2] = strval(b);
 		cache_get_field_content(i,"pluva3",b);				VehicleInfo[i][vpluva3] = strval(b);
@@ -56191,7 +56234,7 @@ public CreateVehicles()
 										    if(Spawnados < 100)
 											{
 											    VehicleInfo[i][vSemUso] = 3600;
-												VehicleInfo[i][vBateria] = 100;
+												VehicleInfo[i][vBateria] = 100.0;
 												VehicleInfo[i][vVehicle] = CreateVehicle(VehicleInfo[i][vModel],VehicleInfo[i][vSpawnX],VehicleInfo[i][vSpawnY],VehicleInfo[i][vSpawnZ],VehicleInfo[i][vSpawnR],VehicleInfo[i][vColor1],VehicleInfo[i][vColor2],-1, 0);
 		                                  		Spawnados++;
 
@@ -56333,8 +56376,8 @@ public AcceptVehicleCharge(playerid,offset)
 	            cur_offset ++;
 	            if(cur_offset == offset)
 	            {
-					new price_of_car = GetVehiclePrice(VehicleInfo[i][vModel]);
-					new price_to_keep_car = floatround((price_of_car / 4) + (price_of_car * 0.02) + 60);
+					//new price_of_car = GetVehiclePrice(VehicleInfo[i][vModel]);
+					new price_to_keep_car = 2500;
 					if(PlayerInfo[playerid][pGrana] >= price_to_keep_car)
 					{
 						//new biz = GetClosestBiz(playerid);
@@ -56352,6 +56395,7 @@ public AcceptVehicleCharge(playerid,offset)
 									VehicleInfo[i][vSpawnZ] = 19.75005;
 									VehicleInfo[i][vSpawnR] = 0.0;
 							        VehicleInfo[i][vWorld] = 0;
+							        VehicleInfo[i][vBateria] = 50;
 									VehicleInfo[i][vInterior] = 0;
 									VehicleInfo[i][vSemUso] = 3600;
 									VehicleInfo[i][vVehicle] = CreateVehicle(VehicleInfo[i][vModel],VehicleInfo[i][vSpawnX],VehicleInfo[i][vSpawnY],VehicleInfo[i][vSpawnZ],VehicleInfo[i][vSpawnR],VehicleInfo[i][vColor1],VehicleInfo[i][vColor2],-1);
@@ -56539,7 +56583,7 @@ public ShowVehicleList(playerid,forplayer)
 	    {
 	        if(count == 1)
 	        {
-	        	format(string,sizeof(string),"___________Seus veículos, %s___________",PlayerName(playerid, 0));
+	        	format(string,sizeof(string),"___________Veículos de %s___________",PlayerName(playerid, 0));
 				SendClientMessage(forplayer, COLOR_LIGHTGREEN,string);
 			}
 
@@ -56553,12 +56597,12 @@ public ShowVehicleList(playerid,forplayer)
 	        {
 	            if(VehicleInfo[i][vVehicle] != -1)
 				{
-					format(string,sizeof(string),"[Slot %d]: %s, Segurado:[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+					format(string,sizeof(string),"[Slot %d]: %s, Segurado:[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
                     SendClientMessage(forplayer,COLOR_LIGHTGREEN,string);
 				}
 				else
 				{
-					format(string,sizeof(string),"[Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+					format(string,sizeof(string),"[Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
                     SendClientMessage(forplayer,-1,string);
 				}
 			}
@@ -56566,17 +56610,17 @@ public ShowVehicleList(playerid,forplayer)
 			{
 			    new redeemstr[64];
 			    if(VehicleInfo[i][vDeathTime] > 60) { format(redeemstr,sizeof(redeemstr),"%d minutos",(VehicleInfo[i][vDeathTime] / 60)); } else { format(redeemstr,sizeof(redeemstr),"menos de um minuto!"); }
-			    format(string,sizeof(string),"[DESTRUIDO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d], Tempo para retirar:[%s]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
+			    format(string,sizeof(string),"[DESTRUIDO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d], Tempo para retirar:[%s]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
        			SendClientMessage(forplayer,COLOR_LIGHTGREEN,string);
 			}
 			if(VehicleInfo[i][vImpounded])
 			{
-			    format(string,sizeof(string),"[APREENDIDO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vDestroyed],VehicleInfo[i][vVehicle]);
+			    format(string,sizeof(string),"[APREENDIDO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d], Bateria[%f] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
                 SendClientMessage(forplayer,COLOR_LIGHTRED,string);
 			}
 		 	if(VehicleInfo[i][vDesmanchado])
 			{
-			    format(string,sizeof(string),"[DESMANCHADO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vDestroyed],VehicleInfo[i][vVehicle]);
+			    format(string,sizeof(string),"[DESMANCHADO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d], Bateria[%f] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
                 SendClientMessage(forplayer,COLOR_LIGHTRED,string);
 			}
 	        count ++;
@@ -56601,12 +56645,12 @@ public ShowVehicleList(playerid,forplayer)
 		        {
 		            if(VehicleInfo[i][vVehicle] != -1)
 					{
-						format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+						format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
 	                    SendClientMessage(forplayer,COLOR_LIGHTGREEN,string);
 					}
 					else
 					{
-						format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+						format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
 	                    SendClientMessage(forplayer,-1,string);
 					}
 				}
@@ -56614,17 +56658,17 @@ public ShowVehicleList(playerid,forplayer)
 				{
 				    new redeemstr[64];
 				    if(VehicleInfo[i][vDeathTime] > 60) { format(redeemstr,sizeof(redeemstr),"%d minutos",(VehicleInfo[i][vDeathTime] / 60)); } else { format(redeemstr,sizeof(redeemstr),"menos de um minuto!"); }
-				    format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%d], ID[%d], Tempo para retirar:[%s]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
+				    format(string,sizeof(string),"[EMPRESTADO] [Slot %d]: %s, Segurado[%s], Quilometragem[%d], Travas[%d], Destruido[%d], Imobilizador[%d], Bateria[%f], ID[%d], Tempo para retirar:[%s]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
 	       			SendClientMessage(forplayer,COLOR_LIGHTGREEN,string);
 				}
 				else if(VehicleInfo[i][vImpounded])
 				{
-				    format(string,sizeof(string),"[EMPRESTADO][APREENDIDO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] Bateria[%d] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vDestroyed],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+				    format(string,sizeof(string),"[EMPRESTADO][APREENDIDO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] Bateria[%f] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
 	                SendClientMessage(forplayer,COLOR_LIGHTRED,string);
 				}
 				else if(VehicleInfo[i][vDesmanchado])
 				{
-				    format(string,sizeof(string),"[EMPRESTADO][DESMANCHADO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] Bateria [%d] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vDestroyed],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+				    format(string,sizeof(string),"[EMPRESTADO][DESMANCHADO] [Slot %d]: %s Segurado[%s] Quilometragem[%d] Travas[%d] Destruido[%d] Imobilizador[%d] Bateria [%f] ID[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
 	                SendClientMessage(forplayer,COLOR_LIGHTRED,string);
 				}
 		        count ++;
@@ -57188,7 +57232,7 @@ COMMAND:verveiculos(playerid,params[])
         if(!IsPlayerConnected(other)) { SendClientMessage(playerid,COLOR_WHITE,"{FF6347}ERRO:{FFFFFF} Jogador não conectado."); return 1; }
         new str[128];
         new vname[64];
-        format(str,sizeof(str),"___________Veículos de(#%d)___________",PlayerName(other, 0));
+        format(str,sizeof(str),"___________Veículos de %s___________",PlayerName(other, 0));
         SendClientMessage(playerid, COLOR_LIGHTGREEN,str);
         new count = 1,
             segurado[7];
@@ -57204,13 +57248,13 @@ COMMAND:verveiculos(playerid,params[])
 				GetVehicleNameByModel(VehicleInfo[i][vModel],vname);
 				new col = -1;
 				if(VehicleInfo[i][vDeathTime] == 0)
-					format(str,sizeof(str),"Veículo #%d: %s, Seguros:[%s], Quilometragem:[%d], Travas:[%d], Destruido:[%d], Imobilizador:[%d], Bateria [%d], ID:[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
+					format(str,sizeof(str),"Veículo #%d: %s, Seguros:[%s], Quilometragem:[%d], Travas:[%d], Destruido:[%d], Imobilizador:[%d], Bateria [%f], ID:[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle]);
 				else
 				{
 				    col = COLOR_LIGHTGREEN;
 				    new redeemstr[64];
 				    if(VehicleInfo[i][vDeathTime] > 60) { format(redeemstr,sizeof(redeemstr),"%d mins",(VehicleInfo[i][vDeathTime] / 60)); } else { format(redeemstr,sizeof(redeemstr),"menos de um minuto!"); }
-				    format(str,sizeof(str),"Veículo #%d: %s, Segurado:[%s], Quilometragem:[%d], Travas:[%d], Destruido:[%d], Imobilizador:[%d], Bateria [%d], ID:[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
+				    format(str,sizeof(str),"Veículo #%d: %s, Segurado:[%s], Quilometragem:[%d], Travas:[%d], Destruido:[%d], Imobilizador:[%d], Bateria [%f], ID:[%d]",count,vname,segurado,VehicleInfo[i][vMileage],VehicleInfo[i][vLock],VehicleInfo[i][vDestroyed],VehicleInfo[i][vImmob],VehicleInfo[i][vBateria],VehicleInfo[i][vVehicle],redeemstr);
 				}
 				count ++;
 				SendClientMessage(playerid,col,str);
@@ -57335,7 +57379,7 @@ stock ProcessVehicleAuction(playerid,biz,vehicleid,price)
 			GetNextAuctionPos(biz,X,Y,Z,R);
 			VehicleInfo[slot][vSelling] = biz;
 			VehicleInfo[slot][vLocked] = 1;
-			VehicleInfo[slot][vBateria] = 100;
+			VehicleInfo[slot][vBateria] = 100.0;
 			VehicleInfo[slot][vSemUso] = 3600;
 			VehicleInfo[slot][vVehicle] = CreateVehicle(VehicleInfo[slot][vModel],X,Y,Z,R,VehicleInfo[slot][vColor1],VehicleInfo[slot][vColor2],-1);
 			VehicleInfo[slot][vSelling] = biz;
@@ -64569,6 +64613,32 @@ COMMAND:portaluvas(playerid,params[])
 	}
 	return 1;
 }
+CMD:ligaralugado(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+    if(RentCarKey[playerid] == vehicleid && IsVehicleRented(vehicleid))
+    {
+		{
+			SendClientMessage(playerid,COLOR_GREEN,"Você ligou o motor do veículo.");
+			StartEngine(GetPlayerVehicleID(playerid));
+			return 1;
+		}
+	}
+	return 1;
+}
+CMD:desligaralugado(playerid)
+{
+	new vehicleid = GetPlayerVehicleID(playerid);
+    if(RentCarKey[playerid] == vehicleid && IsVehicleRented(vehicleid))
+    {
+		{
+			SendClientMessage(playerid,COLOR_GREEN,"Você desligou o motor do veículo.");
+			StopEngine(GetPlayerVehicleID(playerid));
+			return 1;
+		}
+	}
+	return 1;
+}
 CMD:alugarveiculo(playerid)
 {
 	new vehicleid = GetPlayerVehicleID(playerid);
@@ -64588,8 +64658,9 @@ CMD:alugarveiculo(playerid)
 			    RentCarKey[playerid] = GetPlayerVehicleID(playerid);
 			    PlayerInfo[playerid][pGrana] -= cost;
 				SendClientMessage(playerid,COLOR_GREEN,"Você alugou um veículo, para desalugar, digite: /desalugarveiculo");
-                SendClientMessage(playerid,COLOR_WHITE,"DICA: Para trancar o veículo, digite: /trancar");
-                SendClientMessage(playerid,COLOR_WHITE,"/motor para ligar o veículo.");
+                SendClientMessage(playerid,COLOR_WHITE,"DICA: /ligaralugado para ligar o veículo.");
+                SendClientMessage(playerid,COLOR_WHITE,"DICA: /desligaralugado para desligar o veículo.");
+				StartEngine(GetPlayerVehicleID(playerid));
 				return 1;
 			}
 			else return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem dinheiro suficiente!");
@@ -64605,6 +64676,7 @@ CMD:desalugarveiculo(playerid)
  	{
  	    SetVehicleToRespawn(RentCarKey[playerid]);
         RentCarKey[playerid] = 9999;
+		StopEngine(GetPlayerVehicleID(playerid));
 
         return SendClientMessage(playerid,COLOR_GREEN,"Você desalugou o veículo.");
  	}
@@ -65298,12 +65370,6 @@ ALTCOMMAND:engine->motor;
 COMMAND:motor(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	new veh2 = GetPlayerVehicleID(playerid);
-	new slot2 = GetVehicleSlot(veh2);
-	if(VehicleInfo[slot2][pBateria] == 0) return 1;
-	/*{
-	 	SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} O veículo está sem bateria!");
-	}*/
     if(IsPushbike(GetVehicleModel(GetPlayerVehicleID(playerid))))
 	{
 		SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Este veículo não tem motor!");
@@ -65312,12 +65378,11 @@ COMMAND:motor(playerid,params[])
 		SetVehicleParamsEx(GetPlayerVehicleID(playerid),1,paramsa[1],paramsa[2],paramsa[3],paramsa[4],paramsa[5],paramsa[6]);
 		return 1;
 	}
-    if(IsPlayerInAnyVehicle(playerid) && IsVehicleRental(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+    if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
     {
         new veh = GetPlayerVehicleID(playerid);
-		new param[7];
 		new slot = GetVehicleSlot(veh);
-		//new bateria = 1;
+		new param[7];
 		GetVehicleParamsEx(veh,param[0],param[1],param[2],param[3],param[4],param[5],param[6]);
 		if(!param[0] && slot > -1)
 		{
@@ -65328,30 +65393,29 @@ COMMAND:motor(playerid,params[])
                 new Float:btc;
                 GetVehicleHealth(veh, btc);
                 if(FrenodeMano[veh] == 1) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} O freio de mãos do veículo está levantado, abaixe-o com '/freio'!");
-                if(btc <= 300) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} O motor deste veículo está quebrado ou sem bateria!");
+                if(btc <= 300) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} O motor deste veículo está quebrado!");
+				if(VehicleInfo[slot][vBateria] < 0) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} O veículo está sem bateria.");
 				if(VehicleInfo[slot][vFuel] > 0)
-				//if(VehicleInfo[slot][pBateria] > 0)
 				{
-					new delay = FetchStartupDelay(slot);
-					if(delay == 0)
-					{
-						StartEngine(veh);
-						//VehicleInfo[veh][pBateria] -= bateria;
-
-						format(string, sizeof(string), "* %s gira a chave do veículo, ligando-o.", PlayerName(playerid, 1));
-						SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 20.0, 10000);
-
+				    new delay = FetchStartupDelay(slot);
+				    if(delay == 0)
+				    {
+			    		StartEngine(veh);
+						VehicleInfo[slot][vBateria] -= 0.70;
+			    		format(string, sizeof(string), "* %s gira a chave do veículo, ligando-o.", PlayerName(playerid, 1));
+    					SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 20.0, 10000);
+						//SetTimerEx("BateriaCarro", 100, false, "d", playerid);
 						GameTextForPlayer(playerid,"~g~Motor Ligado com sucesso",3000,4);
 					}
 					else
 					{
-						format(string, sizeof(string), "* %s gira a chave do veículo, ligando-o.", PlayerName(playerid, 1));
-						SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 20.0, 10000);
-
-						GameTextForPlayer(playerid,"~w~Ligando o Motor, aguarde.",3000,4);
-						startup_delay[veh] = delay;
-						startup_delay_sender[veh] = playerid;
-						SetTimerEx("BateriaCarro", 100, false, "d", playerid);
+					    format(string, sizeof(string), "* %s gira a chave do veículo, ligando-o.", PlayerName(playerid, 1));
+    					SetPlayerChatBubble(playerid, string, COLOR_PURPLE, 20.0, 10000);
+						//SetTimerEx("BateriaCarro", 100, false, "d", playerid);
+						VehicleInfo[slot][vBateria] -= 0.70;
+                        GameTextForPlayer(playerid,"~w~Ligando o Motor, aguarde.",3000,4);
+					    startup_delay[veh] = delay;
+					    startup_delay_sender[veh] = playerid;
 					}
 					return 1;
 				}
@@ -65380,6 +65444,7 @@ COMMAND:motor(playerid,params[])
 	}
 	else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não esta em um veiculo, ou este veiculo não possui um motor.");
 }
+
 
 COMMAND:janela(playerid,params[])
 {
@@ -65512,6 +65577,7 @@ public StartEngine(vehicleid)
 	new params[7];
 	GetVehicleParamsEx(vehicleid,params[0],params[1],params[2],params[3],params[4],params[5],params[6]);
 
+
 	//VehicleInfo[slot][pBateria] -= 1;
 
 	new hour, mins, sec;
@@ -65521,11 +65587,16 @@ public StartEngine(vehicleid)
 		GetVehicleParamsEx(vehicleid,params[0],params[1],params[2],params[3],params[4],params[5],params[6]);
 		if(hour >= 18 || hour <= 6) SetVehicleParamsEx(vehicleid,1,1,params[2],params[3],params[4],params[5],params[6]);
         else SetVehicleParamsEx(vehicleid,1,0,params[2],params[3],params[4],params[5],params[6]);
+		
+		//new veh = GetPlayerVehicleID(vehicleid);
+		//VehicleInfo[veh][vBateria] -= 0.70;
 	}
 	else
 	{
         if(hour >= 18 || hour <= 6) SetVehicleParamsEx(vehicleid,1,1,params[2],params[3],params[4],params[5],params[6]);
         else SetVehicleParamsEx(vehicleid,1,0,params[2],params[3],params[4],params[5],params[6]);
+		//new veh = GetPlayerVehicleID(vehicleid);
+		//VehicleInfo[veh][vBateria] -= 0.70;
 	}
 }
 forward IsEngineOn(vehicleid);
@@ -65679,7 +65750,7 @@ public SaveVehicle(slot)
 	VehicleInfo[slot][vID]);
 	mysql_function_query(Pipeline, str, false, "noReturnQuery", "");
 
-	format(str,sizeof(str),"UPDATE rp_vehicles SET slot1='%d',slot2='%d',slot3='%d',slot4='%d',slot5='%d',slot6='%d',slot7='%d',slot8='%d',slot9='%d',slot10='%d',ammo1='%d',ammo2='%d',ammo3='%d',ammo4='%d',ammo5='%d',ammo6='%d',ammo7='%d',ammo8='%d',ammo9='%d',ammo10='%d',bateria='%0.2f',motor='%0.2f' WHERE id = '%d'",
+	format(str,sizeof(str),"UPDATE rp_vehicles SET slot1='%d',slot2='%d',slot3='%d',slot4='%d',slot5='%d',slot6='%d',slot7='%d',slot8='%d',slot9='%d',slot10='%d',ammo1='%d',ammo2='%d',ammo3='%d',ammo4='%d',ammo5='%d',ammo6='%d',ammo7='%d',ammo8='%d',ammo9='%d',ammo10='%d',bateria='%f',motor='%0.2f' WHERE id = '%d'",
     VehicleInfo[slot][vSlot1],
     VehicleInfo[slot][vSlot2],
     VehicleInfo[slot][vSlot3],
@@ -72231,14 +72302,15 @@ CMD:instalar(playerid,params[])
 				 	}
 					new level = strval(tmp2);
       				if(level < 50 || level > 100) return SendClientMessage(playerid,COLOR_LIGHTRED,"ERRO:{FFFFFF} O level não pode ser menor que 50 ou maior que 100.");
-          			//if(PlayerInfo[playerid][pBateria] == 3) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem bateria o suficiente.");
-					//VehicleInfo[slot][pBateria] = level;
+          			if(PlayerInfo[playerid][pBateria] == 3) return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem bateria o suficiente.");
+					PlayerInfo[playerid][pBateria] -= 3;
+					VehicleInfo[slot][vBateria] = level;
                     new vname[64], str[256];
                     GetVehicleNameByModel(VehicleInfo[slot][vModel],vname);
                     format(str,sizeof(str),"** %s instala uma nova bateria nivel %i no veiculo %s.", PlayerName(playerid, 1), level, vname);
 					ProxDetector(10.0, playerid, str,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
                     SaveVehicle(slot);
-					SetTimerEx("BateriaCarro", 100, false, "d", playerid);
+					//SetTimerEx("BateriaCarro2", 100, false, "d", playerid);
      				return 1;
 		      	}
 		      	else return SendClientMessage(playerid,COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem peças do tipo 'bateria' para instalar.");
@@ -80458,7 +80530,7 @@ stock GetVehiclePrice(vehiclemod)
 		case 481: price = 300;
 		case 509: price = 300;
 		case 510: price = 360;
-		case 462: price = 1800;
+		case 462: price = 800;
 		case 581: price = 38000;
 		case 461: price = 42000;
 		case 521: price = 80000;
@@ -80508,7 +80580,7 @@ stock GetVehiclePrice(vehiclemod)
 		case 474: price = 73000;
 		case 546: price = 83000;
 		case 517: price = 62000;
-		case 410: price = 2100;
+		case 410: price = 1000;
 		case 551: price = 46000;
 		case 516: price = 40000;
 		case 467: price = 60000;
@@ -89982,7 +90054,7 @@ RefundoItemRemover(chave)
 CMD:ajudainicial(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if(PlayerInfo[playerid][pLevel] >= 0 && PlayerInfo[playerid][pAjudaInicial] != 1)
+    if(PlayerInfo[playerid][pLevel] >= 0 && PlayerInfo[playerid][pAjudaInicial] != 2)
 	{
 	    new NaEmpresa = PlayerInfo[playerid][pEntrouEmpresa];
 		if(NaEmpresa != -1)
