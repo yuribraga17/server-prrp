@@ -147,7 +147,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "25/01/2023"
+#define ULTIMO_GMX      "26/01/2023"
 #define CA_VERSAO       "PR:RP v1.11"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
@@ -2285,23 +2285,7 @@ new Noia_1,
     Noia_19,
     Noia_20,
     Noia_21,
-    Noia_22,
-    Noia_23,
-    Noia_24,
-    Noia_25,
-    Noia_26,
-    Noia_27,
-    Noia_28,
-    Noia_29,
-    Noia_30,
-	Noia_31,
-	Noia_32,
-	Noia_33,
-	Noia_34,
-	Noia_35,
-	Noia_36,
-	Noia_37,
-	Noia_38;
+    Noia_22;
 //==============================================================================//
 new Float:estacionamento_vagas[19][3] = {
 {1627.2080, -1046.3242, 23.5516},
@@ -6135,129 +6119,72 @@ public OnGameModeInit()
 		new slot = GetVehicleSlot(veh);
 		VehicleInfo[slot][vBateria] = 10000.0;
     }
-
-    Noia_1 = CreateActor(20001,2574.0564,-1124.1001,65.4064,52.3413); 
+    Noia_1 = CreateActor(20001,2573.5181,-1124.5466,65.3464,63.5828); 
+    Noia_2 = CreateActor(20002,2577.3850,-1130.1652,65.1935,237.8145); 
+    Noia_3 = CreateActor(20003,2595.5320,-1111.5963,67.4365,135.0617); 
+    Noia_4 = CreateActor(20004,2589.0232,-1112.6173,66.9152,225.2634); 
+    Noia_5 = CreateActor(20005,2595.9336,-962.2279,81.1852,131.2234); 
+    Noia_6 = CreateActor(20006,2585.7937,-955.1824,81.3715,167.7262); 
+    Noia_7 = CreateActor(20007,2557.9902,-956.3238,82.7591,208.9504); 
+    Noia_8 = CreateActor(20008,1850.6703,-2000.5491,14.1094,86.9080); 
+    Noia_9 = CreateActor(20009,1846.1360,-2004.2552,13.5469,164.7114); 
+    Noia_10 = CreateActor(20010,1841.3813,-2008.3091,13.5469,252.2360); 
+    Noia_11 = CreateActor(20011,1731.6779,-2123.5327,12.7954,6.4656); 
+    Noia_12 = CreateActor(20012,1727.1029,-2127.2014,12.7933,359.5086); 
+    Noia_13 = CreateActor(20013,1726.0736,-2122.7458,12.7933,275.6207); 
+    Noia_14 = CreateActor(20014,2226.6240,-1458.6040,24.0754,32.3747); 
+    Noia_15 = CreateActor(20015,2222.3228,-1457.7727,24.0000,3.9032); 
+    Noia_16 = CreateActor(20016,2669.5825,-1460.8533,30.5523,249.9516); 
+    Noia_17 = CreateActor(20017,2671.0518,-1468.1061,30.5604,267.7805); 
+    Noia_18 = CreateActor(20018,2683.7068,-1471.5103,30.5612,86.4176); 
+    Noia_19 = CreateActor(20019,2687.3025,-1459.4653,30.6193,86.8974); 
+    Noia_20 = CreateActor(20020,2709.9211,-1447.3977,30.6297,285.2825); 
+    Noia_21 = CreateActor(20021,2056.5154,-1821.0952,13.5469,359.7273); 
+    Noia_22 = CreateActor(20022,1891.0433,-1785.9810,13.5544,272.8079); 
     SetActorInvulnerable(Noia_1, true);
     SetActorVirtualWorld(Noia_1, 0);
-    Noia_2 = CreateActor(20002,2440.6191,-1110.2405,42.5847,106.4993);
     SetActorInvulnerable(Noia_2, true);
     SetActorVirtualWorld(Noia_2, 0); 
-    Noia_3 = CreateActor(20003,2366.9009,-1092.4224,34.7411,288.0444); 
     SetActorInvulnerable(Noia_3, true);
     SetActorVirtualWorld(Noia_3, 0);  
-    Noia_4 = CreateActor(20004,2411.7742,-1078.0925,40.3637,194.0043); 
     SetActorInvulnerable(Noia_4, true);
     SetActorVirtualWorld(Noia_4, 0);     
-    Noia_5 = CreateActor(20005,2520.9370,-1070.3898,69.5631,285.5693); 
     SetActorInvulnerable(Noia_5, true);
     SetActorVirtualWorld(Noia_5, 0);     
-    Noia_6 = CreateActor(20006,1099.9789,-1944.7341,43.4169,357.6813);
     SetActorInvulnerable(Noia_6, true);
     SetActorVirtualWorld(Noia_6, 0);     
-    Noia_7 = CreateActor(20006,1169.9949,-1930.6910,39.4807,228.8569);
     SetActorInvulnerable(Noia_7, true);
     SetActorVirtualWorld(Noia_7, 0);     
-    Noia_8 = CreateActor(20008,1221.6272,-1923.1931,31.5683,224.8069);
     SetActorInvulnerable(Noia_8, true);
     SetActorVirtualWorld(Noia_8, 0);    
-    Noia_9 = CreateActor(20009,1188.4438,-1940.1082,36.0620,32.9466);
     SetActorInvulnerable(Noia_9, true);
     SetActorVirtualWorld(Noia_9, 0);     
-    Noia_10 = CreateActor(20010,1126.1588,-1954.5850,48.7037,61.2702);
     SetActorInvulnerable(Noia_10, true);
     SetActorVirtualWorld(Noia_10, 0);     
-    Noia_11 = CreateActor(20011,2538.2656,-953.2560,82.3339,255.1967);
     SetActorInvulnerable(Noia_11, true);
     SetActorVirtualWorld(Noia_11, 0);     
-    Noia_12 = CreateActor(20012,2444.9390,-947.0045,80.1504,219.4531);
     SetActorInvulnerable(Noia_12, true);
     SetActorVirtualWorld(Noia_12, 0);     
-    Noia_13 = CreateActor(20013,2610.2480,-1017.0445,76.7236,45.9751);
     SetActorInvulnerable(Noia_13, true);
     SetActorVirtualWorld(Noia_13, 0);     
-    Noia_14 = CreateActor(20014,2580.3184,-1020.4722,73.8814,33.1892);
     SetActorInvulnerable(Noia_14, true);
     SetActorVirtualWorld(Noia_14, 0);     
-    Noia_15 = CreateActor(20015,2535.8806,-1014.0533,73.9472,54.2782);
     SetActorInvulnerable(Noia_15, true);
     SetActorVirtualWorld(Noia_15, 0);     
-    Noia_16 = CreateActor(20016,2241.2219,-1468.0210,24.1087,44.5011);
     SetActorInvulnerable(Noia_16, true);
     SetActorVirtualWorld(Noia_16, 0);     
-    Noia_17 = CreateActor(20017,2262.3010,-1460.6958,24.0102,247.2963);
     SetActorInvulnerable(Noia_17, true);
     SetActorVirtualWorld(Noia_17, 0);     
-    Noia_18 = CreateActor(20018,2249.4666,-1440.1630,25.0306,250.8605);
     SetActorInvulnerable(Noia_18, true);
     SetActorVirtualWorld(Noia_18, 0);     
-    Noia_19 = CreateActor(20019,2227.1982,-1433.1844,23.9856,235.8203);
     SetActorInvulnerable(Noia_19, true);
     SetActorVirtualWorld(Noia_19, 0);   
-    Noia_20 = CreateActor(20020,2236.3918,-1427.2529,24.3184,354.0988);
     SetActorInvulnerable(Noia_20, true);
     SetActorVirtualWorld(Noia_20, 0);     
-    Noia_21 = CreateActor(20021,1877.1324,-2001.6146,13.5544,224.4719);
     SetActorInvulnerable(Noia_21, true);
     SetActorVirtualWorld(Noia_21, 0);     
-    Noia_22 = CreateActor(20022,1838.6575,-2017.2982,13.8340,323.6427);
     SetActorInvulnerable(Noia_22, true);
     SetActorVirtualWorld(Noia_22, 0);     
-    Noia_23 = CreateActor(20023,1794.6405,-1973.5907,13.5428,174.7922);
-    SetActorInvulnerable(Noia_23, true);
-    SetActorVirtualWorld(Noia_23, 0);     
-    Noia_24 = CreateActor(20024,1814.2332,-2013.8800,13.5775,355.7205);
-    SetActorInvulnerable(Noia_24, true);
-    SetActorVirtualWorld(Noia_24, 0);    
-    Noia_25 = CreateActor(20025,1920.8618,-2008.9086,13.6033,79.7770);
-    SetActorInvulnerable(Noia_25, true);
-    SetActorVirtualWorld(Noia_25, 0);     
-    Noia_26 = CreateActor(20026,1718.2262,-2082.9451,11.7215,237.4603);
-    SetActorInvulnerable(Noia_26, true);
-    SetActorVirtualWorld(Noia_26, 0);     
-    Noia_27 = CreateActor(20027,1803.1705,-2079.8821,13.5150,204.3249);
-    SetActorInvulnerable(Noia_27, true);
-    SetActorVirtualWorld(Noia_27, 0);     
-    Noia_28 = CreateActor(20028,1727.8035,-2127.3574,12.7933,3.7756);
-    SetActorInvulnerable(Noia_28, true);
-    SetActorVirtualWorld(Noia_28, 0);     
-    Noia_29 = CreateActor(20029,1695.6813,-2116.9331,15.8322,177.1330);
-    SetActorInvulnerable(Noia_29, true);
-    SetActorVirtualWorld(Noia_29, 0);     
-    Noia_30 = CreateActor(20030,1690.4685,-2148.3352,15.9533,299.2050);
-    SetActorInvulnerable(Noia_30, true);
-    SetActorVirtualWorld(Noia_30, 0); 
-    Noia_31 = CreateActor(20001,-131.6621,-246.6473,1.2875,277.6169);
-    SetActorInvulnerable(Noia_31, true);
-    SetActorVirtualWorld(Noia_31, 0);
-	ApplyActorAnimation(Noia_31, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0);
-    Noia_32 = CreateActor(20002,-119.8660,-256.1620,1.3109,354.3844);
-    SetActorInvulnerable(Noia_32, true);
-    SetActorVirtualWorld(Noia_32, 0);    
-	ApplyActorAnimation(Noia_32, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);
-    Noia_33 = CreateActor(20003,-119.4772,-246.1217,1.3109,358.9425);
-    SetActorInvulnerable(Noia_33, true);
-    SetActorVirtualWorld(Noia_33, 0);   
-	ApplyActorAnimation(Noia_33, "RAPPING","RAP_C_Loop",4.0,1,1,1,1,0); 
-    Noia_34 = CreateActor(20004,-119.6245,-240.3442,1.3109,181.6578);
-    SetActorInvulnerable(Noia_34, true);
-    SetActorVirtualWorld(Noia_34, 0);   
-	ApplyActorAnimation(Noia_34, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0);
-    Noia_35 = CreateActor(20005,-119.6748,-233.7748,1.3109,188.7783);
-    SetActorInvulnerable(Noia_35, true);
-    SetActorVirtualWorld(Noia_35, 0);    
-	ApplyActorAnimation(Noia_35, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);
-    Noia_36 = CreateActor(20006,-99.7123,-228.8780,1.2875,87.3013);
-    SetActorInvulnerable(Noia_36, true);
-    SetActorVirtualWorld(Noia_36, 0);
-	ApplyActorAnimation(Noia_36, "RAPPING","RAP_C_Loop",4.0,1,1,1,1,0);   
-    Noia_37 = CreateActor(20007,-104.4682,-232.1702,1.2875,89.7767);
-    SetActorInvulnerable(Noia_37, true);
-    SetActorVirtualWorld(Noia_37, 0);   
-	ApplyActorAnimation(Noia_37, "RAPPING","RAP_A_Loop",4.0,1,1,1,1,0); 
-    Noia_38 = CreateActor(20008,-106.7490,-232.0639,1.2875,267.6941);
-    SetActorInvulnerable(Noia_38, true);
-    SetActorVirtualWorld(Noia_38, 0); 
-	ApplyActorAnimation(Noia_38, "RAPPING","RAP_B_Loop",4.0,1,1,1,1,0);  
 
 
     //Basket
@@ -11227,6 +11154,7 @@ public OnPlayerConnect(playerid)
 	TelaDeLogin[playerid] = 0;
 
     PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/intro.mp3");
+	
 	//PlayerTextDrawHide(playerid, pTextdraws);
 
     //GetPlayerHost(playerid);
@@ -13951,7 +13879,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 25/01/2023, v1.11, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/01/2023, v1.11, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -15962,7 +15890,8 @@ public FinalizandoEntrega(playerid)
 {
     SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Entrega realizada com sucesso.");
 	PlayerInfo[playerid][pGrana] += randomEspecial(GANHO_MIN, GANHO_MAX);
-	//SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você recebeu R$%d pela entrega.", randomEspecial);
+	//new pagou = RandomEspecial(GANHO_MIN, GANHO_MAX);
+	//SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você recebeu R$%d pela entrega.", pagou);
 
     Entregando[playerid] = 0;
     Retiroupedido[playerid] = 0;
@@ -28068,25 +27997,17 @@ COMMAND:traficar(playerid,params[])
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
 
-		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2573.5181,-1124.5466,65.3464) || IsPlayerInRangeOfPoint(playerid,10.0,2577.3850,-1130.1652,65.1935) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.5320,-1111.5963,67.4365) || IsPlayerInRangeOfPoint(playerid,10.0,2589.0232,-1112.6173,66.9152) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.9336,-962.2279,81.1852) || IsPlayerInRangeOfPoint(playerid,10.0,2585.7937,-955.1824,81.3715) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2557.9902,-956.3238,82.7591) || IsPlayerInRangeOfPoint(playerid,10.0,1850.6703,-2000.5491,14.1094) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1846.1360,-2004.2552,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1841.3813,-2008.3091,13.5469) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1731.6779,-2123.5327,12.7954) || IsPlayerInRangeOfPoint(playerid,10.0,1727.1029,-2127.2014,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1726.0736,-2122.7458,12.7933) || IsPlayerInRangeOfPoint(playerid,10.0,2226.6240,-1458.6040,24.0754) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2222.3228,-1457.7727,24.0000) || IsPlayerInRangeOfPoint(playerid,10.0,2669.5825,-1460.8533,30.5523) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2671.0518,-1468.1061,30.5604) || IsPlayerInRangeOfPoint(playerid,10.0,2683.7068,-1471.5103,30.5612) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2687.3025,-1459.4653,30.6193) || IsPlayerInRangeOfPoint(playerid,10.0,2709.9211,-1447.3977,30.6297) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2056.5154,-1821.0952,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1891.0433,-1785.9810,13.5544))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 2g de cocaina excelente para o noiado.");	
 			SetTimerEx("VendendoCocainaE", 5000, false, "d", playerid);
@@ -28129,25 +28050,17 @@ COMMAND:traficar(playerid,params[])
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
 
-		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2573.5181,-1124.5466,65.3464) || IsPlayerInRangeOfPoint(playerid,10.0,2577.3850,-1130.1652,65.1935) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.5320,-1111.5963,67.4365) || IsPlayerInRangeOfPoint(playerid,10.0,2589.0232,-1112.6173,66.9152) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.9336,-962.2279,81.1852) || IsPlayerInRangeOfPoint(playerid,10.0,2585.7937,-955.1824,81.3715) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2557.9902,-956.3238,82.7591) || IsPlayerInRangeOfPoint(playerid,10.0,1850.6703,-2000.5491,14.1094) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1846.1360,-2004.2552,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1841.3813,-2008.3091,13.5469) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1731.6779,-2123.5327,12.7954) || IsPlayerInRangeOfPoint(playerid,10.0,1727.1029,-2127.2014,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1726.0736,-2122.7458,12.7933) || IsPlayerInRangeOfPoint(playerid,10.0,2226.6240,-1458.6040,24.0754) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2222.3228,-1457.7727,24.0000) || IsPlayerInRangeOfPoint(playerid,10.0,2669.5825,-1460.8533,30.5523) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2671.0518,-1468.1061,30.5604) || IsPlayerInRangeOfPoint(playerid,10.0,2683.7068,-1471.5103,30.5612) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2687.3025,-1459.4653,30.6193) || IsPlayerInRangeOfPoint(playerid,10.0,2709.9211,-1447.3977,30.6297) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2056.5154,-1821.0952,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1891.0433,-1785.9810,13.5544))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 1g de cocaina boa para o noiado.");	
 			SetTimerEx("VendendoCocainaB", 5000, false, "d", playerid);
@@ -28190,25 +28103,17 @@ COMMAND:traficar(playerid,params[])
 		if(OutrasInfos[playerid][oAlgemado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não pode utilizar este comando enquanto estiver algemado.");
 		if(OutrasInfos[playerid][oAmarrado] != 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você nãopode utilizar este comando enquanto estiver amarrado.");
 
-		if(IsPlayerInRangeOfPoint(playerid,10.0,2574.0564,-1124.1001,65.4064) || IsPlayerInRangeOfPoint(playerid,10.0,2440.6191,-1110.2405,42.5847)  || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2366.9009,-1092.4224,34.7411) || IsPlayerInRangeOfPoint(playerid,10.0,2411.7742,-1078.0925,40.3637) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2520.9370,-1070.3898,69.5631) || IsPlayerInRangeOfPoint(playerid,10.0,1099.9789,-1944.7341,43.4169) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1169.9949,-1930.6910,39.4807) || IsPlayerInRangeOfPoint(playerid,10.0,1221.6272,-1923.1931,31.5683) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1188.4438,-1940.1082,36.0620) || IsPlayerInRangeOfPoint(playerid,10.0,1126.1588,-1954.5850,48.7037) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2538.2656,-953.2560,82.3339) || IsPlayerInRangeOfPoint(playerid,10.0,2444.9390,-947.0045,80.1504) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2610.2480,-1017.0445,76.7236) || IsPlayerInRangeOfPoint(playerid,10.0,2580.3184,-1020.4722,73.8814) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2535.8806,-1014.0533,73.9472) || IsPlayerInRangeOfPoint(playerid,10.0,2241.2219,-1468.0210,24.1087) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,2262.3010,-1460.6958,24.0102) || IsPlayerInRangeOfPoint(playerid,10.0,2249.4666,-1440.1630,25.0306) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,227.1982,-1433.1844,23.9856) || IsPlayerInRangeOfPoint(playerid,10.0,2236.3918,-1427.2529,24.3184) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1877.1324,-2001.6146,13.5544) || IsPlayerInRangeOfPoint(playerid,10.0,1838.6575,-2017.2982,13.8340) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1794.6405,-1973.5907,13.5428) || IsPlayerInRangeOfPoint(playerid,10.0,1814.2332,-2013.8800,13.5775) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1920.8618,-2008.9086,13.6033) || IsPlayerInRangeOfPoint(playerid,10.0,1718.2262,-2082.9451,11.7215) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1803.1705,-2079.8821,13.5150) || IsPlayerInRangeOfPoint(playerid,10.0,1727.8035,-2127.3574,12.7933) || 
-		IsPlayerInRangeOfPoint(playerid,10.0,1695.6813,-2116.9331,15.8322) || IsPlayerInRangeOfPoint(playerid,10.0,1690.4685,-2148.3352,15.9533) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-131.6621,-246.6473,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.8660,-256.1620,1.310) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-119.4772,-246.1217,1.3109) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6245,-240.3442,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-99.7123,-228.8780,1.2875) || IsPlayerInRangeOfPoint(playerid,10.0,-119.6748,-233.7748,1.3109) ||
-		IsPlayerInRangeOfPoint(playerid,10.0,-104.4682,-232.1702,1.2875))
+		if(IsPlayerInRangeOfPoint(playerid,10.0,2573.5181,-1124.5466,65.3464) || IsPlayerInRangeOfPoint(playerid,10.0,2577.3850,-1130.1652,65.1935) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.5320,-1111.5963,67.4365) || IsPlayerInRangeOfPoint(playerid,10.0,2589.0232,-1112.6173,66.9152) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2595.9336,-962.2279,81.1852) || IsPlayerInRangeOfPoint(playerid,10.0,2585.7937,-955.1824,81.3715) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2557.9902,-956.3238,82.7591) || IsPlayerInRangeOfPoint(playerid,10.0,1850.6703,-2000.5491,14.1094) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1846.1360,-2004.2552,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1841.3813,-2008.3091,13.5469) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1731.6779,-2123.5327,12.7954) || IsPlayerInRangeOfPoint(playerid,10.0,1727.1029,-2127.2014,12.7933) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,1726.0736,-2122.7458,12.7933) || IsPlayerInRangeOfPoint(playerid,10.0,2226.6240,-1458.6040,24.0754) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2222.3228,-1457.7727,24.0000) || IsPlayerInRangeOfPoint(playerid,10.0,2669.5825,-1460.8533,30.5523) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2671.0518,-1468.1061,30.5604) || IsPlayerInRangeOfPoint(playerid,10.0,2683.7068,-1471.5103,30.5612) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2687.3025,-1459.4653,30.6193) || IsPlayerInRangeOfPoint(playerid,10.0,2709.9211,-1447.3977,30.6297) || 
+		IsPlayerInRangeOfPoint(playerid,10.0,2056.5154,-1821.0952,13.5469) || IsPlayerInRangeOfPoint(playerid,10.0,1891.0433,-1785.9810,13.5544))
 		{
 			SendClientMessage(playerid, COLOR_LIGHTRED, "INFO:{FFFFFF} Você está vendendo 25g de maconha excelente para o noiado.");	
 			SetTimerEx("VendendoMaconhaE", 5000, false, "d", playerid);
@@ -28909,7 +28814,9 @@ COMMAND:explodir(playerid,params[])
 					format(str, sizeof(str), "Local: %s",location);
 					SendFacMessage(COLOR_LIGHTBLUE, 1, str);
 					SendFacMessage(COLOR_LIGHTBLUE, 2, str);
-
+					new Float:x, Float:y, Float:z, Float:Distance = 25.0;
+    				GetPlayerPos(playerid, x, y, z);
+ 					PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/alarme_casa.mp3", x, y, z, Distance, 1);
 					SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodir banco.", PlayerName(playerid, 0));
 						
 					new strl[126];
@@ -28967,7 +28874,9 @@ COMMAND:explodir(playerid,params[])
 					TogglePlayerControllable(playerid, 0);
 					ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
 					SetTimerEx("ExplodindoCaixa", 15000, false, "d", playerid);
-
+					new Float:x, Float:y, Float:z, Float:Distance = 25.0;
+    				GetPlayerPos(playerid, x, y, z);
+ 					PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/alarme_casa.mp3", x, y, z, Distance, 1);
 					new stringCaixaF[256];
 					format(stringCaixaF,sizeof(stringCaixaF),"** %s está armando uma dinamite no caixa eletronico.", PlayerName(playerid, 1));
 					ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -29042,7 +28951,9 @@ COMMAND:explodir(playerid,params[])
 					TogglePlayerControllable(playerid, 0);
 					ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
 					SetTimerEx("ExplodindoCofreL", 15000, false, "d", playerid);
-
+					new Float:x, Float:y, Float:z, Float:Distance = 25.0;
+    				GetPlayerPos(playerid, x, y, z);
+ 					PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/alarme_casa.mp3", x, y, z, Distance, 1);
 					new stringCaixaF[256];
 					format(stringCaixaF,sizeof(stringCaixaF),"** %s posiciona-se perto do cofre e cola a C4.", PlayerName(playerid, 1));
 					ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
@@ -29133,7 +29044,9 @@ COMMAND:explodir(playerid,params[])
 					TogglePlayerControllable(playerid, 0);
 					ApplyAnimation(playerid, "PLAYIDLES", "shldr", 4.0,1,1,1,1,0,1);
 					SetTimerEx("ExplodindoCaixa", 15000, false, "d", playerid);
-
+					new Float:x, Float:y, Float:z, Float:Distance = 25.0;
+    				GetPlayerPos(playerid, x, y, z);
+ 					PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/alarme_casa.mp3", x, y, z, Distance, 1);
 					new stringCaixaF[256];
 					format(stringCaixaF,sizeof(stringCaixaF),"** %s está armando uma dinamite no caixa eletronico.", PlayerName(playerid, 1));
 					ProxDetector(20.0, playerid, stringCaixaF,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE,COLOR_PURPLE);
