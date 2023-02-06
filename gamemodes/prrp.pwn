@@ -15798,19 +15798,19 @@ public MsgBus(playerid)
 CMD:ifood(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
- 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "Você não é um entregador do ifood.");
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
     AppLigado[playerid] = 0;
     iFood[playerid] = 1;
-    SendClientMessage(playerid, COLOR_LIGHTRED, "{ffffff} Comandos: /ifood - /ligarapp - /desligarapp");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Comandos: /ifood - /ligarapp - /desligarapp");
     return 1;
 }
 CMD:ligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
- 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "Você não é um entregador do ifood.");
-    if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já está conectado");
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+    if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Você já está conectado");
     
-	SendClientMessage(playerid, COLOR_YELLOW, "o aplicativo foi habilitado para que você possa receber novas demandas de entrega.");
+	SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Aplicativo habilitado para receber entregas!");
     AppLigado[playerid] = 1;
 
     return 1;
@@ -15869,7 +15869,7 @@ CMD:aceitarentrega(playerid, params[])
 		KillTimer(buscandocorridas[playerid]);
 		TemCorrida[playerid] = 0;
 		StopAudioStreamForPlayer(playerid);
-		SendClientMessage(playerid,COLOR_YELLOW, "Pedido aceito com sucesso. Siga para o checkpoint para recolher o pedido.");
+		SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Pedido aceito, vá até o local retirar o pedido.");
 		new rand = random(sizeof(Restaurantes));
 		SetPlayerCheckpoint(playerid,Restaurantes[rand][BrX],Restaurantes[rand][BrY],Restaurantes[rand][BrZ], 5);
 	}
@@ -15881,15 +15881,14 @@ public SigaEntrega(playerid)
     new rand = random(sizeof(Entregas_ifood));
     Retiroupedido[playerid] = 1;
     SetPlayerCheckpoint(playerid,Entregas_ifood[rand][0],Entregas_ifood[rand][1],Entregas_ifood[rand][2], 5);
-    SendClientMessage(playerid, COLOR_YELLOW, "Siga para a entrega.");
-    SetPlayerAttachedObject(playerid,1 ,1582 ,5 ,0 ,0 ,-0.16 ,50 ,0 ,10);
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Siga para a entrega.");
     TogglePlayerControllable(playerid, true);
     return 1;
 }
 forward FinalizandoEntrega(playerid);
 public FinalizandoEntrega(playerid)
 {
-    SendClientMessage(playerid, COLOR_YELLOW, "Entrega realizada com sucesso.");
+    SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Entrega realizada com sucesso.");
 	PlayerInfo[playerid][pGrana] += randomEspecial(GANHO_MIN, GANHO_MAX);
 	//new pagou = RandomEspecial(GANHO_MIN, GANHO_MAX);
 	//SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você recebeu R$%d pela entrega.", pagou);
@@ -15909,8 +15908,8 @@ public ChamarEntrega(playerid)
     TemCorrida[playerid] = 1;
     PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/ifood.mp3");
  
-    SendClientMessage(playerid,COLOR_YELLOW, "Nova entrega recebida, você possui 15 segundos para aceitar.");
-    SendClientMessage(playerid,COLOR_YELLOW, "Digite /aceitarentrega.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Nova entrega recebida, você possui 15 segundos para aceitar.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Digite /aceitarentrega.");
     return 1;
 }
  
@@ -15921,7 +15920,7 @@ public PerdeuEntrega(playerid)
     Entregando[playerid] = 0;
     TemCorrida[playerid] = 0;
     StopAudioStreamForPlayer(playerid);
-    SendClientMessage(playerid,COLOR_LIGHTRED, "Você perdeu a entrega.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você perdeu a entrega.");
     KillTimer(TempoDeResposta[playerid]);
     return 1;
 }
