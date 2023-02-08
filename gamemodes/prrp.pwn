@@ -15806,7 +15806,7 @@ CMD:ligarapp(playerid, params[])
  	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "Você não é um entregador do ifood.");
     if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já está conectado");
     
-	SendClientMessage(playerid, COLOR_YELLOW, "o aplicativo foi habilitado para que você possa receber novas demandas de entrega.");
+	SendClientMessage(playerid, COLOR_YELLOW, "O aplicativo foi habilitado para que você possa receber novas demandas de entrega.");
     AppLigado[playerid] = 1;
 
     return 1;
@@ -15878,7 +15878,7 @@ public SigaEntrega(playerid)
     Retiroupedido[playerid] = 1;
     SetPlayerCheckpoint(playerid,Entregas_ifood[rand][0],Entregas_ifood[rand][1],Entregas_ifood[rand][2], 5);
     SendClientMessage(playerid, COLOR_YELLOW, "Siga para a entrega.");
-    SetPlayerAttachedObject(playerid,1 ,1582 ,5 ,0 ,0 ,-0.16 ,50 ,0 ,10);
+    SetPlayerAttachedObject(playerid,0,-2701,1,0.160999,-0.170999,0.018000,-9.199999,88.400009,8.500000,1.000000,1.000000,1.000000);
     TogglePlayerControllable(playerid, true);
     return 1;
 }
@@ -42611,6 +42611,21 @@ COMMAND:rejeitarajuda(playerid, params[])
 		}
 	}
 	return 1;
+}
+
+COMMAND:n(playerid, params[])
+{
+		if (isnull(params))
+		return SendClientMessage(playerid, COLOR_WHITE, "/n [dúvida]");
+
+		if (strlen(params) > 64) {
+		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %.64s **", ReturnName(playerid, 0), params);
+		SendClientMessageToAll(COLOR_BLUE, "...%s **", params[64]);
+	}
+		else {
+		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %s **", ReturnName(playerid, 0), params);
+	}
+		return 1;
 }
 
 COMMAND:aooc(playerid, params[])
