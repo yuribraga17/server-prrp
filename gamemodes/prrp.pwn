@@ -6397,7 +6397,6 @@ public OnGameModeInit()
 	empresasint();
 	interiorescasa();
 	complexosint();
-	Hospital_Int();
 	Mapa_Presidio();
 
 	ApagaoEmGanton = 0;
