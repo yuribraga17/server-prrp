@@ -2,6 +2,8 @@ stock mapacivil(){
 	new tmpobjid;
 	new texture_object;
 	new Cadeia [88];
+	new iHospital;
+	new UPA [66];
     Cadeia [1] = CreateDynamicObject(18980, -33.081611, -216.111038, -1.575339, 0.000000, 0.000000, 0.000000, -1, -1, -1);
     SetDynamicObjectMaterial(Cadeia [1], 0, 16093, "a51_ext", "BLOCK", 0x00000000);
     Cadeia [2] = CreateDynamicObject(18980, -46.321628, -214.811004, -1.575339, 0.000000, 0.000000, 0.000000, -1, -1, -1);
@@ -5669,7 +5671,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(814, 1773.221313, -1840.519409, 13.915283, 0.000000, 0.000000, -46.600006, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(814, 1794.711791, -1845.823852, 13.915283, 0.000000, 0.000000, -46.600006, -1, -1, -1, 300.00, 300.00); 
 	tmpobjid = CreateDynamicObject(840, 1802.502929, -1846.263916, 13.898125, 0.000000, 0.000000, -51.199996, -1, -1, -1, 300.00, 300.00); 
-	print("[CARREGADO] Mapa: estaÁ„o unity");
+	print("[CARREGADO] Mapa: estaùùo unity");
     CreateDynamicObject(-1026, 1817.270019, -1401.194824, 13.721183, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00);
     print("[LOAD] Mapa: Loterica");
 	CreateDynamicObject(8947, 1995.29980, -2044.20020, 15.60000,   0.00000, 0.00000, 270.00000);
@@ -6793,7 +6795,7 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(17071, 1236.588745, -1951.628662, 44.854534, 0.000000, 0.000000, 133.000030, -1, -1, -1, 250.00, 250.00); 
 	tmpobjid = CreateDynamicObject(17071, 1231.918090, -1956.486206, 53.254535, 0.000000, 0.000000, -49.799934, -1, -1, -1, 250.00, 250.00); 
 	tmpobjid = CreateDynamicObject(17071, 1236.030517, -1900.810791, 28.664543, 0.000000, 0.000000, 91.000007, -1, -1, -1, 250.00, 250.00); 
-	print("[CARREGADO] Mapa: Favela casar„o");
+	print("[CARREGADO] Mapa: Favela casarùo");
 	tmpobjid = CreateDynamicObject(-2800, 2607.185546, -1034.631713, 68.578125, 0.000000, 0.000000, 90.599952, -1, -1, -1, 250.00, 250.00); 
 	tmpobjid = CreateDynamicObject(-2805, 2585.903564, -1028.829101, 68.674087, 0.000000, 0.000000, 86.399841, -1, -1, -1, 250.00, 250.00); 
 	tmpobjid = CreateDynamicObject(-2806, 2581.291259, -1028.234252, 66.447937, 0.000000, 0.000000, 84.200019, -1, -1, -1, 250.00, 250.00); 
@@ -6963,12 +6965,6 @@ stock mapacivil(){
 	tmpobjid = CreateDynamicObject(1437, 2541.571777, -1007.759277, 82.075386, 108.899841, 0.000000, 0.000000, -1, -1, -1, 250.00, 250.00); 
 	tmpobjid = CreateDynamicObject(1437, 2541.571777, -1006.717163, 82.242225, 108.899841, 0.000000, 0.000000, -1, -1, -1, 250.00, 250.00);  
 	print("[CARREGADO] Mapa: LC parte alta");
-}
-
-
-stock Hospital_Int()
-{
-    new iHospital;
 	iHospital = CreateDynamicObjectEx(1802,172.470,2794.769,766.749,0.000,0.000,0.000,250.000,250.000);
 	SetDynamicObjectMaterial(iHospital, 0, 10385, "baseballground_sfs", "ws_football_lines2", 0);
 	SetDynamicObjectMaterial(iHospital, 2, 2423, "cj_ff_counters", "CJ_Laminate1", 0);
@@ -7664,7 +7660,7 @@ stock Hospital_Int()
 	CreateDynamicObject(970, 1880.16577, -1350.86719, 13.06940,   0.00000, 0.00000, 0.00000);
 	CreateDynamicObject(970, 1960.57251, -1450.84180, 13.06820,   0.00000, 0.00000, 0.00000);
     print("[CARREGADO] Mapa: Entrada pista de skate");
-	 //Pay N' Spray & Mod Shops : CrÈditos Forum SAMP
+	 //Pay N' Spray & Mod Shops : Crùditos Forum SAMP
     CreateDynamicObject(971, 1026, -1029.48, 31.7, 0, 0, 0);
 	CreateDynamicObject(971, 1043, -1026, 31.8, 0, 0, 0);
 	CreateDynamicObject(971, 2071.6001, -1831.8, 13, 0, 0, 90);
@@ -7675,11 +7671,19 @@ stock Hospital_Int()
 	CreateDynamicObject(971, -1935.5, 239.2, 33.7, 0, 0, 0);
 	CreateDynamicObject(971, -2716.1001, 216.8, 3.8, 0, 0, 90);
 	CreateDynamicObject(971, 1843.27319, -1854.58679, 12.12470,   0.00000, 0.00000, 90.00000);//Bomba LS
-	print("[CARREGADO] Mapa: Portıes do Pay N' Spray & Mod Shops");
+	print("[CARREGADO] Mapa: Portùes do Pay N' Spray & Mod Shops");
 
-    //UPA 24 HORAS
-    new UPA [66];
+	//Novo int casa 2
+    CreateDynamicObject(15054, 2268.36816, -1243.61975, 1050.02344,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1506, 2281.15405, -1234.08215, 1046.55469,   0.00000, 0.00000, -90.00000);
 
+	//Novo int casa 1
+	CreateDynamicObject(15041, 2164.03955, -1222.07361, 1049.81213,   0.00000, 0.00000, 0.00000);
+	CreateDynamicObject(1506, 2154.59570, -1216.97510, 1047.77563,   0.00000, 0.00000, 0.00000);
+
+	//Obj na ponte que pula / PC
+	CreateDynamicObject(983, 2103.35278, 100.32740, 31.06640,   0.00000, 0.00000, -20.00000);
+	CreateDynamicObject(983, 2102.31812, 97.59386, 31.06640,   0.00000, 0.00000, -20.00000);
     UPA [1]= CreateDynamicObject(18765, 2008.957641, -1357.480590, 18.186700, -85.299949, 0.000000, 0.000000, -1, -1, -1);
     SetDynamicObjectMaterial(UPA [1], 0, 10765, "airportgnd_sfse", "desgreengrass", 0x00000000);
     UPA [2]= CreateDynamicObject(18765, 2018.927368, -1357.480590, 18.186700, -85.599945, 0.000000, 0.000000, -1, -1, -1);
@@ -7763,16 +7767,5 @@ stock Hospital_Int()
     UPA [63]= CreateDynamicObject(1346, 2040.234130, -1422.430908, 17.799238, 0.000000, 0.000000, -87.599990, -1, -1, -1);
     UPA [64]= CreateDynamicObject(1359, 2040.223510, -1427.003051, 17.072870, 0.000000, 0.000000, 0.000000, -1, -1, -1);
     UPA [65]= CreateDynamicObject(11709, 2048.105712, -1386.404052, 16.934844, 0.000000, 0.000000, 179.900009, -1, -1, -1);
-
-	//Novo int casa 2
-    CreateDynamicObject(15054, 2268.36816, -1243.61975, 1050.02344,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, 2281.15405, -1234.08215, 1046.55469,   0.00000, 0.00000, -90.00000);
-
-	//Novo int casa 1
-	CreateDynamicObject(15041, 2164.03955, -1222.07361, 1049.81213,   0.00000, 0.00000, 0.00000);
-	CreateDynamicObject(1506, 2154.59570, -1216.97510, 1047.77563,   0.00000, 0.00000, 0.00000);
-
-	//Obj na ponte que pula / PC
-	CreateDynamicObject(983, 2103.35278, 100.32740, 31.06640,   0.00000, 0.00000, -20.00000);
-	CreateDynamicObject(983, 2102.31812, 97.59386, 31.06640,   0.00000, 0.00000, -20.00000);
+    print("[CARREGADO] Mapa: UPA");
 }
