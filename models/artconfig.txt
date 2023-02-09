@@ -67,6 +67,14 @@ AddCharModel(211, 20065, "fem20.dff", "fem20.txd");
 AddCharModel(211, 20066, "fem21.dff", "fem21.txd");
 AddCharModel(211, 20067, "fem22.dff", "fem22.txd");
 AddCharModel(211, 20068, "fem23.dff", "fem23.txd");
+AddCharModel(13, 20069, "pet7.dff", "pet7.txd"); 
+AddCharModel(252, 20070, "pet6.dff", "pet6.txd");
+AddCharModel(252, 20071, "pet1.dff", "pet1.txd");
+AddCharModel(252, 20072, "pet2.dff", "pet2.txd");
+AddCharModel(252, 20073, "pet3.dff", "pet3.txd");
+AddCharModel(252, 20074, "pet3.dff", "pet3.txd");
+AddCharModel(252, 20075, "pet4.dff", "pet4.txd");
+AddCharModel(252, 20076, "pet5.dff", "pet5.txd");
 
 //SLOTS PERSONALIZADO PRIVADO AMIGOS
 AddCharModel(211, 20100, "luizh.dff", "luizh.txd");

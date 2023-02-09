@@ -5,10 +5,10 @@ COMMAND:darpet(playerid, params[])
     if(PlayerInfo[playerid][pAdmin] >= 5) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não é um administrador.");
 
     if(sscanf(params, "ud", targetid, petmodel))
-        return SendClientMessage(playerid, "/darpet [playerid] [petmodel]");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "/darpet [playerid] [petmodel]");
 
     if(!IsValidPetModel(petmodel))
-        return SendClientMessage(playerid, "Modelo de cachorro invalido!");   
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Modelo de cachorro invalido!");   
 
     PetData[targetid][petModelID] = petmodel;
     format(PetData[targetid][petName], 128, "Jack");
@@ -19,7 +19,7 @@ COMMAND:darpet(playerid, params[])
 COMMAND:petmenu(playerid, params[])
 {
     if(!PetData[playerid][petModelID])
-        return SendClientMessage(playerid, "You dont have a pet!");
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "You dont have a pet!");
 
     ShowPetMenu(playerid);
     return 1;

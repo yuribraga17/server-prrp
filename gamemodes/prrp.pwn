@@ -12,13 +12,17 @@
 #include <neon>
 #include <dini>
 #include <YSI\y_bit>
+#include <YSI\y_hooks>
+#include <YSI\y_timers>
 #include "../include/gl_common.inc"
 #include <progress>
 #include <callbacks>
 #include <OPA>
 #include <dialogs>
 #include <dns>
+#include <YSF>
 #include <EVF>
+#include <mapandreas>
 //#include <nex-ac>
 
 
@@ -121,6 +125,35 @@ enum eApostador {
 new Apostadores[MAX_PLAYERS][eApostador];
 //new UltimoResultado;
 new bool:PodeApostarBicho = true;
+//=====[SISTEMA DE PET BY YURS]=====
+#define MAX_PET 1000
+
+#define PET_NONE    (0)
+#define PET_FOLLOW  (1)
+#define PET_SIT     (2)
+#define PET_STAY    (3)
+#define PET_LAY     (4)
+#define PET_JUMP    (5)
+
+enum E_PLAYER_PET
+{
+    petModelID,
+    petName[128],
+    petModel,
+    petStatus,
+    Text3D:petText,
+    bool:petSpawn,
+    bool:petIdle,
+    Float:PetposX,
+    Float:PetposY,
+    Float:PetposZ,
+    Float:idle_posX,
+    Float:idle_posY,
+    Float:idle_posZ,
+    Timer:petTimer
+}
+
+new PetData[MAX_PLAYERS][E_PLAYER_PET];
 
 //=============================
 new PlayersOnline = 0,
@@ -148,7 +181,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
 #define ULTIMO_GMX      "26/01/2023"
-#define CA_VERSAO       "PR:RP v1.11"
+#define CA_VERSAO       "PR:RP v1.80"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -8093,7 +8126,7 @@ public Timer_Minutos()
 	}
 	//==========================================================================
 
-    if(hour == 5 && mins == 30)
+    /*if(hour == 5 && mins == 30)
 	    SendClientMessageToAll(COLOR_LIGHTRED, "SERVER: Dentro de 15 minutos, o servidor será reiniciado.");
     if(hour == 5 && mins == 45)
 	    SendClientMessageToAll(COLOR_LIGHTRED, "SERVER: Dentro de 10 minutos, o servidor será reiniciado.");
@@ -8111,7 +8144,7 @@ public Timer_Minutos()
     	SalvarCasas();
     	SalvarGoverno();
 		SalvarFaccoes();
-	}
+	}*/
 }
 
 forward FecharServidor();
@@ -11138,6 +11171,11 @@ public OnPlayerConnect(playerid)
     Entregando[playerid] = 0;
     TemCorrida[playerid] = 0;
 
+    PetData[playerid][petModel] = INVALID_ACTOR_ID;
+    PetData[playerid][petText] = Text3D:INVALID_STREAMER_ID;
+    PetData[playerid][petStatus] = PET_NONE;
+    PetData[playerid][petSpawn] = false;
+
     LastShoter[playerid] = 0;
     SalvandoConta[playerid] = 0;
 	TempoParaSalvar[playerid] = 0;
@@ -13489,6 +13527,7 @@ public OnPlayerDisconnect(playerid, reason)
     PlayersOnline--;
     PlayerDisconectDelTexts(playerid);
 	TelaLoginDel(playerid);
+	PetDespawn(playerid);
 
 	if(GetPVarInt(playerid, "AcabouDeMorrer") == 1)
 	{
@@ -13879,7 +13918,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/01/2023, v1.11, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/01/2023, v1.80, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -14485,6 +14524,430 @@ public OnVehicleDeath(vehicleid, killerid)
     	VehicleDeath(strdeath);
 	}
 	return 1;
+}
+COMMAND:darpet(playerid, params[])
+{
+    new targetid, petmodel;
+	new petzin[256];
+
+    if(PlayerInfo[playerid][pAdmin] <= 5) return SendClientMessage(playerid, COLOR_LIGHTRED, "{FFFFFF}Você não é um administrador.");
+
+    if(sscanf(params, "ud", targetid, petmodel))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "/darpet [playerid] [petmodel]");
+
+    if(!IsValidPetModel(petmodel))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Modelo de cachorro invalido!");   
+
+    PetData[targetid][petModelID] = petmodel;
+    format(petzin, sizeof(petzin), PetData[targetid][petName], 128, "Jack");
+    format(petzin, sizeof(petzin), "Você deu um pet para %s, modelo: ", PlayerName(targetid, 0), petmodel);
+    SendClientMessage(playerid, COLOR_WHITE, petzin);
+
+    return 1;
+}
+
+COMMAND:petmenu(playerid, params[])
+{
+    if(!PetData[playerid][petModelID])
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "You dont have a pet!");
+
+    ShowPetMenu(playerid);
+    return 1;
+}
+
+UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
+{
+    if(IsValidDynamic3DTextLabel(PetData[playerid][petText]))
+    {
+        Streamer_SetFloatData(STREAMER_TYPE_3D_TEXT_LABEL, PetData[playerid][petText], E_STREAMER_X, x);
+        Streamer_SetFloatData(STREAMER_TYPE_3D_TEXT_LABEL, PetData[playerid][petText], E_STREAMER_Y, y);
+        Streamer_SetFloatData(STREAMER_TYPE_3D_TEXT_LABEL, PetData[playerid][petText], E_STREAMER_Z, z);
+    }
+    return 1;
+}
+
+IsPetSpawned(playerid)
+{
+    if(PetData[playerid][petSpawn])
+        return 1;
+
+    return 0;
+}
+
+ShowPetMenu(playerid)
+{
+    new stringpet[255];
+    format(stringpet, sizeof(stringpet), "Spawnar cachorro\nGuardar cachorro\nNome\nCasa do cachorro\nCachorro seguir\nCachorro sentar\nCachorro deitar\nCachorro pular");
+    Dialog_Show(playerid, PETMENU, DIALOG_STYLE_LIST, "Pet Menu", stringpet, "Escolher", "Fechar");
+    
+	return 1;
+}
+
+PetSpawn(playerid)
+{
+    if(PetData[playerid][petSpawn])
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem um cachorro spawnado.");
+
+    if(GetPlayerVirtualWorld(playerid) != 0)
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode spawnar um cachorro em outro VW.");
+
+    new petmodelid = PetData[playerid][petModelID], stringpet[255];
+
+    new Float:fX, Float:fY, Float:fZ, Float:fAngle;
+
+    GetXYInFrontOfPlayer(playerid, fX, fY, -1.0);
+    GetPlayerPos(playerid, fZ, fZ, fZ);
+    GetPlayerFacingAngle(playerid, fAngle);
+
+    PetData[playerid][petModel] = CreateActor(petmodelid, fX, fY+2, fZ, fAngle);
+    format(stringpet, sizeof(stringpet), "Dono: %s\nNome: %s", ReturnName(playerid), PetData[playerid][petName]);
+    PetData[playerid][petText] = CreateDynamic3DTextLabel(stringpet, COLOR_WHITE, fX, fY+2, fZ, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+
+    PetData[playerid][petSpawn] = true;
+    PetData[playerid][petStatus] = PET_FOLLOW;
+    SendClientMessage(playerid, COLOR_WHITE, "Você spawnou seu cachorro.");
+    PetData[playerid][petTimer] = repeat Pet_Update(playerid, playerid);
+    return 1;
+}
+
+
+PetDespawn(playerid)
+{
+    if(PetData[playerid][petSpawn])
+    {
+        if(IsValidActor(PetData[playerid][petModel]))
+            DestroyActor(PetData[playerid][petModel]);
+        
+        if(IsValidDynamic3DTextLabel(PetData[playerid][petText]))
+            DestroyDynamic3DTextLabel(PetData[playerid][petText]);
+
+        PetData[playerid][petModel] = INVALID_ACTOR_ID;
+        PetData[playerid][petText] = Text3D:INVALID_STREAMER_ID;
+        PetData[playerid][petStatus] = PET_NONE;
+        PetData[playerid][petSpawn] = false;
+        stop PetData[playerid][petTimer];
+
+        SendClientMessage(playerid, COLOR_WHITE, "Cachorro guardado.");
+    }
+    return 1;
+}
+
+PetSit(playerid)
+{
+    if(!IsPetSpawned(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
+
+    if(IsValidActor(PetData[playerid][petModel]))
+    {
+        PetData[playerid][petStatus] = PET_SIT;
+        stop PetData[playerid][petTimer];
+        ClearDynamicActorAnimations(PetData[playerid][petModel]);
+        ApplyActorAnimation(PetData[playerid][petModel], "ped", "SEAT_down", 4.1, 0, 0, 0, 1, 0);
+        SendClientMessage(playerid, COLOR_WHITE, "O cachorro está sentado.");
+    }
+    return 1;
+}
+
+PetLay(playerid)
+{
+    if(!IsPetSpawned(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
+
+    if(IsValidActor(PetData[playerid][petModel]))
+    {
+        PetData[playerid][petStatus] = PET_LAY;
+        stop PetData[playerid][petTimer];
+        ClearDynamicActorAnimations(PetData[playerid][petModel]);
+        ApplyActorAnimation(PetData[playerid][petModel], "CRACK", "crckidle2", 4.1, 0, 0, 0, 1, 0);
+        SendClientMessage(playerid, COLOR_WHITE, "O cachorro está deitado.");
+    }
+    return 1;
+}
+
+
+PetJump(playerid)
+{
+    if(!IsPetSpawned(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
+
+    if(IsValidActor(PetData[playerid][petModel]))
+    {
+        PetData[playerid][petStatus] = PET_LAY;
+        stop PetData[playerid][petTimer];
+        ClearDynamicActorAnimations(PetData[playerid][petModel]);
+        ApplyActorAnimation(PetData[playerid][petModel], "BSKTBALL", "BBALL_DEF_JUMP_SHOT", 4.1, 1, 0, 0, 0, 0);
+        SendClientMessage(playerid, COLOR_WHITE, "O seu cachorro está pulando!");
+    }
+    return 1;
+}
+
+PetStay(playerid)
+{
+    if(!IsPetSpawned(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
+
+    if(IsValidActor(PetData[playerid][petModel]))
+    {
+        PetData[playerid][petStatus] = PET_STAY;
+        stop PetData[playerid][petTimer];
+        ClearDynamicActorAnimations(PetData[playerid][petModel]);
+        SendClientMessage(playerid, COLOR_WHITE, "Seu pet não está executando animação");
+    }
+    return 1;
+}
+
+PetFollow(playerid, targetid)
+{
+    if(!IsPetSpawned(playerid))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
+
+    if(IsValidActor(PetData[playerid][petModel]))
+    {
+        if(PetData[playerid][petStatus] == PET_FOLLOW)
+        {
+            stop PetData[playerid][petTimer];
+        }
+        PetData[playerid][petStatus] = PET_FOLLOW;
+        ClearActorAnimations(PetData[playerid][petModel]);
+        PetData[playerid][petTimer] = repeat Pet_Update(playerid, targetid);
+        SendClientMessage(playerid, COLOR_LIGHTRED, "Agora seu cachorro está te seguindo!");
+    }
+    return 1;
+}
+
+PetName(playerid)
+{
+    if(PetData[playerid][petSpawn])
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "Guarde seu cachorro primeiro!");
+
+    if(strcmp(PetData[playerid][petName], "Jack", true))
+        return SendClientMessage(playerid, COLOR_LIGHTRED, "O nome do seu animal de estimação não pode mais ser alterado!");
+
+    Dialog_Show(playerid, PET_NAME, DIALOG_STYLE_INPUT, "Nome", "AVISO: Você só pode alterar os nomes dos animais de estimação uma vez\n\nInsira o Nome:", "Insirir nome", "Cancelar");
+    return 1;
+}
+
+Dialog:PET_NAME(playerid, response, listitem, inputtext[])
+{
+    if(response)
+    {
+        if(isnull(inputtext) || IsNumeric(inputtext))
+            return Dialog_Show(playerid, PET_NAME, DIALOG_STYLE_INPUT, "Nome", "ERROR: Preencha o nome\nInsira o Nome:", "Insirir nome", "Cancelar");
+
+        if(strlen(inputtext) > 128)
+            return Dialog_Show(playerid, PET_NAME, DIALOG_STYLE_INPUT, "Nome", "ERROR: Erro, o nome não pode ter mais de 128 caracteres\nInsira o Nome:", "Insirir nome", "Cancelar");
+
+		new petzin[256];
+        format(petzin, sizeof(petzin),PetData[playerid][petName], 128, "%s.", inputtext);
+   	 	format(petzin, sizeof(petzin), "Você alterou o nome do pet para: %s.", inputtext);
+    	SendClientMessage(playerid, COLOR_WHITE, petzin);
+    }
+    return 1;
+}
+
+Dialog:PETMENU(playerid, response, listitem, inputtext[])
+{
+    if(response)
+    {
+        switch(listitem)
+        {
+            case 0: PetSpawn(playerid);
+            case 1: PetDespawn(playerid);
+            case 2: PetName(playerid);
+            case 3: PetStay(playerid);
+            case 4: Dialog_Show(playerid, PET_MENU_FOLLOW, DIALOG_STYLE_INPUT, "Cachorro seguir", "Insira o ID do jogador que você queria que seu animal de estimação segue\nPreencha vazio se você quiser seguir a si mesmo!", "Seguir", "Cancelar");
+            case 5: PetSit(playerid);
+            case 6: PetLay(playerid);
+            case 7: PetJump(playerid);
+        }
+    }
+    return 1;
+}
+Dialog:PET_MENU_FOLLOW(playerid, response, listitem, inputtext[])
+{
+    if(response)
+    {
+        new targetid;
+
+        if(isnull(inputtext))
+            return PetFollow(playerid, playerid);
+
+        if(!IsNumeric(inputtext))
+            return Dialog_Show(playerid, PET_MENU_FOLLOW, DIALOG_STYLE_INPUT, "Pet Follow", "Input Player ID that you wanted your pet to follow!", "Follow", "Cancelar");
+
+        if(sscanf(inputtext, "u", targetid))
+            return Dialog_Show(playerid, PET_MENU_FOLLOW, DIALOG_STYLE_INPUT, "Pet Follow", "ERROR: Input playerid can't be empty!\n\nInput Player ID that you wanted your pet to follow!", "Follow", "Cancelar");
+    
+        if(targetid == INVALID_PLAYER_ID)
+            return Dialog_Show(playerid, PET_MENU_FOLLOW, DIALOG_STYLE_INPUT, "Pet Follow", "ERROR: Invalid player id!\n\nInput Player ID that you wanted your pet to follow!", "Follow", "Cancelar");
+
+
+        PetFollow(playerid, targetid);
+		new petzin[256];
+
+		format(petzin, sizeof(petzin), "Your pet is now following %s", ReturnName(targetid, 0));
+        SendClientMessage(playerid, COLOR_LIGHTRED, petzin);
+    }
+    return 1;
+}
+stock Float:GetDistance2D(Float:x1, Float:y1, Float:x2, Float:y2) {
+	return floatsqroot(
+		((x1 - x2) * (x1 - x2)) +
+		((y1 - y2) * (y1 - y2))
+	);
+}
+
+stock Float:GetAbsoluteAngle(Float:angle) {
+	while(angle < 0.0) {
+		angle += 360.0;
+	}
+	while(angle > 360.0) {
+		angle -= 360.0;
+	}
+	return angle;
+}
+
+// Returns the offset heading from north between a point and a destination
+stock Float:GetAngleToPoint(Float:fPointX, Float:fPointY, Float:fDestX, Float:fDestY) {
+	return GetAbsoluteAngle(-(
+		90.0 - (
+			atan2(
+				(fDestY - fPointY),
+				(fDestX - fPointX)
+			)
+		)
+	));
+}
+
+stock GetXYFromAngle(Float:x, Float:y, Float:a, Float:distance) 
+{
+    x += (distance*floatsin(-a,degrees));
+    y += (distance*floatcos(-a,degrees));
+}
+
+
+stock SetFacingPlayer(actorid, playerid)
+{
+    new Float:pX, Float:pY, Float:pZ;
+    GetPlayerPos(playerid, pX, pY, pZ);
+
+    return SetFacingPoint(actorid, pX, pY);
+}
+
+stock SetFacingPoint(actorid, Float:x, Float:y)
+{
+
+    new Float:pX, Float:pY, Float:pZ;
+    GetDynamicActorPos(actorid, pX, pY, pZ);
+
+    new Float:angle;
+
+    if( y > pY ) angle = (-acos((x - pX) / floatsqroot((x - pX)*(x - pX) + (y - pY)*(y - pY))) - 90.0);
+    else if( y < pY && x < pX ) angle = (acos((x - pX) / floatsqroot((x - pX)*(x - pX) + (y - pY)*(y - pY))) - 450.0);
+    else if( y < pY ) angle = (acos((x - pX) / floatsqroot((x - pX)*(x - pX) + (y - pY)*(y - pY))) - 90.0);
+
+    if(x > pX) angle = (floatabs(floatabs(angle) + 180.0));
+    else angle = (floatabs(angle) - 180.0);
+
+    return SetActorFacingAngle(actorid, angle);
+}
+
+IsValidPetModel(skinid)
+{
+    switch(skinid)
+    {
+        case 20069..20076:
+            return 1;
+    }
+    return 0;
+}
+
+timer Pet_Update[1](playerid, targetid)
+{
+    if(PetData[playerid][petModelID] != 0 && PetData[playerid][petSpawn] && PetData[playerid][petStatus] == PET_FOLLOW)
+    {
+
+        if(!IsPlayerConnected(targetid) || GetActorVirtualWorld(PetData[playerid][petModel]) != GetPlayerVirtualWorld(targetid))
+        {
+            PetData[playerid][petStatus] = PET_STAY;
+            stop PetData[playerid][petTimer];
+            ClearActorAnimations(PetData[playerid][petModel]);
+            return 1;
+        }
+
+        new 
+            Float:plrX, Float:plrY, Float:plrZ,
+            Float:actorX, Float:actorY, Float:actorZ, 
+            Float:actorAngle, Float:playerAngle, animIndex
+        ;
+
+        GetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ);
+        GetPlayerPos(targetid, plrX, plrY, plrZ);
+        GetPlayerFacingAngle(targetid, playerAngle);
+        actorAngle = (GetAngleToPoint(actorX, actorY, plrX, plrY));
+
+        animIndex = GetPlayerAnimationIndex(targetid);
+        switch(animIndex)
+        {
+            case 1222..1236, 1246..1250:
+            {
+                
+                if(GetDistance2D(plrX, plrY, actorX, actorY) > 3.0 && GetDistance2D(plrX, plrY, actorX, actorY) < 5.0)
+                {
+                    GetXYFromAngle(actorX, actorY, actorAngle, 0.1);
+                    ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
+                    MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
+                    SetFacingPlayer(PetData[playerid][petModel], targetid);
+                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
+
+                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                }
+                else if(GetDistance2D(plrX, plrY, actorX, actorY) >= 5.0)
+                {
+                    GetXYFromAngle(actorX, actorY, actorAngle, 0.3);
+                    ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
+                    MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
+                    SetFacingPlayer(PetData[playerid][petModel], targetid);
+                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
+
+                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                }
+            }
+            default:
+            {
+                if (GetDistance2D(plrX, plrY, actorX, actorY) > 3.0 && GetDistance2D(plrX, plrY, actorX, actorY) < 5.0)
+                {
+                    GetXYFromAngle(actorX, actorY, actorAngle, 0.1);
+                    ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
+                    MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
+                    SetFacingPlayer(PetData[playerid][petModel], targetid);
+                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
+
+                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                }
+                else if(GetDistance2D(plrX, plrY, actorX, actorY) >= 5.0)
+                {
+                    GetXYFromAngle(actorX, actorY, actorAngle, 0.3);
+                    ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
+                    MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
+                    SetFacingPlayer(PetData[playerid][petModel], targetid);
+                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
+
+                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                }
+                else if(GetDistance2D(plrX, plrY, actorX, actorY) <= 3.0)
+                {
+                    ClearActorAnimations(PetData[playerid][petModel]);
+                    UpdatePetText3D(playerid, actorX, actorY, actorZ+0.5);
+                }
+            }
+        }
+    }
+    return 1;
 }
 
 COMMAND:aceitarcobranca(playerid,params[])
@@ -20325,6 +20788,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
             PlayerInfo[playerid][pBanTeam] = 0;
             PlayerInfo[playerid][pRefundTeam] = 0;
             PlayerInfo[playerid][pPropertyTeam] = 0;
+            PetData[playerid][petModelID] = 0;
 			PlayerInfo[playerid][pExecComando] = 0;
 
 			//==================================================================
@@ -21515,7 +21979,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d', `dog`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEtnia],
 			PlayerInfo[playerid][pOlhos],
 			PlayerInfo[playerid][pPeso],
@@ -21530,6 +21994,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pCortaRem],
 			OutrasInfos[playerid][oAlgemado],
 			PlayerInfo[playerid][pTrafico],
+			PetData[playerid][petModelID],
             PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -42585,6 +43050,7 @@ COMMAND:aceitarajuda(playerid, params[])
 	}
 	return 1;
 }
+
 ALTCOMMAND:rj->rejeitarajuda;
 COMMAND:rejeitarajuda(playerid, params[])
 {
@@ -42613,20 +43079,22 @@ COMMAND:rejeitarajuda(playerid, params[])
 	return 1;
 }
 
-COMMAND:n(playerid, params[])
+/*COMMAND:n(playerid, params[])
 {
-		if (isnull(params))
-		return SendClientMessage(playerid, COLOR_WHITE, "/n [dúvida]");
+	new text[128];
+	if(sscanf(params, "s[128]", text)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /n [duvida]");
 
-		if (strlen(params) > 64) {
-		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %.64s **", ReturnName(playerid, 0), params);
+	if (strlen(params) > 64) 
+	{
+		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %.64s **", PlayerName(playerid, 0), params);
 		SendClientMessageToAll(COLOR_BLUE, "...%s **", params[64]);
 	}
-		else {
-		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %s **", ReturnName(playerid, 0), params);
+	else 
+	{
+		SendClientMessageToAll(COLOR_BLUE, "[Canal de Ajuda] %s: %s **", PlayerName(playerid, 0), params);
 	}
-		return 1;
-}
+	return 1;
+}*/
 
 COMMAND:aooc(playerid, params[])
 {
@@ -44206,6 +44674,7 @@ public LoadAccountInfo(extraid)
         cache_get_field_content(0, "BanTeam", tmp);  PlayerInfo[extraid][pBanTeam] = strval(tmp);
         cache_get_field_content(0, "RefundTeam", tmp);  PlayerInfo[extraid][pRefundTeam] = strval(tmp);
         cache_get_field_content(0, "PropertyTeam", tmp);  PlayerInfo[extraid][pPropertyTeam] = strval(tmp);
+        cache_get_field_content(0, "dog", tmp);  PetData[extraid][petModelID] = strval(tmp);
 
 
         cache_get_field_content(0, "desmanx", tmp);  OutrasInfos[extraid][oDesmancheX] = floatstr(tmp);

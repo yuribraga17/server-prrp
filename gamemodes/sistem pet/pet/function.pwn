@@ -19,23 +19,23 @@ IsPetSpawned(playerid)
 
 ShowPetMenu(playerid)
 {
-    new string[255];
-    format(string, sizeof(string), "Spawnar cachorro\nGuardar cachorro\nNome do cachorro\nCasa do cachorro\nCachorro seguir\nCachorro sentar\nCachorro deitar\nCachorro pular");
-    Dialog_Show(playerid, PETMENU, DIALOG_STYLE_LIST, "Pet Menu", string, "Escolher", "Fechar");
+    new stringpet[255];
+    format(stringpet, sizeof(stringpet), "Spawnar cachorro\nGuardar cachorro\nNome do cachorro\nCasa do cachorro\nCachorro seguir\nCachorro sentar\nCachorro deitar\nCachorro pular");
+    Dialog_Show(playerid, PETMENU, DIALOG_STYLE_LIST, "Pet Menu", stringpet, "Escolher", "Fechar");
     return 1;
 }
 
 PetSpawn(playerid)
 {
     if(PetData[playerid][petSpawn])
-        return SendClientMessage(playerid, "Você já tem um cachorro spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já tem um cachorro spawnado.");
 
     if(GetPlayerVirtualWorld(playerid) != 0)
-        return SendClientMessage(playerid, "Você não pode spawnar um cachorro em outro VW.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode spawnar um cachorro em outro VW.");
 
     new 
         petmodelid = PetData[playerid][petModelID],
-        string[255]
+        stringpet[255]
     ;
 
     new Float:fX, Float:fY, Float:fZ, Float:fAngle;
@@ -45,8 +45,8 @@ PetSpawn(playerid)
     GetPlayerFacingAngle(playerid, fAngle);
 
     PetData[playerid][petModel] = CreateActor(petmodelid, fX, fY+2, fZ, fAngle);
-    format(string, sizeof(string), "Dono: %s\nNome: %s", ReturnName(playerid), PetData[playerid][petName]);
-    PetData[playerid][petText] = CreateDynamic3DTextLabel(string, X11_WHITE, fX, fY+2, fZ, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    format(stringpet, sizeof(stringpet), "Dono: %s\nNome: %s", ReturnName(playerid), PetData[playerid][petName]);
+    PetData[playerid][petText] = CreateDynamic3DTextLabel(stringpet, COLOR_WHITE, fX, fY+2, fZ, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
 
     PetData[playerid][petSpawn] = true;
     PetData[playerid][petStatus] = PET_FOLLOW;
@@ -80,7 +80,7 @@ PetDespawn(playerid)
 PetSit(playerid)
 {
     if(!IsPetSpawned(playerid))
-        return SendClientMessage(playerid, "Seu cachorro não está spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
 
     if(IsValidActor(PetData[playerid][petModel]))
     {
@@ -96,7 +96,7 @@ PetSit(playerid)
 PetLay(playerid)
 {
     if(!IsPetSpawned(playerid))
-        return SendClientMessage(playerid, "Seu cachorro não está spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
 
     if(IsValidActor(PetData[playerid][petModel]))
     {
@@ -113,7 +113,7 @@ PetLay(playerid)
 PetJump(playerid)
 {
     if(!IsPetSpawned(playerid))
-        return SendClientMessage(playerid, "Seu cachorro não está spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
 
     if(IsValidActor(PetData[playerid][petModel]))
     {
@@ -129,7 +129,7 @@ PetJump(playerid)
 PetStay(playerid)
 {
     if(!IsPetSpawned(playerid))
-        return SendClientMessage(playerid, "Seu cachorro não está spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
 
     if(IsValidActor(PetData[playerid][petModel]))
     {
@@ -144,7 +144,7 @@ PetStay(playerid)
 PetFollow(playerid, targetid)
 {
     if(!IsPetSpawned(playerid))
-        return SendClientMessage(playerid, "Seu cachorro não está spawnado.");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Seu cachorro não está spawnado.");
 
     if(IsValidActor(PetData[playerid][petModel]))
     {
@@ -163,10 +163,10 @@ PetFollow(playerid, targetid)
 PetName(playerid)
 {
     if(PetData[playerid][petSpawn])
-        return SendClientMessage(playerid, "Guarde seu cachorro primeiro!");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "Guarde seu cachorro primeiro!");
 
     if(strcmp(PetData[playerid][petName], "Jack", true))
-        return SendClientMessage(playerid, "O nome do seu animal de estimação não pode mais ser alterado!");
+        return return SendClientMessage(playerid, COLOR_LIGHTRED, "O nome do seu animal de estimação não pode mais ser alterado!");
 
     Dialog_Show(playerid, PET_NAME, DIALOG_STYLE_INPUT, "Nome do cachorro", "AVISO: Você só pode alterar os nomes dos animais de estimação uma vez\n\nInsira o nome do cachorro:", "Insirir nome", "Cancelar");
     return 1;
@@ -296,7 +296,7 @@ IsValidPetModel(skinid)
 {
     switch(skinid)
     {
-        case 20062..20069:
+        case 20069..20076:
             return 1;
     }
     return 0;
