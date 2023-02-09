@@ -11715,6 +11715,22 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 1265, 1441.550, -1323.310, 12.984, 0.250);
 	RemoveBuildingForPlayer(playerid, 1227, 1439.859, -1323.699, 13.382, 0.250);
 	RemoveBuildingForPlayer(playerid, 1617, 1436.390, -1322.880, 16.421, 0.250);
+
+	//Market Hospital
+	RemoveBuildingForPlayer(playerid, 5930, 1134.250, -1338.078, 23.156, 0.250);
+	RemoveBuildingForPlayer(playerid, 5708, 1134.250, -1338.078, 23.156, 0.250);
+	RemoveBuildingForPlayer(playerid, 1440, 1141.984, -1346.109, 13.265, 0.250);
+	RemoveBuildingForPlayer(playerid, 1440, 1148.679, -1385.187, 13.265, 0.250);
+	RemoveBuildingForPlayer(playerid, 617, 1178.601, -1332.070, 12.890, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1184.007, -1353.500, 12.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1184.007, -1343.265, 12.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 618, 1177.734, -1315.664, 13.296, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1184.812, -1292.914, 12.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 1184.812, -1303.148, 12.578, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 1190.773, -1383.273, 15.945, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 1190.773, -1299.742, 15.945, 0.250);
+
+
 	//Presidio
 	RemoveBuildingForPlayer(playerid, 13048, -91.562, -251.515, 0.421, 0.250);
 	RemoveBuildingForPlayer(playerid, 3377, -207.656, -246.734, 1.578, 0.250);
