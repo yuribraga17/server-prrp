@@ -11711,7 +11711,7 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5579, 2050.070, -1401.210, 33.679, 0.250);
     RemoveBuildingForPlayer(playerid, 5661, 2050.070, -1401.210, 33.679, 0.250);
     RemoveBuildingForPlayer(playerid, 5467, 2026.117, -1404.640, 46.000, 0.250);
-	RemoveBuildingForPlayer(playerid, 5403, 2050.070, -1401.210, 33.679, 0.250);
+    RemoveBuildingForPlayer(playerid, 5403, 2050.070, -1401.210, 33.679, 0.250);
 	//Mecanica
 	RemoveBuildingForPlayer(playerid, 1265, 1441.550, -1323.310, 12.984, 0.250);
 	RemoveBuildingForPlayer(playerid, 1227, 1439.859, -1323.699, 13.382, 0.250);
