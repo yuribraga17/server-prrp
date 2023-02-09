@@ -264,6 +264,7 @@ AddSimpleModel(-1,19379, -2008, "prisao.dff", "prisao.txd");
 AddSimpleModel(-1,19379, -2042, "bope.dff", "bope.txd");
 AddSimpleModel(-1,19369, -1016, "craco2.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1017, "craco.dff", "craco.txd");
+AddSimpleModel(-1,19379, -2004, "upa.dff", "upa.txd");
 
 //mobilia prixy e objetos mecanica
 AddSimpleModel(-1,19787, -2043, "TV1BRANCA-BYPRIXY.dff", "TV1BRANCA-BYPRIXY.txd");
@@ -354,7 +355,7 @@ AddSimpleModel(-1,19480,-2040, "upp.dff", "upp.txd");
 AddSimpleModel(-1,19379, -2007, "hud.dff", "hud.txd");
 AddSimpleModel(-1,19379, -2200, "login.dff", "tela.txd");
 AddSimpleModel(-1, 19379, -2201, "login.dff", "logo.txd");
-AddSimpleModel(-1, 19379, -7800, "login.dff", "logo32.txd"); //Nùo remover
+AddSimpleModel(-1, 19379, -7800, "login.dff", "logo32.txd"); //N?o remover
 
 //mapas civis
 AddSimpleModel(-1,12843, -1001, "caixa.dff", "caixa.txd");
