@@ -180,7 +180,7 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "26/01/2023"
+#define ULTIMO_GMX      "09/02/2023"
 #define CA_VERSAO       "PR:RP v1.80"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
@@ -13918,7 +13918,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 26/01/2023, v1.80, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 09/02/2023, v1.80, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -14696,6 +14696,7 @@ PetStay(playerid)
     return 1;
 }
 
+
 PetFollow(playerid, targetid)
 {
     if(!IsPetSpawned(playerid))
@@ -14705,7 +14706,7 @@ PetFollow(playerid, targetid)
     {
         if(PetData[playerid][petStatus] == PET_FOLLOW)
         {
-            stop PetData[playerid][petTimer];
+            PetData[playerid][petTimer] = repeat Pet_Update(playerid, targetid);
         }
         PetData[playerid][petStatus] = PET_FOLLOW;
         ClearActorAnimations(PetData[playerid][petModel]);
@@ -14784,8 +14785,7 @@ Dialog:PET_MENU_FOLLOW(playerid, response, listitem, inputtext[])
 
         PetFollow(playerid, targetid);
 		new petzin[256];
-
-		format(petzin, sizeof(petzin), "Your pet is now following %s", ReturnName(targetid, 0));
+		format(petzin, sizeof(petzin), "Seu pet está seguindo %s.", ReturnName(targetid, 0));
         SendClientMessage(playerid, COLOR_LIGHTRED, petzin);
     }
     return 1;
@@ -14862,7 +14862,7 @@ IsValidPetModel(skinid)
     return 0;
 }
 
-timer Pet_Update[1](playerid, targetid)
+timer Pet_Update[100](playerid, targetid)
 {
     if(PetData[playerid][petModelID] != 0 && PetData[playerid][petSpawn] && PetData[playerid][petStatus] == PET_FOLLOW)
     {
@@ -14898,7 +14898,7 @@ timer Pet_Update[1](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -14909,7 +14909,7 @@ timer Pet_Update[1](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -14923,7 +14923,7 @@ timer Pet_Update[1](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -14934,7 +14934,7 @@ timer Pet_Update[1](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
