@@ -96,7 +96,12 @@ AddCharModel(211, 20211, "skinfpcerj1.dff", "skinfpcerj1.txd");
 AddCharModel(211, 20212, "skinfpcerj2.dff", "skinfpcerj2.txd");
 AddCharModel(211, 20213, "skinfpcerj3.dff", "skinfpcerj3.txd");
 AddCharModel(211, 20214, "skinfpcerj4.dff", "skinfpcerj4.txd");
-AddCharModel(211, 20215, "skinfpcerj5.dff", "skinfpcerj5.txd");
+AddCharModel(280, 20215, "skinpcerj8.dff", "skinpcerj8.txd");
+AddCharModel(280, 20216, "skinpcerj9.dff", "skinpcerj9.txd");
+AddCharModel(280, 20217, "skinpcerj10.dff", "skinpcerj10.txd");
+AddCharModel(280, 20218, "skinpcerj11.dff", "skinpcerj11.txd");
+AddCharModel(280, 20219, "skinpcerj12.dff", "skinpcerj12.txd");
+AddCharModel(280, 20220, "skinpcerj13.dff", "skinpcerj13.txd");
 
 //skins CBMERJ
 AddCharModel(211, 20301, "cbmerj.dff", "cbmerj.txd");

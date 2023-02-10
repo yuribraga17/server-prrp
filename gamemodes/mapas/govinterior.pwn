@@ -4801,7 +4801,7 @@ stock interiorgov(){
     CreateDynamicObject(19379, 2396.621094, 222.101105, 2003.079956, 0.000000, 90.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00);
     CreateDynamicObject(14632, 2405.465332, 220.848068, 2004.644287, 0.000000, 0.000000, 0.000000, -1, -1, -1, 1000.00, 1000.00);
 	print("[CARREGADO] Mapa: Interior bombeiros");
-    tmpobjid = CreateDynamicObject(19445, 1402.220458, -19.668289, 1001.632934, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
+    /*tmpobjid = CreateDynamicObject(19445, 1402.220458, -19.668289, 1001.632934, 0.000000, 0.000000, 0.000000, -1, -1, -1, 300.00, 300.00); 
     SetDynamicObjectMaterial(tmpobjid, 0, 13628, "8stad", "stadroof", 0x00000000);
     tmpobjid = CreateDynamicObject(19353, 1400.550415, -14.928272, 1001.632934, 0.000000, 0.000000, 90.000000, -1, -1, -1, 300.00, 300.00); 
     SetDynamicObjectMaterial(tmpobjid, 0, 13628, "8stad", "stadroof", 0x00000000);
@@ -4997,5 +4997,5 @@ stock interiorgov(){
     tmpobjid = CreateDynamicObject(11743, 1400.063354, -23.998735, 1001.323974, 0.000000, 0.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(322, 1400.364868, -24.141521, 1003.484252, 0.000000, 90.000000, 180.000000, -1, -1, -1, 300.00, 300.00); 
     tmpobjid = CreateDynamicObject(1893, 1399.073364, -22.764862, 1003.334350, 0.000000, 0.000007, 0.000000, -1, -1, -1, 300.00, 300.00); 
-	print("[CARREGADO] Mapa: Interior UPP.");
+	print("[CARREGADO] Mapa: Interior UPP.");*/
 }

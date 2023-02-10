@@ -163,7 +163,7 @@ new PlayersOnline = 0,
 static stock
 	BitArray:g_VehicleDriveBy<MAX_PLAYERS>;
 
-#define MAX_CONNECTIONS_FROM_IP     3 // Máximo de conexões com mesmo IP.
+#define MAX_CONNECTIONS_FROM_IP     11 // Máximo de conexões com mesmo IP.
 new AvisoTiroOuvido[MAX_PLAYERS][8000];
 
 new ambiente = 1; // 0  - Localhost 1 - Produção
@@ -180,8 +180,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "09/02/2023"
-#define CA_VERSAO       "PR:RP v1.80"
+#define ULTIMO_GMX      "10/02/2023"
+#define CA_VERSAO       "PR:RP v1.81"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -3059,11 +3059,13 @@ static LOJA_OUTROS_BANK[3] = {
 	
 };
 //======== [PCERJ]======//
-static PCERJ_Uniformes[13] = {
+static PCERJ_Uniformes[21] = {
     20200, 20201, 20202, 20203,
 	20204, 20205, 20206, 20207,
 	20208, 20209, 20210, 20211,
-	20212
+	20212, 20213, 20214, 20215,
+	20216, 20217, 20218, 20219,
+	20220
 };
 static LOJA_OCULOS_PCERJ[3] = {
     19138, 19139, 19140
@@ -6276,14 +6278,15 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 1396.2954,-10.2383,1000.9221, 0);
 
     //ENTRADA HOSPITAL
-    CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/entrar",0xffffffff, 1172.1819,-1323.7139,15.4038, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
-    CreatePickup(1239, 1, 1172.1819,-1323.7139,15.4038, 0);
+    CreateDynamic3DTextLabel("{FFFFFF}[UPA]\n/entrar",0xffffffff, 2027.3602,-1386.4576,17.2108, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreatePickup(1239, 1, 2027.3602,-1386.4576,17.2108, 0);
 
     //HOSPITAL
-    CreateDynamic3DTextLabel("{FFFFFF}[HOSPITAL]\n/tratar(somente para vida menor que 70)\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreateDynamic3DTextLabel("{FFFFFF}[UPA]\n/tratar(somente para vida menor que 70)\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1177.7151,-1321.4143,2015.4130, 0);
 
-
+    CreateDynamic3DTextLabel("{FFFFFF}[UPA]]\n/deixarferido\nPara deixar o ferido",0xffffffff, 2043.6692,-1383.1019,17.1479, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreatePickup(1239, 1, 2043.6692,-1383.1019,17.1479, 0);
 
 	//COMPRAR PEÇAS
     CreateDynamic3DTextLabel("{FFFFFF}[LOJA DE PEÇAS]\n/comprarpecas\n/comprarplaca",0xffffffff, 1096.8484,-1528.9009,22.7434, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -11693,29 +11696,6 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
-	// Sprunk machines
- 	RemoveBuildingForPlayer(playerid, 1302, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 1209, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 955, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 956, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 1775, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 1776, 0.0, 0.0, 0.0, 6000.0);
-    RemoveBuildingForPlayer(playerid, 1977, 0.0, 0.0, 0.0, 6000.0);
- 	//cracolandia
-    RemoveBuildingForPlayer(playerid, 17944, 2674.020, -1382.550, 52.695, 0.250);
-    RemoveBuildingForPlayer(playerid, 17945, 2674.020, -1382.550, 52.695, 0.250);
-    RemoveBuildingForPlayer(playerid, 17592, 2697.500, -1451.420, 35.492, 0.250);
-    RemoveBuildingForPlayer(playerid, 17955, 2717.4922, -1416.1875, 50.4297, 0.25);
-    	//UPA 24 HORAS
-    RemoveBuildingForPlayer(playerid, 5579, 2050.070, -1401.210, 33.679, 0.250);
-    RemoveBuildingForPlayer(playerid, 5661, 2050.070, -1401.210, 33.679, 0.250);
-    RemoveBuildingForPlayer(playerid, 5467, 2026.117, -1404.640, 46.000, 0.250);
-    RemoveBuildingForPlayer(playerid, 5403, 2050.070, -1401.210, 33.679, 0.250);
-	//Mecanica
-	RemoveBuildingForPlayer(playerid, 1265, 1441.550, -1323.310, 12.984, 0.250);
-	RemoveBuildingForPlayer(playerid, 1227, 1439.859, -1323.699, 13.382, 0.250);
-	RemoveBuildingForPlayer(playerid, 1617, 1436.390, -1322.880, 16.421, 0.250);
-
 	//Market Hospital
 	RemoveBuildingForPlayer(playerid, 5930, 1134.250, -1338.078, 23.156, 0.250);
 	RemoveBuildingForPlayer(playerid, 5708, 1134.250, -1338.078, 23.156, 0.250);
@@ -11729,8 +11709,28 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 620, 1184.812, -1303.148, 12.578, 0.250);
 	RemoveBuildingForPlayer(playerid, 1297, 1190.773, -1383.273, 15.945, 0.250);
 	RemoveBuildingForPlayer(playerid, 1297, 1190.773, -1299.742, 15.945, 0.250);
-
-
+    //UPA 24 HORAS
+    RemoveBuildingForPlayer(playerid, 5579, 2050.070, -1401.210, 33.679, 0.250);
+    RemoveBuildingForPlayer(playerid, 5661, 2050.070, -1401.210, 33.679, 0.250);
+    RemoveBuildingForPlayer(playerid, 5467, 2026.117, -1404.640, 46.000, 0.250);
+    RemoveBuildingForPlayer(playerid, 5403, 2050.070, -1401.210, 33.679, 0.250);
+	// Sprunk machines
+ 	RemoveBuildingForPlayer(playerid, 1302, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1209, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 955, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 956, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1775, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1776, 0.0, 0.0, 0.0, 6000.0);
+    RemoveBuildingForPlayer(playerid, 1977, 0.0, 0.0, 0.0, 6000.0);
+ 	//cracolandia
+    RemoveBuildingForPlayer(playerid, 17944, 2674.020, -1382.550, 52.695, 0.250);
+    RemoveBuildingForPlayer(playerid, 17945, 2674.020, -1382.550, 52.695, 0.250);
+    RemoveBuildingForPlayer(playerid, 17592, 2697.500, -1451.420, 35.492, 0.250);
+    RemoveBuildingForPlayer(playerid, 17955, 2717.4922, -1416.1875, 50.4297, 0.25);
+	//Mecanica
+	RemoveBuildingForPlayer(playerid, 1265, 1441.550, -1323.310, 12.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1227, 1439.859, -1323.699, 13.382, 0.250);
+	RemoveBuildingForPlayer(playerid, 1617, 1436.390, -1322.880, 16.421, 0.250);
 	//Presidio
 	RemoveBuildingForPlayer(playerid, 13048, -91.562, -251.515, 0.421, 0.250);
 	RemoveBuildingForPlayer(playerid, 3377, -207.656, -246.734, 1.578, 0.250);
@@ -12744,7 +12744,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
 	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
 	RemoveBuildingForPlayer(playerid, 1522, 2105.919, -1807.250, 12.515, 0.250);
-
 
 	for(new i = 0; i < 50; i++) //CaminhaoSyst
 	{
@@ -13938,7 +13937,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 09/02/2023, v1.80, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 10/02/2023, v1.81, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 0)
@@ -13965,6 +13964,7 @@ public OnPlayerSpawn(playerid){
 					TextDrawShowForPlayer(playerid, Textdraw49[playerid]);
 
 					createHudRadio(playerid);
+					createDisplayFomeSede(playerid);
 
                     //Login
 					TelaLoginDel(playerid);
@@ -13972,6 +13972,11 @@ public OnPlayerSpawn(playerid){
 
 	                PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
                     PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
+
+                    PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
+                    PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
+                    PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
+                    PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
 
                 
 					
@@ -16274,6 +16279,7 @@ public MsgBus(playerid)
 	PlayerInfo[playerid][pGrana] += 80;
     return 1;
 }
+
 CMD:ifood(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -16283,17 +16289,21 @@ CMD:ifood(playerid, params[])
     SendClientMessage(playerid, COLOR_LIGHTRED, "{ffffff} Comandos: /ifood - /ligarapp - /desligarapp");
     return 1;
 }
+
 CMD:ligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
- 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "Você não é um entregador do ifood.");
-    if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você já está conectado");
-    
-	SendClientMessage(playerid, COLOR_YELLOW, "O aplicativo foi habilitado para que você possa receber novas demandas de entrega.");
-    AppLigado[playerid] = 1;
-
-    return 1;
+ 	if(PlayerInfo[playerid][pJob] != JOB_MOTOBOY) return SCM(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não é um entregador do ifood.");
+	if(AppLigado[playerid] == 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{ffffff} Você já está conectado");
+    if(IsPlayerInAnyVehicle(playerid) && GetPlayerState(playerid) == PLAYER_STATE_DRIVER)
+    {
+		SendClientMessage(playerid, COLOR_YELLOW, "O aplicativo foi habilitado para que você possa receber novas demandas de entrega.");
+		AppLigado[playerid] = 1;
+	}
+	else return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não esta em um veiculo.");
+	return 1;
 }
+
 /*CMD:ligarapp(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
@@ -16336,7 +16346,7 @@ CMD:desligarapp(playerid, params[])
         Retiroupedido[playerid] = 0;
         KillTimer(buscandocorridas[playerid]);
         DisablePlayerCheckpoint(playerid);
-        SendClientMessage(playerid, COLOR_LIGHTRED, "[IFOOD]{ffffff} Obrigado pelas entregas, até breve!");
+        SendClientMessage(playerid, COLOR_YELLOW, "[IFOOD]{ffffff} Obrigado pelas entregas, até breve!");
     }
     return 1;
 }
@@ -16348,7 +16358,7 @@ CMD:aceitarentrega(playerid, params[])
 		KillTimer(buscandocorridas[playerid]);
 		TemCorrida[playerid] = 0;
 		StopAudioStreamForPlayer(playerid);
-		SendClientMessage(playerid,COLOR_YELLOW, "Pedido aceito com sucesso. Siga para o checkpoint para recolher o pedido.");
+		SendClientMessage(playerid,COLOR_YELLOW, "[IFOOD]{ffffff} Pedido aceito com sucesso. Siga para o checkpoint para recolher o pedido.");
 		new rand = random(sizeof(Restaurantes));
 		SetPlayerCheckpoint(playerid,Restaurantes[rand][BrX],Restaurantes[rand][BrY],Restaurantes[rand][BrZ], 5);
 	}
@@ -16360,7 +16370,7 @@ public SigaEntrega(playerid)
     new rand = random(sizeof(Entregas_ifood));
     Retiroupedido[playerid] = 1;
     SetPlayerCheckpoint(playerid,Entregas_ifood[rand][0],Entregas_ifood[rand][1],Entregas_ifood[rand][2], 5);
-    SendClientMessage(playerid, COLOR_YELLOW, "Siga para a entrega.");
+    SendClientMessage(playerid, COLOR_YELLOW, "[IFOOD]{ffffff} Siga para a entrega.");
     SetPlayerAttachedObject(playerid,0,-2701,1,0.160999,-0.170999,0.018000,-9.199999,88.400009,8.500000,1.000000,1.000000,1.000000);
     TogglePlayerControllable(playerid, true);
     return 1;
@@ -16368,7 +16378,7 @@ public SigaEntrega(playerid)
 forward FinalizandoEntrega(playerid);
 public FinalizandoEntrega(playerid)
 {
-    SendClientMessage(playerid, COLOR_YELLOW, "Entrega realizada com sucesso.");
+    SendClientMessage(playerid, COLOR_YELLOW, "[IFOOD]{ffffff} Entrega realizada com sucesso.");
 	PlayerInfo[playerid][pGrana] += randomEspecial(GANHO_MIN, GANHO_MAX);
 	//new pagou = RandomEspecial(GANHO_MIN, GANHO_MAX);
 	//SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você recebeu R$%d pela entrega.", pagou);
@@ -16388,8 +16398,8 @@ public ChamarEntrega(playerid)
     TemCorrida[playerid] = 1;
     PlayAudioStreamForPlayer(playerid, "https://progressive-roleplay.com/midia/ifood.mp3");
  
-    SendClientMessage(playerid,COLOR_YELLOW, "Nova entrega recebida, você possui 15 segundos para aceitar.");
-    SendClientMessage(playerid,COLOR_YELLOW, "Digite /aceitarentrega.");
+    SendClientMessage(playerid,COLOR_YELLOW, "[IFOOD]{ffffff} Nova entrega recebida, você possui 15 segundos para aceitar.");
+    SendClientMessage(playerid,COLOR_YELLOW, "[IFOOD]{ffffff} Digite /aceitarentrega.");
     return 1;
 }
  
@@ -16400,7 +16410,7 @@ public PerdeuEntrega(playerid)
     Entregando[playerid] = 0;
     TemCorrida[playerid] = 0;
     StopAudioStreamForPlayer(playerid);
-    SendClientMessage(playerid,COLOR_LIGHTRED, "Você perdeu a entrega.");
+    SendClientMessage(playerid,COLOR_LIGHTRED, "[IFOOD]{ffffff} Você perdeu a entrega.");
     KillTimer(TempoDeResposta[playerid]);
     return 1;
 }
@@ -42338,7 +42348,7 @@ CMD:deixarferido(playerid,params[])
     //if(FacInfo[FacId][fTipo] == FAC_TIPO_CBERJ)
     //{
 
-    if(!IsPlayerInRangeOfPoint(playerid, 30, 1176.9362,-1308.3610,13.9158)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está na entrada do Hospital.");
+    if(!IsPlayerInRangeOfPoint(playerid, 30, 2043.6692,-1383.1019,17.1479)) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está na entrada do Hospital.");
 
 	new idpl;
  	if(sscanf(params, "d", idpl)) return SendClientMessage(playerid, COLOR_LIGHTRED, "USE: /deixarferido [id]");
@@ -55282,7 +55292,7 @@ CMD:entrar(playerid, params[])
 		}
 	}
 
-	if(IsPlayerInRangeOfPoint(playerid, 5, 1173.1841,-1323.3143,15.3952))//Hospital
+	if(IsPlayerInRangeOfPoint(playerid, 5, 2027.3602,-1386.4576,17.2108))//Hospital
 	{
 	    SetPlayerInterior(playerid, 5);
 	    SetPlayerVirtualWorld(playerid, 9);
@@ -56044,7 +56054,7 @@ CMD:sair(playerid, params[])
 	    PlayerInfo[playerid][pEntrouEmpresa] = -1;
 	    PlayerInfo[playerid][pEntrouGaragem] = -1;
 	    EntrouInt[playerid] = -1;
-	    SetPlayerPosFreeze(playerid, 1173.1841,-1323.3143,15.3952, 1);
+	    SetPlayerPosFreeze(playerid, 2027.3602,-1386.4576,17.2108, 1);
 	}
 
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1410.2965,-10.9775,1001.0098))//PCERJ 1 andar
@@ -77769,7 +77779,7 @@ public SaveATM(i)
 COMMAND:criarlabo(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-    if (PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pFactionTeam] < 1 && !OutrasInfos[playerid][oAdminOnDuty])
+    if (PlayerInfo[playerid][pAdmin] < 5)
 	{
 		CriarFABRICADROGA(playerid);
 		return 1;
@@ -84105,12 +84115,12 @@ public ComprandoPlano(playerid, plano)
 
 public GetPlayerMaxContatosCel(playerid)
 {
-	return 16;
+	return 25;
 }
 
 public GetPlayerMaxSMSCel(playerid)
 {
-	return 16;
+	return 25;
 }
 
 public NavegandoCelular(playerid,parte)
@@ -90596,7 +90606,7 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 		    Dialog_Show(playerid, DIALOG_GPS_END, DIALOG_STYLE_INPUT, "GPS - Endereço residêncial", "Entre com o endereço da residência:", "Encontrar", "Cancelar");
 			return 1;
 		}
-	    case 1: GPS(playerid, "PMERJ", 2515.4541,-1524.9955,24.0324);
+	    case 1: GPS(playerid, "16ºBPM/UPP", 2515.4541,-1524.9955,24.0324);
 	    case 2:
 		{
             emp_pox = GetClosetPump(playerid);
@@ -90653,7 +90663,8 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 		    emp_pox = GetClosetBusiness(playerid, 8);
 		    GPS(playerid, "Loja de Armas", EmpInfo[emp_pox][eExX],EmpInfo[emp_pox][eExY],EmpInfo[emp_pox][eExZ]);
 		}
-		case 18: LGPS(playerid);
+		case 18: GPS(playerid, "UPA 24 HORAS", 2027.3602,-1386.4576,17.2108);
+		case 19: LGPS(playerid);
  	}
  	SendClientMessage(playerid, COLOR_LIGHTGREEN, "O local escolhido foi marcado em seu GPS.");
   	return 1;
@@ -90661,7 +90672,7 @@ Dialog:WoW(playerid, response, listitem, inputtext[]) {
 CMD:gps(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	Dialog_Show(playerid, WoW, DIALOG_STYLE_LIST, "GPS", "Procurar Endereço >>\n16ºBPM\nPosto de Gasolina\nAgência de Empregos\n24-7\nConcesionária\nLoja de Roupas\nBanco\nPawn Shop\nPizzaria\nPier de Pesca\nCasa de Apostas\nHospital\nLoja de Peças\nAnuncios\nAuto Escola\n29ºDP Penha\nLoja de Armas\nDesligar o GPS", "Selecionar", "Fechar");
+	Dialog_Show(playerid, WoW, DIALOG_STYLE_LIST, "GPS", "Procurar Endereço >>\n16ºBPM\nPosto de Gasolina\nAgência de Empregos\n24-7\nConcesionária\nLoja de Roupas\nBanco\nPawn Shop\nPizzaria\nPier de Pesca\nCasa de Apostas\nHospital\nLoja de Peças\nAnuncios\nAuto Escola\n29ºDP Penha\nLoja de Armas\nUPA 24 HRS\nDesligar o GPS", "Selecionar", "Fechar");
 	return 1;
 }
 
