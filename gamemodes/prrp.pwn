@@ -3059,13 +3059,13 @@ static LOJA_OUTROS_BANK[3] = {
 	
 };
 //======== [PCERJ]======//
-static PCERJ_Uniformes[21] = {
+static PCERJ_Uniformes[23] = {
     20200, 20201, 20202, 20203,
 	20204, 20205, 20206, 20207,
 	20208, 20209, 20210, 20211,
 	20212, 20213, 20214, 20215,
 	20216, 20217, 20218, 20219,
-	20220
+	20220, 20221, 20222
 };
 static LOJA_OCULOS_PCERJ[3] = {
     19138, 19139, 19140
@@ -11696,9 +11696,6 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
-	//posto
-	RemoveBuildingForPlayer(playerid, 5397, 1866.329, -1789.780, 20.945, 0.250);
-	RemoveBuildingForPlayer(playerid, 5536, 1866.329, -1789.780, 20.945, 0.250);
 	//Market Hospital
 	RemoveBuildingForPlayer(playerid, 5930, 1134.250, -1338.078, 23.156, 0.250);
 	RemoveBuildingForPlayer(playerid, 5708, 1134.250, -1338.078, 23.156, 0.250);

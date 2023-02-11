@@ -102,6 +102,8 @@ AddCharModel(280, 20217, "skinpcerj10.dff", "skinpcerj10.txd");
 AddCharModel(280, 20218, "skinpcerj11.dff", "skinpcerj11.txd");
 AddCharModel(280, 20219, "skinpcerj12.dff", "skinpcerj12.txd");
 AddCharModel(280, 20220, "skinpcerj13.dff", "skinpcerj13.txd");
+AddCharModel(280, 20221, "skinpcerj14.dff", "skinpcerj14.txd");
+AddCharModel(280, 20222, "skinpcerj15.dff", "skinpcerj15.txd");
 
 //skins CBMERJ
 AddCharModel(211, 20301, "cbmerj.dff", "cbmerj.txd");
