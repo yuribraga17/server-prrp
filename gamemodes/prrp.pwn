@@ -5930,7 +5930,7 @@ static g_aFemaleSkins[77] = {
 	298
 };
 
-static g_NewSkins[64] = {
+static g_NewSkins[100] = {
     20002, 20003, 20004,
     20005, 20006, 20007, 20008,
     20009, 20010, 20011, 20012,
@@ -5946,7 +5946,7 @@ static g_NewSkins[64] = {
 	20054, 20055, 20056, 20057,
 	20058, 20059, 20060, 20061,
 	20062, 20063, 20064, 20065,
-	20066, 20067, 20068, 20069
+	20066, 20067, 20068
 };
 
 
@@ -14977,7 +14977,7 @@ IsValidPetModel(skinid)
     return 0;
 }
 
-timer Pet_Update[100](playerid, targetid)
+timer Pet_Update[200](playerid, targetid)
 {
     if(PetData[playerid][petModelID] != 0 && PetData[playerid][petSpawn] && PetData[playerid][petStatus] == PET_FOLLOW)
     {
@@ -15013,7 +15013,7 @@ timer Pet_Update[100](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -15024,7 +15024,7 @@ timer Pet_Update[100](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -15038,7 +15038,7 @@ timer Pet_Update[100](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -15049,7 +15049,7 @@ timer Pet_Update[100](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] == 20063) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
                     UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
@@ -17062,16 +17062,6 @@ public OnPlayerObjectMoved(playerid, objectid)
 
 public OnPlayerPickUpPickup(playerid, pickupid)
 {
-	return 1;
-}
-public OnPlayerPickUpDynamicPickup(playerid, pickupid)
-{
-	//new str[256];
-
-	/*for (new i = 0; i != 2; i ++) if (DollaPickup[i] == pickupid)
-	{
-
-	}*/
 	if(pickupid == L_a_Pickup[0] || pickupid == L_a_Pickup[1] || pickupid == L_a_Pickup[2] || pickupid == L_a_Pickup[3] || pickupid == L_a_Pickup[4] || pickupid == L_a_Pickup[5] || pickupid == L_a_Pickup[6] || pickupid == L_a_Pickup[7] || pickupid == L_a_Pickup[8] || pickupid == L_a_Pickup[9])
 	{
 		if(!PlayerInfo[playerid][pEmServico])
@@ -17086,7 +17076,31 @@ public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 		SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" para pagar o guarda.");
 	}
 	return 1;
+
 }
+/*public OnPlayerPickUpDynamicPickup(playerid, pickupid)
+{
+	//new str[256];
+
+	//for (new i = 0; i != 2; i ++) if (DollaPickup[i] == pickupid)
+	//{
+
+	//}
+	if(pickupid == L_a_Pickup[0] || pickupid == L_a_Pickup[1] || pickupid == L_a_Pickup[2] || pickupid == L_a_Pickup[3] || pickupid == L_a_Pickup[4] || pickupid == L_a_Pickup[5] || pickupid == L_a_Pickup[6] || pickupid == L_a_Pickup[7] || pickupid == L_a_Pickup[8] || pickupid == L_a_Pickup[9])
+	{
+		if(!PlayerInfo[playerid][pEmServico])
+		{
+			SendClientMessage(playerid, COLOR_WHITE, "Guarda Geraldo, diz: Olá, deseja passar?");
+			SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" Para abrir a barreira.");
+			return 1;
+		}
+		new szCostString[56];
+		format(szCostString, sizeof(szCostString), "Guarda Nunes: Olá, tem que pagar %d reais para passar.", TollCost);
+		SendClientMessage(playerid, COLOR_WHITE, szCostString);
+		SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" para pagar o guarda.");
+	}
+	return 1;
+}*/
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
