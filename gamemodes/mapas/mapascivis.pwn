@@ -7622,10 +7622,7 @@ stock mapacivil(){
     STM [51] = CreateDynamicObject(932, 1176.646240, -1354.675292, 12.831025, 0.000000, 0.000000, 0.000000, -1, -1, -1);
     STM [52] = CreateDynamicObject(932, 1176.646240, -1355.255981, 12.831025, 0.000000, 0.000000, 0.000000, -1, -1, -1);
     STM [53] = CreateDynamicObject(932, 1176.646240, -1355.856079, 12.831025, 0.000000, 0.000000, 0.000000, -1, -1, -1);
-
-	//Obj na ponte que pula / PC
-	CreateDynamicObject(983, 2103.35278, 100.32740, 31.06640,   0.00000, 0.00000, -20.00000);
-	CreateDynamicObject(983, 2102.31812, 97.59386, 31.06640,   0.00000, 0.00000, -20.00000);
+	print("[CARREGADO] Mapa: hospital market.");
     UPA [1]= CreateDynamicObject(18765, 2008.957641, -1357.480590, 18.186700, -85.299949, 0.000000, 0.000000, -1, -1, -1);
     SetDynamicObjectMaterial(UPA [1], 0, 10765, "airportgnd_sfse", "desgreengrass", 0x00000000);
     UPA [2]= CreateDynamicObject(18765, 2018.927368, -1357.480590, 18.186700, -85.599945, 0.000000, 0.000000, -1, -1, -1);

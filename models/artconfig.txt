@@ -272,6 +272,7 @@ AddSimpleModel(-1,19379, -2042, "bope.dff", "bope.txd");
 AddSimpleModel(-1,19369, -1016, "craco2.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1017, "craco.dff", "craco.txd");
 AddSimpleModel(-1,19379, -2004, "upa.dff", "upa.txd");
+AddSimpleModel(-1,19425, -2035, "santa.dff", "santa.txd");
 
 //mobilia prixy e objetos mecanica
 AddSimpleModel(-1,19787, -2043, "TV1BRANCA-BYPRIXY.dff", "TV1BRANCA-BYPRIXY.txd");
@@ -374,6 +375,7 @@ AddSimpleModel(-1,19369, -1006, "craco2.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1025, "postoip.dff", "postoip.txd");
 AddSimpleModel(-1,19425, -1018, "rm.dff", "rm.txd");
 AddSimpleModel(-1,19425, -1027, "mecanica.dff", "mecanica.txd");
+
 
 //lombadas
 AddSimpleModel(-1,1375, -1007, "lomb_sign.dff", "lomb.txd"); 

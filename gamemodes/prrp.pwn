@@ -12379,16 +12379,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 5527, 2056.979, -1830.520, 20.601, 0.250);
 	RemoveBuildingForPlayer(playerid, 5532, 2056.979, -1830.520, 20.601, 0.250);
 	RemoveBuildingForPlayer(playerid, 5527, 2056.979, -1830.520, 20.601, 0.250);
-    //Bar #3 desbugado // 681.557861 -455.680053 -25.609874 // INT 1
-    RemoveBuildingForPlayer(playerid, 14656, 681.5000, -447.3750, -25.0234, 0.25);
-	//Remove pixações
-	RemoveBuildingForPlayer(playerid, 1531, 1724.729, -1741.500, 14.101, 0.250);
-	RemoveBuildingForPlayer(playerid, 1525, 1783.969, -2156.540, 14.312, 0.250);
-	RemoveBuildingForPlayer(playerid, 1527, 1448.229, -1755.900, 14.523, 0.250);
-    //Semaforos
-    RemoveBuildingForPlayer(playerid, 1283, 1822.5703, -1763.2578, 15.5859, 10000.0);
-    RemoveBuildingForPlayer(playerid, 1315, 2535.6406, -1738.6016, 15.7578, 10000.0);
-    RemoveBuildingForPlayer(playerid, 1350, 1291.8359, -1702.4609, 12.2500, 10000.0);
 	//Palco Prefeitura
     RemoveBuildingForPlayer(playerid, 1231, 1479.6953, -1716.7031, 15.6250, 0.25);
     RemoveBuildingForPlayer(playerid, 1231, 1479.6953, -1702.5313, 15.6250, 0.25);
@@ -12457,11 +12447,6 @@ public OnPlayerConnect(playerid)
     RemoveBuildingForPlayer(playerid, 5901, 1350.160, -1170.819, 19.460, 0.250);
     RemoveBuildingForPlayer(playerid, 5793, 1365.479, -998.265, 30.328, 0.250);
     RemoveBuildingForPlayer(playerid, 5825, 1365.479, -998.265, 30.328, 0.250);
-	//HollyWood Sign
-	RemoveBuildingForPlayer(playerid, 13759, 1413.4141, -804.7422, 83.4375, 0.25);
-	RemoveBuildingForPlayer(playerid, 620, 1375.0859, -813.5391, 69.5703, 0.25);
-	RemoveBuildingForPlayer(playerid, 13722, 1413.4141, -804.7422, 83.4375, 0.25);
-	RemoveBuildingForPlayer(playerid, 13831, 1413.4141, -804.7422, 83.4375, 0.25);
     //Favela el corona
     RemoveBuildingForPlayer(playerid, 4820, 1738.390, -2117.023, 13.937, 0.250);
     RemoveBuildingForPlayer(playerid, 4952, 1738.390, -2117.023, 13.937, 0.250);
