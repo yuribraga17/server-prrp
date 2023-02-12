@@ -2351,7 +2351,7 @@ enum e_Account
 	pPassword[129],
 	pLevel,
 	pGender,
-	pAge,
+	pAge[50],
 	pAdmin,
 	pSkin,
 	Float:pHealth,
@@ -11637,6 +11637,7 @@ public OnPlayerConnect(playerid)
 
 	purchasing_vehicle[playerid] = -1;
 	format(PlayerInfo[playerid][pUltimoLogin],50," ");
+	format(PlayerInfo[playerid][pAge],50," ");
 
 	SetPVarInt(playerid, "EditandoArmaNoChao", 0);
 
@@ -21789,7 +21790,7 @@ public SalvarPlayer(playerid)
 		   	}
 		}
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%s', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
    			PlayerInfo[playerid][pLevel],
 			PlayerInfo[playerid][pGender],
 			PlayerInfo[playerid][pAge],
@@ -22213,7 +22214,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "| Financeiro | Dinheiro: [R$%d] Dinheiro Sujo: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pGranaSuja], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
-	format(string, 256, "| Outro | Genero: [%s]  D. de Nascimento: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
+	format(string, 256, "| Outro | Genero: [%s]  D. de Nascimento: [%s] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "|____________________%s____________________|", PlayerName(playerid,0));
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -24896,7 +24897,7 @@ CMD:documentos(playerid, params[])
 				SendClientMessage(playerid,COLOR_GREEN,"Identificação");
 	            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
-	   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pAge]);
+	   			format(string,sizeof(string),"Data de Nascimento: %s",PlayerInfo[playerid][pAge]);
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
 				SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 	   			SendClientMessage(playerid, COLOR_WHITE,"Você pode usar '/documentos pessoal [id]' para mostrar a alguém.");
@@ -24909,7 +24910,7 @@ CMD:documentos(playerid, params[])
 					SendClientMessage(var,COLOR_GREEN,"Identificação");
 		            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 		   			SendClientMessage(var, COLOR_WHITE, string);
-		   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pAge]);
+		   			format(string,sizeof(string),"Data de Nascimento: %s",PlayerInfo[playerid][pAge]);
 		   			SendClientMessage(var, COLOR_WHITE, string);
 					SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 
@@ -43902,7 +43903,7 @@ COMMAND:mudaridade(playerid, params[])
 	    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	    if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_LIGHTRED, "Este jogador não está conectado!");
 		PlayerInfo[targetid][pAge] = inter;
-		format(string,sizeof(string),"AdmCmd: Você setou a Idade de %s para %d.",PlayerName(targetid, 0), inter);
+		format(string,sizeof(string),"AdmCmd: Você setou a Idade de %s para %s.",PlayerName(targetid, 0), inter);
 		SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	}
 	return 1;
@@ -44549,7 +44550,7 @@ public LoadAccountInfo(extraid)
 		new tmp[130];
 		cache_get_field_content(0, "Level", tmp);		PlayerInfo[extraid][pLevel] = strval(tmp);
 		cache_get_field_content(0, "Gender", tmp);		PlayerInfo[extraid][pGender] = strval(tmp);
-		cache_get_field_content(0, "Birthdate", tmp); 		format(PlayerInfo[extraid][pAge],50,"%s",tmp);
+		cache_get_field_content(0, "Birthdate", tmp); 		format(PlayerInfo[extraid][pAge], 50, "%s", tmp);
 		cache_get_field_content(0, "Admin", tmp);		PlayerInfo[extraid][pAdmin] = strval(tmp);
 		cache_get_field_content(0, "Skin", tmp);		PlayerInfo[extraid][pSkin] = strval(tmp);
 		cache_get_field_content(0, "PosX", tmp);		PlayerInfo[extraid][pPos][0] = floatstr(tmp);
