@@ -7414,7 +7414,7 @@ CMD:veraparencia(playerid, params[])
 }
 CMD:idade(playerid, params[])
 {
-    //if(PlayerInfo[playerid][pAge] > 1);
+    ///if(PlayerInfo[playerid][pAge] == 23);
     ShowPlayerDialog(playerid, DIALOG_AGE, DIALOG_STYLE_INPUT, "Idade", "Idade minima: 5\n Idade máxima: 99.\n Entre com uma idade válida.", "Confirmar", "Cancelar");
     return 1;
 }
@@ -10936,7 +10936,8 @@ public ResetVarsPlayerInfo(extraid)
 	format(PlayerInfo[extraid][pPassword], 129, "YURIDESENVOLVEDORFULLSTACK@!BRASILcomedor");
 	PlayerInfo[extraid][pLevel] = 0;
 	PlayerInfo[extraid][pGender] = 0;
-	PlayerInfo[extraid][pAge] = 0;
+	//PlayerInfo[extraid][pAge] = 0;
+	format(PlayerInfo[extraid][pAge], 128, " ");
 	PlayerInfo[extraid][pAdmin] = 0;
 	PlayerInfo[extraid][pSkin] = 0;
 	PlayerInfo[extraid][pPos][0] = 0;
@@ -11853,42 +11854,6 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 17067, -588.750, -1046.180, 22.289, 0.250);
 	RemoveBuildingForPlayer(playerid, 17102, -536.093, -985.039, 38.070, 0.250);
 	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);
-	//Favela el corona 2
-	RemoveBuildingForPlayer(playerid, 3588, 1907.630, -2025.939, 15.132, 0.250);
-	RemoveBuildingForPlayer(playerid, 3667, 1907.630, -2025.939, 15.132, 0.250);
-	RemoveBuildingForPlayer(playerid, 3588, 1904.800, -1991.739, 15.125, 0.250);
-	RemoveBuildingForPlayer(playerid, 3667, 1904.800, -1991.739, 15.125, 0.250);
-	RemoveBuildingForPlayer(playerid, 3588, 1861.449, -1991.750, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 3667, 1861.449, -1991.750, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 3588, 1858.630, -2025.939, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 3667, 1858.630, -2025.939, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 3588, 1826.599, -1989.609, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 3667, 1826.599, -1989.609, 15.210, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1870.189, -2041.040, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1849.530, -2041.290, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 712, 1839.949, -2041.000, 21.960, 0.250);
-	RemoveBuildingForPlayer(playerid, 712, 1811.250, -2012.619, 21.960, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1808.880, -1985.339, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 700, 1792.750, -1974.550, 11.445, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1794.589, -1980.750, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1841.930, -1977.089, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 1531, 1889.239, -1982.510, 15.757, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1914.880, -1980.339, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1922.119, -1981.209, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1924.589, -2002.349, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 1307, 1922.579, -2023.550, 12.710, 0.250);
-	RemoveBuildingForPlayer(playerid, 671, 1921.489, -2040.520, 12.640, 0.250);
-	RemoveBuildingForPlayer(playerid, 1308, 1893.949, -2013.050, 12.695, 0.250);
-	RemoveBuildingForPlayer(playerid, 671, 1835.010, -2015.359, 12.640, 0.250);
-	RemoveBuildingForPlayer(playerid, 1307, 1832.630, -2012.829, 12.687, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1841.930, -2007.479, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1822.959, -2015.910, 16.390, 0.250);
-	RemoveBuildingForPlayer(playerid, 1308, 1813.089, -2013.030, 12.750, 0.250);
-	RemoveBuildingForPlayer(playerid, 620, 1808.880, -2016.609, 9.671, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1882.369, -1992.130, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1882.369, -1975.939, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 1226, 1924.589, -1977.089, 16.273, 0.250);
-	RemoveBuildingForPlayer(playerid, 708, 1837.640, -1968.339, 12.187, 0.250);
 	//favela las colinas alta
 	RemoveBuildingForPlayer(playerid, 659, 2568.938, -1021.510, 68.093, 0.250);
 	RemoveBuildingForPlayer(playerid, 3241, 2578.948, -1029.979, 69.084, 0.250);
@@ -12860,9 +12825,9 @@ public CheckingAccount(playerid)
 	}
 	else
 	{
-	   /* new str[256];
+	    new str[256];
 		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
-  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");*/
+  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
 		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
@@ -14012,7 +13977,7 @@ public OnPlayerSpawn(playerid){
                     format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 11/02/2023, v1.81, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
-                    if(PlayerInfo[playerid][pAge] == 0)
+                    if(PlayerInfo[playerid][pAge] == 23)
                         SCM(playerid, COLOR_LIGHTRED, "O campo de idade não foi preenchido, use /idade para preenche-lo.");
 
                     if((PlayerInfo[playerid][pFac] > 0) && (FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 0 || FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fCriada] == 2)){
@@ -17044,23 +17009,10 @@ public OnPlayerObjectMoved(playerid, objectid)
 
 public OnPlayerPickUpPickup(playerid, pickupid)
 {
-	if(pickupid == L_a_Pickup[0] || pickupid == L_a_Pickup[1] || pickupid == L_a_Pickup[2] || pickupid == L_a_Pickup[3] || pickupid == L_a_Pickup[4] || pickupid == L_a_Pickup[5] || pickupid == L_a_Pickup[6] || pickupid == L_a_Pickup[7] || pickupid == L_a_Pickup[8] || pickupid == L_a_Pickup[9])
-	{
-		if(!PlayerInfo[playerid][pEmServico])
-		{
-			SendClientMessage(playerid, COLOR_WHITE, "Guarda Geraldo, diz: Olá, deseja passar?");
-			SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" Para abrir a barreira.");
-			return 1;
-		}
-		new szCostString[56];
-		format(szCostString, sizeof(szCostString), "Guarda Nunes: Olá, tem que pagar %d reais para passar.", TollCost);
-		SendClientMessage(playerid, COLOR_WHITE, szCostString);
-		SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" para pagar o guarda.");
-	}
 	return 1;
 
 }
-/*public OnPlayerPickUpDynamicPickup(playerid, pickupid)
+public OnPlayerPickUpDynamicPickup(playerid, pickupid)
 {
 	//new str[256];
 
@@ -17082,7 +17034,7 @@ public OnPlayerPickUpPickup(playerid, pickupid)
 		SendClientMessage(playerid, COLOR_ESPECIAL1, "Use \"/abrirpedagio\" para pagar o guarda.");
 	}
 	return 1;
-}*/
+}
 
 public OnVehicleMod(playerid, vehicleid, componentid)
 {
@@ -21837,7 +21789,7 @@ public SalvarPlayer(playerid)
 		   	}
 		}
 
-		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Age` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
+		format(query, sizeof(query), "UPDATE `accounts` SET `Level` = '%d', `Gender` = '%d', `Birthdate` = '%d', `Admin` = '%d', `Skin` = '%d', `Interior` = '%d', `World` = '%d', `registrado` = '%d', `Tutorial` = '%d' WHERE `ID` = '%d'",
    			PlayerInfo[playerid][pLevel],
 			PlayerInfo[playerid][pGender],
 			PlayerInfo[playerid][pAge],
@@ -22261,7 +22213,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "| Financeiro | Dinheiro: [R$%d] Dinheiro Sujo: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pGranaSuja], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
-	format(string, 256, "| Outro | Genero: [%s]  Idade: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
+	format(string, 256, "| Outro | Genero: [%s]  D. de Nascimento: [%d] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "|____________________%s____________________|", PlayerName(playerid,0));
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -24944,7 +24896,7 @@ CMD:documentos(playerid, params[])
 				SendClientMessage(playerid,COLOR_GREEN,"Identificação");
 	            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
-	   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
+	   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pAge]);
 	   			SendClientMessage(playerid, COLOR_WHITE, string);
 				SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 	   			SendClientMessage(playerid, COLOR_WHITE,"Você pode usar '/documentos pessoal [id]' para mostrar a alguém.");
@@ -24957,7 +24909,7 @@ CMD:documentos(playerid, params[])
 					SendClientMessage(var,COLOR_GREEN,"Identificação");
 		            format(string,sizeof(string),"Nome: %s",PlayerName(playerid, 1));
 		   			SendClientMessage(var, COLOR_WHITE, string);
-		   			format(string,sizeof(string),"Idade: %d",PlayerInfo[playerid][pAge]);
+		   			format(string,sizeof(string),"Data de Nascimento: %d",PlayerInfo[playerid][pAge]);
 		   			SendClientMessage(var, COLOR_WHITE, string);
 					SendClientMessage(playerid,COLOR_GREEN,"--------------------------------");
 
@@ -42248,7 +42200,7 @@ public SendBankErrorMessage(playerid){
 CMD:tratar(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
-	if(PlayerInfo[playerid][pHealth] > 70 && PlayerInfo[playerid][pMorto] == 0 && PlayerInfo[playerid][pMancando] == 0 && PlayerInfo[playerid][pDrogaTime] == 0 && PlayerInfo[playerid][pTomouAlgumTiro] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem por que se tratar agora.");
+	if(PlayerInfo[playerid][pHealth] > 70 && PlayerInfo[playerid][pMorto] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem por que se tratar agora.");
     if(IsPlayerInRangeOfPoint(playerid, 20, 174.4834,2784.5520,767.7469))
 	{
         if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
@@ -44597,7 +44549,7 @@ public LoadAccountInfo(extraid)
 		new tmp[130];
 		cache_get_field_content(0, "Level", tmp);		PlayerInfo[extraid][pLevel] = strval(tmp);
 		cache_get_field_content(0, "Gender", tmp);		PlayerInfo[extraid][pGender] = strval(tmp);
-		cache_get_field_content(0, "Age", tmp); 		format(PlayerInfo[extraid][pAge],24,"%s",tmp);
+		cache_get_field_content(0, "Birthdate", tmp); 		format(PlayerInfo[extraid][pAge],50,"%s",tmp);
 		cache_get_field_content(0, "Admin", tmp);		PlayerInfo[extraid][pAdmin] = strval(tmp);
 		cache_get_field_content(0, "Skin", tmp);		PlayerInfo[extraid][pSkin] = strval(tmp);
 		cache_get_field_content(0, "PosX", tmp);		PlayerInfo[extraid][pPos][0] = floatstr(tmp);
@@ -76991,12 +76943,9 @@ Dialog:DIALOG_CN_S(playerid, response, listitem, inputtext[])
 Dialog:DIALOG_CN_ID(playerid, response, listitem, inputtext[])
 {
 	new idade = strval(inputtext);
-	if(idade > 5 && idade < 99)
-	{
-    	PlayerInfo[playerid][pAge] = idade;
-    	format(string,126,"[Namechange] Certo, sua personagem tem %d anos. Boa vida nova!",idade);
-    	SCM(playerid, COLOR_GREEN, string);
-	}
+    PlayerInfo[playerid][pAge] = idade;
+    format(string,126,"[Namechange] Certo, sua personagem tem %d anos. Boa vida nova!",idade);
+    SCM(playerid, COLOR_GREEN, string);
     return 1;
 }
 
