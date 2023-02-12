@@ -22214,7 +22214,7 @@ public VerStats(playerid, targetid)
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "| Financeiro | Dinheiro: [R$%d] Dinheiro Sujo: [R$%d] Banco: [R$%d] Savings: [R$%d] Rendimento dos Savings: [R$%d]", PlayerInfo[playerid][pGrana], PlayerInfo[playerid][pGranaSuja], PlayerInfo[playerid][pBanco], PlayerInfo[playerid][pSavings], PlayerInfo[playerid][pSavingsGerando]);
 	SendClientMessage(targetid, COLOR_ESPECIAL2, string);
-	format(string, 256, "| Outro | Genero: [%s]  D. de Nascimento: [%s] Admin: [%d] Nome OOC: [%d]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
+	format(string, 256, "| Outro | Genero: [%s]  D. de Nascimento: [%s] Admin: [%d] Nome OOC: [%s]", str_gen, PlayerInfo[playerid][pAge], PlayerInfo[playerid][pAdmin], PlayerInfo[playerid][pNomeOOC]);
 	SendClientMessage(targetid, COLOR_ESPECIAL1, string);
 	format(string, 256, "|____________________%s____________________|", PlayerName(playerid,0));
 	SendClientMessage(targetid, COLOR_LIGHTGREEN, string);
@@ -40382,7 +40382,7 @@ CMD:ajudaadmin(playerid, params[])
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Head Admin]{FFFFFF} /amotor /atrancar /entrarveiculo /pnomeooc /verveiculos /ulogin /mudarsexo /setaremprego /savevehicles");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Head Admin]{FFFFFF} /abrirelevador /abrirelevador1 /irpos /unbanip /limpargrana /limparbanco /mudarclima /mudaridade");
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Equipes]{FFFFFF} /refundteam /banappeal /factionteam /propertyteam");
-			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Geral]{FFFFFF} /acasa /acomplexo /aemp /aveiculo");
+			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Geral]{FFFFFF} /acasa /acomplexo /aemp /aveiculo /setartc");
 		}
     	if(PlayerInfo[playerid][pAdmin] >= 3000){
 			SendClientMessage(playerid, COLOR_LIGHTGREEN, "[Manager]{FFFFFF} /setarammo /setararma /setarpremium /editarpe /palcopref /casinogames /liberaracesso");
@@ -41317,7 +41317,7 @@ COMMAND:banoff(playerid, params[])
 		format(string, sizeof(string), "AdmCmd: O administrador %s baniu offline a conta %s, motivo %s.", admnome, text, motivo);
 		SendClientMessageToAll(COLOR_LIGHTRED, string);
 
-		Banir("Adwards",text,0, PlayerInfo[playerid][pNomeOOC],motivo);
+		//Banir("Adwards",text,0, PlayerInfo[playerid][pNomeOOC],motivo);
 
 	}
 	return 1;
@@ -43273,7 +43273,29 @@ COMMAND:anrp(playerid, params[])
 
 	return 1;
 }*/
+COMMAND:setartc(playerid, params[])
+{
+    if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
+	if (PlayerInfo[playerid][pAdmin] < 5) return 1;
+	new targetid, levelset;
+	if(sscanf(params, "ui", targetid, levelset)) SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} /setartc [id] [TC]");
+	else {
+	    if (!IsPlayerConnected(targetid)) return SendClientMessage(playerid, COLOR_WHITE, "{FF6347}Este jogador não está conectado!");
+		if(PlayerInfo[playerid][pAdmin] >= 3000) 
+		{
+ 			new admnome[24];
+			if(PlayerInfo[playerid][pAdmin] > 3002) format(admnome, sizeof(admnome), "%s", PlayerInfo[playerid][pNomeOOC]);
+			else format(admnome, sizeof(admnome), "%s", PlayerName(playerid, 0));
 
+  			PlayerInfo[targetid][pLevel] = levelset;
+      		format(string,sizeof(string),"AdmCmd: Você setou %s com o TC %d.",PlayerName(targetid, 0), levelset);
+    		SendClientMessage(playerid, COLOR_LIGHTRED, string);
+    		format(string,sizeof(string),"-> %s lhe deu TC %d, parabéns por esta conquista.",admnome, levelset);
+    		SendClientMessage(targetid, COLOR_YELLOW, string);
+		}
+	}
+	return 1;
+}
 COMMAND:setaradmin(playerid, params[])
 {
     if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
