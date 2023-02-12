@@ -180,8 +180,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "11/02/2023"
-#define CA_VERSAO       "PR:RP v1.81"
+#define ULTIMO_GMX      "13/02/2023"
+#define CA_VERSAO       "PR:RP v1.85"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -3059,13 +3059,15 @@ static LOJA_OUTROS_BANK[3] = {
 	
 };
 //======== [PCERJ]======//
-static PCERJ_Uniformes[23] = {
+static PCERJ_Uniformes[29] = {
     20200, 20201, 20202, 20203,
 	20204, 20205, 20206, 20207,
 	20208, 20209, 20210, 20211,
 	20212, 20213, 20214, 20215,
 	20216, 20217, 20218, 20219,
-	20220, 20221, 20222
+	20220, 20221, 20222, 20223,
+	20224, 20225, 20226, 20227,
+	20228
 };
 static LOJA_OCULOS_PCERJ[3] = {
     19138, 19139, 19140
@@ -11698,6 +11700,57 @@ public OnPlayerConnect(playerid)
 
 	TextDrawHideForPlayer(playerid, HitMark);
 
+	//Praia
+	RemoveBuildingForPlayer(playerid, 6280, 260.023, -1839.914, -1.453, 0.250);
+	RemoveBuildingForPlayer(playerid, 6432, 223.617, -1756.023, 8.773, 0.250);
+	RemoveBuildingForPlayer(playerid, 6433, 265.968, -1757.578, 8.906, 0.250);
+	RemoveBuildingForPlayer(playerid, 6434, 307.265, -1760.546, 7.625, 0.250);
+	RemoveBuildingForPlayer(playerid, 6435, 181.851, -1758.843, 8.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 6437, 260.023, -1839.914, -1.453, 0.250);
+	RemoveBuildingForPlayer(playerid, 730, 185.101, -1765.546, 3.421, 0.250);
+	RemoveBuildingForPlayer(playerid, 730, 240.453, -1765.546, 3.421, 0.250);
+	RemoveBuildingForPlayer(playerid, 3778, 337.453, -1875.000, 3.406, 0.250);
+	RemoveBuildingForPlayer(playerid, 3778, 289.226, -1875.000, 3.203, 0.250);
+	RemoveBuildingForPlayer(playerid, 3778, 245.539, -1875.000, 2.687, 0.250);
+	RemoveBuildingForPlayer(playerid, 3778, 200.484, -1875.000, 3.078, 0.250);
+	RemoveBuildingForPlayer(playerid, 3615, 200.484, -1875.000, 3.078, 0.250);
+	RemoveBuildingForPlayer(playerid, 3615, 245.539, -1875.000, 2.687, 0.250);
+	RemoveBuildingForPlayer(playerid, 3615, 289.226, -1875.000, 3.203, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 313.664, -1811.820, 6.765, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 326.375, -1811.820, 6.765, 0.250);
+	RemoveBuildingForPlayer(playerid, 3615, 337.453, -1875.000, 3.406, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 339.289, -1811.820, 6.765, 0.250);
+	RemoveBuildingForPlayer(playerid, 1297, 352.296, -1811.820, 6.765, 0.250);
+	RemoveBuildingForPlayer(playerid, 1461, 173.000, -1768.882, 4.242, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 185.640, -1766.734, 4.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 1461, 201.000, -1769.304, 4.101, 0.250);
+	RemoveBuildingForPlayer(playerid, 6286, 181.851, -1758.843, 8.429, 0.250);
+	RemoveBuildingForPlayer(playerid, 6294, 223.617, -1756.023, 8.773, 0.250);
+	RemoveBuildingForPlayer(playerid, 6436, 212.539, -1757.984, 10.328, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 211.039, -1751.054, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 181.187, -1751.054, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 255.968, -1765.960, 5.570, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 238.835, -1768.148, 4.984, 0.250);
+	RemoveBuildingForPlayer(playerid, 6285, 265.968, -1757.578, 8.906, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 240.195, -1760.945, 4.500, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 237.625, -1751.054, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 256.359, -1745.742, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 240.765, -1748.140, 5.570, 0.250);
+	RemoveBuildingForPlayer(playerid, 1461, 269.101, -1769.593, 4.242, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 289.679, -1767.492, 4.898, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 285.500, -1750.812, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 300.265, -1750.781, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 6284, 307.265, -1760.546, 7.625, 0.250);
+	RemoveBuildingForPlayer(playerid, 1500, 315.046, -1769.046, 3.468, 0.250);
+	RemoveBuildingForPlayer(playerid, 6517, 322.414, -1769.031, 5.250, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 328.500, -1770.320, 4.554, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 328.515, -1768.039, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 647, 331.726, -1764.875, 4.554, 0.250);
+	RemoveBuildingForPlayer(playerid, 620, 332.359, -1751.632, 3.125, 0.250);
+	RemoveBuildingForPlayer(playerid, 6425, 400.695, -1755.703, 6.500, 0.250);
+	RemoveBuildingForPlayer(playerid, 6438, 245.195, -1736.703, 3.632, 0.250);
+	RemoveBuildingForPlayer(playerid, 6428, 245.195, -1736.703, 3.632, 0.250);
+	RemoveBuildingForPlayer(playerid, 6311, 400.695, -1755.703, 6.500, 0.250);
 	//Market Hospital
 	RemoveBuildingForPlayer(playerid, 5930, 1134.250, -1338.078, 23.156, 0.250);
 	RemoveBuildingForPlayer(playerid, 5708, 1134.250, -1338.078, 23.156, 0.250);
@@ -13975,7 +14028,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 11/02/2023, v1.81, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 13/02/2023, v1.85, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 23)
@@ -29351,7 +29404,7 @@ COMMAND:explodir(playerid,params[])
 					SendAdminAlert(COLOR_LIGHTRED, "AdmCmd:{FFFFFF} %s acaba de utilizar o comando /explodir banco.", PlayerName(playerid, 0));
 						
 					new strl[126];
-					format(strl, 126, "%s explodiu um caixa eletronico. [//explodir banco]", PlayerName(playerid, 0));
+					format(strl, 126, "%s explodiu um caixa eletronico. [/explodir banco]", PlayerName(playerid, 0));
 					LogCMD_explodircaixa(strl);
 				}
 			}

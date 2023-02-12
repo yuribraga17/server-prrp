@@ -104,6 +104,12 @@ AddCharModel(280, 20219, "skinpcerj12.dff", "skinpcerj12.txd");
 AddCharModel(280, 20220, "skinpcerj13.dff", "skinpcerj13.txd");
 AddCharModel(280, 20221, "skinpcerj14.dff", "skinpcerj14.txd");
 AddCharModel(280, 20222, "skinpcerj15.dff", "skinpcerj15.txd");
+AddCharModel(280, 20223, "skinpcerj16.dff", "skinpcerj16.txd");
+AddCharModel(280, 20224, "skinpcerj17.dff", "skinpcerj17.txd");
+AddCharModel(280, 20225, "skinpcerj18.dff", "skinpcerj18.txd");
+AddCharModel(280, 20226, "skinpcerj19.dff", "skinpcerj19.txd");
+AddCharModel(280, 20227, "skinpcerj20.dff", "skinpcerj20.txd");
+AddCharModel(280, 20228, "skinpcerj21.dff", "skinpcerj21.txd");
 
 //skins CBMERJ
 AddCharModel(211, 20301, "cbmerj.dff", "cbmerj.txd");
@@ -284,6 +290,7 @@ AddSimpleModel(-1,19787, -2048, "elevador.dff", "elevador.txd");
 AddSimpleModel(-1,19787, -2049, "macaco.dff", "macaco.txd");
 AddSimpleModel(-1,19787, -2050, "guincho.dff", "guincho.txd");
 
+
 //objetos favela
 AddSimpleModel(-1, 19379, -2800, "fav_h1.dff", "fav_h.txd");
 AddSimpleModel(-1, 19379, -2802, "fav_h2.dff", "fav_h.txd");
@@ -375,7 +382,8 @@ AddSimpleModel(-1,19369, -1006, "craco2.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1025, "postoip.dff", "postoip.txd");
 AddSimpleModel(-1,19425, -1018, "rm.dff", "rm.txd");
 AddSimpleModel(-1,19425, -1027, "mecanica.dff", "mecanica.txd");
-
+AddSimpleModel(-1,19425, -1028, "ruapraia.dff", "ruapraia.txd");
+AddSimpleModel(-1,19425, -1029, "ApPraia.dff", "ApPraia.txd");
 
 //lombadas
 AddSimpleModel(-1,1375, -1007, "lomb_sign.dff", "lomb.txd"); 
