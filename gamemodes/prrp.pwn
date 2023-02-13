@@ -3044,11 +3044,11 @@ static LOJA_CHAPEU_PMERJ[3] = {
 	-2104, -2129, -2130
 };
 
-static LOJA_OUTROS_PMERJ[13] = {
+static LOJA_OUTROS_PMERJ[14] = {
 	-2126, -2101, -2106, -2120,
 	-2121, -2122, -2123, -2124,
 	-2125, -2105, -2127, -2108, 
-	-2128
+	-2128, -2100
 };
 //======== [PROTEGE]======//
 static PROTEGE_Uniformes[4] = {
@@ -3073,8 +3073,8 @@ static LOJA_OCULOS_PCERJ[3] = {
     19138, 19139, 19140
 };
 
-static LOJA_CHAPEU_PCERJ[1] = {
-    -2103
+static LOJA_CHAPEU_PCERJ[2] = {
+    -2103,-2129
 };
 
 static LOJA_OUTROS_PCERJ[6] = {
@@ -6230,6 +6230,15 @@ public OnGameModeInit()
     //PortoTrucker_ModeInit();
 
     //============ Pickup / TextLabel - Anuncio
+	CreateDynamic3DTextLabel("[PCERJ]\n/entrar", 0xffffffff, 1728.8789,-1565.1876,14.5625, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, 1728.8789,-1565.1876,14.5625, 0); 
+
+	CreateDynamic3DTextLabel("[PCERJ]\n/entrar", 0xffffffff, 1400.2490,-12.1037,1001.0098, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, 1400.2490,-12.1037,1001.0098, 0); 
+
+	CreateDynamic3DTextLabel("[PMERJ]\n/entrar", 0xffffffff, 2514.5640,-1525.5608,24.0324, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, 2514.5640,-1525.5608,24.0324, 0); 
+
     CreateDynamic3DTextLabel("[CENTRO DE EMPREGOS]\nUse '/pegaremprego'", 0x008080FF, 1414.9390,-1576.9739,20.0859, 40.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1414.9390,-1576.9739,20.0859, -1);
 
@@ -6247,6 +6256,9 @@ public OnGameModeInit()
 
 	CreateDynamic3DTextLabel("[GARAGEM]\n/entrar", 0xffffffff, 1742.7393,-1551.3011,7.9609, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
     CreatePickup(1239, 1, 1742.7393,-1551.3011,7.9609, 0); 
+
+	CreateDynamic3DTextLabel("[PCERJ]\n/sair", 0xffffffff, -1628.0112,690.6479,7.1875, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
+	CreatePickup(1239, 1, -1628.0112,690.6479,7.1875, 0); 
 
 	CreateDynamic3DTextLabel("[P. ONIBUS]\n/iniciarviagem", 0xffffffff, 1737.5643,-1859.1648,13.4141, 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, -1);
 	CreatePickup(1239, 1, 1737.5643,-1859.1648,13.4141, 0); 
@@ -11893,7 +11905,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 3378, -200.328, -189.734, 3.945, 0.250);
 	RemoveBuildingForPlayer(playerid, 3378, -224.500, -183.906, 1.531, 0.250);
 	//BOPE
-	RemoveBuildingForPlayer(playerid, 3276, -525.039, -1037.160, 24.421, 0.250);
+	/*RemoveBuildingForPlayer(playerid, 3276, -525.039, -1037.160, 24.421, 0.250);
 	RemoveBuildingForPlayer(playerid, 3276, -536.218, -1037.420, 24.851, 0.250);
 	RemoveBuildingForPlayer(playerid, 3276, -546.398, -1042.229, 24.187, 0.250);
 	RemoveBuildingForPlayer(playerid, 3276, -559.867, -1060.420, 23.710, 0.250);
@@ -11907,7 +11919,10 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 696, -603.296, -1054.800, 27.523, 0.250);
 	RemoveBuildingForPlayer(playerid, 17067, -588.750, -1046.180, 22.289, 0.250);
 	RemoveBuildingForPlayer(playerid, 17102, -536.093, -985.039, 38.070, 0.250);
-	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);
+	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);*//
+	//RM
+	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
+	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
 	//favela las colinas alta
 	RemoveBuildingForPlayer(playerid, 659, 2568.938, -1021.510, 68.093, 0.250);
 	RemoveBuildingForPlayer(playerid, 3241, 2578.948, -1029.979, 69.084, 0.250);
@@ -55421,15 +55436,15 @@ CMD:entrar(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1728.8789,-1565.1876,14.5625))//PCERJ 1 andar
 	{
-	    SetPlayerInterior(playerid, 5);
-	    SetPlayerVirtualWorld(playerid, 9);
+	    SetPlayerInterior(playerid, 0);
+	    SetPlayerVirtualWorld(playerid, 0);
 
 	    SetPlayerPosFreeze(playerid, 1410.2965,-10.9775,1001.0098, 1);
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1400.2490,-12.1037,1001.0098))//PCERJ 2 andar
 	{
-	    SetPlayerInterior(playerid, 5);
-	    SetPlayerVirtualWorld(playerid, 9);
+	    SetPlayerInterior(playerid, 0);
+	    SetPlayerVirtualWorld(playerid, 0);
 
 	    SetPlayerPosFreeze(playerid, 1390.2905,-30.3338,1000.9183, 1);
 	}
@@ -56186,8 +56201,8 @@ CMD:sair(playerid, params[])
 	}
 	else if(IsPlayerInRangeOfPoint(playerid, 5, 1390.2905,-30.3338,1000.9183))//PCERJ 2 andar
 	{
-	    SetPlayerInterior(playerid, 5);
-	    SetPlayerVirtualWorld(playerid, 9);
+	    SetPlayerInterior(playerid, 0);
+	    SetPlayerVirtualWorld(playerid, 0);
 
 	    SetPlayerPosFreeze(playerid, 1400.2490,-12.1037,1001.0098, 1);
 	}
@@ -56266,7 +56281,7 @@ CMD:sair(playerid, params[])
 			SetPlayerFacingAngle(playerid, 180);
 		}
 	}
-	else if (IsPlayerInRangeOfPoint(playerid, 20.0,2481.5627,2513.5317,10.8203)) // PCERJ GARAGEM
+	else if (IsPlayerInRangeOfPoint(playerid, 20.0,2481.5627,2513.5317,10.8203)) // PROTEGE GARAGEM
 	{
 
 		new PlayerNoCarro[4];
@@ -56296,7 +56311,7 @@ CMD:sair(playerid, params[])
 				}
 			}
 
-			SetVehiclePos(vehi, 1828.8881,-1541.7632,13.3828) ;
+			SetVehiclePos(vehi, 1828.8881,-1541.7632,13.3828);
 			LinkVehicleToInterior(vehi, 0);
 			SetVehicleVirtualWorld(vehi, 0);
 			SetVehicleZAngle(vehi, 180);
@@ -56355,7 +56370,7 @@ CMD:sair(playerid, params[])
 				}
 			}
 
-			SetVehiclePos(vehi, 1744.0854,-1555.1968,8.4305) ;
+			SetVehiclePos(vehi, 1734.4939,-1594.2455,13.3750);
 			LinkVehicleToInterior(vehi, 0);
 			SetVehicleVirtualWorld(vehi, 0);
 			SetVehicleZAngle(vehi, 180);
@@ -56380,7 +56395,7 @@ CMD:sair(playerid, params[])
 		}else{
 			SetPlayerVirtualWorld(playerid, 0);
 			SetPlayerInterior(playerid, 0);
-			SetPlayerPosFreeze(playerid, 1744.0854,-1555.1968,8.4305, 1);
+			SetPlayerPosFreeze(playerid, 1734.4939,-1594.2455,13.3750, 1);
 			SetPlayerFacingAngle(playerid, 180);
 		}
 	}
@@ -77004,26 +77019,26 @@ Dialog:DIALOG_CN_S(playerid, response, listitem, inputtext[])
 {
     if(!response)
     {
-        SendClientMessage(playerid, COLOR_GREEN, "[Namechange] Certo, agora sua personagem é uma Mulher, qual a idade dela?");
+        SendClientMessage(playerid, COLOR_GREEN, "[Namechange] Certo, agora sua personagem é uma Mulher. Boa vida nova!");
         PlayerInfo[playerid][pGender] = 2;
-        Dialog_Show(playerid,DIALOG_CN_ID,DIALOG_STYLE_INPUT,"Namechange","Qual a idade do seu personagem?","Masculino","Feminino");
+        //Dialog_Show(playerid,DIALOG_CN_ID,DIALOG_STYLE_INPUT,"Namechange","Qual a idade do seu personagem?","Masculino","Feminino");
     }
 	else
 	{
-	    SendClientMessage(playerid, COLOR_GREEN, "[Namechange] Certo, agora sua personagem é um Homem, qual a idade dele?");
+	    SendClientMessage(playerid, COLOR_GREEN, "[Namechange] Certo, agora sua personagem é um Homem. Boa vida nova!");
 	    PlayerInfo[playerid][pGender] = 1;
-	    Dialog_Show(playerid,DIALOG_CN_ID,DIALOG_STYLE_INPUT,"Namechange","Qual a idade do seu personagem?","Masculino","Feminino");
+	    //Dialog_Show(playerid,DIALOG_CN_ID,DIALOG_STYLE_INPUT,"Namechange","Qual a idade do seu personagem?","Masculino","Feminino");
 	}
 	return 1;
 }
-Dialog:DIALOG_CN_ID(playerid, response, listitem, inputtext[])
+/*Dialog:DIALOG_CN_ID(playerid, response, listitem, inputtext[])
 {
 	new idade = strval(inputtext);
     PlayerInfo[playerid][pAge] = idade;
     format(string,126,"[Namechange] Certo, sua personagem tem %d anos. Boa vida nova!",idade);
     SCM(playerid, COLOR_GREEN, string);
     return 1;
-}
+}*/
 
 stock IsPlayerFacingPlayer(playerid, targetid, Float:dOffset)
 {

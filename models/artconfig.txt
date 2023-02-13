@@ -382,8 +382,8 @@ AddSimpleModel(-1,19369, -1006, "craco2.dff", "craco.txd");
 AddSimpleModel(-1,19369, -1025, "postoip.dff", "postoip.txd");
 AddSimpleModel(-1,19425, -1018, "rm.dff", "rm.txd");
 AddSimpleModel(-1,19425, -1027, "mecanica.dff", "mecanica.txd");
-AddSimpleModel(-1,19425, -1028, "ruapraia.dff", "ruapraia.txd");
-AddSimpleModel(-1,19425, -1029, "ApPraia.dff", "ApPraia.txd");
+AddSimpleModel(-1,19425, -1029, "ruapraia.dff", "ruapraia.txd");
+AddSimpleModel(-1,19425, -1028, "ApPraia.dff", "ApPraia.txd");
 
 //lombadas
 AddSimpleModel(-1,1375, -1007, "lomb_sign.dff", "lomb.txd"); 
