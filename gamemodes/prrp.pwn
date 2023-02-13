@@ -11919,7 +11919,7 @@ public OnPlayerConnect(playerid)
 	RemoveBuildingForPlayer(playerid, 696, -603.296, -1054.800, 27.523, 0.250);
 	RemoveBuildingForPlayer(playerid, 17067, -588.750, -1046.180, 22.289, 0.250);
 	RemoveBuildingForPlayer(playerid, 17102, -536.093, -985.039, 38.070, 0.250);
-	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);*//
+	RemoveBuildingForPlayer(playerid, 17375, -536.093, -985.039, 38.070, 0.250);*/
 	//RM
 	RemoveBuildingForPlayer(playerid, 5418, 2112.938, -1797.088, 19.334, 0.250);
 	RemoveBuildingForPlayer(playerid, 5530, 2112.938, -1797.088, 19.334, 0.250);
