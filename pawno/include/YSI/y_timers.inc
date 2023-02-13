@@ -73,7 +73,7 @@ Changelog:
 
 #if defined USE_Y_TIMERS_V1
 	#error y_timers version 1 has not worked in years!
-	#include "y_timers/v1"
+	#include "y_timers/v3"
 	#endinput
 #endif
 

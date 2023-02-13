@@ -2799,6 +2799,7 @@ new VendoItemList[MAX_PLAYERS][50];
 //PMERJ
 #define MODEL_EB_SKINS           30
 #define MODEL_PMERJ_SKINS            31
+#define MODEL_VITOR_SKINS            32
 
 #define MODEL_PMERJ_BARREIRAS        35
 
@@ -3010,6 +3011,11 @@ static OBJ_TELEVISOES[MAX_TVS] = {
 	2317, 2318, 2320, 1781, 1786, 1791, 1792, 2322, 2297, 2296,
 	2224, 2595, 2596, 2775, 2606, 2648, 2700, -2043, -2044, -2045,
 	-2046
+};
+//===== [ SLOT ] =====//
+static VITOR_Uniformes[6] = {
+	20102, 20103, 20104, 20105,
+	20106, 20107
 };
 
 //===== [ PMERJ ] =====//
@@ -8358,16 +8364,16 @@ public PayDay(playerid) {
 			}
 
 			new Invest;
-			if(PlayerInfo[playerid][pSavings] > 0 && PlayerInfo[playerid][pSavings] < 100000) {
+			if(PlayerInfo[playerid][pSavings] > 0 && PlayerInfo[playerid][pSavings] < 500000) {
    				Invest = PlayerInfo[playerid][pSavingsGerando];
 			    PlayerInfo[playerid][pSavings] = PlayerInfo[playerid][pSavings]+Invest;
-				PlayerInfo[playerid][pSavingsGerando] = floatround(PlayerInfo[playerid][pSavings] * 0.011, floatround_ceil);
+				PlayerInfo[playerid][pSavingsGerando] = floatround(PlayerInfo[playerid][pSavings] * 0.60, floatround_ceil);
 				
 
-			    if(PlayerInfo[playerid][pSavings] > 100000) {
+			    if(PlayerInfo[playerid][pSavings] > 500000) {
 				    PlayerInfo[playerid][pSavingsGerando] = 0;
 				    Invest = 0;
-					PlayerInfo[playerid][pSavings] = 100000;
+					PlayerInfo[playerid][pSavings] = 500000;
 				}
 			}
 			if(PlayerInfo[playerid][pJobTempo] > 0)
@@ -14686,7 +14692,7 @@ COMMAND:petmenu(playerid, params[])
     return 1;
 }
 
-UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
+/*UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
 {
     if(IsValidDynamic3DTextLabel(PetData[playerid][petText]))
     {
@@ -14695,7 +14701,7 @@ UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
         Streamer_SetFloatData(STREAMER_TYPE_3D_TEXT_LABEL, PetData[playerid][petText], E_STREAMER_Z, z);
     }
     return 1;
-}
+}*/
 
 IsPetSpawned(playerid)
 {
@@ -14722,7 +14728,7 @@ PetSpawn(playerid)
     if(GetPlayerVirtualWorld(playerid) != 0)
         return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não pode spawnar um cachorro em outro VW.");
 
-    new petmodelid = PetData[playerid][petModelID], stringpet[255];
+    new petmodelid = PetData[playerid][petModelID]; //stringpet[255];
 
     new Float:fX, Float:fY, Float:fZ, Float:fAngle;
 
@@ -14731,8 +14737,8 @@ PetSpawn(playerid)
     GetPlayerFacingAngle(playerid, fAngle);
 
     PetData[playerid][petModel] = CreateActor(petmodelid, fX, fY+2, fZ, fAngle);
-    format(stringpet, sizeof(stringpet), "Dono: %s\nNome: %s", ReturnName(playerid), PetData[playerid][petName]);
-    PetData[playerid][petText] = CreateDynamic3DTextLabel(stringpet, COLOR_WHITE, fX, fY+2, fZ, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    //format(stringpet, sizeof(stringpet), "Dono: %s\nNome: %s", ReturnName(playerid), PetData[playerid][petName]);
+    //PetData[playerid][petText] = CreateDynamic3DTextLabel(stringpet, COLOR_WHITE, fX, fY+2, fZ, 15.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
 
     PetData[playerid][petSpawn] = true;
     PetData[playerid][petStatus] = PET_FOLLOW;
@@ -14993,7 +14999,7 @@ IsValidPetModel(skinid)
     return 0;
 }
 
-timer Pet_Update[200](playerid, targetid)
+timer Pet_Update[100](playerid, targetid)
 {
     if(PetData[playerid][petModelID] != 0 && PetData[playerid][petSpawn] && PetData[playerid][petStatus] == PET_FOLLOW)
     {
@@ -15029,10 +15035,10 @@ timer Pet_Update[200](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
-                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                    //UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
                 }
                 else if(GetDistance2D(plrX, plrY, actorX, actorY) >= 5.0)
                 {
@@ -15040,10 +15046,10 @@ timer Pet_Update[200](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
-                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                    //UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
                 }
             }
             default:
@@ -15054,10 +15060,10 @@ timer Pet_Update[200](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "WALK_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
-                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                    //UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
                 }
                 else if(GetDistance2D(plrX, plrY, actorX, actorY) >= 5.0)
                 {
@@ -15065,15 +15071,15 @@ timer Pet_Update[200](playerid, targetid)
                     ApplyActorAnimation(PetData[playerid][petModel], "ped", "run_civi", 4.1, 1, 1, 1, 1, 0);
                     MapAndreas_FindZ_For2DCoord(actorX, actorY, actorZ);
                     SetFacingPlayer(PetData[playerid][petModel], targetid);
-                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+0.5);
+                    if(PetData[playerid][petModelID] >= 20069) SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ);
                     else SetActorPos(PetData[playerid][petModel], actorX, actorY, actorZ+1);
 
-                    UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
+                    //UpdatePetText3D(playerid, actorX, actorY, actorZ+1.5);
                 }
                 else if(GetDistance2D(plrX, plrY, actorX, actorY) <= 3.0)
                 {
                     ClearActorAnimations(PetData[playerid][petModel]);
-                    UpdatePetText3D(playerid, actorX, actorY, actorZ+0.5);
+                    //UpdatePetText3D(playerid, actorX, actorY, actorZ);
                 }
             }
         }
@@ -20990,6 +20996,11 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
 		{
 		    PlayerInfo[playerid][pDutySkin] = modelid;
 		    SetPlayerSkin(playerid, PlayerInfo[playerid][pDutySkin]);
+		}
+		if(extraid == MODEL_VITOR_SKINS)
+		{
+		    PlayerInfo[playerid][pSkin] = modelid;
+		    SetPlayerSkin(playerid, PlayerInfo[playerid][pSkin]);
 		}
 		if(extraid == MODEL_EB_SKINS)
 		{
@@ -27178,8 +27189,8 @@ COMMAND:savings(playerid, params[])
 					new qnt = strval(tmp4);
 					if(PlayerInfo[playerid][pGrana] < qnt) return SendClientMessage(playerid, COLOR_LIGHTRED, "Você não tem tudo isso de dinheiro.");
 
-					if(qnt < 50000) return SendClientMessage(playerid, COLOR_LIGHTRED, "O valor minimo de depósito é de R$50,000.");
-					if(qnt > 100000) return SendClientMessage(playerid, COLOR_LIGHTRED, "O valor máximo de depósito é de R$100,000.");
+					if(qnt < 10000) return SendClientMessage(playerid, COLOR_LIGHTRED, "O valor minimo de depósito é de R$10,000.");
+					if(qnt > 500000) return SendClientMessage(playerid, COLOR_LIGHTRED, "O valor máximo de depósito é de R$500,000.");
 					if(PlayerInfo[playerid][pSavings] == 0)
 					{
 					    PlayerInfo[playerid][pSavings] = qnt;
@@ -27188,8 +27199,8 @@ COMMAND:savings(playerid, params[])
 
 					    SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
 		    			SendClientMessage(playerid, COLOR_WHITE, "Caixa Ecônomica Federal");
-		    			format(chatstr,sizeof(chatstr),"Você investiu R$%d e só poderá ser retirado quando você atingir R$50,000.", qnt); SendClientMessage(playerid, COLOR_WHITE, chatstr);
-		    			SendClientMessage(playerid, COLOR_WHITE, "O seu investimento aumentará até que chegue em R$100,000.");
+		    			format(chatstr,sizeof(chatstr),"Você investiu R$%d e só poderá ser retirado quando você atingir R$500,000.", qnt); SendClientMessage(playerid, COLOR_WHITE, chatstr);
+		    			SendClientMessage(playerid, COLOR_WHITE, "O seu investimento aumentará até que chegue em R$500,000.");
 		    			SendClientMessage(playerid, COLOR_WHITE, "Você não terá acesso as suas funções bancárias em quanto houver um saving ativo.");
 		    			SendClientMessage(playerid, COLOR_LIGHTGREEN, "_______________________________________");
 
@@ -27203,7 +27214,7 @@ COMMAND:savings(playerid, params[])
 			if(strcmp(opt, "sacar", true) == 0)
 			{
 			    new chatstr[124];
-				if(PlayerInfo[playerid][pSavings] >= 50000)
+				if(PlayerInfo[playerid][pSavings] >= 500000)
 				{
 				    new savings = PlayerInfo[playerid][pSavings];
 	                PlayerInfo[playerid][pBanco] = PlayerInfo[playerid][pBanco]+PlayerInfo[playerid][pSavings];
@@ -27224,7 +27235,7 @@ COMMAND:savings(playerid, params[])
 		   			format(strl, sizeof(strl), "%s sacou %d.", PlayerName(playerid,0), savings);
 		   			LogCMD_Savings(strl);
 				}
-				else return SendClientMessage(playerid, COLOR_LIGHTRED, "Seus investimentos ainda não atingiram o valor de R$50,000.");
+				else return SendClientMessage(playerid, COLOR_LIGHTRED, "Seus investimentos ainda não atingiram o valor de R$500,000.");
 			}
 		}
 	}
@@ -30665,7 +30676,7 @@ COMMAND:trazer(playerid, params[])
 	      		    SetPlayerVirtualWorld(targetid,GetPlayerVirtualWorld(playerid));
 	      		    SetPlayerInterior(targetid,GetPlayerInterior(playerid));
 			    }
-	      		SendClientMessage(playerid,COLOR_WHITE,"{FFFFFF}[INFO]: {ADADAD}Você teleportou.");
+	      		SendClientMessage(playerid,COLOR_WHITE,"{FFFFFF}[INFO]: {ADADAD}Você teleportou um jogador.");
 
 	      		PlayerInfo[targetid][pEntrouCasa] = PlayerInfo[playerid][pEntrouCasa];
 	    		PlayerInfo[targetid][pEntrouEmpresa] = PlayerInfo[playerid][pEntrouEmpresa];
@@ -30703,7 +30714,7 @@ COMMAND:trazer(playerid, params[])
       		    SetPlayerVirtualWorld(targetid,GetPlayerVirtualWorld(playerid));
       		    SetPlayerInterior(targetid,GetPlayerInterior(playerid));
 		    }
-      		SendClientMessage(playerid,COLOR_WHITE,"{FFFFFF}[INFO]: {ADADAD}Você teleportou.");
+      		SendClientMessage(playerid,COLOR_WHITE,"{FFFFFF}[INFO]: {ADADAD}Você teleportou um jogador.");
 
       		PlayerInfo[targetid][pEntrouCasa] = PlayerInfo[playerid][pEntrouCasa];
     		PlayerInfo[targetid][pEntrouEmpresa] = PlayerInfo[playerid][pEntrouEmpresa];
@@ -36790,6 +36801,14 @@ CMD:rbarreira(playerid, params[])
 		}
 		if(alguma == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não está próximo de nenhuma barreira.");
 	}
+	return 1;
+}
+
+CMD:vitor(playerid, params[])
+{
+    if(!PlayerInfo[playerid][pLogado]) return 1;
+
+	ShowModelSelectionMenu(playerid, "[PREMIUM] Skins", MODEL_VITOR_SKINS, VITOR_Uniformes, sizeof(VITOR_Uniformes), -16.0, 0.0, -55.0);
 	return 1;
 }
 
@@ -76398,7 +76417,7 @@ CMD:factipo(playerid, params[])
 CMD:criarfaccao(playerid, params[])
 {
 	if(!PlayerInfo[playerid][pLogado]) return 1;
-	if (PlayerInfo[playerid][pAdmin] < 5 && PlayerInfo[playerid][pFactionTeam] < 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
+	if (PlayerInfo[playerid][pAdmin] < 5) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem acesso a esse comando.");
 	new opcao[34];
 	if (sscanf(params, "s[34]", opcao)) return SendClientMessage(playerid, COLOR_LIGHTRED,"USE: /criarfaccao [Nome]");
 	else
@@ -76422,7 +76441,7 @@ CMD:criarfaccao(playerid, params[])
  				SendClientMessage(playerid, COLOR_LIGHTRED, string);
  				newfacid++;
 
- 				format(string, sizeof(string),"UPDATE `server` SET `fac_newid`='%d' WHERE `id`= 1", newfacid);
+ 				//format(string, sizeof(string),"UPDATE `server` SET `fac_newid`='%d' WHERE `id`= 1", newfacid);
 				mysql_function_query(Pipeline, string, false, "", "");
     			return 1;
 			}
@@ -76455,7 +76474,7 @@ public FaccaoCriada(playerid,StrNome[])
 			FacInfo[i][fID] =  id;
 			FacInfo[i][fCriada] = 1;
 			FacInfo[i][fTipo] = 0;
-			FacInfo[i][fOrdem] = newfacid;
+			FacInfo[i][fOrdem] = newfacid+1;
 
 			strmid(FacInfo[i][fNome], StrNome, 0, strlen(StrNome), 255);
 
@@ -76463,7 +76482,7 @@ public FaccaoCriada(playerid,StrNome[])
 			SendClientMessage(playerid, COLOR_LIGHTRED, string);
 			newfacid++;
 
-			format(string, sizeof(string),"UPDATE `server` SET `fac_newid`='%d' WHERE `id`= 1", newfacid);
+			//format(string, sizeof(string),"UPDATE `server` SET `fac_newid`='%d' WHERE `id`= 1", newfacid);
 			mysql_function_query(Pipeline, string, false, "", "");
 
 			SalvarFaccao(i);
@@ -77796,6 +77815,8 @@ stock gerarArmario(facid){
 	FacInfo[facid][fArmario3DText] = CreateDynamic3DTextLabel(text, 0xffffffff, FacInfo[facid][fArmarioPosX], FacInfo[facid][fArmarioPosY], FacInfo[facid][fArmarioPosZ], 10.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 0, FacInfo[facid][fArmarioVw]);
     FacInfo[facid][fArmarioPickup] = CreateDynamicPickup(1239,  1, FacInfo[facid][fArmarioPosX], FacInfo[facid][fArmarioPosY], FacInfo[facid][fArmarioPosZ], FacInfo[facid][fArmarioVw]);
 }
+
+
 /*stock gerarcofrebanco()
 {
 	for(new i = 0; i < MAX_COFREB; i++)

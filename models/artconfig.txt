@@ -79,6 +79,12 @@ AddCharModel(252, 20076, "pet5.dff", "pet5.txd");
 //SLOTS PERSONALIZADO PRIVADO AMIGOS
 AddCharModel(211, 20100, "luizh.dff", "luizh.txd");
 AddCharModel(91, 20101, "prixy.dff", "prixy.txd");
+AddCharModel(299, 20102, "vitor.dff", "vitor.txd");
+AddCharModel(299, 20103, "vitor2.dff", "vitor2.txd");
+AddCharModel(299, 20104, "vitor3.dff", "vitor3.txd");
+AddCharModel(299, 20105, "vitor4.dff", "vitor4.txd");
+AddCharModel(299, 20106, "vitor5.dff", "vitor5.txd");
+AddCharModel(299, 20107, "vitor6.dff", "vitor6.txd");
 
 //skins PCERJ
 AddCharModel(305, 20200, "delegadocivil.dff", "delegadocivil.txd");
