@@ -180,8 +180,8 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "15/02/2023"
-#define CA_VERSAO       "PR:RP v2.09"
+#define ULTIMO_GMX      "13/02/2023"
+#define CA_VERSAO       "PR:RP v1.85"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
 #define CA_NOME         "hostname Progressive Roleplay | progressive-roleplay.com"
@@ -6302,7 +6302,7 @@ public OnGameModeInit()
     CreatePickup(1239, 1, 2027.3602,-1386.4576,17.2108, 0);
 
     //HOSPITAL
-    CreateDynamic3DTextLabel("{FFFFFF}[UPA]\n/tratar\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
+    CreateDynamic3DTextLabel("{FFFFFF}[UPA]\n/tratar(somente para vida menor que 70)\n/convenio",0xffffffff, 174.4834,2784.5520,767.7469, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
     CreatePickup(1239, 1, 1177.7151,-1321.4143,2015.4130, 0);
 
     CreateDynamic3DTextLabel("{FFFFFF}[UPA]]\n/deixarferido\nPara deixar o ferido",0xffffffff, 2043.6692,-1383.1019,17.1479, 5.0, INVALID_PLAYER_ID, INVALID_VEHICLE_ID, 1);
@@ -7988,8 +7988,8 @@ public Timer_Minutos()
 				    	SendClientMessage(i, COLOR_LIGHTRED, "-> Você está perdendo vida devido a um ferimento a bala ou facada não tratado.");
 
 				    	new Float:Perda;
-				    	if(PlayerInfo[i][pTomouTiroPesado] > 0) Perda = 3.0;
-				    	else Perda = 1.0;
+				    	if(PlayerInfo[i][pTomouTiroPesado] > 0) Perda = 8.0;
+				    	else Perda = 5.0;
 
 				    	new Float:health;
 						GetPlayerHealth(i,health);
@@ -14049,7 +14049,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/02/2023, v2.09, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 13/02/2023, v1.85, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 23)
@@ -14076,7 +14076,7 @@ public OnPlayerSpawn(playerid){
 					TextDrawShowForPlayer(playerid, Textdraw49[playerid]);
 
 					createHudRadio(playerid);
-					createDisplayFomeSede(playerid);
+					//createDisplayFomeSede(playerid);
 
                     //Login
 					TelaLoginDel(playerid);
@@ -14085,10 +14085,10 @@ public OnPlayerSpawn(playerid){
 	                PlayerTextDrawShow(playerid, RadioComunicador[playerid][0]);
                     PlayerTextDrawShow(playerid, RadioComunicador[playerid][1]);
 
-                    PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
-                    PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
-                    PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
-                    PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
+                    //PlayerTextDrawShow(playerid, FomeSede[playerid][0]);
+                    //PlayerTextDrawShow(playerid, FomeSede[playerid][1]);
+                    //PlayerTextDrawShow(playerid, FomeSede[playerid][2]);
+                    //PlayerTextDrawShow(playerid, FomeSede[playerid][3]);
 
                 
 					
@@ -32735,7 +32735,7 @@ CMD:ajudafaccao(playerid, params[])
     if(FacInfo[faccao][fTipo] == FAC_TIPO_PCERJ) // PCERJ
     {
         SendClientMessage(playerid, COLOR_WHITE, "*** AJUDA FACCAO ***");
-        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** Canal de rádio: 197");
+        SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** Canal de rádio: 191");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r)adio /rbaixo (radio baixo) /algemar /f /distintivo");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** (/r2)adio /rbaixo2 (radio baixo 2) /nickbranco /nickazul");
         SendClientMessage(playerid, COLOR_CINZA, "*** AJUDA FACCAO *** /deixarferido /blockf /gov /cecopol /prefixo /rprefixo");
@@ -42250,7 +42250,7 @@ COMMAND:jetpack(playerid, params[])
 	return 1;
 }
 
-COMMAND:amancar22(playerid, params[])
+COMMAND:amancar(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
     if(PlayerInfo[playerid][pAdmin] >= 5)
@@ -42288,6 +42288,7 @@ public SendBankErrorMessage(playerid){
 CMD:tratar(playerid,params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
+	if(PlayerInfo[playerid][pHealth] > 70 && PlayerInfo[playerid][pMorto] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Você não tem por que se tratar agora.");
     if(IsPlayerInRangeOfPoint(playerid, 20, 174.4834,2784.5520,767.7469))
 	{
         if (IsValidDynamic3DTextLabel(TextMorto[playerid])) DestroyDynamic3DTextLabel(TextMorto[playerid]);
@@ -43788,8 +43789,8 @@ COMMAND:setarvida(playerid, params[])
                     God_VidaAnterior2[targetid] = inter;
                     God_Aviso2[targetid] = 0;
 				}
-	      		format(string,sizeof(string),"AdmCmd: %s setou a vida de %s para %.4f.", PlayerName(playerid, 0), PlayerName(targetid, 0), inter);
-	    		SendAdminMessage(COLOR_LIGHTRED, string);
+	      		format(string,sizeof(string),"AdmCmd: Você setou a vida de %s para %.4f.",PlayerName(targetid, 0), inter);
+	    		SendClientMessage(playerid, COLOR_LIGHTRED, string);
 	    		God_Aviso2[playerid] = 0;
 
        			new strl[126];
@@ -44201,39 +44202,35 @@ CMD:setarammo(playerid, params[])
 	{
 	    case 1:
 		{
-			format(string, sizeof(string), "AdmCmd: O administrador %s [%d] entregou uma %d balas de 9mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
-			SendAdminMessage(-1,string);
+			//format(string, sizeof(string), "AdmCmd: O administrador %s [%d] entregou uma %d balas de 9mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
+			//SendAdminMessage(-1,string);
 			format(string,sizeof(string),"* O administrador %s lhe entregou %d balas 9mm.",admnome,Ammo);
     		SendClientMessage(other, COLOR_LIGHTRED, string);
     		format(strl, 126, "%s entregou %d balas de 9mm para %s. [/setarammo]", admnome, Ammo, PlayerName(other, 0));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strl);
 		}
 	    case 2:
 	    {
-	        format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d cartuxos para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
-			SendAdminMessage(COLOR_LIGHTRED,string);
+	        //format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d cartuxos para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
+			//SendAdminMessage(COLOR_LIGHTRED,string);
 			format(string,sizeof(string),"* O administrador %s lhe entregou %d cartuchos.",admnome,Ammo);
     		SendClientMessage(other, COLOR_LIGHTRED, string);
     		format(strl, 126, "%s entregou %d cartuchos para %s. [/setarammo]", admnome, Ammo, PlayerName(other, 0));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strl);
 	    }
 	    case 3:
 	    {
-	        format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d balas 5.56mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
-			SendAdminMessage(COLOR_LIGHTRED,string);
+	        //format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d balas 5.56mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
+			//SendAdminMessage(COLOR_LIGHTRED,string);
 			format(string,sizeof(string),"* O administrador %s lhe entregou uma %d balas 5.56mm.",PlayerName(playerid, 0),Ammo);
     		SendClientMessage(other, COLOR_LIGHTRED, string);
     		format(strl, 126, "%s entregou %d balas de 5.56mm para %s. [/setarammo]", admnome, Ammo, PlayerName(other, 0));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strl);
 	    }
 	    case 4:
 	    {
-	        format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d balas 12.7x106mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
-			SendAdminMessage(COLOR_LIGHTRED,string);
+	        //format(string, sizeof(string), "{FF6347}AdmCmd: O administrador %s [%d] entregou uma %d balas 12.7x106mm para %s.", PlayerName(playerid, 0),playerid, Ammo, PlayerName(other, 0));
+			//SendAdminMessage(COLOR_LIGHTRED,string);
 			format(string,sizeof(string),"* O administrador %s lhe entregou uma %d balas 12.7x106mm.",admnome,Ammo);
     		SendClientMessage(playerid, COLOR_LIGHTRED, string);
     		format(strl, 126, "%s entregou %d balas de 12.7x106mm para %s. [/setarammo]", admnome, Ammo, PlayerName(other, 0));
-
 	    }
 	}
 	SCM(playerid, COLOR_LIGHTGREEN, "Munições setadas");
@@ -75914,14 +75911,13 @@ COMMAND:canalradio(playerid, params[])
                 if(FacInfo[FacId][fTipo] != 1) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PMERJ.");
                 temperm = 1;
             }
-            if(aimid == 193) 
-			{
-                if(FacInfo[FacId][fTipo] != 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a CBERJ.");
-                temperm = 1;
-            }
 			if(aimid == 197)
             {
                 if(FacInfo[FacId][fTipo] != 2) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a PCERJ.");
+                temperm = 1;
+            }
+            if(aimid == 193) {
+                if(FacInfo[FacId][fTipo] != 3) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} Este rádio é restrito a CBERJ.");
                 temperm = 1;
             }
             if(aimid == 183) {
@@ -81785,14 +81781,14 @@ stock SetTune( veiculo, ocasiao, vehicleid)
 	}
 }
 //==============================================================================
-CMD:criarcarro2(playerid, params[])
+CMD:criarcarro(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
     new vehid;
     new param[7];
     new Float:X, Float:Y, Float:Z, cor1, cor2;
-    if(sscanf(params,"ddd",vehid,cor1,cor2))return SendClientMessage(playerid,-1,"USE: /criarcarro2 [id] [cor1] [cor2]");
+    if(sscanf(params,"ddd",vehid,cor1,cor2))return SendClientMessage(playerid,-1,"USE: /criarcarro [id] [cor1] [cor2]");
     GetPlayerPos(playerid,X,Y,Z);
     new Carro = CreateVehicle(vehid, X+2,Y,Z, 0, cor1, cor2, -1);
 	GetVehicleParamsEx(Carro,param[0],param[1],param[2],param[3],param[4],param[5],param[6]);
@@ -81804,7 +81800,7 @@ CMD:criarcarro2(playerid, params[])
     return 1;
 }
 
-CMD:destruircarro2(playerid, params[])
+CMD:destruircarro(playerid, params[])
 {
     if(!PlayerInfo[playerid][pLogado]) return 1;
 	if(PlayerInfo[playerid][pAdmin] < 5) return 1;
