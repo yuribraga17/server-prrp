@@ -12820,102 +12820,7 @@ public OnPlayerFinishedDownloading(playerid, virtualworld)
 	}
     return 1;
 }
-//COM UCP
-forward CheckingAccount(playerid);
-public CheckingAccount(playerid)
-{
-	LimparChat(playerid);
-
-    TogglePlayerControllable(playerid,false);
-	SetPlayerPos(playerid, 1741.3394, -1875.1597, 13.5859);
-
-    InterpolateCameraPos(playerid, 2119.1499, -491.2563, 122.1350, 2220.1875, -178.1629, 68.8067, GetSeconds(60), CAMERA_MOVE);
-    InterpolateCameraLookAt(playerid, 2119.4563, -490.3004, 121.9445, 2220.4978, -177.2082, 68.4912, GetSeconds(60), CAMERA_MOVE);
-
-	new rows, fields;
-	cache_get_data(rows, fields, Pipeline);
-	if(rows)
-	{
-		LoginSeconds[playerid] = 50000;
-		TelaDeLogin[playerid] = 1;
-		new tmp[130];
-  		cache_get_field_content(0, "ID", tmp); 			PlayerInfo[playerid][pID] = strval(tmp);
-		cache_get_field_content(0, "Password", tmp);	format(PlayerInfo[playerid][pPassword], 129, "%s", tmp);
-		cache_get_field_content(0, "ucpOwn", tmp);	    PlayerInfo[playerid][pucpOwn] = strval(tmp);
-
-		new JaEstaOn = 0;
-		for(new di = 0; di < MAX_PLAYERS; di++) {
-		    if(IsPlayerConnected(di)) {
-			    if(playerid != di) {
-			    	if(PlayerInfo[playerid][pID] == PlayerInfo[di][pID]) {
-			        	JaEstaOn = 1;
-						break;
-					}
-					if(PlayerInfo[playerid][pucpOwn] == PlayerInfo[di][pucpOwn]) {
-					    JaEstaOn = di+100;
-					    break;
-					}
-			    }
-			}
-		}
-
-		if(JaEstaOn == 0) {
-		    new escapedPlayerName[MAX_PLAYER_NAME];
-		    mysql_real_escape_string(GetName(playerid), escapedPlayerName);
-			new str[250];
-			format(str, sizeof(str), "SERVER: Você só pode errar sua senha três (3) vezes.\n INFO: Nosso UCP é o https://progressive-roleplay.com\n acesse-o para mais informações sobre sua conta.\n\n        Digite sua senha:");
-			ShowPlayerDialog(playerid, DIALOG_LOGIN, DIALOG_STYLE_PASSWORD, "Progressive Roleplay", str, "Autenticar", "Cancelar");
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-		}
-		else if(JaEstaOn == 1) {
-		    new strdebug[56];
-			format(strdebug,126,"ERRO: O seu personagem %s, já está logado... Caso estranhe isto, contate um administrador.", GetName(playerid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][6]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][8]);
-		}
-		else {
-		    new strdebug[56];
-		    new pppid = (JaEstaOn-100);
-			format(strdebug,126,"ERRO: Algum outro personagem de sua UCP já está logado no servidor.. (Personagem: %s)", GetName(pppid));
-			SendClientMessage(playerid, COLOR_LIGHTRED, strdebug);
-			SetTimerEx("TimerKick", 7000, 0, "d", playerid);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-			PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		}
-	}
-	else
-	{
-	    new str[256];
-		format(str, sizeof(str), "\nOlá %s.\nA sua conta não existe, por favor dirija-se ao UCP para criar um personagem\nAtente-se as regras no nosso fórum também.\nUCP: https://progressive-roleplay.com/ucp\nFórum: https://progressive-roleplay.com\n", GetName(playerid));
-  		ShowPlayerDialog(playerid, 999999, DIALOG_STYLE_MSGBOX, "Progressive Roleplay - Informação", str, "Fechar", "");
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][0]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][1]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][2]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][3]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][4]);
-		PlayerTextDrawShow(playerid, TelaLogin[playerid][5]);
-		SetTimerEx("TimerKick", 30, 0, "d", playerid);
-
-	}
-	return 1;
-
-}
-/* SEM UCP
+//SEM UCP
 forward CheckingAccount(playerid);
 public CheckingAccount(playerid)
 {
@@ -12994,11 +12899,7 @@ public CheckingAccount(playerid)
 		format(str, sizeof(str), "Olá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com uma senha para registrar-se.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Registrar", str, "Registrar", "Sair");
 	}
-}*/
-
-
-
-
+}
 
 forward PlayerConectCriarTexts(playerid);
 public PlayerConectCriarTexts(playerid)
