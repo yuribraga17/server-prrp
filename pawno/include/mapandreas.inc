@@ -1,6 +1,6 @@
-// MapAndreas 1.2.1
-// 20.7.2014
-// Originally created by Kalcor, updated by Mauzen and Pamdex
+// MapAndreas 1.2
+// 11.6.2014
+// Originally created by Kalcor, updated by Mauzen
 
 #define MAP_ANDREAS_MODE_NONE			0
 #define MAP_ANDREAS_MODE_MINIMAL		1
@@ -20,4 +20,3 @@ native MapAndreas_FindAverageZ(Float:X, Float:Y, &Float:Z);
 native MapAndreas_Unload();
 native MapAndreas_SetZ_For2DCoord(Float:X, Float:Y, Float:Z);
 native MapAndreas_SaveCurrentHMap(name[]);
-native MapAndreas_GetAddress(); //only for plugins

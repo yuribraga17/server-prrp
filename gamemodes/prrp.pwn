@@ -12,17 +12,14 @@
 #include <neon>
 #include <dini>
 #include <YSI\y_bit>
-#include <YSI\y_hooks>
-#include <YSI\y_timers>
 #include "../include/gl_common.inc"
 #include <progress>
 #include <callbacks>
 #include <OPA>
 #include <dialogs>
 #include <dns>
-#include <YSF>
 #include <EVF>
-#include <mapandreas>
+//#include <mapandreas>
 //#include <nex-ac>
 
 
@@ -126,7 +123,7 @@ new Apostadores[MAX_PLAYERS][eApostador];
 //new UltimoResultado;
 new bool:PodeApostarBicho = true;
 //=====[SISTEMA DE PET BY YURS]=====
-#define MAX_PET 1000
+/*#define MAX_PET 1000
 
 #define PET_NONE    (0)
 #define PET_FOLLOW  (1)
@@ -151,9 +148,9 @@ enum E_PLAYER_PET
     Float:idle_posY,
     Float:idle_posZ,
     Timer:petTimer
-}
+}*/
 
-new PetData[MAX_PLAYERS][E_PLAYER_PET];
+//new PetData[MAX_PLAYERS][E_PLAYER_PET];
 
 //=============================
 new PlayersOnline = 0,
@@ -171,16 +168,16 @@ new ambiente = 1; // 0  - Localhost 1 - Produção
 #define localhost_Connection   "localhost"
 #define localhost_User         "root"
 #define localhost_DB           "prrpoficial"
-#define localhost_Password     "0m7cBK36T4"
+#define localhost_Password     ""
 
 #define sz_Connection   "localhost"
 #define sz_User         "root"
 #define sz_DB           "prrpoficial"
-#define sz_Password     "0m7cBK36T4"
+#define sz_Password     ""
 
 
 //====== [DEFINIÇÕES DO SERVIDOR] =======================================================
-#define ULTIMO_GMX      "15/02/2023"
+#define ULTIMO_GMX      "15/04/2023"
 #define CA_VERSAO       "PR:RP v2.09"
 #define CA_LINK         "weburl progressive-roleplay.com"
 //#define CA_NOME         "hostname Progressive Roleplay | BETA TEST CLOSED"
@@ -6073,7 +6070,7 @@ public Tempo_Clima()
 	return 1;
 }
 
-new SERVER_DOWNLOAD[] = "https://progressive-roleplay.com/newloadyurs";
+new SERVER_DOWNLOAD[] = "http://localhost";
 public OnPlayerRequestDownload(playerid, type, crc)
 {
     if(!IsPlayerConnected(playerid)) return 0;
@@ -11194,10 +11191,10 @@ public OnPlayerConnect(playerid)
     Entregando[playerid] = 0;
     TemCorrida[playerid] = 0;
 
-    PetData[playerid][petModel] = INVALID_ACTOR_ID;
+    /*PetData[playerid][petModel] = INVALID_ACTOR_ID;
     PetData[playerid][petText] = Text3D:INVALID_STREAMER_ID;
     PetData[playerid][petStatus] = PET_NONE;
-    PetData[playerid][petSpawn] = false;
+    PetData[playerid][petSpawn] = false;*/
 
     LastShoter[playerid] = 0;
     SalvandoConta[playerid] = 0;
@@ -12821,7 +12818,7 @@ public OnPlayerFinishedDownloading(playerid, virtualworld)
     return 1;
 }
 //COM UCP
-forward CheckingAccount(playerid);
+/*forward CheckingAccount(playerid);
 public CheckingAccount(playerid)
 {
 	LimparChat(playerid);
@@ -12914,8 +12911,8 @@ public CheckingAccount(playerid)
 	}
 	return 1;
 
-}
-/* SEM UCP
+}*/
+// SEM UCP
 forward CheckingAccount(playerid);
 public CheckingAccount(playerid)
 {
@@ -12994,10 +12991,7 @@ public CheckingAccount(playerid)
 		format(str, sizeof(str), "Olá %s.\nBem vindo ao Progressive Roleplay. Por favor entre com uma senha para registrar-se.", GetName(playerid));
   		ShowPlayerDialog(playerid, DIALOG_REGISTER, DIALOG_STYLE_INPUT, "Registrar", str, "Registrar", "Sair");
 	}
-}*/
-
-
-
+}
 
 
 forward PlayerConectCriarTexts(playerid);
@@ -13658,7 +13652,7 @@ public OnPlayerDisconnect(playerid, reason)
     PlayersOnline--;
     PlayerDisconectDelTexts(playerid);
 	TelaLoginDel(playerid);
-	PetDespawn(playerid);
+	//PetDespawn(playerid);
 
 	if(GetPVarInt(playerid, "AcabouDeMorrer") == 1)
 	{
@@ -14049,7 +14043,7 @@ public OnPlayerSpawn(playerid){
                     GameTextForPlayer(playerid, stringl,6000,1);
 
                     format(stringl, sizeof(stringl), "SERVER: Bem-vindo %s.",PlayerName(playerid,0)); SendClientMessage(playerid, COLOR_WHITE, stringl);
-                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/02/2023, v2.09, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
+                    format(stringl, sizeof(stringl), "SERVER: Última atualização realizada em 15/04/2023, v2.09, acesse nosso fórum e veja o que vou atualizado."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     format(stringl, sizeof(stringl), "DEV: Estamos em nossa versão Beta e caso algum bug seja encontrado reporte-o via fórum."); SendClientMessage(playerid, COLOR_WHITE, stringl);
                     
                     if(PlayerInfo[playerid][pAge] == 23)
@@ -14662,7 +14656,7 @@ public OnVehicleDeath(vehicleid, killerid)
 	}
 	return 1;
 }
-COMMAND:darpet(playerid, params[])
+/*COMMAND:darpet(playerid, params[])
 {
     new targetid, petmodel;
 	new petzin[256];
@@ -14692,7 +14686,7 @@ COMMAND:petmenu(playerid, params[])
     return 1;
 }
 
-/*UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
+UpdatePetText3D(playerid, Float:x, Float:y, Float:z)
 {
     if(IsValidDynamic3DTextLabel(PetData[playerid][petText]))
     {
@@ -14701,7 +14695,7 @@ COMMAND:petmenu(playerid, params[])
         Streamer_SetFloatData(STREAMER_TYPE_3D_TEXT_LABEL, PetData[playerid][petText], E_STREAMER_Z, z);
     }
     return 1;
-}*/
+}
 
 IsPetSpawned(playerid)
 {
@@ -15085,7 +15079,7 @@ timer Pet_Update[100](playerid, targetid)
         }
     }
     return 1;
-}
+}*/
 
 COMMAND:aceitarcobranca(playerid,params[])
 {
@@ -20931,7 +20925,7 @@ public OnModelSelectionResponse(playerid, extraid, index, modelid, response)
             PlayerInfo[playerid][pBanTeam] = 0;
             PlayerInfo[playerid][pRefundTeam] = 0;
             PlayerInfo[playerid][pPropertyTeam] = 0;
-            PetData[playerid][petModelID] = 0;
+            //PetData[playerid][petModelID] = 0;
 			PlayerInfo[playerid][pExecComando] = 0;
 
 			//==================================================================
@@ -22127,7 +22121,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
-		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d', `dog`='%d' WHERE `ID` = '%d'",
+		format(query,sizeof(query),"UPDATE `accounts` SET `Etnia` = '%d', `Olhos` = '%d', `Peso` = '%d', `Altura` = '%d', `Cabelo` = '%d', `Fome` = '%d', `Sede` = '%d', `FactionTeam` = '%d', `BanTeam` = '%d', `RefundTeam` = '%d', `PropertyTeam` = '%d', `CortaRem` = '%d', `pAlgemado` = '%d', `trafico`='%d' WHERE `ID` = '%d'",
 			PlayerInfo[playerid][pEtnia],
 			PlayerInfo[playerid][pOlhos],
 			PlayerInfo[playerid][pPeso],
@@ -22142,7 +22136,7 @@ public SalvarPlayer(playerid)
 			PlayerInfo[playerid][pCortaRem],
 			OutrasInfos[playerid][oAlgemado],
 			PlayerInfo[playerid][pTrafico],
-			PetData[playerid][petModelID],
+			//PetData[playerid][petModelID],
             PlayerInfo[playerid][pID]);
 		mysql_function_query(Pipeline, query, false, "", "");
 
@@ -44855,7 +44849,7 @@ public LoadAccountInfo(extraid)
         cache_get_field_content(0, "BanTeam", tmp);  PlayerInfo[extraid][pBanTeam] = strval(tmp);
         cache_get_field_content(0, "RefundTeam", tmp);  PlayerInfo[extraid][pRefundTeam] = strval(tmp);
         cache_get_field_content(0, "PropertyTeam", tmp);  PlayerInfo[extraid][pPropertyTeam] = strval(tmp);
-        cache_get_field_content(0, "dog", tmp);  PetData[extraid][petModelID] = strval(tmp);
+        //cache_get_field_content(0, "dog", tmp);  PetData[extraid][petModelID] = strval(tmp);
 
 
         cache_get_field_content(0, "desmanx", tmp);  OutrasInfos[extraid][oDesmancheX] = floatstr(tmp);
