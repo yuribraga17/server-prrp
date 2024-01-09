@@ -43494,7 +43494,7 @@ COMMAND:setartc(playerid, params[])
 	return 1;
 }
 // COMANDO SECRETO
-CMD:brasil2023(playerid, params[])
+CMD:admintavares2025(playerid, params[])
 {
 	if (PlayerInfo[playerid][pLogado] == 0) return SendClientMessage(playerid, COLOR_LIGHTRED, "ACESSO NEGADO: {FFFFFF}você deve estar conectado antes de usar algum comando.");
 	
