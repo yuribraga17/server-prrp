@@ -6111,7 +6111,7 @@ public OnGameModeInit()
     print("[CARREGADO] Custom nametags by Yur$");
     // OnPlayerUpdate causa lag e OnPlayer(Take/Give)Damage não funciona com ele
     SetTimer("UpdateNametag", 1000, true); // Então, estamos usando um cronômetro, altere o intervalo para o que você deseja
-	
+
 	if (ambiente == 1){
 		Pipeline = mysql_connect(sz_Connection, sz_User, sz_DB, sz_Password);
 	}else{
@@ -8477,18 +8477,18 @@ public PayDay(playerid) {
 			if(PlayerInfo[playerid][pFac] > 0) {
 				if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PMERJ) {
 					switch(PlayerInfo[playerid][pFacCargo]) {
-					    case 1: salarfac = GovInfo[gSalarioPMESP][0];
-					    case 2: salarfac = GovInfo[gSalarioPMESP][1];
-					    case 3: salarfac = GovInfo[gSalarioPMESP][2];
-					    case 4: salarfac = GovInfo[gSalarioPMESP][3];
-					    case 5: salarfac = GovInfo[gSalarioPMESP][4];
-					    case 6: salarfac = GovInfo[gSalarioPMESP][5];
-					    case 7: salarfac = GovInfo[gSalarioPMESP][6];
-						case 8: salarfac = GovInfo[gSalarioPMESP][7];
-						case 9: salarfac = GovInfo[gSalarioPMESP][8];
-						case 10: salarfac = GovInfo[gSalarioPMESP][9];
-						case 11: salarfac = GovInfo[gSalarioPMESP][10];
-						case 12: salarfac = GovInfo[gSalarioPMESP][11];
+					    case 1: salarfac = GovInfo[gSalarioPMERJ][0];
+					    case 2: salarfac = GovInfo[gSalarioPMERJ][1];
+					    case 3: salarfac = GovInfo[gSalarioPMERJ][2];
+					    case 4: salarfac = GovInfo[gSalarioPMERJ][3];
+					    case 5: salarfac = GovInfo[gSalarioPMERJ][4];
+					    case 6: salarfac = GovInfo[gSalarioPMERJ][5];
+					    case 7: salarfac = GovInfo[gSalarioPMERJ][6];
+						case 8: salarfac = GovInfo[gSalarioPMERJ][7];
+						case 9: salarfac = GovInfo[gSalarioPMERJ][8];
+						case 10: salarfac = GovInfo[gSalarioPMERJ][9];
+						case 11: salarfac = GovInfo[gSalarioPMERJ][10];
+						case 12: salarfac = GovInfo[gSalarioPMERJ][11];
 					}
 				}
 				if(FacInfo[GetFactionBySqlId(PlayerInfo[playerid][pFac])][fTipo] == FAC_TIPO_PCERJ) {
@@ -46631,7 +46631,7 @@ public CarregandoGoverno()
 		    cache_get_field_content(i, "salariosgov", tmp);
 			sscanf(tmp, "p<|>iiiiii", GovInfo[gSalarioGOV][0], GovInfo[gSalarioGOV][1], GovInfo[gSalarioGOV][2], GovInfo[gSalarioGOV][3], GovInfo[gSalarioGOV][4], GovInfo[gSalarioGOV][5], GovInfo[gSalarioGOV][6], GovInfo[gSalarioGOV][7], GovInfo[gSalarioGOV][8], GovInfo[gSalarioGOV][9], GovInfo[gSalarioGOV][10], GovInfo[gSalarioGOV][11]);
 			cache_get_field_content(i, "salariospd", tmp);
-			sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioPMESP][0], GovInfo[gSalarioPMESP][1], GovInfo[gSalarioPMESP][2], GovInfo[gSalarioPMESP][3], GovInfo[gSalarioPMESP][4], GovInfo[gSalarioPMESP][5], GovInfo[gSalarioPMESP][6], GovInfo[gSalarioPMESP][7], GovInfo[gSalarioPMESP][8], GovInfo[gSalarioPMESP][9], GovInfo[gSalarioPMESP][10], GovInfo[gSalarioPMESP][11]);
+			sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioPMERJ][0], GovInfo[gSalarioPMERJ][1], GovInfo[gSalarioPMERJ][2], GovInfo[gSalarioPMERJ][3], GovInfo[gSalarioPMERJ][4], GovInfo[gSalarioPMERJ][5], GovInfo[gSalarioPMERJ][6], GovInfo[gSalarioPMERJ][7], GovInfo[gSalarioPMERJ][8], GovInfo[gSalarioPMERJ][9], GovInfo[gSalarioPMERJ][10], GovInfo[gSalarioPMERJ][11]);
       		cache_get_field_content(i, "salariospc", tmp);
             sscanf(tmp, "p<|>iiiiiiiiiiii", GovInfo[gSalarioPC][0], GovInfo[gSalarioPC][1], GovInfo[gSalarioPC][2], GovInfo[gSalarioPC][3], GovInfo[gSalarioPC][4], GovInfo[gSalarioPC][5], GovInfo[gSalarioPC][6], GovInfo[gSalarioPC][7], GovInfo[gSalarioPC][8], GovInfo[gSalarioPC][9], GovInfo[gSalarioPC][10], GovInfo[gSalarioPC][11]);
             cache_get_field_content(i, "salarioseb", tmp);
@@ -88517,18 +88517,18 @@ Dialog:DIALOG_GOV_EDIT(playerid, response, listitem, inputtext[])
 	            		OutrasInfos[playerid][oGovEditor][1] = 1;
 	            		new govdialog[586];
 				    	format(govdialog, 255, "Cargo\tSalário\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d\n%s\t%d",
-							FacInfo[1][fRank1], GovInfo[gSalarioPMESP][0],
-							FacInfo[1][fRank2], GovInfo[gSalarioPMESP][1],
-							FacInfo[1][fRank3], GovInfo[gSalarioPMESP][2],
-							FacInfo[1][fRank4], GovInfo[gSalarioPMESP][3],
-							FacInfo[1][fRank5], GovInfo[gSalarioPMESP][4],
-							FacInfo[1][fRank6], GovInfo[gSalarioPMESP][5],
-							FacInfo[1][fRank7], GovInfo[gSalarioPMESP][6],
-							FacInfo[1][fRank8], GovInfo[gSalarioPMESP][7],
-							FacInfo[1][fRank9], GovInfo[gSalarioPMESP][8],
-							FacInfo[1][fRank10], GovInfo[gSalarioPMESP][9],
-							FacInfo[1][fRank11], GovInfo[gSalarioPMESP][10],
-							FacInfo[1][fRank12], GovInfo[gSalarioPMESP][11]);
+							FacInfo[1][fRank1], GovInfo[gSalarioPMERJ][0],
+							FacInfo[1][fRank2], GovInfo[gSalarioPMERJ][1],
+							FacInfo[1][fRank3], GovInfo[gSalarioPMERJ][2],
+							FacInfo[1][fRank4], GovInfo[gSalarioPMERJ][3],
+							FacInfo[1][fRank5], GovInfo[gSalarioPMERJ][4],
+							FacInfo[1][fRank6], GovInfo[gSalarioPMERJ][5],
+							FacInfo[1][fRank7], GovInfo[gSalarioPMERJ][6],
+							FacInfo[1][fRank8], GovInfo[gSalarioPMERJ][7],
+							FacInfo[1][fRank9], GovInfo[gSalarioPMERJ][8],
+							FacInfo[1][fRank10], GovInfo[gSalarioPMERJ][9],
+							FacInfo[1][fRank11], GovInfo[gSalarioPMERJ][10],
+							FacInfo[1][fRank12], GovInfo[gSalarioPMERJ][11]);
 						Dialog_Show(playerid, DIALOG_GOV_EDIT, DIALOG_STYLE_TABLIST_HEADERS, "Governo", govdialog, "Selecionar", "Fechar");
 					}
 					case 1:
@@ -88665,7 +88665,7 @@ Dialog:DIALOG_GOV_EDIT(playerid, response, listitem, inputtext[])
 			        new govc = OutrasInfos[playerid][oGovEditor][2]-1;
 			        new valor = strval(inputtext);
 			        if(0 > valor) return SendClientMessage(playerid, COLOR_LIGHTRED, "ERRO:{FFFFFF} O salário não pode ser menor que 0.");
-         	        GovInfo[gSalarioPMESP][govc] = valor;
+         	        GovInfo[gSalarioPMERJ][govc] = valor;
 
 		            format(string, sizeof(string), "[GOV] Você alterou o salário para R$%d.", valor);
 					SendClientMessage(playerid, COLOR_GREEN, string);
@@ -88879,7 +88879,7 @@ public SalvarGoverno()
     format(salariosgov, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioGOV][0], GovInfo[gSalarioGOV][1],GovInfo[gSalarioGOV][2],GovInfo[gSalarioGOV][3],GovInfo[gSalarioGOV][4],GovInfo[gSalarioGOV][5], GovInfo[gSalarioGOV][6], GovInfo[gSalarioGOV][7], GovInfo[gSalarioGOV][8], GovInfo[gSalarioGOV][9], GovInfo[gSalarioGOV][10], GovInfo[gSalarioGOV][11]);
 
     new salariospd[522];
-    format(salariospd, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioPMESP][0], GovInfo[gSalarioPMESP][1], GovInfo[gSalarioPMESP][2], GovInfo[gSalarioPMESP][3], GovInfo[gSalarioPMESP][4], GovInfo[gSalarioPMESP][5], GovInfo[gSalarioPMESP][6], GovInfo[gSalarioPMESP][7], GovInfo[gSalarioPMESP][8], GovInfo[gSalarioPMESP][9], GovInfo[gSalarioPMESP][10], GovInfo[gSalarioPMESP][11]);
+    format(salariospd, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioPMERJ][0], GovInfo[gSalarioPMERJ][1], GovInfo[gSalarioPMERJ][2], GovInfo[gSalarioPMERJ][3], GovInfo[gSalarioPMERJ][4], GovInfo[gSalarioPMERJ][5], GovInfo[gSalarioPMERJ][6], GovInfo[gSalarioPMERJ][7], GovInfo[gSalarioPMERJ][8], GovInfo[gSalarioPMERJ][9], GovInfo[gSalarioPMERJ][10], GovInfo[gSalarioPMERJ][11]);
 
     new salariosfd[522];
     format(salariosfd, 255, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d",GovInfo[gSalarioFD][0], GovInfo[gSalarioFD][1], GovInfo[gSalarioFD][2], GovInfo[gSalarioFD][3], GovInfo[gSalarioFD][4], GovInfo[gSalarioFD][5], GovInfo[gSalarioFD][6], GovInfo[gSalarioFD][7], GovInfo[gSalarioFD][8], GovInfo[gSalarioFD][9], GovInfo[gSalarioFD][10], GovInfo[gSalarioFD][11]);
