@@ -115,7 +115,7 @@ Operators:
 
 #include "y_scriptinit"
 
-#include "internal\y_natives"
+#include "y_natives"
 
 #if !defined _DEBUG
 	#define _DEBUG 0

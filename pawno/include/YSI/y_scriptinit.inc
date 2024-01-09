@@ -61,7 +61,7 @@ Changelog:
 
 #include <a_samp>
 
-#include "internal\y_natives"
+#include "y_natives"
 
 forward _ScriptInit_FixState();
 

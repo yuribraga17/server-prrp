@@ -123,7 +123,7 @@ forward OnPlayerLogout(playerid, uid);
 #define MAX_INDEX_LENGTH                8
 
 #include "internal\y_plugins"
-#include "internal\y_natives"
+#include "y_natives"
 
 #include "y_hooks"
 

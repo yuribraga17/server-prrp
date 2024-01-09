@@ -147,7 +147,7 @@ Operators:
 
 #include "y_hooks"
 
-#include "internal\y_natives"
+#include "y_natives"
 
 #if !defined MAX_CLASSES
 	#define MAX_CLASSES                 (256)

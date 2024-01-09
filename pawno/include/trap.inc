@@ -19,10 +19,10 @@
 
 /**
  * Tempo em milissegundos.
- * Atualmente 48 segundos.
+ * Atualmente 30 segundos.
  */
 #if !defined TRAP_RELEASE_TIME
-	#define TRAP_RELEASE_TIME (48000)
+	#define TRAP_RELEASE_TIME (30000)
 #endif
 
 enum E_TRAP_DATA
@@ -47,7 +47,7 @@ static
 	forward OnPlayerTriggerTrap(playerid, trapid);
 #endif
 
-stock CreateTrap(Float:x, Float:y, Float:z, Float:detection_range = 2.0, playerid = INVALID_PLAYER_ID)
+stock CreateTrap(Float:x, Float:y, Float:z, Float:detection_range = 5.0, playerid = INVALID_PLAYER_ID)
 {
 	static
 		trapid = INVALID_TRAP_ID;

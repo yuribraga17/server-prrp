@@ -1,5 +1,5 @@
 #if !defined MAX_EXPLOSIVES
-	#define MAX_EXPLOSIVES (128)
+	#define MAX_EXPLOSIVES (50)
 #endif
 #if !defined EXP_STREAMER_AREA_IDENTIFIER
 	#define EXP_STREAMER_AREA_IDENTIFIER (680)
@@ -8,16 +8,13 @@
 	#define MAX_EXPLOSIVE_TIME (900)
 #endif
 #if !defined MAX_PLAYER_EXPLOSIVES
-	#define MAX_PLAYER_EXPLOSIVES (2)
+	#define MAX_PLAYER_EXPLOSIVES (5)
 #endif
 #define INVALID_EXPLOSIVE_ID (-1)
 
 enum
 	e_TRIGGER
 {
-	/**
-	 * NOTE: O gatilho MOVEMENT ainda não foi implementado.
-	 */
 	TIME,
 	RADIO,
 	PROXIMITY,
@@ -94,7 +91,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 
 	if (!Iter_Contains(Explosive, data[1]))
 	{
-		printf("Streamer Area contém um ID de item inválido. (%i)", data[1]);
+		//printf("Streamer Area contém um ID de item inválido. (%i)", data[1]);
 		return 1;
 	}
 
@@ -126,7 +123,7 @@ public OnPlayerEnterDynamicArea(playerid, areaid)
 		&& IsPlayerInAnyVehicle(playerid))
 		goto EXP@__;
 
-	printf("Explosivo %i desencadeado por %i.", data[1], playerid);
+	//printf("Explosivo %i desencadeado por %i.", data[1], playerid);
 
 	#if defined EXP@OnPlayerEnterDynamicArea
 		return EXP@OnPlayerEnterDynamicArea(playerid, areaid);
@@ -162,7 +159,7 @@ CreateExplosive(Float:x, Float:y, Float:z,
 {
 	if (INVALID_EXPLOSIVE_ID == (g_sExplosive@ID = Iter_Free(Explosive)))
 	{
-		print("O limite de criação de explosivos foi atingido.");
+		//print("O limite de criação de explosivos foi atingido.");
 		return
 			INVALID_EXPLOSIVE_ID;
 	}
@@ -180,18 +177,8 @@ CreateExplosive(Float:x, Float:y, Float:z,
 
 	g_sExplosive@Data[g_sExplosive@ID][E_EXPLOSIVE_OWNER] = playerid;
 
-	g_sExplosive@Data[g_sExplosive@ID][E_EXPLOSIVE_OBJECT] = CreateDynamicObject(19602,
-		x,
-		y,
-		z,
-		0.0,
-		0.0,
-		0.0);
-	g_sExplosive@Data[g_sExplosive@ID][E_EXPLOSIVE_AREA] = CreateDynamicSphere(
-		x,
-		y,
-		z,
-		1.5);
+	g_sExplosive@Data[g_sExplosive@ID][E_EXPLOSIVE_OBJECT] = CreateDynamicObject(-2203, x, y, z, 0.0, 0.0, 0.0);
+	g_sExplosive@Data[g_sExplosive@ID][E_EXPLOSIVE_AREA] = CreateDynamicSphere(x, y, z, 1.5);
 
 	static
 		data[2];
@@ -305,7 +292,7 @@ IsPlayerNearAnyExplosive(playerid)
 	{
 		GetExplosiveRange(i, range);
 
-		if (IsPlayerInRangeOfPoint(playerid, (range + 2.0), g_sExplosive@Data[i][E_EXPLOSIVE_X], g_sExplosive@Data[i][E_EXPLOSIVE_Y], g_sExplosive@Data[i][E_EXPLOSIVE_Z]))
+		if (IsPlayerInRangeOfPoint(playerid, (range + 0.2), g_sExplosive@Data[i][E_EXPLOSIVE_X], g_sExplosive@Data[i][E_EXPLOSIVE_Y], g_sExplosive@Data[i][E_EXPLOSIVE_Z]))
 			return true;
 	}
 	return false;

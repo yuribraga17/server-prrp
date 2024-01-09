@@ -226,7 +226,7 @@ Iterators:
 //#include "y_debug"
 //#include "y_hooks"
 
-#include "internal\y_natives"
+#include "y_natives"
 #include "y_debug"
 //#include "y_als"
 

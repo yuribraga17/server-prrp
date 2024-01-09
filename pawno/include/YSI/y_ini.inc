@@ -168,7 +168,7 @@ Operators:
 #include "y_debug"
 #include "y_inline"
 
-#include "internal\y_natives"
+#include "y_natives"
 
 #define MAX_INI_LINE                    (MAX_INI_ENTRY_NAME + MAX_INI_ENTRY_TEXT + 32)
 

@@ -152,7 +152,7 @@ Operators:
 #if defined AREAS_USE_TIMER
 	#include "y_timers"
 #endif
-#include "internal\y_natives"
+#include "y_natives"
 
 #if !defined MAX_AREAS
 	#define MAX_AREAS (1024)

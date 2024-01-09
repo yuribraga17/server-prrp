@@ -187,7 +187,7 @@ static stock
 #include "internal\y_shortfunc"
 #include "y_debug"
 
-#include "internal\y_natives"
+#include "y_natives"
 
 #include "y_va"
 

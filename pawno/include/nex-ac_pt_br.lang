@@ -20,13 +20,13 @@ new
 	DEBUG_CODE_5[] =		"[Nex-AC debug] ID %d usando NOP %s",
 #endif
 
-	KICK_MSG[] =			"Você foi kickado por suspeitas de uso de cheating (#%03d)",
+	KICK_MSG[] =			"Você foi kickado por suspeita de cheating (Cheater #%03d)",
 	MAX_CONNECTS_MSG[] =	"Você excedeu o número máximo de conexões pelo seu IP",
 	UNKNOWN_CLIENT_MSG[] =	"Esta versão do cliente não é adequada para jogar no servidor",
 
 	LOADED_MSG_1[] =		" Anticheat Nex-AC carregado!",
 	LOADED_MSG_2[] =		" Anticheat versão: %s",
-	LOADED_MSG_3[] =		" Autor: Nexius (PT-BR by NicK_)",
+	LOADED_MSG_3[] =		" Autor: Nexius (PT-BR by Yur$)",
 
 	STATS_STRING_1[] =		" Estatísticas do anticheat Nex-AC",
 	STATS_STRING_2[] =		" Detectando e previnindo:",

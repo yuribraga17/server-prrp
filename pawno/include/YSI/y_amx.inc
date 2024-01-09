@@ -61,7 +61,7 @@ Changelog:
 #include "y_scriptinit"
 //#include "internal\y_funcinc"
 #include "y_debug"
-#include "internal\y_natives"
+#include "y_natives"
 
 #define AMX_FastString(%1,%2,%3,%4) \
 	(((%1) << 0) | ((%2) << 8) | ((%3) << 16) | ((%4) << 24))

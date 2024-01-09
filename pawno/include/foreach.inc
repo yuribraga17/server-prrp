@@ -4,18 +4,18 @@
 					===========================
 Description:
 	Provides efficient looping through sparse data sets, such as connected
-	players.  Significantly improved from the original version to be a generic
-	loop system, rather then purely a player loop system.  When used for
+	players. Significantly improved from the original version to be a generic
+	loop system, rather then purely a player loop system. When used for
 	players this has constant time O(n) for number of connected players (n),
 	unlike standard player loops which are O(MAX_PLAYERS), regardless of the
-	actual number of connected players.  Even when n is MAX_PLAYERS this is
+	actual number of connected players. Even when n is MAX_PLAYERS this is
 	still faster.
 Legal:
 	Version: MPL 1.1
 	
 	The contents of this file are subject to the Mozilla Public License Version 
 	1.1 (the "License"); you may not use this file except in compliance with 
-	the License. You may obtain a copy of the License at 
+	the License. You may obtain a copy of the License at
 	http://www.mozilla.org/MPL/
 	
 	Software distributed under the License is distributed on an "AS IS" basis,
@@ -30,7 +30,7 @@ Legal:
 	the Initial Developer. All Rights Reserved.
 	
 	Contributors:
-		ZeeX, koolk, JoeBullet/Google63, g_aSlice/Slice, Kar
+		ZeeX, koolk, JoeBullet/Google63, g_aSlice/Slice, Kar, ZiGGi
 	
 	Thanks:
 		JoeBullet/Google63 - Handy arbitrary ASM jump code using SCTRL.
@@ -53,10 +53,15 @@ Legal:
 		SA:MP Team past, present and future - SA:MP.
 	
 Version:
-	19
-Changelog:
-	14/05/15:
-		Cleaned up the entire include.
+	19 (0.4.3)
+Changelog:S
+	26/06/17 (0.4.3):
+		foreach: clear each iterator under OnFilterScriptInit/OnGameModeInit.
+		Added a revised Iter_SafeRemoveInternal by ZiGGi.
+		Fix some grammar issue with spaces.
+	14/05/15 (0.4.2):
+		Code cleanup (renamed all Itter_ to Iter and removed excess).
+		Removed unnecessary information.
 	16/07/12:
 		Fixed a bug with "loadfs" blocking callbacks.
 		Slightly reduced the memory consumption of constant strings.
@@ -116,7 +121,6 @@ Functions:
 	Core:
 		-
 	Stock:
-		Iter_ShowArray - Displays the contents of the array. // Disabled
 		Iter_AddInternal - Add a value to an iterator.
 		Iter_RemoveInternal - Remove a value from an iterator.
 		Iter_RandomInternal - Get a random item from an iterator.
@@ -132,7 +136,6 @@ Functions:
 		Iter_Remove - Wraps Iter_RemoveInternal.
 		Iter_Random - Wraps Iter_RandomInternal.
 		Iter_Count - Gets the number of items in an iterator.
-		Iter_Debug - Wraps around Iter_ShowArray. // Disabled
 		Iter_Free - Wraps around Iter_FreeInternal.
 		Iter_Contains - Wraps around Iter_ContainsInternal.
 	API:
@@ -208,6 +211,8 @@ Iterators:
 #if defined IsPlayerNPC
 	#define _FOREACH_BOT
 #endif
+
+#define ITER_NONE -1
 
 #define _Y_ITER_ARRAY: _:_Y_ITER_C0:
 #define _Y_ITER_ARRAY_SIZE(%1) _:_Y_ITER_C1:_Y_ITER_C2:sizeof %1@YSII_Ag-1
@@ -326,17 +331,13 @@ native Iter_Add(Iterator:Name<>, value);
 
 #define Iter_Add(%1,%2) Iter_AddInternal(_Y_ITER_ARRAY:%1@YSII_Cg,_Y_ITER_ARRAY:%1@YSII_Ag,%2,_Y_ITER_ARRAY_SIZE(%1))
 
-/*
-#define Iter_AddSafe(%1,%2) \
-	Iter_AddSafeInternal(%1@YSII_Sg, %1@YSII_Cg, %1@YSII_Ag, %1@YSII_Rg, %2)*/
-
 /*----------------------------------------------------------------------------*\
 Function:
 	Iter_Free
 Params:
 	iter - Name of the iterator to get the first free slot in.
 Return:
-	-for
+	-
 Notes:
 	Wrapper for Iter_FreeInternal.
 
@@ -390,7 +391,7 @@ Params:
 Return:
 	-
 Notes:
-	Wrapper for Iter_SafeRemoveInternal.  Common use:
+	Wrapper for Iter_SafeRemoveInternal. Common use:
 	
 	Iter_SafeRemove(iter, i, i);
 
@@ -418,22 +419,9 @@ native Iter_Random(Iterator:Name<>);
 
 /*----------------------------------------------------------------------------*\
 Function:
-	Iter_Debug
-Params:
-	iter - Name of the iterator to output debug information from.
-Return:
-	-
-Notes:
-	Wrapper for Iter_ShowArray.
-\*----------------------------------------------------------------------------*/
-
-//#define Iter_Debug(%1) Iter_ShowArray(_Y_ITER_ARRAY:%1@YSII_Cg,_Y_ITER_ARRAY:%1@YSII_Ag)
-
-/*----------------------------------------------------------------------------*\
-Function:
 	Iter_Count
 Params:
-	iter - Name of the iterator to get a random slot from4.
+	iter - Name of the iterator to get the number of items from.
 Return:
 	-
 Notes:
@@ -503,7 +491,7 @@ Return:
 Notes:
 	Not exactly the same as PHP foreach, just iterates through a list and
 	returns the value of the current slot but uses that slot as the next index
-	too.  Variables must be in the form @YSII_<gname>S for the start index and
+	too. Variables must be in the form @YSII_<gname>S for the start index and
 	@YSII_<gname>A for the data array where <name> is what's entered in data.
 \*----------------------------------------------------------------------------*/
 
@@ -514,7 +502,7 @@ Notes:
 #define new%0|||%9|||%1:%2||| %9|||%0|||%1|||%2|||
 
 // This one is called if the new syntax is required, but the state of "new" is
-// as-yet unknown.  This attempts to call "%1" as a macro, if it starts with
+// as-yet unknown. This attempts to call "%1" as a macro, if it starts with
 // "new" as a whole word then it will (and will also helpfully strip off the
 // "new" keyword for us).
 #define Y_FOREACH_THIRD|||%0|||%1|||%2||| %1=Y_FOREACH_FIFTH|||Y_FOREACH_FOURTH|||%1:%2|||
@@ -523,7 +511,7 @@ Notes:
 #define Y_FOREACH_FOURTH|||%0=Y_FOREACH_FIFTH|||%1|||%2||| new Y_FOREACH_SIXTH;%0|||Y_FOREACH_SEVENTH|||%2|||
 
 // This is called when there are tags on the "new" declaration.
-#define Y_FOREACH_SEVENTH|||%9Y_FOREACH_SIXTH;%0|||%1|||%2||| new %0:%1=%0:_Y_ITER_ARRAY_SIZE(%2);_:(%1=_Y_ITER_ARRAY:%2@YSII_Ag[%1])!=_Y_ITER_ARRAY_SIZE(%2);
+#define Y_FOREACH_SEVENTH|||%9Y_FOREACH_SIXTH;%0|||%1|||%2||| new %0:%1=%0:(_Y_ITER_ARRAY_SIZE(%2));_:(%1=%0:_Y_ITER_ARRAY:%2@YSII_Ag[_:%1])!=_Y_ITER_ARRAY_SIZE(%2);
 
 // This is called when there aren't.
 #define Y_FOREACH_SIXTH;%0|||Y_FOREACH_SEVENTH|||%2||| %0=_Y_ITER_ARRAY_SIZE(%2);_:(%0=_Y_ITER_ARRAY:%2@YSII_Ag[%0])!=_Y_ITER_ARRAY_SIZE(%2);
@@ -567,12 +555,12 @@ Params:
 Return:
 	-
 Notes:
-	Adds a player to the loop data.  Now sorts the list too.  Note that I found
+	Adds a player to the loop data. Now sorts the list too. Note that I found
 	the most bizzare bug ever (I *think* it may be a compiler but, but it
 	requires further investigation), basically it seems that multiple variables
 	were being treated as the same variable (namely @YSII_EgotS and
 	@YSII_CgharacterS were the same and @YSII_EgotC and @YSII_CgharacterC were the
-	same).  Adding print statements which reference these variables seem to fix
+	same). Adding print statements which reference these variables seem to fix
 	the problem, and I have tried to make sure that the values will never actually
 	get printed.
 \*----------------------------------------------------------------------------*/
@@ -621,12 +609,17 @@ Return:
 	-
 Notes:
 	Fixes a bug where callbacks are not detected when "loadfs" is used after the
-	GM has already started.  If this is a GM this is just never used called.
+	GM has already started. If this is a GM this is just never used called.
 \*----------------------------------------------------------------------------*/
 
 #if !defined BOTSYNC_IS_BOT
 	public OnFilterScriptInit()
 	{
+		Iter_Clear(Player);
+		#if defined _FOREACH_BOT && !defined FOREACH_NO_BOTS
+			Iter_Clear(Bot);
+			Iter_Clear(Character);
+		#endif
 		if (funcidx(YSI_gsOnPlayerDisconnect) != -1)
 		{
 			YSI_g_sCallbacks |= 1;
@@ -714,7 +707,7 @@ Return:
 	-
 Notes:
 	There are WIERD bugs in this script, seemingly caused by the compiler, so
-	this hopefully fixes them.  The OnGameModeInit code is written to be
+	this hopefully fixes them. The OnGameModeInit code is written to be
 	very fast by utilising the internal array structure instead of the regular
 	Add functions.
 \*----------------------------------------------------------------------------*/
@@ -723,6 +716,11 @@ Notes:
 	public OnGameModeInit()
 	{
 		// Clear everything.
+		Iter_Clear(Player);
+		#if defined _FOREACH_BOT && !defined FOREACH_NO_BOTS
+			Iter_Clear(Bot);
+			Iter_Clear(Character);
+		#endif
 		if (funcidx(YSI_gsOnPlayerDisconnect) != -1)
 		{
 			YSI_g_sCallbacks |= 1;
@@ -822,8 +820,8 @@ Params:
 Return:
 	-
 Notes:
-	Removes a player from the loop data.  No longer uses "hook" to ENSURE that
-	this is always last.  Previously I think that the order of evaluation in
+	Removes a player from the loop data. No longer uses "hook" to ENSURE that
+	this is always last. Previously I think that the order of evaluation in
 	y_hooks meant that this got called before the user "OnPlayerDisconnect".
 \*----------------------------------------------------------------------------*/
 
@@ -887,43 +885,6 @@ Notes:
 
 /*----------------------------------------------------------------------------*\
 Function:
-	Iter_ShowArray
-Params:
-	start - Iterator start point.
-	members[] - Iterator contents.
-	size - Number of iterator values
-Return:
-	-
-Notes:
-	Pure debug function. Has regular prints not debug prints
-	as it is only called when debug is on.
-\*----------------------------------------------------------------------------*/
-
-/*stock
-	Iter_ShowArray(size, members[])
-{
-	static
-		sString[61];
-	new
-		i,
-		j = 10;
-	printf("Start: %d", start);
-	printf("Size:  %d", size);
-	while (i < size)
-	{
-		sString[0] = '\0';
-		while (i < j && i < size)
-		{
-			format(sString, sizeof (sString), "%s, %d", sString, members[i]);
-			i++;
-		}
-		printf("Array (%d): %s", j, sString);
-		j += 10;
-	}
-}*/
-
-/*----------------------------------------------------------------------------*\
-Function:
 	Iter_RandomInternal
 Params:
 	count - Number of items in the iterator.
@@ -935,12 +896,11 @@ Notes:
 	Returns a random value from an iterator.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_RandomInternal(count, array[], size)
+stock Iter_RandomInternal(count, array[], size)
 {
 	if (count == 0)
 	{
-		return -1;
+		return ITER_NONE;
 	}
 	new
 		rnd = random(count),
@@ -953,28 +913,26 @@ stock
 		}
 		cur = array[cur];
 	}
-	return -1;
+	return ITER_NONE;
 }
 
 /*----------------------------------------------------------------------------*\
 Function:
 	Iter_FreeInternal
 Params:
-	count - Number of items in the iterator.
 	array[] - Iterator data.
 	size - Size of the iterator.
 Return:
 	-
 Notes:
-	Finds the first free slot in the iterator.  Iterators now HAVE to be
+	Finds the first free slot in the iterator. Iterators now HAVE to be
 	sorted for this function to work correctly as it uses that fact to decide
-	wether a slot is unused or the last one.  If you want to use the slot
+	whether a slot is unused or the last one. If you want to use the slot
 	straight after finding it the iterator will need to re-find it to add in
 	the data.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_FreeInternal(array[], size)
+stock Iter_FreeInternal(array[], size)
 {
 	for (new i = 0; i != size; ++i)
 	{
@@ -983,27 +941,26 @@ stock
 			return i;
 		}
 	}
-	return -1;
+	return ITER_NONE;
 }
 
 /*----------------------------------------------------------------------------*\
 Function:
 	Iter_AddInternal
 Params:
-	&start - Array start index.
 	&count - Number of items in the iterator.
 	array[] - Iterator data.
 	value - Item to add.
+	size - Size of the iterator.
 Return:
 	-
 Notes:
-	Adds a value to a given iterator set.  Now detects when you try and add the
-	last item multiple times, as well as all the other items.  Now simplified even
+	Adds a value to a given iterator set. Now detects when you try and add the
+	last item multiple times, as well as all the other items. Now simplified even
 	further with the new internal representation.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_AddInternal(&count, array[], value, size)
+stock Iter_AddInternal(&count, array[], value, size)
 {
 	if (0 <= value < size && array[value] > size)
 	{
@@ -1030,14 +987,14 @@ Params:
 	&count - Number of items in the iterator.
 	array[] - Iterator data.
 	value - Item to remove.
+	size - Size of the iterator.
 Return:
 	-
 Notes:
 	Removes a value from an iterator.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_RemoveInternal(&count, array[], value, size)
+stock Iter_RemoveInternal(&count, array[], value, size)
 {
 	new
 		last;
@@ -1050,17 +1007,16 @@ Function:
 Params:
 	&count - Number of items in the iterator.
 	array[] - Iterator data.
-	back[] - Reverse iterator data.
 	value - Item to remove.
 	&last - Pointer in which to store the last pointer.
+	size - Size of the iterator.
 Return:
 	-
 Notes:
 	Removes a value from an iterator safely.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_SafeRemoveInternal(&count, array[], value, &last, size)
+/*stock Iter_SafeRemoveInternal(&count, array[], value, &last, size)
 {
 	if (0 <= value < size && array[value] <= size)
 	{
@@ -1078,6 +1034,26 @@ stock
 		return 1;
 	}
 	return 0;
+}*/
+
+stock Iter_SafeRemoveInternal(&count, array[], value, &last, size)
+{
+	if (0 <= value < size && array[value] <= size) {
+		last = size;
+		new
+			next = array[last];
+		while (next < size) {
+			if (next == value) {
+				array[last] = array[value];
+				array[value] = size + 1;
+				--count;
+				return 1;
+			}
+			last = next;
+			next = array[last];
+		}
+	}
+	return 0;
 }
 
 /*----------------------------------------------------------------------------*\
@@ -1093,8 +1069,7 @@ Notes:
 	Checks if this item is in the iterator.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_ContainsInternal(array[], value, size)
+stock Iter_ContainsInternal(array[], value, size)
 {
 	return 0 <= value < size && array[value] <= size;
 }
@@ -1112,8 +1087,7 @@ Notes:
 	Resets an iterator.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_ClearInternal(&count, array[], size)
+stock Iter_ClearInternal(&count, array[], size)
 {
 	for (new i = 0, t = size + 1; i < size; ++i)
 	{
@@ -1137,8 +1111,7 @@ Notes:
 	done at run time, which is slightly annoying.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_InitInternal(arr[][], s0, s1)
+stock Iter_InitInternal(arr[][], s0, s1)
 {
 	for (new i = 0, t = s1 + 1; i < s0; ++i)
 	{
@@ -1163,8 +1136,7 @@ Notes:
 	Gets the element in an iterator that points to the current element.
 \*----------------------------------------------------------------------------*/
 
-stock
-	Iter_PrevInternal(array[], size, slot)
+stock Iter_PrevInternal(array[], size, slot)
 {
 	if (0 <= slot <= size && array[slot] <= size)
 	{
@@ -1191,6 +1163,7 @@ Notes:
 \*----------------------------------------------------------------------------*/
 
 #define Iter_Begin(%1) (_Y_ITER_ARRAY_SIZE(%1))
+#define Iter_Start Iter_Begin
 
 /*----------------------------------------------------------------------------*\
 Function:
@@ -1204,6 +1177,7 @@ Notes:
 \*----------------------------------------------------------------------------*/
 
 #define Iter_End(%1) (_Y_ITER_ARRAY_SIZE(%1))
+#define Iter_Finish Iter_End
 
 /*----------------------------------------------------------------------------*\
 Function:
@@ -1252,10 +1226,11 @@ Params:
 Return:
 	-
 Notes:
-	Gets the element in an iterator before the current one.  Slow.
+	Gets the element in an iterator before the current one. Slow.
 \*----------------------------------------------------------------------------*/
 
 #define Iter_Prev(%1,%2) Iter_PrevInternal(_Y_ITER_ARRAY:%1@YSII_Ag,_Y_ITER_ARRAY_SIZE(%1),(%2))
+#define Iter_Previous Iter_Prev
 
 /*----------------------------------------------------------------------------*\
 Function:

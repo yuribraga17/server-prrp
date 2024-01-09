@@ -143,7 +143,7 @@ Natives:
 	// Don't do this at all - if they want to use hooks they need to include it.
 	//#include "y_hooks"
 	
-	#include "internal\y_natives"
+	#include "y_natives"
 	
 	#define _INC_y_master
 	
